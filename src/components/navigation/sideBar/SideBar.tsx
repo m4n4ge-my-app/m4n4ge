@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +10,8 @@ import {
   endDrawerTransition,
 } from '../../../state/navigation/sidebarSlice';
 import sidebarItems from './sidebarItems';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link, Link as RouterLink } from 'react-router-dom';
+import { ListItemButton, Typography } from '@mui/material';
 
 const SideBar = () => {
   const dispatch = useDispatch();
@@ -32,17 +32,26 @@ const SideBar = () => {
     <List>
       {sidebarItems.map((item, index) => (
         <>
-          <ListItem key={index} component={RouterLink} to={item.path}>
+          <ListItemButton
+            disabled={item.name !== 'Dashboard' ? true : false}
+            key={index}
+            component={RouterLink}
+            to={item.path}
+          >
             <ListItemIcon>{item.icons && <item.icons />}</ListItemIcon>
             <ListItemText primary={item.name} />
-          </ListItem>
+          </ListItemButton>
           {item.children.length > 0 && (
             <List>
               {item.children.map((child, index) => (
-                <ListItem key={index} component={RouterLink} to={child.path}>
-                  <ListItemIcon>{child.icons && <child.icons />}</ListItemIcon>
-                  <ListItemText primary={child.name} />
-                </ListItem>
+                <Link to={child.path} key={index}>
+                  <ListItemButton>
+                    {child.icons && <child.icons />}
+                    <Typography variant="h6" sx={{ fontSize: '14px' }}>
+                      {child.name}
+                    </Typography>
+                  </ListItemButton>
+                </Link>
               ))}
             </List>
           )}
@@ -50,6 +59,7 @@ const SideBar = () => {
       ))}
     </List>
   );
+
   return (
     <Box
       component="nav"
