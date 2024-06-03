@@ -30,7 +30,7 @@ const sidebarItems = [
   {
     name: 'I M4n4ge',
     path: '',
-    icons: null,
+    icon: null,
     children: [
       {
         name: 'Resume',
@@ -62,7 +62,7 @@ const sidebarItems = [
   {
     name: 'Get Assist',
     path: '',
-    icons: null,
+    icon: null,
     children: [
       {
         name: 'Auto Pilot',
@@ -79,7 +79,7 @@ const sidebarItems = [
   {
     name: 'Archives',
     path: '',
-    icons: null,
+    icon: null,
     children: [],
   },
 ];
