@@ -1,4 +1,24 @@
+//external imports
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+//local imports
+import Landing from './pages/system/landing/Landing';
+import SignIn from './pages/auth/signin/SignIn';
+import SignUp from './pages/auth/signup/SignUp';
+import ForgotPassword from './pages/auth/forgotPassword/ForgotPassword';
+import Layout from './pages/system/layout/Layout';
+import Dashboard from './pages/dashboard/Dashboard';
+import AddApp from './pages/iManage/addApp/AddApp';
+import Resumes from './pages/iManage/resumes/Resumes';
+import CoverLetters from './pages/iManage/coverletters/CoverLetter';
+import Calendar from './pages/iManage/calendar/Calendar';
+import JobDescriptions from './pages/iManage/jobDescriptions/JobDescriptions';
+import Todos from './pages/iManage/todos/Todos';
+import Interview from './pages/getAssist/interview/Interview';
+import Automated from './pages/getAssist/automated/Automated';
+import Archives from './pages/archives/Archives';
+import UserProfile from './pages/system/userProfile/UserProfile';
+import Settings from './pages/system/settings/Settings';
+import NotFound from './pages/system/notFound/NotFound';
 
 function App() {
   return (
@@ -17,7 +37,7 @@ function App() {
           <Route path="/resumes" element={<Resumes />} />
           <Route path="/coverletters" element={<CoverLetters />} />
           <Route path="/calendar" element={<Calendar />} />
-          <Route path="/descriptions" element={<Descriptions />} />
+          <Route path="/descriptions" element={<JobDescriptions />} />
           <Route path="/todos" element={<Todos />} />
           <Route path="/interview" element={<Interview />} />
           <Route path="/automated" element={<Automated />} />
