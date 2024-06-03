@@ -7,10 +7,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Outlet } from 'react-router-dom';
 import SideBar from '../../../components/navigation/sideBar/SideBar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
+import { toggleDrawer } from '../../../state/navigation/sidebarSlice';
 
 const Layout = () => {
+  const dispatch = useDispatch();
   const drawerWidth = useSelector(
     (state: RootState) => state.sidebar.sidebarWidth
   );
@@ -33,7 +35,7 @@ const Layout = () => {
             color="inherit"
             aria-label="open drawer"
             edge="start"
-            onClick={() => true}
+            onClick={() => dispatch(toggleDrawer())}
             sx={{ mr: 2, display: { sm: 'none' } }}
           >
             <MenuIcon />

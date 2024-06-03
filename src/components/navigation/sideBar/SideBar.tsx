@@ -9,30 +9,25 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MailIcon from '@mui/icons-material/Mail';
 import Toolbar from '@mui/material/Toolbar';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
+import {
+  closeDrawer,
+  endDrawerTransition,
+} from '../../../state/navigation/sidebarSlice';
 
 const SideBar = () => {
-  const drawerWidth = useSelector(
-    (state: RootState) => state.sidebar.sidebarWidth
+  const dispatch = useDispatch();
+  const { sidebarWidth, mobileOpen } = useSelector(
+    (state: RootState) => state.sidebar
   );
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [isClosing, setIsClosing] = React.useState(false);
 
   const handleDrawerClose = () => {
-    setIsClosing(true);
-    setMobileOpen(false);
+    dispatch(closeDrawer());
   };
 
   const handleDrawerTransitionEnd = () => {
-    setIsClosing(false);
-  };
-
-  const handleDrawerToggle = () => {
-    if (!isClosing) {
-      setMobileOpen(!mobileOpen);
-    }
+    dispatch(endDrawerTransition());
   };
 
   // Sidebar contents
@@ -70,7 +65,7 @@ const SideBar = () => {
   return (
     <Box
       component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+      sx={{ width: { sm: sidebarWidth }, flexShrink: { sm: 0 } }}
       aria-label="mailbox folders"
     >
       {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -86,7 +81,7 @@ const SideBar = () => {
           display: { xs: 'block', sm: 'none' },
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
-            width: drawerWidth,
+            width: sidebarWidth,
           },
         }}
       >
@@ -98,7 +93,7 @@ const SideBar = () => {
           display: { xs: 'none', sm: 'block' },
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
-            width: drawerWidth,
+            width: sidebarWidth,
           },
         }}
         open
