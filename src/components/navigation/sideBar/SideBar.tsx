@@ -11,7 +11,7 @@ import {
 } from '../../../state/navigation/sidebarSlice';
 import sidebarItems from './sidebarItems';
 import { Link, Link as RouterLink } from 'react-router-dom';
-import { ListItemButton, Typography } from '@mui/material';
+import { ListItemButton, Toolbar, Typography } from '@mui/material';
 
 const SideBar = () => {
   const dispatch = useDispatch();
@@ -29,35 +29,38 @@ const SideBar = () => {
 
   // Sidebar contents
   const drawer = (
-    <List>
-      {sidebarItems.map((item, index) => (
-        <>
-          <ListItemButton
-            disabled={item.name !== 'Dashboard' ? true : false}
-            key={index}
-            component={RouterLink}
-            to={item.path}
-          >
-            <ListItemIcon>{item.icon && <item.icon />}</ListItemIcon>
-            <ListItemText primary={item.name} />
-          </ListItemButton>
-          {item.children.length > 0 && (
-            <List>
-              {item.children.map((child, index) => (
-                <Link to={child.path} key={index}>
-                  <ListItemButton>
-                    {child.icon && <child.icon />}
-                    <Typography variant="h6" sx={{ fontSize: '14px' }}>
-                      {child.name}
-                    </Typography>
-                  </ListItemButton>
-                </Link>
-              ))}
-            </List>
-          )}
-        </>
-      ))}
-    </List>
+    <div>
+      <Toolbar />
+      <List>
+        {sidebarItems.map((item, index) => (
+          <>
+            <ListItemButton
+              disabled={item.name !== 'Dashboard' ? true : false}
+              key={index}
+              component={RouterLink}
+              to={item.path}
+            >
+              <ListItemIcon>{item.icon && <item.icon />}</ListItemIcon>
+              <ListItemText primary={item.name} />
+            </ListItemButton>
+            {item.children.length > 0 && (
+              <List>
+                {item.children.map((child, index) => (
+                  <Link to={child.path} key={index}>
+                    <ListItemButton>
+                      {child.icon && <child.icon />}
+                      <Typography variant="h6" sx={{ fontSize: '14px' }}>
+                        {child.name}
+                      </Typography>
+                    </ListItemButton>
+                  </Link>
+                ))}
+              </List>
+            )}
+          </>
+        ))}
+      </List>
+    </div>
   );
 
   return (
