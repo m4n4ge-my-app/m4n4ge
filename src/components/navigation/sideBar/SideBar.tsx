@@ -33,9 +33,11 @@ const SideBar = () => {
     <List>
       <CssBaseline />
       {sidebarItems.map((item, index) => (
-        <ListItem key={index} component={RouterLink} to={item.path}>
-          <ListItemIcon>{item.icons && <item.icons />}</ListItemIcon>
-          <ListItemText primary={item.name} />
+        <>
+          <ListItem key={index} component={RouterLink} to={item.path}>
+            <ListItemIcon>{item.icons && <item.icons />}</ListItemIcon>
+            <ListItemText primary={item.name} />
+          </ListItem>
           {item.children.length > 0 && (
             <List>
               {item.children.map((child, index) => (
@@ -46,7 +48,7 @@ const SideBar = () => {
               ))}
             </List>
           )}
-        </ListItem>
+        </>
       ))}
     </List>
   );
