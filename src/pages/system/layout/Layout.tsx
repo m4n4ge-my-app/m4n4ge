@@ -8,7 +8,7 @@ import { RootState } from '../../../state/store';
 import Navbar from '../../../components/navigation/navbar/Navbar';
 
 const Layout = () => {
-  const drawerWidth = useSelector(
+  const sidebarWidth = useSelector(
     (state: RootState) => state.sidebar.sidebarWidth
   );
 
@@ -29,7 +29,7 @@ const Layout = () => {
         sx={{
           flexGrow: 1,
           p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: { sm: `calc(100% - ${sidebarWidth}px)` },
         }}
       >
         <Toolbar />
