@@ -12,7 +12,6 @@ import {
 } from '../../../state/navigation/sidebarSlice';
 import sidebarItems from './sidebarItems';
 import { Link as RouterLink } from 'react-router-dom';
-import { CssBaseline } from '@mui/material';
 
 const SideBar = () => {
   const dispatch = useDispatch();
@@ -31,7 +30,6 @@ const SideBar = () => {
   // Sidebar contents
   const drawer = (
     <List>
-      <CssBaseline />
       {sidebarItems.map((item, index) => (
         <>
           <ListItem key={index} component={RouterLink} to={item.path}>
