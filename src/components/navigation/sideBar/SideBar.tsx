@@ -33,6 +33,7 @@ const SideBar = () => {
   // Sidebar contents
   const drawer = (
     <div>
+      {/* TODO: investigate what does Toolbar do here(it was brought in with MUI Responsive drawer component), removing it does not do anything, this is also present in above Outlet in Layout.tsx*/}
       <Toolbar />
 
       <List>
