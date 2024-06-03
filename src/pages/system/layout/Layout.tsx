@@ -26,7 +26,7 @@ interface Props {
   window?: () => Window;
 }
 
-const Layout = () => {
+const Layout = (props: Props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
