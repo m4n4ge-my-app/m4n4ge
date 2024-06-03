@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+//external imports
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+//local imports
+import Landing from './pages/system/landing/Landing';
+import SignIn from './pages/auth/signin/SignIn';
+import SignUp from './pages/auth/signup/SignUp';
+import ForgotPassword from './pages/auth/forgotPassword/ForgotPassword';
+import Layout from './pages/system/layout/Layout';
+import Dashboard from './pages/dashboard/Dashboard';
+import AddApp from './pages/iManage/addApp/AddApp';
+import Resumes from './pages/iManage/resumes/Resumes';
+import CoverLetters from './pages/iManage/coverletters/CoverLetter';
+import Calendar from './pages/iManage/calendar/Calendar';
+import JobDescriptions from './pages/iManage/jobDescriptions/JobDescriptions';
+import Todos from './pages/iManage/todos/Todos';
+import Interview from './pages/getAssist/interview/Interview';
+import Automated from './pages/getAssist/automated/Automated';
+import Archives from './pages/archives/Archives';
+import UserProfile from './pages/system/userProfile/UserProfile';
+import Settings from './pages/system/settings/Settings';
+import NotFound from './pages/system/notFound/NotFound';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        {/* Unprotected/public routes */}
+        <Route path="/" element={<Landing />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+
+        {/* Protected/private routes */}
+        <Route element={<Layout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/add" element={<AddApp />} />
+          <Route path="/resumes" element={<Resumes />} />
+          <Route path="/coverletters" element={<CoverLetters />} />
+          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/descriptions" element={<JobDescriptions />} />
+          <Route path="/todos" element={<Todos />} />
+          <Route path="/interview" element={<Interview />} />
+          <Route path="/automated" element={<Automated />} />
+          <Route path="/archives" element={<Archives />} />
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="*" element={<NotFound isPrivateRoute={true} />} />
+        </Route>
+
+        {/* Invalid public routes */}
+        <Route path="*" element={<NotFound isPrivateRoute={false} />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
