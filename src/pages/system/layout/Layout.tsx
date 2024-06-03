@@ -19,16 +19,7 @@ import { Outlet } from 'react-router-dom';
 
 const drawerWidth = 240;
 
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * Remove this when copying and pasting into your project.
-   */
-  window?: () => Window;
-}
-
-const Layout = (props: Props) => {
-  const { window } = props;
+const Layout = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
 
@@ -80,10 +71,6 @@ const Layout = (props: Props) => {
     </div>
   );
 
-  // Remove this const when copying and pasting into your project.
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
-
   return (
     // Layout is MUI Box component, which in-turn cotains MUI AppBar for navbar, Box for sidebar, and finllay Box for outlet content.
     <Box sx={{ display: 'flex' }}>
@@ -121,7 +108,6 @@ const Layout = (props: Props) => {
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
-          container={container}
           variant="temporary"
           open={mobileOpen}
           onTransitionEnd={handleDrawerTransitionEnd}
