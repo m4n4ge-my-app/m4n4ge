@@ -36,16 +36,26 @@ const SideBar = () => {
       {/* TODO: investigate what does Toolbar do here(it was brought in with MUI Responsive drawer component), removing it does not do anything, this is also present in above Outlet in Layout.tsx*/}
       <Toolbar />
 
+      {/* Dashboard */}
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Dashboard" />
+          </ListItemButton>
+        </ListItem>
+      </List>
+
+      {/* I M4n4ge Section */}
       <List>
         {[
-          'Dashboard',
           'Resume',
           'Cover Letters',
           'Job Descriptions',
           'Calendar',
           'Todos',
-          'Auto Pilot',
-          'Interview Now',
         ].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
@@ -56,6 +66,32 @@ const SideBar = () => {
             </ListItemButton>
           </ListItem>
         ))}
+      </List>
+
+      {/* Get Assist Section */}
+      <List>
+        {['Auto Pilot', 'Interview Now'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+
+      {/* Archives Section */}
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Archives" />
+          </ListItemButton>
+        </ListItem>
       </List>
     </div>
   );
