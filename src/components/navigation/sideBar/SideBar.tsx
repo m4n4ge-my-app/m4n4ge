@@ -38,7 +38,7 @@ const SideBar = () => {
             component={RouterLink}
             to={item.path}
           >
-            <ListItemIcon>{item.icons && <item.icons />}</ListItemIcon>
+            <ListItemIcon>{item.icon && <item.icon />}</ListItemIcon>
             <ListItemText primary={item.name} />
           </ListItemButton>
           {item.children.length > 0 && (
@@ -46,7 +46,7 @@ const SideBar = () => {
               {item.children.map((child, index) => (
                 <Link to={child.path} key={index}>
                   <ListItemButton>
-                    {child.icons && <child.icons />}
+                    {child.icon && <child.icon />}
                     <Typography variant="h6" sx={{ fontSize: '14px' }}>
                       {child.name}
                     </Typography>

@@ -24,7 +24,7 @@ const sidebarItems = [
   {
     name: 'Dashboard',
     path: '/dashboard',
-    icons: icons.DashboardOutlinedIcon,
+    icon: icons.DashboardOutlinedIcon,
     children: [],
   },
   {
@@ -35,27 +35,27 @@ const sidebarItems = [
       {
         name: 'Resume',
         path: '/resume',
-        icons: icons.ContactPageOutlinedIcon,
+        icon: icons.ContactPageOutlinedIcon,
       },
       {
         name: 'Cover Letters',
         path: '/coverletters',
-        icons: icons.FilePresentOutlinedIcon,
+        icon: icons.FilePresentOutlinedIcon,
       },
       {
         name: 'Job Descriptions',
         path: '/descriptions',
-        icons: icons.DescriptionOutlinedIcon,
+        icon: icons.DescriptionOutlinedIcon,
       },
       {
         name: 'Calendar',
         path: '/calendar',
-        icons: icons.CalendarMonthOutlinedIcon,
+        icon: icons.CalendarMonthOutlinedIcon,
       },
       {
         name: 'Todos',
         path: '/todos',
-        icons: icons.PlaylistAddCheckOutlinedIcon,
+        icon: icons.PlaylistAddCheckOutlinedIcon,
       },
     ],
   },
@@ -67,12 +67,12 @@ const sidebarItems = [
       {
         name: 'Auto Pilot',
         path: '/automated',
-        icons: icons.SmartToyOutlinedIcon,
+        icon: icons.SmartToyOutlinedIcon,
       },
       {
         name: 'Interview Now',
         path: '/interview',
-        icons: icons.InterpreterModeOutlinedIcon,
+        icon: icons.InterpreterModeOutlinedIcon,
       },
     ],
   },
