@@ -11,7 +11,8 @@ import {
 } from '../../../state/navigation/sidebarSlice';
 import sidebarItems from './sidebarItems';
 import { Link, Link as RouterLink } from 'react-router-dom';
-import { ListItemButton, Toolbar, Typography } from '@mui/material';
+import { ListItemButton, Typography } from '@mui/material';
+import TextLogo from '../../logo/TextLogo';
 
 const SideBar = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const SideBar = () => {
   // Sidebar contents
   const drawer = (
     <div>
-      <Toolbar />
+      <TextLogo />
       <List>
         {sidebarItems.map((item, index) => (
           <>
