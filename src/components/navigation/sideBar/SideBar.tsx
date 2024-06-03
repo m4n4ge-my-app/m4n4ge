@@ -1,20 +1,18 @@
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
-import Toolbar from '@mui/material/Toolbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
 import {
   closeDrawer,
   endDrawerTransition,
 } from '../../../state/navigation/sidebarSlice';
+import sidebarItems from './sidebarItems';
+import { Link, Link as RouterLink } from 'react-router-dom';
+import { ListItemButton, Typography } from '@mui/material';
+import TextLogo from '../../logo/TextLogo';
 
 const SideBar = () => {
   const dispatch = useDispatch();
@@ -33,35 +31,39 @@ const SideBar = () => {
   // Sidebar contents
   const drawer = (
     <div>
-      <Toolbar />
-      <Divider />
+      <TextLogo />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
+        {sidebarItems.map((item, index) => (
+          <>
+            <ListItemButton
+              disabled={item.name !== 'Dashboard' ? true : false}
+              key={index}
+              component={RouterLink}
+              to={item.path}
+            >
+              <ListItemIcon>{item.icon && <item.icon />}</ListItemIcon>
+              <ListItemText primary={item.name} />
             </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
+            {item.children.length > 0 && (
+              <List>
+                {item.children.map((child, index) => (
+                  <Link to={child.path} key={index}>
+                    <ListItemButton>
+                      {child.icon && <child.icon />}
+                      <Typography variant="h6" sx={{ fontSize: '14px' }}>
+                        {child.name}
+                      </Typography>
+                    </ListItemButton>
+                  </Link>
+                ))}
+              </List>
+            )}
+          </>
         ))}
       </List>
     </div>
   );
+
   return (
     <Box
       component="nav"
