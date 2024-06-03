@@ -13,17 +13,10 @@ const Layout = () => {
   );
 
   return (
-    // Layout is MUI Box component, which in-turn cotains MUI AppBar for navbar, Box for sidebar, and finllay Box for outlet content.
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-
-      {/* Top Navigation Bar */}
       <Navbar />
-
-      {/* Side Bar */}
       <SideBar />
-
-      {/* Outlet Contents */}
       <Box
         component="main"
         sx={{
