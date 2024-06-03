@@ -10,10 +10,13 @@ import ListItemText from '@mui/material/ListItemText';
 import MailIcon from '@mui/icons-material/Mail';
 import Toolbar from '@mui/material/Toolbar';
 import React from 'react';
-
-const drawerWidth = 240;
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../state/store';
 
 const SideBar = () => {
+  const drawerWidth = useSelector(
+    (state: RootState) => state.sidebar.sidebarWidth
+  );
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
 
