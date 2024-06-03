@@ -34,7 +34,7 @@ const sidebarItems = [
     children: [
       {
         name: 'Resume',
-        path: '/resume',
+        path: '/resumes',
         icon: icons.ContactPageOutlinedIcon,
       },
       {
