@@ -1,18 +1,13 @@
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import { Outlet } from 'react-router-dom';
 import SideBar from '../../../components/navigation/sideBar/SideBar';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
-import { toggleDrawer } from '../../../state/navigation/sidebarSlice';
+import Navbar from '../../../components/navigation/navbar/Navbar';
 
 const Layout = () => {
-  const dispatch = useDispatch();
   const drawerWidth = useSelector(
     (state: RootState) => state.sidebar.sidebarWidth
   );
@@ -23,28 +18,7 @@ const Layout = () => {
       <CssBaseline />
 
       {/* Top Navigation Bar */}
-      <AppBar
-        position="fixed"
-        sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-        }}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={() => dispatch(toggleDrawer())}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Responsive drawer
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <Navbar />
 
       {/* Side Bar */}
       <SideBar />
