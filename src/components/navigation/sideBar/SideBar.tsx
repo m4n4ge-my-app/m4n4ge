@@ -1,20 +1,18 @@
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
-import Toolbar from '@mui/material/Toolbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
 import {
   closeDrawer,
   endDrawerTransition,
 } from '../../../state/navigation/sidebarSlice';
+import sidebarItems from './sidebarItems';
+import { Link as RouterLink } from 'react-router-dom';
+import { CssBaseline } from '@mui/material';
 
 const SideBar = () => {
   const dispatch = useDispatch();
@@ -32,68 +30,25 @@ const SideBar = () => {
 
   // Sidebar contents
   const drawer = (
-    <div>
-      {/* TODO: investigate what does Toolbar do here(it was brought in with MUI Responsive drawer component), removing it does not do anything, this is also present in above Outlet in Layout.tsx*/}
-      <Toolbar />
-
-      {/* Dashboard */}
-      <List>
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItemButton>
+    <List>
+      <CssBaseline />
+      {sidebarItems.map((item, index) => (
+        <ListItem key={index} component={RouterLink} to={item.path}>
+          <ListItemIcon>{item.icons && <item.icons />}</ListItemIcon>
+          <ListItemText primary={item.name} />
+          {item.children.length > 0 && (
+            <List>
+              {item.children.map((child, index) => (
+                <ListItem key={index} component={RouterLink} to={child.path}>
+                  <ListItemIcon>{child.icons && <child.icons />}</ListItemIcon>
+                  <ListItemText primary={child.name} />
+                </ListItem>
+              ))}
+            </List>
+          )}
         </ListItem>
-      </List>
-
-      {/* I M4n4ge Section */}
-      <List>
-        {[
-          'Resume',
-          'Cover Letters',
-          'Job Descriptions',
-          'Calendar',
-          'Todos',
-        ].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-
-      {/* Get Assist Section */}
-      <List>
-        {['Auto Pilot', 'Interview Now'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-
-      {/* Archives Section */}
-      <List>
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Archives" />
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </div>
+      ))}
+    </List>
   );
   return (
     <Box
