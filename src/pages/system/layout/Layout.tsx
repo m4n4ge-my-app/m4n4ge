@@ -47,6 +47,7 @@ const Layout = (props: Props) => {
     }
   };
 
+  // Sidebar contents
   const drawer = (
     <div>
       <Toolbar />
@@ -84,8 +85,11 @@ const Layout = (props: Props) => {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
+    // Layout is MUI Box component, which in-turn cotains MUI AppBar for navbar, Box for sidebar, and finllay Box for outlet content.
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
+
+      {/* Top Navigation Bar */}
       <AppBar
         position="fixed"
         sx={{
@@ -108,6 +112,8 @@ const Layout = (props: Props) => {
           </Typography>
         </Toolbar>
       </AppBar>
+
+      {/* Side Bar */}
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
@@ -147,6 +153,8 @@ const Layout = (props: Props) => {
           {drawer}
         </Drawer>
       </Box>
+
+      {/* Outlet Contents */}
       <Box
         component="main"
         sx={{
