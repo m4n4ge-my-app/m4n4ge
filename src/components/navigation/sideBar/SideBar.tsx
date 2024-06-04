@@ -13,6 +13,7 @@ import sidebarItems from './sidebarItems';
 import { Link, Link as RouterLink } from 'react-router-dom';
 import { ListItemButton, Typography } from '@mui/material';
 import TextLogo from '../../logo/TextLogo';
+import React from 'react';
 
 const SideBar = () => {
   const dispatch = useDispatch();
@@ -34,10 +35,9 @@ const SideBar = () => {
       <TextLogo />
       <List sx={{ marginTop: '40px' }}>
         {sidebarItems.map((item, index) => (
-          <>
+          <React.Fragment key={index}>
             <ListItemButton
               disabled={item.name !== 'Dashboard' ? true : false}
-              key={index}
               component={RouterLink}
               to={item.path}
             >
@@ -58,7 +58,7 @@ const SideBar = () => {
                 ))}
               </List>
             )}
-          </>
+          </React.Fragment>
         ))}
       </List>
     </div>
