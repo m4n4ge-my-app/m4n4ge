@@ -7,7 +7,7 @@ interface SidebarState {
 }
 
 const initialState: SidebarState = {
-  sidebarWidth: 240,
+  sidebarWidth: 260,
   mobileOpen: false,
   isClosing: false,
 };
