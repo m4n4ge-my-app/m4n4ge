@@ -1,7 +1,11 @@
 import { Typography } from '@mui/material';
 import Filter4TwoToneIcon from '@mui/icons-material/Filter4TwoTone';
+import { grey } from '@mui/material/colors';
+import { useTheme } from '@mui/material/styles';
 
 const TextLogo = () => {
+  const theme = useTheme();
+
   return (
     <div
       className="logo"
@@ -15,16 +19,20 @@ const TextLogo = () => {
     >
       <Filter4TwoToneIcon
         fontSize="large"
-        sx={{ transform: 'rotate(45deg)', fontSize: 30, color: '#5479F7' }}
+        sx={{
+          transform: 'rotate(45deg)',
+          fontSize: 30,
+          color: theme.palette.primary.main,
+        }}
       />
       <Typography
         variant="h1"
-        sx={{ fontSize: '20px', fontWeight: 'bold', color: '#4D4D4D' }}
+        sx={{ fontSize: '20px', fontWeight: 'bold', color: grey[700] }}
       >
         M
         <span
           style={{
-            color: '#5479F7',
+            color: theme.palette.primary.main,
             display: 'inline-block',
             transform: 'rotate(12deg)',
           }}
@@ -34,7 +42,7 @@ const TextLogo = () => {
         n
         <span
           style={{
-            color: '#5479F7',
+            color: theme.palette.primary.main,
             display: 'inline-block',
             transform: 'rotate(10deg)',
           }}
