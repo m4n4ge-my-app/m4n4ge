@@ -1,11 +1,10 @@
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
 import { toggleDrawer } from '../../../state/navigation/sidebarSlice';
+import Logo from '../../logo/Logo';
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -16,6 +15,8 @@ const Navbar = () => {
   return (
     <AppBar
       position="fixed"
+      color="transparent"
+      elevation={0}
       sx={{
         width: { sm: `calc(100% - ${sidebarWidth}px)` },
         ml: { sm: `${sidebarWidth}px` },
@@ -29,11 +30,8 @@ const Navbar = () => {
           onClick={() => dispatch(toggleDrawer())}
           sx={{ mr: 2, display: { sm: 'none' } }}
         >
-          <MenuIcon />
+          <Logo />
         </IconButton>
-        <Typography variant="h6" noWrap component="div">
-          Responsive drawer
-        </Typography>
       </Toolbar>
     </AppBar>
   );
