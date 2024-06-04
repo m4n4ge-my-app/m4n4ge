@@ -32,7 +32,7 @@ const SideBar = () => {
   const drawer = (
     <div>
       <TextLogo />
-      <List>
+      <List sx={{ marginTop: '40px' }}>
         {sidebarItems.map((item, index) => (
           <>
             <ListItemButton
@@ -47,14 +47,14 @@ const SideBar = () => {
             {item.children.length > 0 && (
               <List>
                 {item.children.map((child, index) => (
-                  <Link to={child.path} key={index}>
-                    <ListItemButton>
-                      {child.icon && <child.icon />}
-                      <Typography variant="h6" sx={{ fontSize: '14px' }}>
+                  <ListItemButton key={index}>
+                    {child.icon && <child.icon sx={{ marginRight: '10px' }} />}
+                    <Typography variant="h6" sx={{ fontSize: '14px' }}>
+                      <Link to={child.path} style={{ textDecoration: 'none' }}>
                         {child.name}
-                      </Typography>
-                    </ListItemButton>
-                  </Link>
+                      </Link>
+                    </Typography>
+                  </ListItemButton>
                 ))}
               </List>
             )}
