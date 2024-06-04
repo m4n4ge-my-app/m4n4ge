@@ -47,16 +47,7 @@ const AccountMenu = (props: Prop) => {
       <MenuItem onClick={props.handleClose}>
         <Avatar /> Profile
       </MenuItem>
-      <MenuItem onClick={props.handleClose}>
-        <Avatar /> My account
-      </MenuItem>
       <Divider />
-      <MenuItem onClick={props.handleClose}>
-        <ListItemIcon>
-          <PersonAdd fontSize="small" />
-        </ListItemIcon>
-        Add another account
-      </MenuItem>
       <MenuItem onClick={props.handleClose}>
         <ListItemIcon>
           <Settings fontSize="small" />
