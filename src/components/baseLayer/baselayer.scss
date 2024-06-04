@@ -1,3 +1,7 @@
+$border-radius: 10px;
+$webkit-box-shadow: 5px 4px 10px 1px rgba(0, 0, 0, 0.47);
+$box-shodow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+
 // there is default padding in MuiBox-root, so we need to remove it
 .MuiBox-root.css-1qryw0r {
   padding: 0;
@@ -5,11 +9,28 @@
 
 .pageContainer {
   display: flex;
-  height: 100%;
 
   .left {
     flex: 4;
     background-color: lightblue;
+
+    .label {
+      color: gray;
+    }
+
+    .addBox {
+      min-height: 350px;
+      -webkit-box-shadow: $webkit-box-shadow;
+      box-shadow: $box-shodow;
+      border-radius: $border-radius;
+    }
+
+    .listBox {
+      min-height: 700px;
+      -webkit-box-shadow: $webkit-box-shadow;
+      box-shadow: $box-shodow;
+      border-radius: $border-radius;
+    }
   }
 
   .right {
