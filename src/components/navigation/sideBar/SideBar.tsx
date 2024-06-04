@@ -34,16 +34,25 @@ const SideBar = () => {
   const drawer = (
     <div>
       <TextLogo />
-      <ListItemButton component={RouterLink} to="/dashboard">
+      <ListItemButton
+        component={RouterLink}
+        to="/dashboard"
+        sx={{ marginTop: '40px', color: 'gray' }}
+      >
         <ListItemIcon>
-          <DashboardOutlinedIcon />
+          <DashboardOutlinedIcon sx={{ marginLeft: '20px' }} />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItemButton>
       <List>
         {sidebarItems.map((item, index) => (
           <React.Fragment key={index}>
-            <ListItemButton disabled component={RouterLink} to={item.path}>
+            <ListItemButton
+              disabled
+              component={RouterLink}
+              to={item.path}
+              sx={{ display: 'block', marginLeft: '20px' }}
+            >
               <ListItemIcon>{item.icon && item.icon}</ListItemIcon>
               <ListItemText primary={item.name} />
             </ListItemButton>
@@ -52,12 +61,14 @@ const SideBar = () => {
                 {item.children.map((child, index) => (
                   <Link
                     to={child.path}
-                    style={{ textDecoration: 'none' }}
+                    style={{ textDecoration: 'none', color: 'gray' }}
                     key={index}
                   >
                     <ListItemButton key={index}>
                       {child.icon && (
-                        <child.icon sx={{ marginRight: '10px' }} />
+                        <child.icon
+                          sx={{ marginRight: '10px', marginLeft: '20px' }}
+                        />
                       )}
                       <Typography variant="h6" sx={{ fontSize: '14px' }}>
                         {child.name}
