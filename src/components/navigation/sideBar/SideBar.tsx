@@ -3,6 +3,7 @@ import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
 import {
@@ -33,14 +34,16 @@ const SideBar = () => {
   const drawer = (
     <div>
       <TextLogo />
-      <List sx={{ marginTop: '40px' }}>
+      <ListItemButton component={RouterLink} to="/dashboard">
+        <ListItemIcon>
+          <DashboardOutlinedIcon />
+        </ListItemIcon>
+        <ListItemText primary="Dashboard" />
+      </ListItemButton>
+      <List>
         {sidebarItems.map((item, index) => (
           <React.Fragment key={index}>
-            <ListItemButton
-              disabled={item.name !== 'Dashboard' ? true : false}
-              component={RouterLink}
-              to={item.path}
-            >
+            <ListItemButton disabled component={RouterLink} to={item.path}>
               <ListItemIcon>{item.icon && item.icon}</ListItemIcon>
               <ListItemText primary={item.name} />
             </ListItemButton>

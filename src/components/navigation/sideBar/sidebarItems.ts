@@ -2,7 +2,6 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 import ContactPageOutlinedIcon from '@mui/icons-material/ContactPageOutlined';
 import FilePresentOutlinedIcon from '@mui/icons-material/FilePresentOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined';
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 import PlaylistAddCheckOutlinedIcon from '@mui/icons-material/PlaylistAddCheckOutlined';
@@ -15,18 +14,11 @@ const icons = {
   ContactPageOutlinedIcon,
   FilePresentOutlinedIcon,
   DescriptionOutlinedIcon,
-  DashboardOutlinedIcon,
   SmartToyOutlinedIcon,
   HistoryOutlinedIcon,
 };
 
 const sidebarItems = [
-  {
-    name: 'Dashboard',
-    path: '/dashboard',
-    icon: icons.DashboardOutlinedIcon,
-    children: [],
-  },
   {
     name: 'I M4n4ge',
     path: '',
