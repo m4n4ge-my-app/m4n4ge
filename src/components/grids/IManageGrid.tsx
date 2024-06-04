@@ -12,10 +12,10 @@ const Item = styled(Paper)(({ theme }) => ({
 
 interface Props {
   formLabel: string;
-  listLabl: string;
+  listLabel: string;
 }
 
-const IManageGrid = ({ formLabel, listLabl }: Props) => {
+const IManageGrid = ({ formLabel, listLabel }: Props) => {
   return (
     <Grid container spacing={0} sx={{ padding: '25px' }}>
       <Grid container item spacing={2.5} className="">
@@ -32,7 +32,7 @@ const IManageGrid = ({ formLabel, listLabl }: Props) => {
 
         <Grid item xs={12} sm={12} md={12}>
           <Typography variant="h6" className="label" gutterBottom>
-            {listLabl}
+            {listLabel}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={12} md={12}>

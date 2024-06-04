@@ -3,8 +3,8 @@ import IManageGrid from '../../../components/grids/IManageGrid';
 
 const Resumes = () => {
   return (
-    <BaseLayer>
-      <IManageGrid formLabel="Add Resume" listLabl="Resumes" />
+    <BaseLayer type="resume">
+      <IManageGrid formLabel="Add Resume" listLabel="Resumes" />
     </BaseLayer>
   );
 };
