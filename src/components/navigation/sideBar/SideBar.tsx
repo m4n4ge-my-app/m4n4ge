@@ -50,14 +50,20 @@ const SideBar = () => {
             {item.children.length > 0 && (
               <List>
                 {item.children.map((child, index) => (
-                  <ListItemButton key={index}>
-                    {child.icon && <child.icon sx={{ marginRight: '10px' }} />}
-                    <Typography variant="h6" sx={{ fontSize: '14px' }}>
-                      <Link to={child.path} style={{ textDecoration: 'none' }}>
+                  <Link
+                    to={child.path}
+                    style={{ textDecoration: 'none' }}
+                    key={index}
+                  >
+                    <ListItemButton key={index}>
+                      {child.icon && (
+                        <child.icon sx={{ marginRight: '10px' }} />
+                      )}
+                      <Typography variant="h6" sx={{ fontSize: '14px' }}>
                         {child.name}
-                      </Link>
-                    </Typography>
-                  </ListItemButton>
+                      </Typography>
+                    </ListItemButton>
+                  </Link>
                 ))}
               </List>
             )}
