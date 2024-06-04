@@ -14,9 +14,11 @@ import sidebarItems from './sidebarItems';
 import { Link, Link as RouterLink } from 'react-router-dom';
 import { ListItemButton, Typography } from '@mui/material';
 import TextLogo from '../../logo/TextLogo';
-import React from 'react';
+import React, { useState } from 'react';
 
 const SideBar = () => {
+  const [selected, setSelected] = useState<boolean>(false);
+  const [selectedItem, setSelectedItem] = useState<string | null>('');
   const dispatch = useDispatch();
   const { sidebarWidth, mobileOpen } = useSelector(
     (state: RootState) => state.sidebar
@@ -38,6 +40,9 @@ const SideBar = () => {
         component={RouterLink}
         to="/dashboard"
         sx={{ marginTop: '40px', color: 'gray' }}
+        onClick={() => setSelected(true)}
+        onBlur={() => setSelected(false)}
+        selected={selected}
       >
         <ListItemIcon>
           <DashboardOutlinedIcon sx={{ marginLeft: '20px' }} />
@@ -64,7 +69,12 @@ const SideBar = () => {
                     style={{ textDecoration: 'none', color: 'gray' }}
                     key={index}
                   >
-                    <ListItemButton key={index}>
+                    <ListItemButton
+                      key={index}
+                      selected={selectedItem === child.name}
+                      onClick={() => setSelectedItem(child.name)}
+                      onBlur={() => setSelectedItem('')}
+                    >
                       {child.icon && (
                         <child.icon
                           sx={{ marginRight: '10px', marginLeft: '20px' }}
