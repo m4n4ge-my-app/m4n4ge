@@ -41,7 +41,7 @@ const SideBar = () => {
               component={RouterLink}
               to={item.path}
             >
-              <ListItemIcon>{item.icon && <item.icon />}</ListItemIcon>
+              <ListItemIcon>{item.icon && item.icon}</ListItemIcon>
               <ListItemText primary={item.name} />
             </ListItemButton>
             {item.children.length > 0 && (
