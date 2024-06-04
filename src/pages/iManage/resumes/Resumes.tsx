@@ -1,5 +1,11 @@
+import BaseLayer from '../../../components/baseLayer/BaseLayer';
+
 const Resumes = () => {
-  return <div>Resumes</div>;
+  return (
+    <BaseLayer>
+      <div>Resumes</div>
+    </BaseLayer>
+  );
 };
 
 export default Resumes;

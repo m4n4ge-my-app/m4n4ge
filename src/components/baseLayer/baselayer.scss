@@ -1,0 +1,19 @@
+// there is default padding in MuiBox-root, so we need to remove it
+.MuiBox-root.css-1qryw0r {
+  padding: 0;
+}
+
+.pageContainer {
+  display: flex;
+  height: 100%;
+
+  .left {
+    flex: 4;
+    background-color: lightblue;
+  }
+
+  .right {
+    flex: 1;
+    background-color: lightcoral;
+  }
+}
