@@ -1,5 +1,6 @@
-import { Logout, PersonAdd, Settings } from '@mui/icons-material';
+import { Logout, Settings } from '@mui/icons-material';
 import { Avatar, Divider, ListItemIcon, Menu, MenuItem } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 interface Prop {
   open: boolean;
@@ -44,16 +45,21 @@ const AccountMenu = (props: Prop) => {
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
     >
-      <MenuItem onClick={props.handleClose}>
-        <Avatar /> Profile
-      </MenuItem>
+      <Link to="/profile" style={{ color: 'inherit', textDecoration: 'none' }}>
+        <MenuItem onClick={props.handleClose}>
+          <Avatar /> Profile
+        </MenuItem>
+      </Link>
       <Divider />
-      <MenuItem onClick={props.handleClose}>
-        <ListItemIcon>
-          <Settings fontSize="small" />
-        </ListItemIcon>
-        Settings
-      </MenuItem>
+      <Link to="/settings" style={{ color: 'inherit', textDecoration: 'none' }}>
+        <MenuItem onClick={props.handleClose}>
+          <ListItemIcon>
+            <Settings fontSize="small" />
+          </ListItemIcon>
+          Settings
+        </MenuItem>
+      </Link>
+
       <MenuItem onClick={props.handleClose}>
         <ListItemIcon>
           <Logout fontSize="small" />
