@@ -10,29 +10,34 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const ResumesGrid = () => {
+interface Props {
+  formLabel: string;
+  listLabl: string;
+}
+
+const IManageGrid = ({ formLabel, listLabl }: Props) => {
   return (
     <Grid container spacing={0} sx={{ padding: '25px' }}>
       <Grid container item spacing={2.5} className="">
         <Grid item xs={12} sm={12} md={12}>
           <Typography variant="h6" className="label" gutterBottom>
-            Add Resume
+            {formLabel}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={12} md={12}>
           <Item className="addBox" sx={{ border: 'none' }}>
-            This is add resume form
+            This is a form container
           </Item>
         </Grid>
 
         <Grid item xs={12} sm={12} md={12}>
           <Typography variant="h6" className="label" gutterBottom>
-            Resumes
+            {listLabl}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={12} md={12}>
           <Item className="listBox" sx={{ border: 'none' }}>
-            This is resumes list
+            This is a list container
           </Item>
         </Grid>
       </Grid>
@@ -40,4 +45,4 @@ const ResumesGrid = () => {
   );
 };
 
-export default ResumesGrid;
+export default IManageGrid;

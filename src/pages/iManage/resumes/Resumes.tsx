@@ -1,10 +1,10 @@
 import BaseLayer from '../../../components/baseLayer/BaseLayer';
-import ResumesGrid from '../../../components/grids/ResumesGrid';
+import IManageGrid from '../../../components/grids/IManageGrid';
 
 const Resumes = () => {
   return (
     <BaseLayer>
-      <ResumesGrid />
+      <IManageGrid formLabel="Add Resume" listLabl="Resumes" />
     </BaseLayer>
   );
 };
