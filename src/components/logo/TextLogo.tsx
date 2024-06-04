@@ -1,14 +1,14 @@
-import { Typography } from '@mui/material';
+//external imports
 import Filter4TwoToneIcon from '@mui/icons-material/Filter4TwoTone';
-import { grey } from '@mui/material/colors';
 import { useTheme } from '@mui/material/styles';
+import { Typography } from '@mui/material';
+import { grey } from '@mui/material/colors';
 
 const TextLogo = () => {
   const theme = useTheme();
 
   return (
     <div
-      className="logo"
       style={{
         height: '56px',
         display: 'flex',

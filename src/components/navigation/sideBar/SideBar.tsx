@@ -1,29 +1,31 @@
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+//external imports
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
+import { Link, Link as RouterLink } from 'react-router-dom';
+import { ListItemButton, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Drawer from '@mui/material/Drawer';
+import React, { useState } from 'react';
+import List from '@mui/material/List';
+import Box from '@mui/material/Box';
+//local imports
 import { RootState } from '../../../state/store';
 import {
   closeDrawer,
   endDrawerTransition,
 } from '../../../state/navigation/sidebarSlice';
-import sidebarItems from './sidebarItems';
-import { Link, Link as RouterLink } from 'react-router-dom';
-import { ListItemButton, Typography } from '@mui/material';
 import TextLogo from '../../logo/TextLogo';
-import React, { useState } from 'react';
+import sidebarItems from './sidebarItems';
 import theme from '../../../theme';
 
 const SideBar = () => {
-  const [selected, setSelected] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<string | null>('');
-  const dispatch = useDispatch();
+  const [selected, setSelected] = useState<boolean>(false);
   const { sidebarWidth, mobileOpen } = useSelector(
     (state: RootState) => state.sidebar
   );
+  const dispatch = useDispatch();
 
   const handleDrawerClose = () => {
     dispatch(closeDrawer());
