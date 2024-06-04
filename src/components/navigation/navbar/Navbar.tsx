@@ -7,6 +7,7 @@ import { toggleDrawer } from '../../../state/navigation/sidebarSlice';
 import Logo from '../../logo/Logo';
 import {
   Avatar,
+  Box,
   Divider,
   ListItemIcon,
   Menu,
@@ -52,6 +53,8 @@ const Navbar = () => {
         >
           <Logo />
         </IconButton>
+        <Box sx={{ display: { sm: 'block', xs: 'none' } }} />{' '}
+        {/* This div will take up the space of the logo when it's not present */}
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
