@@ -15,6 +15,7 @@ import { Link, Link as RouterLink } from 'react-router-dom';
 import { ListItemButton, Typography } from '@mui/material';
 import TextLogo from '../../logo/TextLogo';
 import React, { useState } from 'react';
+import theme from '../../../theme';
 
 const SideBar = () => {
   const [selected, setSelected] = useState<boolean>(false);
@@ -39,13 +40,21 @@ const SideBar = () => {
       <ListItemButton
         component={RouterLink}
         to="/dashboard"
-        sx={{ marginTop: '40px', color: 'gray' }}
+        sx={{
+          marginTop: '40px',
+          color: selected ? theme.palette.primary.main : 'gray',
+        }}
         onClick={() => setSelected(true)}
         onBlur={() => setSelected(false)}
         selected={selected}
       >
         <ListItemIcon>
-          <DashboardOutlinedIcon sx={{ marginLeft: '20px' }} />
+          <DashboardOutlinedIcon
+            sx={{
+              marginLeft: '20px',
+              color: selected ? theme.palette.primary.main : 'gray',
+            }}
+          />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItemButton>
@@ -72,6 +81,12 @@ const SideBar = () => {
                     <ListItemButton
                       key={index}
                       selected={selectedItem === child.name}
+                      sx={{
+                        color:
+                          selectedItem === child.name
+                            ? theme.palette.primary.main
+                            : 'gray',
+                      }}
                       onClick={() => setSelectedItem(child.name)}
                       onBlur={() => setSelectedItem('')}
                     >
