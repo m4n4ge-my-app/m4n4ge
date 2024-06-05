@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Autocomplete, Box, Checkbox, TextField } from '@mui/material';
@@ -27,18 +29,14 @@ export function RHFAutocomplete<T extends FieldValues>({
       render={({ field: { value, onChange, ref }, fieldState: { error } }) => (
         <Autocomplete
           options={options}
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
           value={value?.map((id: string) =>
             options.find((item) => item.id === id)
           )}
           getOptionLabel={(option) =>
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             options.find((item) => item.id === option.id)?.label ?? ''
           }
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           isOptionEqualToValue={(option, value) => option.id === value.id}
           onChange={(_, newValue) => {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
             onChange(newValue.map((item) => item.id));
           }}
           disableCloseOnSelect
@@ -60,7 +58,6 @@ export function RHFAutocomplete<T extends FieldValues>({
                 checkedIcon={<CheckBoxIcon />}
                 checked={selected}
               />
-              {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
               {option.label}
             </Box>
           )}
