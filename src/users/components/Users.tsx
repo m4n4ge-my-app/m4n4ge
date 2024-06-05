@@ -23,7 +23,7 @@ export function Users() {
         error={!!errors.email}
         helperText={errors.email?.message}
       />
-      <RHFAutocomplete name="states" />
+      <RHFAutocomplete<Schema> name="states" />
     </Stack>
   );
 }
