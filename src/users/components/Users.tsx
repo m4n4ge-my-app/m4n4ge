@@ -41,7 +41,7 @@ export function Users() {
       <RHFAutocomplete<Schema>
         name="states"
         label="states"
-        options={statesQuery.data ?? []}
+        options={statesQuery.data}
       />
       <RHFToggleButtonGroup<Schema>
         name="languagesSpoken"
