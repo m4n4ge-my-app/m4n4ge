@@ -7,6 +7,10 @@ import calendar from './baseLayerImages/calendar.png';
 import todos from './baseLayerImages/todolist.png';
 import assist from './baseLayerImages/assist.png';
 import interview from './baseLayerImages/interview.png';
+import add from './baseLayerImages/add.png';
+import archive from './baseLayerImages/archive.png';
+import prfile from './baseLayerImages/profile.png';
+import settings from './baseLayerImages/settings.png';
 
 interface Props {
   type: string;
@@ -17,6 +21,12 @@ const BaseLayer = ({ type, children }: Props) => {
   useEffect(() => {
     // Dynamically set the CSS variable
     switch (type) {
+      case 'add':
+        document.documentElement.style.setProperty(
+          '--background-image-url',
+          `url(${add})`
+        );
+        break;
       case 'resume':
         document.documentElement.style.setProperty(
           '--background-image-url',
@@ -57,6 +67,24 @@ const BaseLayer = ({ type, children }: Props) => {
         document.documentElement.style.setProperty(
           '--background-image-url',
           `url(${interview})`
+        );
+        break;
+      case 'archive':
+        document.documentElement.style.setProperty(
+          '--background-image-url',
+          `url(${archive})`
+        );
+        break;
+      case 'profile':
+        document.documentElement.style.setProperty(
+          '--background-image-url',
+          `url(${prfile})`
+        );
+        break;
+      case 'settings':
+        document.documentElement.style.setProperty(
+          '--background-image-url',
+          `url(${settings})`
         );
         break;
       default:
