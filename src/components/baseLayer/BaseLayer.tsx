@@ -1,25 +1,26 @@
-import React, { useEffect } from 'react';
-import './baselayer.scss';
-import resume from './baseLayerImages/resume.png';
-import coverLetter from './baseLayerImages/coverletter.png';
-import description from './baseLayerImages/description.png';
-import calendar from './baseLayerImages/calendar.png';
-import todos from './baseLayerImages/todolist.png';
-import assist from './baseLayerImages/assist.png';
-import interview from './baseLayerImages/interview.png';
-import add from './baseLayerImages/add.png';
-import archive from './baseLayerImages/archive.png';
-import prfile from './baseLayerImages/profile.png';
-import settings from './baseLayerImages/settings.png';
+//external imports
 import { LightModeOutlined, DarkModeOutlined } from '@mui/icons-material';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import Tooltip from '@mui/material/Tooltip';
 import { IconButton } from '@mui/material';
-import theme from '../../theme';
-
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+//local imports
+import './baselayer.scss';
+import coverLetter from './baseLayerImages/coverletter.png';
+import description from './baseLayerImages/description.png';
+import interview from './baseLayerImages/interview.png';
+import settings from './baseLayerImages/settings.png';
+import calendar from './baseLayerImages/calendar.png';
+import archive from './baseLayerImages/archive.png';
+import prfile from './baseLayerImages/profile.png';
+import todos from './baseLayerImages/todolist.png';
+import resume from './baseLayerImages/resume.png';
+import assist from './baseLayerImages/assist.png';
+import add from './baseLayerImages/add.png';
+import theme from '../../theme';
 
 interface Props {
   type: string;
