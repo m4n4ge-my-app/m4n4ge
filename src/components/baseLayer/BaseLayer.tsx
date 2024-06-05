@@ -96,10 +96,6 @@ const BaseLayer = ({ type, children }: Props) => {
     }
   }, [type]);
 
-  document.documentElement.style.setProperty(
-    '--background-image-url',
-    `url(${resume})`
-  );
   return (
     <div className="pageContainer">
       <div className="left">{children}</div>
