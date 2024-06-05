@@ -1,3 +1,17 @@
+import { useState } from 'react';
+
 export function Users() {
-  return <div>Users</div>;
+  const [input, setInput] = useState('' as string);
+
+  return (
+    <input
+      value={input}
+      onChange={(e) => setInput(e.target.value)}
+      onBlur={}
+      ref
+      disabled
+      required
+      maxLength={}
+    />
+  );
 }
