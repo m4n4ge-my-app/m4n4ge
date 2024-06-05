@@ -28,7 +28,7 @@ export function RHFAutocomplete<T extends FieldValues>({
       name={name}
       render={({ field: { value, onChange, ref }, fieldState: { error } }) => (
         <Autocomplete
-          options={options || []}
+          options={options ?? []}
           value={value?.map((id: string) =>
             options?.find((item) => item.id === id)
           )}
