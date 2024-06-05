@@ -7,7 +7,7 @@ export function UsersProvider() {
   const methods = useForm<Schema>({
     mode: 'all',
     resolver: zodResolver(schema),
-    defaultValues: defaultValues,
+    defaultValues,
   });
 
   return (
