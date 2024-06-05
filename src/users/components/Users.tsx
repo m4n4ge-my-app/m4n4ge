@@ -1,7 +1,18 @@
 import { useForm } from 'react-hook-form';
 
 export function Users() {
-  //this is react-hook-form way of handling form elements, for example in this email input, once input is registered as email, it will have all the properties like ref, onChange, onBlur, and name.
   const { register } = useForm<{ email: string }>();
-  return <input {...register('email')} />;
+  return (
+    <input
+      {...register('email', {
+        required: { value: true, message: 'Email is required' },
+        pattern: {
+          value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+          message: 'Invalid email address',
+        },
+        maxLength: { value: 100, message: 'Email is too long' },
+      })}
+      placeholder="email"
+    />
+  );
 }
