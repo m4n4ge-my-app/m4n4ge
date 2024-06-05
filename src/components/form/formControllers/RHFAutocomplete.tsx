@@ -1,7 +1,11 @@
 import { Autocomplete } from '@mui/material';
 import { Controller } from 'react-hook-form';
 
-export function RHFAutocomplete() {
+type Props = {
+  name: string;
+};
+
+export function RHFAutocomplete({ name }: Props) {
   const { control } = useFormContext<Schema>();
   return (
     <Controller

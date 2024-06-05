@@ -9,6 +9,10 @@ export const schema = z.object({
     .refine((input) => pattern.email.test(input), {
       message: 'Invalid email address',
     }),
+  states: z
+    .array(z.string())
+    .min(1, { message: 'State is required' })
+    .max(2, { message: 'Select up to 2 states' }),
 });
 
 export type Schema = z.infer<typeof schema>;
