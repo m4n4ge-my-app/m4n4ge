@@ -1,16 +1,26 @@
-import { useEffect } from 'react';
+//external imports
+import { LightModeOutlined, DarkModeOutlined } from '@mui/icons-material';
+import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
+import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import Tooltip from '@mui/material/Tooltip';
+import { IconButton } from '@mui/material';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+//local imports
 import './baselayer.scss';
-import resume from './baseLayerImages/resume.png';
 import coverLetter from './baseLayerImages/coverletter.png';
 import description from './baseLayerImages/description.png';
-import calendar from './baseLayerImages/calendar.png';
-import todos from './baseLayerImages/todolist.png';
-import assist from './baseLayerImages/assist.png';
 import interview from './baseLayerImages/interview.png';
-import add from './baseLayerImages/add.png';
+import settings from './baseLayerImages/settings.png';
+import calendar from './baseLayerImages/calendar.png';
 import archive from './baseLayerImages/archive.png';
 import prfile from './baseLayerImages/profile.png';
-import settings from './baseLayerImages/settings.png';
+import todos from './baseLayerImages/todolist.png';
+import resume from './baseLayerImages/resume.png';
+import assist from './baseLayerImages/assist.png';
+import add from './baseLayerImages/add.png';
+import theme from '../../theme';
 
 interface Props {
   type: string;
@@ -18,6 +28,8 @@ interface Props {
 }
 
 const BaseLayer = ({ type, children }: Props) => {
+  const [lightMode, setLightMode] = React.useState(false);
+
   useEffect(() => {
     // Dynamically set the CSS variable
     switch (type) {
@@ -96,14 +108,44 @@ const BaseLayer = ({ type, children }: Props) => {
     }
   }, [type]);
 
-  document.documentElement.style.setProperty(
-    '--background-image-url',
-    `url(${resume})`
-  );
   return (
     <div className="pageContainer">
       <div className="left">{children}</div>
-      <div className="right"></div>
+      <div className="right">
+        <div className="iconsGroup">
+          <Link to="/add">
+            <Tooltip title="Add application record" placement="left">
+              <AddCircleTwoToneIcon
+                sx={{ fontSize: '40px', color: '#5479F7' }}
+              />
+            </Tooltip>
+          </Link>
+          <Link to="/automated">
+            <SmartToyOutlinedIcon
+              sx={{ fontSize: '25px', color: theme.palette.primary.main }}
+            />
+          </Link>
+          <Link to="/settings">
+            <SettingsOutlinedIcon
+              sx={{ fontSize: '25px', color: theme.palette.primary.main }}
+            />
+          </Link>
+          <IconButton
+            onClick={() => setLightMode(!lightMode)}
+            sx={{ '&:focus': { outline: 'none' } }}
+          >
+            {lightMode === true ? (
+              <LightModeOutlined
+                sx={{ fontSize: '25px', color: theme.palette.primary.main }}
+              />
+            ) : (
+              <DarkModeOutlined
+                sx={{ fontSize: '25px', color: theme.palette.primary.main }}
+              />
+            )}
+          </IconButton>
+        </div>
+      </div>
     </div>
   );
 };
