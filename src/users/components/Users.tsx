@@ -23,7 +23,14 @@ export function Users() {
         error={!!errors.email}
         helperText={errors.email?.message}
       />
-      <RHFAutocomplete<Schema> name="states" />
+      <RHFAutocomplete<Schema>
+        name="states"
+        label="states"
+        options={[
+          { id: '1', label: 'California' },
+          { id: '2', label: 'Texas' },
+        ]}
+      />
     </Stack>
   );
 }
