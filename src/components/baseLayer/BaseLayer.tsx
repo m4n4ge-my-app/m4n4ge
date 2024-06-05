@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './baselayer.scss';
 import resume from './baseLayerImages/resume.png';
 import coverLetter from './baseLayerImages/coverletter.png';
@@ -11,6 +11,15 @@ import add from './baseLayerImages/add.png';
 import archive from './baseLayerImages/archive.png';
 import prfile from './baseLayerImages/profile.png';
 import settings from './baseLayerImages/settings.png';
+import { LightModeOutlined, DarkModeOutlined } from '@mui/icons-material';
+import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
+import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import Tooltip from '@mui/material/Tooltip';
+import { IconButton } from '@mui/material';
+import theme from '../../theme';
+
+import { Link } from 'react-router-dom';
 
 interface Props {
   type: string;
@@ -18,6 +27,8 @@ interface Props {
 }
 
 const BaseLayer = ({ type, children }: Props) => {
+  const [lightMode, setLightMode] = React.useState(false);
+
   useEffect(() => {
     // Dynamically set the CSS variable
     switch (type) {
@@ -99,7 +110,41 @@ const BaseLayer = ({ type, children }: Props) => {
   return (
     <div className="pageContainer">
       <div className="left">{children}</div>
-      <div className="right"></div>
+      <div className="right">
+        <div className="iconsGroup">
+          <Link to="/add">
+            <Tooltip title="Add application record" placement="left">
+              <AddCircleTwoToneIcon
+                sx={{ fontSize: '40px', color: '#5479F7' }}
+              />
+            </Tooltip>
+          </Link>
+          <Link to="/automated">
+            <SmartToyOutlinedIcon
+              sx={{ fontSize: '25px', color: theme.palette.primary.main }}
+            />
+          </Link>
+          <Link to="/settings">
+            <SettingsOutlinedIcon
+              sx={{ fontSize: '25px', color: theme.palette.primary.main }}
+            />
+          </Link>
+          <IconButton
+            onClick={() => setLightMode(!lightMode)}
+            sx={{ '&:focus': { outline: 'none' } }}
+          >
+            {lightMode === true ? (
+              <LightModeOutlined
+                sx={{ fontSize: '25px', color: theme.palette.primary.main }}
+              />
+            ) : (
+              <DarkModeOutlined
+                sx={{ fontSize: '25px', color: theme.palette.primary.main }}
+              />
+            )}
+          </IconButton>
+        </div>
+      </div>
     </div>
   );
 };
