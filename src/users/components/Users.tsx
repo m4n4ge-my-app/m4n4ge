@@ -12,6 +12,7 @@ import {
 import { RHFToggleButtonGroup } from '../../components/form/formControllers/RHFToggleButtonGroup';
 import { RHFRadioGroup } from '../../components/form/formControllers/RHFRadioGroup';
 import { RHFCheckbox } from '../../components/form/formControllers/RHFCheckbox';
+import { RHFDateTimePicker } from '../../components/form/formControllers/RHFDateTimePicker';
 
 export function Users() {
   const statesQuery = useStates();
@@ -65,6 +66,10 @@ export function Users() {
         name="skills"
         label="Skills"
         options={skillsQuery.data}
+      />
+      <RHFDateTimePicker<Schema>
+        name="registrationDateAndTime"
+        label="Registration Date and Time"
       />
     </Stack>
   );
