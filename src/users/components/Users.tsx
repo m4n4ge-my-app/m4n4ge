@@ -1,16 +1,12 @@
 import { Stack, TextField } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import { Schema, schema } from '../types/schema';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useFormContext } from 'react-hook-form';
+import { Schema } from '../types/schema';
 
 export function Users() {
   const {
     register,
     formState: { errors },
-  } = useForm<Schema>({
-    mode: 'all',
-    resolver: zodResolver(schema),
-  });
+  } = useFormContext<Schema>();
 
   return (
     <Stack sx={{ gap: 2 }}>

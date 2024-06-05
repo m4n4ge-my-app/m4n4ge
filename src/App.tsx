@@ -21,7 +21,7 @@ import UserProfile from './pages/system/userProfile/UserProfile';
 import Settings from './pages/system/settings/Settings';
 import NotFound from './pages/system/notFound/NotFound';
 import theme from './theme';
-import { Users } from './users/components/Users';
+import { UsersProvider } from './users/components/UsersProvider';
 
 function App() {
   return (
@@ -38,7 +38,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/add" element={<AddApp />} />
-            <Route path="/users" element={<Users />} />
+            <Route path="/users" element={<UsersProvider />} />
             <Route path="/resumes" element={<Resumes />} />
             <Route path="/coverletters" element={<CoverLetters />} />
             <Route path="/calendar" element={<Calendar />} />
