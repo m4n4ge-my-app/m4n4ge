@@ -4,7 +4,7 @@ export function Users() {
   const {
     register,
     formState: { errors },
-  } = useForm<{ email: string }>();
+  } = useForm<{ email: string }>({ mode: 'all' });
   return (
     <>
       <input
