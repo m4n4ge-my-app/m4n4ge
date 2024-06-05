@@ -5,6 +5,8 @@ import coverLetter from './baseLayerImages/coverletter.png';
 import description from './baseLayerImages/description.png';
 import calendar from './baseLayerImages/calendar.png';
 import todos from './baseLayerImages/todolist.png';
+import assist from './baseLayerImages/assist.png';
+import interview from './baseLayerImages/interview.png';
 
 interface Props {
   type: string;
@@ -43,6 +45,18 @@ const BaseLayer = ({ type, children }: Props) => {
         document.documentElement.style.setProperty(
           '--background-image-url',
           `url(${todos})`
+        );
+        break;
+      case 'assist':
+        document.documentElement.style.setProperty(
+          '--background-image-url',
+          `url(${assist})`
+        );
+        break;
+      case 'interview':
+        document.documentElement.style.setProperty(
+          '--background-image-url',
+          `url(${interview})`
         );
         break;
       default:

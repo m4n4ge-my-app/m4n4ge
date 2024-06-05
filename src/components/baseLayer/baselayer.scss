@@ -63,6 +63,13 @@ $box-shodow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
       box-shadow: $box-shodow;
       border-radius: $border-radius;
     }
+
+    .temporary {
+      height: 1000px;
+      -webkit-box-shadow: $webkit-box-shadow;
+      box-shadow: $box-shodow;
+      border-radius: $border-radius;
+    }
   }
 
   .right {
