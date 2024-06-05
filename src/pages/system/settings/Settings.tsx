@@ -1,5 +1,12 @@
+import BaseLayer from '../../../components/baseLayer/BaseLayer';
+import GetAssistGrid from '../../../components/grids/GetAssistGrid';
+
 const Settings = () => {
-  return <div>Settings</div>;
+  return (
+    <BaseLayer type="settings">
+      <GetAssistGrid formLabel="Application Settings" />
+    </BaseLayer>
+  );
 };
 
 export default Settings;
