@@ -5,5 +5,6 @@ export const schema = z.object({
   password: z
     .string()
     .min(8, { message: 'Required, also too short' })
-    .max(100, { message: 'Too long' }),
+    .max(100, { message: 'Too long' })
+    .refine(() => {}),
 });
