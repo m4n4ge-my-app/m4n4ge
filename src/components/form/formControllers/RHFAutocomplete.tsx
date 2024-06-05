@@ -1,6 +1,8 @@
-import { Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, Box, Checkbox, TextField } from '@mui/material';
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
 import { AutocompleteOptions } from '../types/autocompleteOptions';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 //Ive been using interfaces for props in other places and typecript is telling me to stay consistent and use type instead, however this lesson uses types I will use them and ignore the error for now
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
@@ -48,6 +50,17 @@ export function RHFAutocomplete<T extends FieldValues>({
               helperText={error?.message}
               label={label}
             />
+          )}
+          renderOption={(props, option, { selected }) => (
+            <Box component="li" {...props}>
+              <Checkbox
+                icon={<CheckBoxOutlineBlankIcon />}
+                checkedIcon={<CheckBoxIcon />}
+                checked={selected}
+              />
+              {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
+              {option.label}
+            </Box>
           )}
         />
       )}
