@@ -14,7 +14,12 @@ export function Users() {
 
   return (
     <Stack sx={{ gap: 2 }}>
-      <TextField {...register('name')} label="Name" error={!!errors.name} />
+      <TextField
+        {...register('name')}
+        label="Name"
+        error={!!errors.name}
+        helperText={errors.name?.message}
+      />
       <TextField {...register('email')} label="Email" />
     </Stack>
   );
