@@ -17,7 +17,7 @@ interface Props {
 
 const IManageGrid = ({ formLabel, listLabel }: Props) => {
   return (
-    <Grid container spacing={0} sx={{ padding: '25px' }}>
+    <Grid container spacing={0} sx={{ padding: '25px', marginTop: '100px' }}>
       <Grid container item spacing={2.5} className="">
         <Grid item xs={12} sm={12} md={12}>
           <Typography variant="h6" className="label" gutterBottom>
