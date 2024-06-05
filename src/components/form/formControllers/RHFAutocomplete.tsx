@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Autocomplete, Box, Checkbox, TextField } from '@mui/material';
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
 import { AutocompleteOptions } from '../types/autocompleteOptions';
@@ -52,7 +54,7 @@ export function RHFAutocomplete<T extends FieldValues>({
             />
           )}
           renderOption={(props, option, { selected }) => (
-            <Box component="li" {...props}>
+            <Box component="li" {...props} key={option.id}>
               <Checkbox
                 icon={<CheckBoxOutlineBlankIcon />}
                 checkedIcon={<CheckBoxIcon />}
