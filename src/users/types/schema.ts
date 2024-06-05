@@ -1,10 +1,12 @@
 import { z } from 'zod';
+import { pattern } from '../utils/constants';
 
 export const schema = z.object({
-  email: z.string().email(),
-  password: z
+  name: z.string().min(1, { message: 'Name is required' }),
+  email: z
     .string()
-    .min(8, { message: 'Required, also too short' })
-    .max(100, { message: 'Too long' })
-    .refine(() => {}),
+    .min(1, { message: 'Email is required' })
+    .refine((input) => pattern.email.test(input), {
+      message: 'Invalid email address',
+    }),
 });
