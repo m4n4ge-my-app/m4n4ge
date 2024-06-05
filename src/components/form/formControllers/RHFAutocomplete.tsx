@@ -18,7 +18,7 @@ export function RHFAutocomplete<T extends FieldValues>({
     <Controller
       control={control}
       name={name}
-      render={({ params }) => <Autocomplete options={options} />}
+      render={(params) => <Autocomplete options={options} />}
     />
   );
 }
