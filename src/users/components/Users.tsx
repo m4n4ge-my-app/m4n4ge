@@ -1,6 +1,7 @@
 import { Stack, TextField } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import { Schema } from '../types/schema';
+import { RHFAutocomplete } from '../../components/form/formControllers/RHFAutocomplete';
 
 export function Users() {
   const {
@@ -22,6 +23,7 @@ export function Users() {
         error={!!errors.email}
         helperText={errors.email?.message}
       />
+      <RHFAutocomplete name="States" />
     </Stack>
   );
 }
