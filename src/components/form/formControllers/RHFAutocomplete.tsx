@@ -26,7 +26,7 @@ export function RHFAutocomplete<T extends FieldValues>({
         <Autocomplete
           options={options}
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-          value={value.map((id: string) =>
+          value={value?.map((id: string) =>
             options.find((item) => item.id === id)
           )}
           getOptionLabel={(option) =>
