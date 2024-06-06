@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Schema } from '../../../users/types/schema';
 import {
@@ -17,10 +17,12 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import { pink } from '@mui/material/colors';
+import dayjs, { Dayjs } from 'dayjs';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const AddApplicationForm = () => {
+  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
   const { watch } = useFormContext<Schema>();
 
   useEffect(() => {
@@ -75,14 +77,11 @@ const AddApplicationForm = () => {
 
         {/* Job Application Date */}
         <PanelItemWrapper>
-          <Typography
-            sx={{ display: 'flex', flexDirection: 'start', marginLeft: '15px' }}
-            fontSize={16}
-          >
-            Job Application Date:
-          </Typography>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateCalendar sx={{ width: '100%' }} />
+            <DateCalendar
+              value={value}
+              onChange={(newValue) => setValue(newValue)}
+            />
           </LocalizationProvider>
         </PanelItemWrapper>
         {/* Platform */}
