@@ -16,6 +16,7 @@ import { RHFDateTimePicker } from '../../components/form/formControllers/RHFDate
 import { RHFDateRangePicker } from '../../components/form/formControllers/RHFDateRangerPicker';
 import { RHFSlider } from '../../components/form/formControllers/RHFSlider';
 import { RHFSwitch } from '../../components/form/formControllers/RHFSwitch';
+import { RHFTextField } from '../../components/form/formControllers/RHFTextField';
 
 export function Users() {
   const statesQuery = useStates();
@@ -23,11 +24,7 @@ export function Users() {
   const gendersQuery = useGenders();
   const skillsQuery = useSkills();
 
-  const {
-    register,
-    formState: { errors },
-    watch,
-  } = useFormContext<Schema>();
+  const { watch } = useFormContext<Schema>();
 
   useEffect(() => {
     const subscription = watch((value) => {
@@ -39,18 +36,8 @@ export function Users() {
 
   return (
     <Stack sx={{ gap: 2 }}>
-      <TextField
-        {...register('name')}
-        label="Name"
-        error={!!errors.name}
-        helperText={errors.name?.message}
-      />
-      <TextField
-        {...register('email')}
-        label="Email"
-        error={!!errors.email}
-        helperText={errors.email?.message}
-      />
+      <RHFTextField<Schema> name="name" label="Name" />
+      <RHFTextField<Schema> name="name" label="Email" />
       <RHFAutocomplete<Schema>
         name="states"
         label="states"
