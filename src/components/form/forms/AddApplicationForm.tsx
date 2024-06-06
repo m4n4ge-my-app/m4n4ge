@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import React, { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Schema } from '../../../users/types/schema';
@@ -13,8 +14,6 @@ import {
   Typography,
 } from '@mui/material';
 import { RHFTextField } from '../formControllers/RHFTextField';
-import { RHFAutocomplete } from '../formControllers/RHFAutocomplete';
-import { RHFRadioGroup } from '../formControllers/RHFRadioGroup';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
@@ -23,12 +22,10 @@ import { pink } from '@mui/material/colors';
 import dayjs, { Dayjs } from 'dayjs';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
-import { useLanguages } from '../../../users/services/queries';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const AddApplicationForm = () => {
-  const languagesQuery = useLanguages();
   const [age, setAge] = React.useState('');
   const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
   const { watch } = useFormContext<Schema>();
