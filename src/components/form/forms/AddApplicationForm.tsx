@@ -5,7 +5,10 @@ import {
   Box,
   Button,
   Checkbox,
+  FormControl,
   Grid,
+  InputLabel,
+  MenuItem,
   TextareaAutosize,
   Typography,
 } from '@mui/material';
@@ -18,10 +21,15 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import { pink } from '@mui/material/colors';
 import dayjs, { Dayjs } from 'dayjs';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
+import { useLanguages } from '../../../users/services/queries';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const AddApplicationForm = () => {
+  const languagesQuery = useLanguages();
+  const [age, setAge] = React.useState('');
   const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
   const { watch } = useFormContext<Schema>();
 
@@ -32,6 +40,10 @@ const AddApplicationForm = () => {
 
     return () => subscription.unsubscribe();
   }, [watch]);
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setAge(event.target.value as string);
+  };
 
   return (
     <Grid container padding="20px" sx={{ position: 'relative' }}>
@@ -75,6 +87,35 @@ const AddApplicationForm = () => {
           />
         </PanelItemWrapper>
 
+        {/* Platform */}
+        <PanelItemWrapper>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Platform</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={age}
+              label="Platform"
+              onChange={handleChange}
+              size="small"
+            >
+              <MenuItem value={1}>Indeed</MenuItem>
+              <MenuItem value={2}>LinkedIn</MenuItem>
+              <MenuItem value={3}>Glassdoor</MenuItem>
+              <MenuItem value={4}>Monster</MenuItem>
+              <MenuItem value={5}>ZipRecruiter</MenuItem>
+              <MenuItem value={6}>Dice</MenuItem>
+              <MenuItem value={7}>SimplyHired</MenuItem>
+              <MenuItem value={8}>CareerBuilder</MenuItem>
+              <MenuItem value={9}>FlexJobs</MenuItem>
+              <MenuItem value={10}>Wellfound</MenuItem>
+              <MenuItem value={11}>Workopolis</MenuItem>
+              <MenuItem value={12}>Company Website</MenuItem>
+              <MenuItem value={13}>Direct Email</MenuItem>
+            </Select>
+          </FormControl>
+        </PanelItemWrapper>
+
         {/* Job Application Date */}
         <PanelItemWrapper>
           <Typography
@@ -108,38 +149,32 @@ const AddApplicationForm = () => {
             </LocalizationProvider>
           </Box>
         </PanelItemWrapper>
-        {/* Platform */}
+        {/* Work Model */}
         <PanelItemWrapper>
-          <RHFAutocomplete<Schema>
-            name="states"
-            label="Platform"
+          <Typography
+            fontSize={16}
+            sx={{
+              display: 'flex',
+              flexDirection: 'start',
+              marginBottom: '10px',
+            }}
+          >
+            Work Model
+          </Typography>
+          <RHFToggleButtonGroup<Schema>
+            name="languagesSpoken"
+            // options={languagesQuery.data}
             options={[
-              { id: '1', label: 'Indeed' },
-              { id: '2', label: 'LinkedIn' },
-              { id: '3', label: 'Glassdoor' },
-              { id: '4', label: 'Monster' },
-              { id: '5', label: 'ZipRecruiter' },
-              { id: '6', label: 'Dice' },
-              { id: '7', label: 'SimplyHired' },
-              { id: '8', label: 'CareerBuilder' },
-              { id: '9', label: 'FlexJobs' },
-              { id: '10', label: 'Wellfound' },
-              { id: '11', label: 'Workopolis' },
+              { id: '1', label: 'On Site' },
+              { id: '2', label: 'Hybrid' },
+              { id: '3', label: 'Remote' },
             ]}
           />
         </PanelItemWrapper>
-        {/* Job Type */}
         <PanelItemWrapper>
-          <RHFRadioGroup<Schema>
-            name="gender"
-            label="Work Models"
-            options={[
-              { id: '1', label: 'On-Site' },
-              { id: '2', label: 'Hybrid' },
-              { id: '3', label: 'Fully Remote' },
-            ]}
-            sx={{ display: 'flex', flexDirection: 'start' }}
-          />
+          <div style={{ visibility: 'hidden', height: '300px' }}>
+            {/* For some reason without this invisible div, Work Model section above becomes unclicable. */}
+          </div>
         </PanelItemWrapper>
       </Grid>
       {/* Right Panel */}
