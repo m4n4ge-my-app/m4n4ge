@@ -12,11 +12,11 @@ import {
   FormLabel,
 } from '@mui/material';
 
-import { AutocompleteOptions } from '../types/autocompleteOptions';
+import { Options } from '../types/Options';
 
 type Props<T extends FieldValues> = {
   name: Path<T>;
-  options?: AutocompleteOptions[];
+  options?: Options[];
   label: string;
 };
 

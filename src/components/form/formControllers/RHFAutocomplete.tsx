@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Autocomplete, Box, Checkbox, TextField } from '@mui/material';
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
-import { AutocompleteOptions } from '../types/autocompleteOptions';
+import { Options } from '../types/Options';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
@@ -12,7 +12,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type Props<T extends FieldValues> = {
   name: Path<T>;
-  options?: AutocompleteOptions[];
+  options?: Options[];
   label: string;
 };
 
