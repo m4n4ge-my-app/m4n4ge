@@ -1,10 +1,10 @@
 //external imports
 import { LightModeOutlined, DarkModeOutlined } from '@mui/icons-material';
-import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import { Fab, IconButton } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import Tooltip from '@mui/material/Tooltip';
-import { IconButton } from '@mui/material';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 //local imports
@@ -115,9 +115,14 @@ const BaseLayer = ({ type, children }: Props) => {
         <div className="iconsGroup">
           <Link to="/add">
             <Tooltip title="Add application record" placement="left">
-              <AddCircleTwoToneIcon
-                sx={{ fontSize: '40px', color: '#5479F7' }}
-              />
+              <Fab
+                size="small"
+                color="primary"
+                aria-label="add"
+                sx={{ marginBottom: '10px' }}
+              >
+                <AddIcon />
+              </Fab>
             </Tooltip>
           </Link>
           <Link to="/automated">
