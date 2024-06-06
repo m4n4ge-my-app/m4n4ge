@@ -11,10 +11,11 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 interface Props {
+  type: string | undefined;
   formLabel: string;
 }
 
-const GenericGrid = ({ formLabel }: Props) => {
+const GenericGrid = ({ type, formLabel }: Props) => {
   return (
     <Grid container spacing={0} sx={{ padding: '25px', marginTop: '100px' }}>
       <Grid container item spacing={2.5} className="">
@@ -25,7 +26,9 @@ const GenericGrid = ({ formLabel }: Props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={12}>
           <Item className="temporary" sx={{ border: 'none' }}>
-            This container is temporary, implmentation is out of scope for now
+            {type === 'add'
+              ? 'Add Application Record'
+              : 'This container is temporary, implmentation is out of scope for now'}
           </Item>
         </Grid>
       </Grid>

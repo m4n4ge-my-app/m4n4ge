@@ -4,7 +4,7 @@ import GenericGrid from '../../../components/grids/GenericGrid';
 const AddApp = () => {
   return (
     <BaseLayer type="add">
-      <GenericGrid formLabel="Add Application Record" />
+      <GenericGrid formLabel="Add Application Record" type="add" />
     </BaseLayer>
   );
 };
