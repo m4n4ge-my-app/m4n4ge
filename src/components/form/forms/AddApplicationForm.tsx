@@ -13,7 +13,7 @@ import { RHFTextField } from '../formControllers/RHFTextField';
 import { RHFAutocomplete } from '../formControllers/RHFAutocomplete';
 import { RHFRadioGroup } from '../formControllers/RHFRadioGroup';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import { pink } from '@mui/material/colors';
@@ -77,12 +77,36 @@ const AddApplicationForm = () => {
 
         {/* Job Application Date */}
         <PanelItemWrapper>
+          <Typography
+            fontSize={16}
+            sx={{ display: 'flex', flexDirection: 'start' }}
+          >
+            Job Application Date
+          </Typography>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateCalendar
               value={value}
               onChange={(newValue) => setValue(newValue)}
             />
           </LocalizationProvider>
+        </PanelItemWrapper>
+        {/* Job Post Posting and Ending Datates */}
+        <PanelItemWrapper>
+          <Typography
+            fontSize={16}
+            sx={{ display: 'flex', flexDirection: 'start' }}
+          >
+            Job Post Posting & Ending Dates
+          </Typography>
+          <Box sx={{ display: 'flex', gap: 2, marginTop: '15px' }}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Posting Date"
+                slotProps={{ textField: { size: 'small' } }}
+              />
+              <DatePicker slotProps={{ textField: { size: 'small' } }} />
+            </LocalizationProvider>
+          </Box>
         </PanelItemWrapper>
         {/* Platform */}
         <PanelItemWrapper>
