@@ -46,13 +46,61 @@ const AddApplicationForm = () => {
   }, [watch]);
 
   return (
-    <Grid container spacing={2} padding="20px">
+    <Grid container spacing={3} padding="20px">
+      {/* Company Name */}
       <Grid item xs={12} sm={12} md={9} lg={7} xl={6}>
         <RHFTextField<Schema>
           name="name"
           label="Company Name"
           size="small"
           fullWidth
+        />
+      </Grid>
+      <Grid item xs={0} sm={12} md={4} lg={5} xl={6}>
+        <div style={{ display: 'none' }} />
+      </Grid>
+      {/* Position Name */}
+      <Grid item xs={12} sm={12} md={9} lg={7} xl={6}>
+        <RHFTextField<Schema>
+          name="name"
+          label="Position Name"
+          size="small"
+          fullWidth
+        />
+      </Grid>
+      <Grid item xs={0} sm={12} md={4} lg={5} xl={6}>
+        <div style={{ display: 'none' }} />
+      </Grid>
+      {/* Job Location */}
+      <Grid item xs={12} sm={12} md={9} lg={7} xl={6}>
+        <RHFTextField<Schema>
+          name="name"
+          label="Job Location"
+          size="small"
+          fullWidth
+        />
+      </Grid>
+      <Grid item xs={0} sm={12} md={4} lg={5} xl={6}>
+        <div style={{ display: 'none' }} />
+      </Grid>
+      {/* Platform */}
+      <Grid item xs={12} sm={12} md={9} lg={7} xl={6}>
+        <RHFAutocomplete<Schema>
+          name="states"
+          label="Platform"
+          options={statesQuery.data}
+        />
+      </Grid>
+      <Grid item xs={0} sm={12} md={4} lg={5} xl={6}>
+        <div style={{ display: 'none' }} />
+      </Grid>
+      {/* Job Application Data */}
+      <Grid item xs={12} sm={12} md={9} lg={7} xl={6}>
+        <RHFDateTimePicker<Schema>
+          //   fullWidth
+          //   sx={{ Width: '100%' }}
+          name="registrationDateAndTime"
+          label="Registration Date and Time"
         />
       </Grid>
       <Grid item xs={0} sm={12} md={4} lg={5} xl={6}>
