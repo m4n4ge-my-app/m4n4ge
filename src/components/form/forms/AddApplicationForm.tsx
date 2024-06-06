@@ -1,40 +1,26 @@
 import { useEffect } from 'react';
-import {
-  useGenders,
-  useLanguages,
-  useSkills,
-  useStates,
-} from '../../../users/services/queries';
 import { useFormContext } from 'react-hook-form';
 import { Schema } from '../../../users/types/schema';
-import { Grid, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Checkbox,
+  Grid,
+  TextareaAutosize,
+  Typography,
+} from '@mui/material';
 import { RHFTextField } from '../formControllers/RHFTextField';
 import { RHFAutocomplete } from '../formControllers/RHFAutocomplete';
-import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 import { RHFRadioGroup } from '../formControllers/RHFRadioGroup';
-import { RHFCheckbox } from '../formControllers/RHFCheckbox';
-import { RHFDateTimePicker } from '../formControllers/RHFDateTimePicker';
-import { RHFDateRangePicker } from '../formControllers/RHFDateRangerPicker';
-import { RHFSwitch } from '../formControllers/RHFSwitch';
-import { RHFSlider } from '../formControllers/RHFSlider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import { Favorite, FavoriteBorder } from '@mui/icons-material';
+import { pink } from '@mui/material/colors';
 
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const AddApplicationForm = () => {
-  const statesQuery = useStates();
-  const languagesQuery = useLanguages();
-  const gendersQuery = useGenders();
-  const skillsQuery = useSkills();
-
   const { watch } = useFormContext<Schema>();
 
   useEffect(() => {
@@ -46,68 +32,207 @@ const AddApplicationForm = () => {
   }, [watch]);
 
   return (
-    <Grid container spacing={3} padding="20px">
-      {/* Company Name */}
-      <Grid item xs={12} sm={12} md={9} lg={7} xl={6}>
-        <RHFTextField<Schema>
-          name="name"
-          label="Company Name"
-          size="small"
-          fullWidth
-        />
+    <Grid container padding="20px" sx={{ position: 'relative' }}>
+      {/* Left Panel */}
+      <Grid
+        container
+        spacing={3}
+        item
+        xs={12}
+        sm={12}
+        md={12}
+        lg={6}
+        xl={6}
+        sx={{ marginTop: '20px' }}
+      >
+        {/* Company Name */}
+        <PanelItemWrapper>
+          <RHFTextField<Schema>
+            name="name"
+            label="Company Name"
+            size="small"
+            fullWidth
+          />
+        </PanelItemWrapper>
+        {/* Position Name */}
+        <PanelItemWrapper>
+          <RHFTextField<Schema>
+            name="name"
+            label="Position Name"
+            size="small"
+            fullWidth
+          />
+        </PanelItemWrapper>
+        {/* Job Location */}
+        <PanelItemWrapper>
+          <RHFTextField<Schema>
+            name="name"
+            label="Job Location"
+            size="small"
+            fullWidth
+          />
+        </PanelItemWrapper>
+
+        {/* Job Application Date */}
+        <PanelItemWrapper>
+          <Typography
+            sx={{ display: 'flex', flexDirection: 'start', marginLeft: '15px' }}
+            fontSize={16}
+          >
+            Job Application Date:
+          </Typography>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateCalendar sx={{ width: '100%' }} />
+          </LocalizationProvider>
+        </PanelItemWrapper>
+        {/* Platform */}
+        <PanelItemWrapper>
+          <RHFAutocomplete<Schema>
+            name="states"
+            label="Platform"
+            options={[
+              { id: '1', label: 'Indeed' },
+              { id: '2', label: 'LinkedIn' },
+              { id: '3', label: 'Glassdoor' },
+              { id: '4', label: 'Monster' },
+              { id: '5', label: 'ZipRecruiter' },
+              { id: '6', label: 'Dice' },
+              { id: '7', label: 'SimplyHired' },
+              { id: '8', label: 'CareerBuilder' },
+              { id: '9', label: 'FlexJobs' },
+              { id: '10', label: 'Wellfound' },
+              { id: '11', label: 'Workopolis' },
+            ]}
+          />
+        </PanelItemWrapper>
+        {/* Job Type */}
+        <PanelItemWrapper>
+          <RHFRadioGroup<Schema>
+            name="gender"
+            label="Work Models"
+            options={[
+              { id: '1', label: 'On-Site' },
+              { id: '2', label: 'Hybrid' },
+              { id: '3', label: 'Fully Remote' },
+            ]}
+            sx={{ display: 'flex', flexDirection: 'start' }}
+          />
+        </PanelItemWrapper>
       </Grid>
-      <Grid item xs={0} sm={12} md={4} lg={5} xl={6}>
-        <div style={{ display: 'none' }} />
-      </Grid>
-      {/* Position Name */}
-      <Grid item xs={12} sm={12} md={9} lg={7} xl={6}>
-        <RHFTextField<Schema>
-          name="name"
-          label="Position Name"
-          size="small"
-          fullWidth
-        />
-      </Grid>
-      <Grid item xs={0} sm={12} md={4} lg={5} xl={6}>
-        <div style={{ display: 'none' }} />
-      </Grid>
-      {/* Job Location */}
-      <Grid item xs={12} sm={12} md={9} lg={7} xl={6}>
-        <RHFTextField<Schema>
-          name="name"
-          label="Job Location"
-          size="small"
-          fullWidth
-        />
-      </Grid>
-      <Grid item xs={0} sm={12} md={4} lg={5} xl={6}>
-        <div style={{ display: 'none' }} />
-      </Grid>
-      {/* Platform */}
-      <Grid item xs={12} sm={12} md={9} lg={7} xl={6}>
-        <RHFAutocomplete<Schema>
-          name="states"
-          label="Platform"
-          options={statesQuery.data}
-        />
-      </Grid>
-      <Grid item xs={0} sm={12} md={4} lg={5} xl={6}>
-        <div style={{ display: 'none' }} />
-      </Grid>
-      {/* Job Application Data */}
-      <Grid item xs={12} sm={12} md={9} lg={7} xl={6}>
-        <RHFDateTimePicker<Schema>
-          //   fullWidth
-          //   sx={{ Width: '100%' }}
-          name="registrationDateAndTime"
-          label="Registration Date and Time"
-        />
-      </Grid>
-      <Grid item xs={0} sm={12} md={4} lg={5} xl={6}>
-        <div style={{ display: 'none' }} />
+      {/* Right Panel */}
+      <Grid
+        item
+        xs={12}
+        sm={12}
+        md={12}
+        lg={6}
+        xl={6}
+        sx={{ marginTop: '40px' }}
+      >
+        <PanelItemWrapper>
+          <TextareaAutosize
+            color="gray"
+            minRows={5}
+            placeholder="Note: "
+            style={{
+              width: '100%',
+              padding: '10px',
+              borderRadius: '5px',
+              marginBottom: '20px',
+              borderColor: 'divider', //TODO: Setting the border color to match the file uoload border below, but its not working, fix it
+              borderWidth: 1,
+              borderStyle: 'solid',
+              outline: 'none',
+            }}
+          />
+        </PanelItemWrapper>
+        <PanelItemWrapper>
+          <Box
+            sx={{
+              mt: 0,
+              border: 1,
+              borderColor: 'divider',
+              height: 150,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 1,
+              marginBottom: '20px',
+            }}
+            gap={1}
+          >
+            <Button variant="outlined" component="label">
+              Upload Job Decription
+              <input type="file" hidden />
+            </Button>
+            <Typography variant="body2">
+              Click the button to upload a file
+            </Typography>
+          </Box>
+        </PanelItemWrapper>
+        <PanelItemWrapper>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '60px',
+            }}
+          >
+            <Checkbox
+              {...label}
+              icon={<FavoriteBorder fontSize="small" />}
+              checkedIcon={<Favorite fontSize="small" />}
+              sx={{
+                // color: pink[800],
+                '&.Mui-checked': {
+                  color: pink[600],
+                },
+              }}
+            />
+            <Typography fontSize={16}>Mark as Favorite?</Typography>
+          </Box>
+        </PanelItemWrapper>
+
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            position: 'absolute',
+            right: 0,
+            bottom: 0,
+            width: '100%',
+            padding: '20px',
+          }}
+        >
+          <Button variant="contained" type="submit" size="small">
+            Add Application
+          </Button>
+        </Box>
       </Grid>
     </Grid>
   );
 };
 
 export default AddApplicationForm;
+
+interface Props {
+  children: React.ReactNode;
+}
+
+const PanelItemWrapper: React.FC<Props> = (props) => {
+  return (
+    <>
+      <Grid item xs={1} sm={1} md={1} lg={1} xl={1}>
+        <div style={{ display: 'none' }} />
+      </Grid>
+      <Grid item xs={9} sm={8} md={6} lg={6} xl={6}>
+        {/* eslint-disable-next-line react/prop-types */}
+        {props.children}
+      </Grid>
+      <Grid item xs={3} sm={3} md={5} lg={5} xl={5}>
+        <div style={{ display: 'none' }} />
+      </Grid>
+    </>
+  );
+};
