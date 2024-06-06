@@ -46,18 +46,17 @@ const AddApplicationForm = () => {
   }, [watch]);
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={8}>
-        <Item>xs=8</Item>
+    <Grid container spacing={2} padding="20px">
+      <Grid item xs={12} sm={12} md={9} lg={7} xl={6}>
+        <RHFTextField<Schema>
+          name="name"
+          label="Company Name"
+          size="small"
+          fullWidth
+        />
       </Grid>
-      <Grid item xs={4}>
-        <Item>xs=4</Item>
-      </Grid>
-      <Grid item xs={4}>
-        <Item>xs=4</Item>
-      </Grid>
-      <Grid item xs={8}>
-        <Item>xs=8</Item>
+      <Grid item xs={0} sm={12} md={4} lg={5} xl={6}>
+        <div style={{ display: 'none' }} />
       </Grid>
     </Grid>
   );
