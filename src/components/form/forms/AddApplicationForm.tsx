@@ -7,7 +7,7 @@ import {
 } from '../../../users/services/queries';
 import { useFormContext } from 'react-hook-form';
 import { Schema } from '../../../users/types/schema';
-import { Stack, Typography } from '@mui/material';
+import { Grid, Stack, Typography } from '@mui/material';
 import { RHFTextField } from '../formControllers/RHFTextField';
 import { RHFAutocomplete } from '../formControllers/RHFAutocomplete';
 import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
@@ -17,6 +17,17 @@ import { RHFDateTimePicker } from '../formControllers/RHFDateTimePicker';
 import { RHFDateRangePicker } from '../formControllers/RHFDateRangerPicker';
 import { RHFSwitch } from '../formControllers/RHFSwitch';
 import { RHFSlider } from '../formControllers/RHFSlider';
+
+import { styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
 
 const AddApplicationForm = () => {
   const statesQuery = useStates();
@@ -35,37 +46,20 @@ const AddApplicationForm = () => {
   }, [watch]);
 
   return (
-    <Stack sx={{ gap: 2 }}>
-      <RHFTextField<Schema> name="name" label="Name" />
-      <RHFTextField<Schema> name="name" label="Email" />
-      <RHFAutocomplete<Schema>
-        name="states"
-        label="states"
-        options={statesQuery.data}
-      />
-      <RHFToggleButtonGroup<Schema>
-        name="languagesSpoken"
-        options={languagesQuery.data}
-      />
-      <RHFRadioGroup<Schema>
-        name="gender"
-        label="Gender"
-        options={gendersQuery.data}
-      />
-      <RHFCheckbox<Schema>
-        name="skills"
-        label="Skills"
-        options={skillsQuery.data}
-      />
-      <RHFDateTimePicker<Schema>
-        name="registrationDateAndTime"
-        label="Registration Date and Time"
-      />
-      <Typography>Former Employment Period:</Typography>
-      <RHFDateRangePicker<Schema> name="formerEmploymentPeriod" />
-      <RHFSlider<Schema> name="salaryRange" label="Salaray Range" />
-      <RHFSwitch<Schema> name="isTeacher" label="Are you a Teacher ?" />
-    </Stack>
+    <Grid container spacing={2}>
+      <Grid item xs={8}>
+        <Item>xs=8</Item>
+      </Grid>
+      <Grid item xs={4}>
+        <Item>xs=4</Item>
+      </Grid>
+      <Grid item xs={4}>
+        <Item>xs=4</Item>
+      </Grid>
+      <Grid item xs={8}>
+        <Item>xs=8</Item>
+      </Grid>
+    </Grid>
   );
 };
 
