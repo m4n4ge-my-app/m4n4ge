@@ -22,13 +22,14 @@ import { pink } from '@mui/material/colors';
 import dayjs, { Dayjs } from 'dayjs';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
+import { AddAppSchema } from '../scehmas/addAppSchema';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const AddApplicationForm = () => {
   const [age, setAge] = React.useState('');
   const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
-  const { watch } = useFormContext<Schema>();
+  const { watch } = useFormContext<AddAppSchema>();
 
   useEffect(() => {
     const subscription = watch((value) => {
@@ -58,17 +59,17 @@ const AddApplicationForm = () => {
       >
         {/* Company Name */}
         <PanelItemWrapper>
-          <RHFTextField<Schema>
-            name="name"
-            label="Company Name"
+          <RHFTextField<AddAppSchema>
+            name="employer"
+            label="Employer Name"
             size="small"
             fullWidth
           />
         </PanelItemWrapper>
         {/* Position Name */}
         <PanelItemWrapper>
-          <RHFTextField<Schema>
-            name="name"
+          <RHFTextField<AddAppSchema>
+            name="position"
             label="Position Name"
             size="small"
             fullWidth
@@ -76,8 +77,8 @@ const AddApplicationForm = () => {
         </PanelItemWrapper>
         {/* Job Location */}
         <PanelItemWrapper>
-          <RHFTextField<Schema>
-            name="name"
+          <RHFTextField<AddAppSchema>
+            name="location"
             label="Job Location"
             size="small"
             fullWidth

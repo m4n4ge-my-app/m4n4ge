@@ -2,9 +2,14 @@ import { Grid, Typography } from '@mui/material';
 import { FormProvider, useForm } from 'react-hook-form';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import { Schema, defaultValues, schema } from '../../users/types/schema';
+// import { Schema, defaultValues, schema } from '../../users/types/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import AddApplicationForm from '../form/forms/AddApplicationForm';
+import {
+  AddAppSchema,
+  add_app_schema,
+  defaultValues,
+} from '../form/scehmas/addAppSchema';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -20,9 +25,9 @@ interface Props {
 }
 
 const GenericGrid = ({ type, formLabel }: Props) => {
-  const methods = useForm<Schema>({
+  const methods = useForm<AddAppSchema>({
     mode: 'all',
-    resolver: zodResolver(schema),
+    resolver: zodResolver(add_app_schema),
     defaultValues,
   });
 
