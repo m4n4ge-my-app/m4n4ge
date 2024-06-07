@@ -48,6 +48,47 @@ $box-shodow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
 
     .label {
       color: gray;
+      margin-bottom: 20px;
+    }
+
+    .row3 {
+      margin-top: 20px;
+    }
+
+    .row5 {
+      margin-top: 5px;
+    }
+
+    .mativationBox {
+      height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      -webkit-box-shadow: $webkit-box-shadow;
+      box-shadow: $box-shodow;
+      border-radius: $border-radius;
+    }
+
+    .jobOutlookBox {
+      height: 250px;
+      -webkit-box-shadow: $webkit-box-shadow;
+      box-shadow: $box-shodow;
+      border-radius: $border-radius;
+    }
+
+    .stats {
+      height: 150px;
+      -webkit-box-shadow: $webkit-box-shadow;
+      box-shadow: $box-shodow;
+      border-radius: $border-radius;
+    }
+
+    .lists {
+      min-height: 500px;
+      -webkit-box-shadow: $webkit-box-shadow;
+      box-shadow: $box-shodow;
+      border-radius: $border-radius;
     }
 
     .addBox {
