@@ -23,6 +23,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 import { AddAppSchema } from '../scehmas/addAppSchema';
+import { RHFSelect } from '../formControllers/RHFSelect';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -84,88 +85,26 @@ const AddApplicationForm = () => {
             fullWidth
           />
         </PanelItemWrapper>
-
-        {/* Platform */}
+        {/* Platfoem */}
         <PanelItemWrapper>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Platform</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={age}
-              label="Platform"
-              onChange={handleChange}
-              size="small"
-            >
-              <MenuItem value={1}>Indeed</MenuItem>
-              <MenuItem value={2}>LinkedIn</MenuItem>
-              <MenuItem value={3}>Glassdoor</MenuItem>
-              <MenuItem value={4}>Monster</MenuItem>
-              <MenuItem value={5}>ZipRecruiter</MenuItem>
-              <MenuItem value={6}>Dice</MenuItem>
-              <MenuItem value={7}>SimplyHired</MenuItem>
-              <MenuItem value={8}>CareerBuilder</MenuItem>
-              <MenuItem value={9}>FlexJobs</MenuItem>
-              <MenuItem value={10}>Wellfound</MenuItem>
-              <MenuItem value={11}>Workopolis</MenuItem>
-              <MenuItem value={12}>Company Website</MenuItem>
-              <MenuItem value={13}>Direct Email</MenuItem>
-            </Select>
-          </FormControl>
-        </PanelItemWrapper>
-
-        {/* Job Application Date */}
-        <PanelItemWrapper>
-          <Typography
-            fontSize={16}
-            sx={{ display: 'flex', flexDirection: 'start' }}
-          >
-            Job Application Date
-          </Typography>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateCalendar
-              value={value}
-              onChange={(newValue) => setValue(newValue)}
-            />
-          </LocalizationProvider>
-        </PanelItemWrapper>
-        {/* Job Post Posting and Ending Datates */}
-        <PanelItemWrapper>
-          <Typography
-            fontSize={16}
-            sx={{ display: 'flex', flexDirection: 'start' }}
-          >
-            Job Post Posting & Ending Dates
-          </Typography>
-          <Box sx={{ display: 'flex', gap: 2, marginTop: '15px' }}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                label="Posting Date"
-                slotProps={{ textField: { size: 'small' } }}
-              />
-              <DatePicker slotProps={{ textField: { size: 'small' } }} />
-            </LocalizationProvider>
-          </Box>
-        </PanelItemWrapper>
-        {/* Work Model */}
-        <PanelItemWrapper>
-          <Typography
-            fontSize={16}
-            sx={{
-              display: 'flex',
-              flexDirection: 'start',
-              marginBottom: '10px',
-            }}
-          >
-            Work Model
-          </Typography>
-          <RHFToggleButtonGroup<Schema>
-            name="languagesSpoken"
-            // options={languagesQuery.data}
+          <RHFSelect<AddAppSchema>
+            name="platform"
+            label="Job Platform"
             options={[
-              { id: '1', label: 'On Site' },
-              { id: '2', label: 'Hybrid' },
-              { id: '3', label: 'Remote' },
+              { id: '1', label: 'CareerBuilder' },
+              { id: '2', label: 'Company Website' },
+              { id: '3', label: 'Direct Email' },
+              { id: '4', label: 'Dice' },
+              { id: '5', label: 'FlexJobs' },
+              { id: '6', label: 'Glassdoor' },
+              { id: '7', label: 'Indeed' },
+              { id: '8', label: 'LinkedIn' },
+              { id: '9', label: 'Monster' },
+              { id: '10', label: 'SimplyHired' },
+              { id: '11', label: 'Wellfound' },
+              { id: '12', label: 'Workopolis' },
+              { id: '13', label: 'ZipRecruiter' },
+              { id: '14', label: 'LinkedIn' },
             ]}
           />
         </PanelItemWrapper>
