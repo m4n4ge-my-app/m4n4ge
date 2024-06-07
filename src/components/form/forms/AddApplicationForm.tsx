@@ -26,8 +26,7 @@ import { AddAppSchema } from '../scehmas/addAppSchema';
 import { RHFSelect } from '../formControllers/RHFSelect';
 import { RHFTextArea } from '../formControllers/RHFTextArea';
 import { RHFDateCalendar } from '../formControllers/RHFDateCalendar';
-
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+import { RHFFavoriteCheckbox } from '../formControllers/RHFFavoriteCheckbox';
 
 const AddApplicationForm = () => {
   const [age, setAge] = React.useState('');
@@ -106,6 +105,7 @@ const AddApplicationForm = () => {
               { id: '11', label: 'Wellfound' },
               { id: '12', label: 'Workopolis' },
               { id: '13', label: 'ZipRecruiter' },
+              { id: '14', label: 'Other' },
             ]}
           />
         </PanelItemWrapper>
@@ -158,26 +158,7 @@ const AddApplicationForm = () => {
           </Box>
         </PanelItemWrapper>
         <PanelItemWrapper>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              marginBottom: '60px',
-            }}
-          >
-            <Checkbox
-              {...label}
-              icon={<FavoriteBorder fontSize="small" />}
-              checkedIcon={<Favorite fontSize="small" />}
-              sx={{
-                // color: pink[800],
-                '&.Mui-checked': {
-                  color: pink[600],
-                },
-              }}
-            />
-            <Typography fontSize={16}>Mark as Favorite?</Typography>
-          </Box>
+          <RHFFavoriteCheckbox<AddAppSchema> name="isFavorite" />
         </PanelItemWrapper>
 
         <Box

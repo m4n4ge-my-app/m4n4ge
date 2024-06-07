@@ -6,9 +6,10 @@ export const add_app_schema = z.object({
   location: z.string().optional(),
   platform: z.string().min(1, { message: 'Platform is required' }),
   applicationDate: z.date().refine((date) => date < new Date(), {
-    message: 'applicationDate must be in the past',
+    message: 'Date selection must be in the past',
   }),
   note: z.string().optional(),
+  isFavorite: z.boolean().optional(),
 });
 
 export type AddAppSchema = z.infer<typeof add_app_schema>;
@@ -20,4 +21,5 @@ export const defaultValues: AddAppSchema = {
   platform: '',
   applicationDate: new Date(),
   note: '',
+  isFavorite: false,
 };
