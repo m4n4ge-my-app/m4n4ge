@@ -1,5 +1,7 @@
+import './signin.scss';
+
 const SignIn = () => {
-  return <div>SignIn</div>;
+  return <div className="signinContainer">SignIn</div>;
 };
 
 export default SignIn;
