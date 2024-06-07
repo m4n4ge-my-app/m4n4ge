@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+import { DatePicker } from '@mui/x-date-pickers';
 import { FormHelperText } from '@mui/material';
 
 type Props<T extends FieldValues> = {
@@ -25,7 +24,6 @@ export function RHFDatePicker<T extends FieldValues>({
         // formState: { errors },
       }) => (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               label={label}
               slotProps={{ textField: { size: 'small' } }}
@@ -34,7 +32,6 @@ export function RHFDatePicker<T extends FieldValues>({
               value={value}
               onChange={(date) => onChange(date)}
             />
-          </LocalizationProvider>
           <FormHelperText sx={{ color: 'red' }}>
             {error?.message}
           </FormHelperText>
