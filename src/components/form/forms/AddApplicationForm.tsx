@@ -1,36 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
-import React, { useEffect } from 'react';
+//external imports
+import { Box, Button, Grid, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
-import { Schema } from '../../../users/types/schema';
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  TextareaAutosize,
-  Typography,
-} from '@mui/material';
-import { RHFTextField } from '../formControllers/RHFTextField';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { Favorite, FavoriteBorder } from '@mui/icons-material';
-import { pink } from '@mui/material/colors';
-import dayjs, { Dayjs } from 'dayjs';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
-import { AddAppSchema } from '../scehmas/addAppSchema';
-import { RHFSelect } from '../formControllers/RHFSelect';
-import { RHFTextArea } from '../formControllers/RHFTextArea';
-import { RHFDateCalendar } from '../formControllers/RHFDateCalendar';
+import React, { useEffect } from 'react';
+//local imports
 import { RHFFavoriteCheckbox } from '../formControllers/RHFFavoriteCheckbox';
+import { RHFDateCalendar } from '../formControllers/RHFDateCalendar';
+import { RHFTextField } from '../formControllers/RHFTextField';
+import { RHFTextArea } from '../formControllers/RHFTextArea';
+import { RHFSelect } from '../formControllers/RHFSelect';
+import { AddAppSchema } from '../scehmas/addAppSchema';
 
 const AddApplicationForm = () => {
-  const [age, setAge] = React.useState('');
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
   const { watch } = useFormContext<AddAppSchema>();
 
   useEffect(() => {
@@ -40,10 +21,6 @@ const AddApplicationForm = () => {
 
     return () => subscription.unsubscribe();
   }, [watch]);
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
-  };
 
   return (
     <Grid container padding="20px" sx={{ position: 'relative' }}>
@@ -59,7 +36,7 @@ const AddApplicationForm = () => {
         xl={6}
         sx={{ marginTop: '20px' }}
       >
-        {/* Company Name */}
+        {/* Employer Name */}
         <PanelItemWrapper>
           <RHFTextField<AddAppSchema>
             name="employer"
@@ -68,6 +45,7 @@ const AddApplicationForm = () => {
             fullWidth
           />
         </PanelItemWrapper>
+
         {/* Position Name */}
         <PanelItemWrapper>
           <RHFTextField<AddAppSchema>
@@ -77,6 +55,7 @@ const AddApplicationForm = () => {
             fullWidth
           />
         </PanelItemWrapper>
+
         {/* Job Location */}
         <PanelItemWrapper>
           <RHFTextField<AddAppSchema>
@@ -86,7 +65,8 @@ const AddApplicationForm = () => {
             fullWidth
           />
         </PanelItemWrapper>
-        {/* Platfoem */}
+
+        {/* Platform */}
         <PanelItemWrapper>
           <RHFSelect<AddAppSchema>
             name="platform"
@@ -109,7 +89,8 @@ const AddApplicationForm = () => {
             ]}
           />
         </PanelItemWrapper>
-        {/* Job Application Data */}
+
+        {/* Job Application Date */}
         <PanelItemWrapper>
           <RHFDateCalendar<AddAppSchema> name="applicationDate" />
         </PanelItemWrapper>
@@ -129,9 +110,12 @@ const AddApplicationForm = () => {
         xl={6}
         sx={{ marginTop: '40px' }}
       >
+        {/* Note */}
         <PanelItemWrapper>
           <RHFTextArea<AddAppSchema> name="note" />
         </PanelItemWrapper>
+
+        {/* File Upload */}
         <PanelItemWrapper>
           <Box
             sx={{
@@ -161,6 +145,7 @@ const AddApplicationForm = () => {
           <RHFFavoriteCheckbox<AddAppSchema> name="isFavorite" />
         </PanelItemWrapper>
 
+        {/* Sumbit Button */}
         <Box
           sx={{
             display: 'flex',
