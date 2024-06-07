@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
-import { Provider } from 'react-redux';
-import { store } from './state/store.ts';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { store } from './state/store.ts';
+import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+import React from 'react';
+import App from './App.tsx';
 
 const queryClient = new QueryClient();
 
