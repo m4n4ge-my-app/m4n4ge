@@ -5,6 +5,7 @@ import { ListItemButton, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import { useLocation } from 'react-router-dom';
 import Drawer from '@mui/material/Drawer';
 import React, { useState } from 'react';
 import List from '@mui/material/List';
@@ -26,6 +27,7 @@ const SideBar = () => {
     (state: RootState) => state.sidebar
   );
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const handleDrawerClose = () => {
     dispatch(closeDrawer());
@@ -48,7 +50,7 @@ const SideBar = () => {
         }}
         onClick={() => setSelected(true)}
         onBlur={() => setSelected(false)}
-        selected={selected}
+        selected={location.pathname === '/dashboard'}
       >
         <ListItemIcon>
           <DashboardOutlinedIcon
@@ -82,7 +84,7 @@ const SideBar = () => {
                   >
                     <ListItemButton
                       key={index}
-                      selected={selectedItem === child.name}
+                      selected={location.pathname === child.path}
                       sx={{
                         color:
                           selectedItem === child.name
