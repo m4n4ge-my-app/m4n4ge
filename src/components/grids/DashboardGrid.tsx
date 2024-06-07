@@ -2,7 +2,18 @@ import { Typography } from '@mui/material';
 import { Item } from './utils/MuiItem';
 import Grid from '@mui/material/Grid';
 
-const DashboardGrid = () => {
+//will be replace with proper model from server later
+interface Application {
+  id: number;
+  employerName: string;
+  positionName: string;
+}
+interface Props {
+  username: string;
+  applications: Application[];
+}
+
+const DashboardGrid = ({ username, applications }: Props) => {
   return (
     //Main Grid Container
     <Grid
@@ -15,7 +26,7 @@ const DashboardGrid = () => {
       <Grid item xs={12} sm={12} md={12} className="row1">
         {/* Label */}
         <Typography variant="h6" className="label" gutterBottom>
-          Hello Dinyar
+          Hello {username}
         </Typography>
       </Grid>
 
@@ -71,6 +82,7 @@ const DashboardGrid = () => {
         <Grid item xs={12} sm={12} md={12}>
           <Item className="lists">
             This is MUI Data Table area to display applications data
+            {JSON.stringify(applications, null, 2)}
           </Item>
         </Grid>
       </Grid>
