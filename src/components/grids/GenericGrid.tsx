@@ -1,9 +1,10 @@
-import { Grid, Typography } from '@mui/material';
+//external imports
 import { FormProvider, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-// import { Schema, defaultValues, schema } from '../../users/types/schema';
-import { zodResolver } from '@hookform/resolvers/zod';
+//local imports
 import AddApplicationForm from '../form/forms/AddApplicationForm';
 import {
   AddAppSchema,
@@ -25,6 +26,7 @@ interface Props {
 }
 
 const GenericGrid = ({ type, formLabel }: Props) => {
+  //TODO: depending on the type, we should use different schemas for useForm to maintain the reusability of this grid
   const methods = useForm<AddAppSchema>({
     mode: 'all',
     resolver: zodResolver(add_app_schema),
