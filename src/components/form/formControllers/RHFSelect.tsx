@@ -1,8 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
 
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+} from '@mui/material';
 import { Options } from '../types/Options';
 
 interface Props<T extends FieldValues> {
@@ -23,7 +30,7 @@ export function RHFSelect<T extends FieldValues>({
     <Controller
       name={name}
       control={control}
-      render={({ field: { value, onChange } }) => (
+      render={({ field: { value, onChange }, fieldState: { error } }) => (
         <FormControl fullWidth>
           <InputLabel> {label}</InputLabel>
           <Select
@@ -54,6 +61,9 @@ export function RHFSelect<T extends FieldValues>({
               </MenuItem>
             ))}
           </Select>
+          <FormHelperText sx={{ color: 'red' }}>
+            {error?.message}
+          </FormHelperText>
         </FormControl>
       )}
     />
