@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { Options } from '../../components/form/types/Options';
+import { Options } from '../components/form/types/Options';
 
 export function useStates() {
   return useQuery({
