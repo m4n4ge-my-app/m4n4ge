@@ -2,23 +2,14 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Grid, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
 //local imports
 import AddApplicationForm from '../form/forms/AddApplicationForm';
+import { Item } from './utils/MuiItem';
 import {
   AddAppSchema,
   add_app_schema,
   defaultValues,
 } from '../form/schemas/addAppSchema';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 
 interface Props {
   type: string | undefined;
