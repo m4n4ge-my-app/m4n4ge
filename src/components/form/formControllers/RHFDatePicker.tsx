@@ -21,17 +21,16 @@ export function RHFDatePicker<T extends FieldValues>({
       render={({
         field: { onChange, value, ...field },
         fieldState: { error },
-        // formState: { errors },
       }) => (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <DatePicker
-              label={label}
-              slotProps={{ textField: { size: 'small' } }}
-              {...field}
-              sx={{ width: '100%' }}
-              value={value}
-              onChange={(date) => onChange(date)}
-            />
+          <DatePicker
+            label={label}
+            slotProps={{ textField: { size: 'small' } }}
+            {...field}
+            sx={{ width: '100%' }}
+            value={value}
+            onChange={(date) => onChange(date)}
+          />
           <FormHelperText sx={{ color: 'red' }}>
             {error?.message}
           </FormHelperText>
