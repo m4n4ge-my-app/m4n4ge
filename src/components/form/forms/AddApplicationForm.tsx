@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 //external imports
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
@@ -10,6 +9,7 @@ import { RHFTextField } from '../formControllers/RHFTextField';
 import { RHFTextArea } from '../formControllers/RHFTextArea';
 import { RHFSelect } from '../formControllers/RHFSelect';
 import { AddAppSchema } from '../scehmas/addAppSchema';
+import { RHFDatePicker } from '../formControllers/RHFDatePicker';
 
 const AddApplicationForm = () => {
   const { watch } = useFormContext<AddAppSchema>();
@@ -94,6 +94,28 @@ const AddApplicationForm = () => {
         <PanelItemWrapper>
           <RHFDateCalendar<AddAppSchema> name="applicationDate" />
         </PanelItemWrapper>
+
+        {/* Job Post Posting and Ending Datates */}
+        <PanelItemWrapper>
+          <Typography
+            fontSize={16}
+            sx={{ display: 'flex', flexDirection: 'start' }}
+          >
+            Job Post Posting & Ending Dates
+          </Typography>
+          <Box sx={{ display: 'flex', gap: 2, marginTop: '15px' }}>
+            <RHFDatePicker<AddAppSchema>
+              name="jobPostPostingDate"
+              label="Posting Date"
+            />
+            <RHFDatePicker<AddAppSchema>
+              name="jobPostExpirationDate"
+              label="Ending Date"
+            />
+          </Box>
+        </PanelItemWrapper>
+
+        {/* Invisible Div */}
         <PanelItemWrapper>
           <div style={{ visibility: 'hidden', height: '300px' }}>
             {/* For some reason without this invisible div, Work Model section above becomes unclicable. */}
