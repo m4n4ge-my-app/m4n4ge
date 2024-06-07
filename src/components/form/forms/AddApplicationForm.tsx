@@ -140,7 +140,7 @@ const AddApplicationForm = () => {
 
         {/* Invisible Div */}
         <PanelItemWrapper>
-          <div style={{ visibility: 'hidden', height: '300px' }}>
+          <div style={{ visibility: 'hidden', height: '200px' }}>
             {/* For some reason without this invisible div, Work Model section above becomes unclicable. */}
           </div>
         </PanelItemWrapper>
