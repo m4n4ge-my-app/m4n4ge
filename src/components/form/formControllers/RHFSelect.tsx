@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
-
+import { Options } from '../types/Options';
 import {
   FormControl,
   FormHelperText,
@@ -10,7 +10,6 @@ import {
   MenuItem,
   Select,
 } from '@mui/material';
-import { Options } from '../types/Options';
 
 interface Props<T extends FieldValues> {
   name: Path<T>;

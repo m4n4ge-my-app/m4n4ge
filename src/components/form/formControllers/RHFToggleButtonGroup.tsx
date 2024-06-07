@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
-import { Options } from '../types/Options';
 import { FormHelperText, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Options } from '../types/Options';
 
 type Props<T extends FieldValues> = {
   name: Path<T>;

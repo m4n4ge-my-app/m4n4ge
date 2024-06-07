@@ -1,5 +1,4 @@
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
-
 import { FormControlLabel, Switch } from '@mui/material';
 
 interface Props<T extends FieldValues> {

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
-
+import { Options } from '../types/Options';
 import {
   FormControl,
   FormControlLabel,
@@ -9,8 +9,6 @@ import {
   RadioGroup,
   RadioGroupProps,
 } from '@mui/material';
-
-import { Options } from '../types/Options';
 
 type Props<T extends FieldValues> = {
   name: Path<T>;

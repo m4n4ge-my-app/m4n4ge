@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
-
-import { Box, Checkbox, Typography } from '@mui/material';
-
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
+import { Box, Checkbox, Typography } from '@mui/material';
 import { pink } from '@mui/material/colors';
 
 type Props<T extends FieldValues> = {

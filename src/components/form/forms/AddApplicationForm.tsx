@@ -3,14 +3,14 @@ import { Box, Button, Grid, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import React, { useEffect } from 'react';
 //local imports
+import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 import { RHFFavoriteCheckbox } from '../formControllers/RHFFavoriteCheckbox';
 import { RHFDateCalendar } from '../formControllers/RHFDateCalendar';
+import { RHFDatePicker } from '../formControllers/RHFDatePicker';
 import { RHFTextField } from '../formControllers/RHFTextField';
 import { RHFTextArea } from '../formControllers/RHFTextArea';
 import { RHFSelect } from '../formControllers/RHFSelect';
 import { AddAppSchema } from '../scehmas/addAppSchema';
-import { RHFDatePicker } from '../formControllers/RHFDatePicker';
-import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 
 const AddApplicationForm = () => {
   const { watch } = useFormContext<AddAppSchema>();
@@ -224,7 +224,6 @@ const PanelItemWrapper: React.FC<Props> = (props) => {
         <div style={{ display: 'none' }} />
       </Grid>
       <Grid item xs={9} sm={8} md={6} lg={6} xl={6}>
-        {/* eslint-disable-next-line react/prop-types */}
         {props.children}
       </Grid>
       <Grid item xs={3} sm={3} md={5} lg={5} xl={5}>

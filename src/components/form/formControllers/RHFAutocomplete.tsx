@@ -2,11 +2,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { Autocomplete, Box, Checkbox, TextField } from '@mui/material';
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
-import { Options } from '../types/Options';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import { Autocomplete, Box, Checkbox, TextField } from '@mui/material';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { Options } from '../types/Options';
 
 //Ive been using interfaces for props in other places and typecript is telling me to stay consistent and use type instead, however this lesson uses types I will use them and ignore the error for now
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
