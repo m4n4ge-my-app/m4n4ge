@@ -24,6 +24,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 import { AddAppSchema } from '../scehmas/addAppSchema';
 import { RHFSelect } from '../formControllers/RHFSelect';
+import { RHFTextArea } from '../formControllers/RHFTextArea';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -104,7 +105,6 @@ const AddApplicationForm = () => {
               { id: '11', label: 'Wellfound' },
               { id: '12', label: 'Workopolis' },
               { id: '13', label: 'ZipRecruiter' },
-              { id: '14', label: 'LinkedIn' },
             ]}
           />
         </PanelItemWrapper>
@@ -125,21 +125,7 @@ const AddApplicationForm = () => {
         sx={{ marginTop: '40px' }}
       >
         <PanelItemWrapper>
-          <TextareaAutosize
-            color="gray"
-            minRows={5}
-            placeholder="Note: "
-            style={{
-              width: '100%',
-              padding: '10px',
-              borderRadius: '5px',
-              marginBottom: '20px',
-              borderColor: 'divider', //TODO: Setting the border color to match the file uoload border below, but its not working, fix it
-              borderWidth: 1,
-              borderStyle: 'solid',
-              outline: 'none',
-            }}
-          />
+          <RHFTextArea<AddAppSchema> name="note" />
         </PanelItemWrapper>
         <PanelItemWrapper>
           <Box
