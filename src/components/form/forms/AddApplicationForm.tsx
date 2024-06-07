@@ -10,7 +10,7 @@ import { RHFDatePicker } from '../formControllers/RHFDatePicker';
 import { RHFTextField } from '../formControllers/RHFTextField';
 import { RHFTextArea } from '../formControllers/RHFTextArea';
 import { RHFSelect } from '../formControllers/RHFSelect';
-import { AddAppSchema } from '../scehmas/addAppSchema';
+import { AddAppSchema } from '../schemas/addAppSchema';
 
 const AddApplicationForm = () => {
   const { watch } = useFormContext<AddAppSchema>();
