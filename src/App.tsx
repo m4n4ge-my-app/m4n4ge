@@ -2,24 +2,24 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 //local imports
-import Landing from './pages/system/landing/Landing';
-import SignIn from './pages/auth/signin/SignIn';
-import SignUp from './pages/auth/signup/SignUp';
-import ForgotPassword from './pages/auth/forgotPassword/ForgotPassword';
-import Layout from './pages/system/layout/Layout';
-import Dashboard from './pages/dashboard/Dashboard';
-import AddApp from './pages/iManage/addApp/AddApp';
-import Resumes from './pages/iManage/resumes/Resumes';
-import CoverLetters from './pages/iManage/coverletters/CoverLetter';
-import Calendar from './pages/iManage/calendar/Calendar';
 import JobDescriptions from './pages/iManage/jobDescriptions/JobDescriptions';
-import Todos from './pages/iManage/todos/Todos';
+import ForgotPassword from './pages/auth/forgotPassword/ForgotPassword';
+import CoverLetters from './pages/iManage/coverletters/CoverLetter';
+import UserProfile from './pages/system/userProfile/UserProfile';
 import Interview from './pages/getAssist/interview/Interview';
 import Automated from './pages/getAssist/automated/Automated';
-import Archives from './pages/archives/Archives';
-import UserProfile from './pages/system/userProfile/UserProfile';
-import Settings from './pages/system/settings/Settings';
+import Calendar from './pages/iManage/calendar/Calendar';
 import NotFound from './pages/system/notFound/NotFound';
+import Settings from './pages/system/settings/Settings';
+import Resumes from './pages/iManage/resumes/Resumes';
+import Landing from './pages/system/landing/Landing';
+import Dashboard from './pages/dashboard/Dashboard';
+import AddApp from './pages/iManage/addApp/AddApp';
+import Layout from './pages/system/layout/Layout';
+import Archives from './pages/archives/Archives';
+import SignIn from './pages/auth/signin/SignIn';
+import SignUp from './pages/auth/signup/SignUp';
+import Todos from './pages/iManage/todos/Todos';
 import theme from './theme';
 
 function App() {

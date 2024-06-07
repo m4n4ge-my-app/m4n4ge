@@ -1,10 +1,10 @@
 import BaseLayer from '../../../components/baseLayer/BaseLayer';
-import GetAssistGrid from '../../../components/grids/GetAssistGrid';
+import GenericGrid from '../../../components/grids/GenericGrid';
 
 const AddApp = () => {
   return (
     <BaseLayer type="add">
-      <GetAssistGrid formLabel="Add Application Record" />
+      <GenericGrid formLabel="Add Application Record" type="add" />
     </BaseLayer>
   );
 };
