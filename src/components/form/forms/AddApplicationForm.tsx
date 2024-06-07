@@ -25,6 +25,7 @@ import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 import { AddAppSchema } from '../scehmas/addAppSchema';
 import { RHFSelect } from '../formControllers/RHFSelect';
 import { RHFTextArea } from '../formControllers/RHFTextArea';
+import { RHFDateCalendar } from '../formControllers/RHFDateCalendar';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -107,6 +108,10 @@ const AddApplicationForm = () => {
               { id: '13', label: 'ZipRecruiter' },
             ]}
           />
+        </PanelItemWrapper>
+        {/* Job Application Data */}
+        <PanelItemWrapper>
+          <RHFDateCalendar<AddAppSchema> name="applicationDate" />
         </PanelItemWrapper>
         <PanelItemWrapper>
           <div style={{ visibility: 'hidden', height: '300px' }}>

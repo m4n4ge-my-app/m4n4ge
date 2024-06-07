@@ -5,6 +5,9 @@ export const add_app_schema = z.object({
   position: z.string().min(1, { message: 'Position name is required' }),
   location: z.string().optional(),
   platform: z.array(z.string()).min(1, { message: 'Platform is required' }),
+  applicationDate: z.date().refine((date) => date < new Date(), {
+    message: 'applicationDate must be in the past',
+  }),
   note: z.string().optional(),
 });
 
@@ -15,5 +18,6 @@ export const defaultValues: AddAppSchema = {
   position: '',
   location: '',
   platform: [],
+  applicationDate: new Date(),
   note: '',
 };
