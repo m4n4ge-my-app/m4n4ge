@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { AutocompleteOptions } from '../../components/form/types/autocompleteOptions';
+import { Options } from '../components/form/types/Options';
 
 export function useStates() {
   return useQuery({
     queryKey: ['states'],
     queryFn: () =>
       axios
-        .get<AutocompleteOptions[]>('http://localhost:8080/states')
+        .get<Options[]>('http://localhost:8080/states')
         .then((res) => res.data),
   });
 }
@@ -17,7 +17,7 @@ export function useLanguages() {
     queryKey: ['languages'],
     queryFn: () =>
       axios
-        .get<AutocompleteOptions[]>('http://localhost:8080/languages')
+        .get<Options[]>('http://localhost:8080/languages')
         .then((res) => res.data),
   });
 }
@@ -27,7 +27,7 @@ export function useGenders() {
     queryKey: ['genders'],
     queryFn: () =>
       axios
-        .get<AutocompleteOptions[]>('http://localhost:8080/genders')
+        .get<Options[]>('http://localhost:8080/genders')
         .then((res) => res.data),
   });
 }
@@ -37,7 +37,7 @@ export function useSkills() {
     queryKey: ['skills'],
     queryFn: () =>
       axios
-        .get<AutocompleteOptions[]>('http://localhost:8080/skills')
+        .get<Options[]>('http://localhost:8080/skills')
         .then((res) => res.data),
   });
 }

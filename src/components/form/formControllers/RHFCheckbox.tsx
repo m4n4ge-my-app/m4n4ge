@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
-
+import { Options } from '../types/Options';
 import {
   Checkbox,
   FormControl,
@@ -12,11 +12,9 @@ import {
   FormLabel,
 } from '@mui/material';
 
-import { AutocompleteOptions } from '../types/autocompleteOptions';
-
 type Props<T extends FieldValues> = {
   name: Path<T>;
-  options?: AutocompleteOptions[];
+  options?: Options[];
   label: string;
 };
 

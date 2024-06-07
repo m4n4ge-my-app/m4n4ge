@@ -2,17 +2,17 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { Autocomplete, Box, Checkbox, TextField } from '@mui/material';
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
-import { AutocompleteOptions } from '../types/autocompleteOptions';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import { Autocomplete, Box, Checkbox, TextField } from '@mui/material';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { Options } from '../types/Options';
 
 //Ive been using interfaces for props in other places and typecript is telling me to stay consistent and use type instead, however this lesson uses types I will use them and ignore the error for now
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type Props<T extends FieldValues> = {
   name: Path<T>;
-  options?: AutocompleteOptions[];
+  options?: Options[];
   label: string;
 };
 
@@ -28,6 +28,7 @@ export function RHFAutocomplete<T extends FieldValues>({
       name={name}
       render={({ field: { value, onChange, ref }, fieldState: { error } }) => (
         <Autocomplete
+          size="small"
           options={options ?? []}
           value={value?.map((id: string) =>
             options?.find((item) => item.id === id)

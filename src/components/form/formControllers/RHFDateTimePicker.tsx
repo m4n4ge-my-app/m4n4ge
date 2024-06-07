@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
-
-import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+import { DateTimePicker } from '@mui/x-date-pickers';
 
 type Props<T extends FieldValues> = {
   name: Path<T>;
@@ -20,9 +18,7 @@ export function RHFDateTimePicker<T extends FieldValues>({
       control={control}
       name={name}
       render={({ field }) => (
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DateTimePicker label={label} {...field} />
-        </LocalizationProvider>
+        <DateTimePicker label={label} {...field} sx={{ width: '100%' }} />
       )}
     />
   );
