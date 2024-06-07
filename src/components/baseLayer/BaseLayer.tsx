@@ -8,9 +8,9 @@ import Tooltip from '@mui/material/Tooltip';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 //local imports
-import './baselayer.scss';
 import coverLetter from './baseLayerImages/coverletter.png';
 import description from './baseLayerImages/description.png';
+import dashboard from './baseLayerImages/dashboard.png';
 import interview from './baseLayerImages/interview.png';
 import settings from './baseLayerImages/settings.png';
 import calendar from './baseLayerImages/calendar.png';
@@ -21,6 +21,7 @@ import resume from './baseLayerImages/resume.png';
 import assist from './baseLayerImages/assist.png';
 import add from './baseLayerImages/add.png';
 import theme from '../../theme';
+import './baselayer.scss';
 
 interface Props {
   type: string;
@@ -37,6 +38,12 @@ const BaseLayer = ({ type, children }: Props) => {
         document.documentElement.style.setProperty(
           '--background-image-url',
           `url(${add})`
+        );
+        break;
+      case 'dashboard':
+        document.documentElement.style.setProperty(
+          '--background-image-url',
+          `url(${dashboard})`
         );
         break;
       case 'resume':
