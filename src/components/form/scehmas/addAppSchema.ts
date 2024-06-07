@@ -16,6 +16,9 @@ export const add_app_schema = z
       })
       .optional(),
     jobPostExpirationDate: z.date().optional(),
+    workModel: z
+      .array(z.string())
+      .max(1, { message: 'Only select one type of work model' }),
     note: z.string().optional(),
     isFavorite: z.boolean().optional(),
   })
@@ -42,6 +45,7 @@ export const defaultValues: AddAppSchema = {
   applicationDate: new Date(),
   jobPostPostingDate: new Date(),
   jobPostExpirationDate: new Date(),
+  workModel: ['1'], //since work model is designed to set the first option when UI loads (refer to RHFToggleButtonGroup), setting 1 here ensure default value is set if user does not interact with the field when submitting the form
   note: '',
   isFavorite: false,
 };

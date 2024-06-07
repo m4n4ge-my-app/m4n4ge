@@ -10,6 +10,7 @@ import { RHFTextArea } from '../formControllers/RHFTextArea';
 import { RHFSelect } from '../formControllers/RHFSelect';
 import { AddAppSchema } from '../scehmas/addAppSchema';
 import { RHFDatePicker } from '../formControllers/RHFDatePicker';
+import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 
 const AddApplicationForm = () => {
   const { watch } = useFormContext<AddAppSchema>();
@@ -113,6 +114,28 @@ const AddApplicationForm = () => {
               label="Ending Date"
             />
           </Box>
+        </PanelItemWrapper>
+
+        {/* Work Model */}
+        <PanelItemWrapper>
+          <Typography
+            fontSize={16}
+            sx={{
+              display: 'flex',
+              flexDirection: 'start',
+              marginBottom: '10px',
+            }}
+          >
+            Work Model
+          </Typography>
+          <RHFToggleButtonGroup<AddAppSchema>
+            name="workModel"
+            options={[
+              { id: '1', label: 'On Site' },
+              { id: '2', label: 'Hybrid' },
+              { id: '3', label: 'Remote' },
+            ]}
+          />
         </PanelItemWrapper>
 
         {/* Invisible Div */}

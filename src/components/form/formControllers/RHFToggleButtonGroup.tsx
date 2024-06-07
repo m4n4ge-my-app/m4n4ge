@@ -40,7 +40,9 @@ export function RHFToggleButtonGroup<T extends FieldValues>({
               </ToggleButton>
             ))}
           </ToggleButtonGroup>
-          <FormHelperText>{error?.message}</FormHelperText>
+          <FormHelperText sx={{ color: 'red' }}>
+            {error?.message}
+          </FormHelperText>
         </>
       )}
     ></Controller>
