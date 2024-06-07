@@ -1,5 +1,7 @@
+import BaseLayer from '../../components/baseLayer/BaseLayer';
+
 const Dashboard = () => {
-  return <div>Dashboard</div>;
+  return <BaseLayer type="dashboard">Dashboard</BaseLayer>;
 };
 
 export default Dashboard;
