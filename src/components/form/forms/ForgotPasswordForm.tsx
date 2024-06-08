@@ -1,12 +1,6 @@
-import {
-  Box,
-  Button,
-  Card,
-  Grid,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Card, Grid, Stack, Typography } from '@mui/material';
+import { RHFTextField } from '../formControllers/RHFTextField';
+import { AuthSchema } from '../schemas/authSchema';
 import { Link } from 'react-router-dom';
 
 const ForgotPasswordForm = () => {
@@ -30,12 +24,11 @@ const ForgotPasswordForm = () => {
               </Typography>
             </Stack>
 
-            <TextField
-              fullWidth
-              id="outlined-basic"
-              label="Your email"
-              variant="outlined"
+            <RHFTextField<AuthSchema>
+              name="signin_email"
+              label="Email"
               size="small"
+              fullWidth
               sx={{ margin: '20px 0px 20px 0px' }}
             />
 

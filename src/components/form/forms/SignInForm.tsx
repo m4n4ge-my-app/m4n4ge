@@ -1,3 +1,5 @@
+import { RHFTextField } from '../formControllers/RHFTextField';
+import { AuthSchema } from '../schemas/authSchema';
 import { Link } from 'react-router-dom';
 import Facebook from './images/facebook.png';
 import Google from './images/google.png';
@@ -8,7 +10,6 @@ import {
   Divider,
   Grid,
   Stack,
-  TextField,
   Typography,
 } from '@mui/material';
 
@@ -45,19 +46,16 @@ const SignInForm = () => {
             {/* Stack group for email/password login option */}
             <Stack spacing={2}>
               {/* Email Input */}
-              <TextField
-                id="outlined-basic"
+              <RHFTextField<AuthSchema>
+                name="signin_email"
                 label="Email"
-                variant="outlined"
                 size="small"
               />
               {/* Password Input */}
-              <TextField
-                id="outlined-basic"
+              <RHFTextField<AuthSchema>
+                name="signin_password"
                 label="Password"
-                variant="outlined"
                 size="small"
-                type="password"
               />
               {/* Forgot password link */}
               <Box display="flex" justifyContent="flex-end">
