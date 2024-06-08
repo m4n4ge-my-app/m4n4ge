@@ -1,4 +1,4 @@
-import { Grid, Box, Stack } from '@mui/material';
+import { Grid, Box, Stack, Typography } from '@mui/material';
 import TextLogo from '../../../components/logo/TextLogo';
 import './signin.scss';
 
@@ -18,7 +18,28 @@ const SignIn = () => {
           className="leftSide"
           display={{ xs: 'none', sm: 'block' }}
         >
-          Welcome Text
+          <Box className="welcomeText">
+            <Typography
+              variant="h4"
+              style={{
+                color: '#264a99',
+                fontWeight: 'bold',
+                marginBottom: '20px',
+              }}
+            >
+              Welcome back!
+            </Typography>
+            <Typography
+              variant="h5"
+              style={{
+                color: '#6695ff',
+                fontWeight: 'normal',
+                marginBottom: '20px',
+              }}
+            >
+              Your journey awaits, log in to continue.
+            </Typography>
+          </Box>
         </Box>
         <Grid item xs={12} sm={6} className="rightSide">
           This is signin form area
