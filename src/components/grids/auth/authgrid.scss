@@ -1,0 +1,49 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.signinContainer {
+  height: 100vh;
+  position: relative;
+  background: linear-gradient(to top right, #ebf1ff 30%, #ffffff 70%);
+
+  .header {
+    height: 10%;
+  }
+
+  .logo {
+    padding-top: 20px;
+    padding-left: 40px;
+  }
+
+  .lowerSection {
+    height: 90%;
+  }
+
+  .leftSide {
+    &::before {
+      content: '';
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 360px;
+      height: 360px;
+      background-image: var(--auth-background-image-url);
+      margin-bottom: 100px;
+      margin-left: 100px;
+      background-size: cover;
+      background-position: 100% 100%;
+    }
+  }
+
+  .welcomeText {
+    margin-top: 50px;
+    margin-left: 100px;
+  }
+
+  .formContainer {
+    padding: 60px;
+  }
+}
