@@ -30,7 +30,7 @@ body {
       left: 0;
       width: 360px;
       height: 360px;
-      background-image: url('./signin.png');
+      background-image: var(--auth-background-image-url);
       margin-bottom: 100px;
       margin-left: 100px;
       background-size: cover;

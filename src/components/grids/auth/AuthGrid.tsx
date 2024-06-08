@@ -1,15 +1,42 @@
 import { Grid, Box, Stack, Typography } from '@mui/material';
 import TextLogo from '../../../components/logo/TextLogo';
-import React from 'react';
+import signin from './signin.png';
+import signup from './signup.png';
+import React, { useEffect } from 'react';
 import './authgrid.scss';
 
 interface Props {
+  type: string;
   messageTitle: string;
   message: string;
   form: React.ReactNode;
 }
 
-const AuthGrid = ({ messageTitle, message, form }: Props) => {
+const AuthGrid = ({ type, messageTitle, message, form }: Props) => {
+  useEffect(() => {
+    // Dynamically set the CSS variable
+    switch (type) {
+      case 'signup':
+        document.documentElement.style.setProperty(
+          '--auth-background-image-url',
+          `url(${signup})`
+        );
+        break;
+      case 'signin':
+        document.documentElement.style.setProperty(
+          '--auth-background-image-url',
+          `url(${signin})`
+        );
+        break;
+      default:
+        document.documentElement.style.setProperty(
+          '--background-image-url',
+          `url(${signup})`
+        );
+        break;
+    }
+  }, [type]);
+
   return (
     <Grid container className="signinContainer">
       <Grid item xs={12} className="header">

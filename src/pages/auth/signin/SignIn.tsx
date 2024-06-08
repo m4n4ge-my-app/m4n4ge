@@ -4,6 +4,7 @@ import AuthGrid from '../../../components/grids/auth/AuthGrid';
 const SignIn = () => {
   return (
     <AuthGrid
+      type="signin"
       messageTitle="Welcome Back!"
       message="Your journey awaits, sign in to continue."
       form={<SignInForm />}
