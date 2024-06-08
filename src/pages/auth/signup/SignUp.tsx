@@ -6,7 +6,7 @@ const SignUp = () => {
     <AuthGrid
       type="signup"
       messageTitle="Start your adventure with us!"
-      message="Register to create a new account"
+      message="Register to create a new account."
       form={<SignUpForm />}
     />
   );
