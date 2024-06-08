@@ -21,7 +21,20 @@ body {
   .lowerSection {
     height: 90%;
   }
-  .leftside {
-    background-color: yellow;
+
+  .leftSide {
+    &::before {
+      content: '';
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 360px;
+      height: 360px;
+      background-image: url('./signin.png');
+      margin-bottom: 100px;
+      margin-left: 100px;
+      background-size: cover;
+      background-position: 100% 100%;
+    }
   }
 }
