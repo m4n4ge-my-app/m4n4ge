@@ -22,7 +22,7 @@ export const auth_schema = z
       .string()
       .min(1, { message: 'Confirm Password is required' }),
     signin_email: z.string().min(1, { message: 'Email is required' }),
-    signin_password: z.string().min(1, { message: 'Email is required' }),
+    signin_password: z.string().min(1, { message: 'Password is required' }),
   })
   .refine(
     (data) => {

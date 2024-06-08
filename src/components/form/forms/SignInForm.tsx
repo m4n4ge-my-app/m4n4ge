@@ -55,6 +55,7 @@ const SignInForm = () => {
               <RHFTextField<AuthSchema>
                 name="signin_password"
                 label="Password"
+                type="password"
                 size="small"
               />
               {/* Forgot password link */}
