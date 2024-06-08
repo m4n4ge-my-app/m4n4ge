@@ -1,5 +1,6 @@
 import { Grid, Box, Stack, Typography } from '@mui/material';
 import TextLogo from '../../../components/logo/TextLogo';
+import resetPassword from './resetpassword.png';
 import signin from './signin.png';
 import signup from './signup.png';
 import React, { useEffect } from 'react';
@@ -26,6 +27,12 @@ const AuthGrid = ({ type, messageTitle, message, form }: Props) => {
         document.documentElement.style.setProperty(
           '--auth-background-image-url',
           `url(${signin})`
+        );
+        break;
+      case 'forgotPassword':
+        document.documentElement.style.setProperty(
+          '--auth-background-image-url',
+          `url(${resetPassword})`
         );
         break;
       default:

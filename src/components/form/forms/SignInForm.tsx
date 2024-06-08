@@ -63,7 +63,7 @@ const SignInForm = () => {
               <Box display="flex" justifyContent="flex-end">
                 <Typography
                   component={Link}
-                  to="/resetPassword"
+                  to="/forgotpassword"
                   variant="body2"
                   sx={{ textDecoration: 'none' }}
                   color="primary"
