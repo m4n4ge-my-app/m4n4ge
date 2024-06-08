@@ -57,9 +57,7 @@ const ForgotPasswordForm = () => {
             </Button>
 
             <Box display="flex" justifyContent="flex-start" alignItems="center">
-              <Typography variant="body2">
-                Remember your password? Awesome,{' '}
-              </Typography>
+              <Typography variant="body2">Remember now? Awesome, </Typography>
               <Typography
                 component={Link}
                 to="/signup"

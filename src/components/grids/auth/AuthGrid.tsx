@@ -57,7 +57,7 @@ const AuthGrid = ({ type, messageTitle, message, form }: Props) => {
           item
           md={6}
           className="leftSide"
-          display={{ sm: 'none', md: 'block' }}
+          display={{ xs: 'none', sm: 'none', md: 'block' }}
         >
           <Box className="welcomeText">
             <Typography
