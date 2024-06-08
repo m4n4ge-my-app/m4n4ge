@@ -1,3 +1,5 @@
+import { RHFTextField } from '../formControllers/RHFTextField';
+import { AuthSchema } from '../schemas/authSchema';
 import { Link } from 'react-router-dom';
 import {
   Box,
@@ -8,6 +10,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+
 const SignUpForm = () => {
   return (
     <Card>
@@ -40,47 +43,42 @@ const SignUpForm = () => {
           <Grid item xs={12}>
             {/* Stack group for email/password login option */}
             <Stack spacing={2}>
-              {/* First Name Input */}
               <Box display="flex" justifyContent="spece-between" gap={3}>
-                <TextField
-                  fullWidth
-                  id="outlined-basic"
+                {/* First Name Input */}
+                <RHFTextField<AuthSchema>
+                  name="first_name"
                   label="First Name"
-                  variant="outlined"
                   size="small"
+                  fullWidth
                 />
                 {/* LAst Name Input */}
-                <TextField
-                  fullWidth
-                  id="outlined-basic"
+                <RHFTextField<AuthSchema>
+                  name="last_name"
                   label="Last Name"
-                  variant="outlined"
                   size="small"
+                  fullWidth
                 />
               </Box>
               {/* Email Input */}
-              <TextField
-                id="outlined-basic"
+              <RHFTextField<AuthSchema>
+                name="signup_email"
                 label="Email"
-                variant="outlined"
                 size="small"
-                type="email"
+                fullWidth
               />
               {/* Password Input */}
-              <TextField
-                id="outlined-basic"
+              <RHFTextField<AuthSchema>
+                name="signup_password"
                 label="Password"
-                variant="outlined"
                 size="small"
-                type="password"
+                fullWidth
               />
               {/* Retype Password Input */}
-              <TextField
-                id="outlined-basic"
-                label="Confirm Password"
-                variant="outlined"
+              <RHFTextField<AuthSchema>
+                name="confirm_signup_password"
+                label="confirm Password"
                 size="small"
-                type="password"
+                fullWidth
               />
               {/* Login button */}
             </Stack>
