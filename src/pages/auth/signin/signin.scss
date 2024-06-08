@@ -9,27 +9,19 @@ body {
   position: relative;
   background: linear-gradient(to top right, #ebf1ff 30%, #ffffff 70%);
 
-  &::before {
-    content: '';
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 360px;
-    height: 360px;
-    background-image: url('./signin.png');
-    margin-bottom: 100px;
-    margin-left: 100px;
-    background-size: cover;
-    background-position: 100% 100%;
+  .header {
+    height: 10%;
   }
 
   .logo {
-    padding-top: 50px;
+    padding-top: 20px;
     padding-left: 50px;
   }
 
-  .welcomeText {
-    padding-top: 50px;
-    padding-left: 50px;
+  .lowerSection {
+    height: 90%;
+  }
+  .leftside {
+    background-color: yellow;
   }
 }
