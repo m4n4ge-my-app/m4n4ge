@@ -3,7 +3,7 @@ import { TextField, TextFieldProps } from '@mui/material';
 
 type Props<T extends FieldValues> = {
   name: Path<T>;
-} & Pick<TextFieldProps, 'label' | 'sx' | 'size' | 'fullWidth'>;
+} & Pick<TextFieldProps, 'label' | 'sx' | 'size' | 'fullWidth' | 'type'>;
 
 export function RHFTextField<T extends FieldValues>({
   name,

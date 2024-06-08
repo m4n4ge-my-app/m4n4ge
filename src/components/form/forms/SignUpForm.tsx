@@ -70,6 +70,7 @@ const SignUpForm = () => {
               <RHFTextField<AuthSchema>
                 name="signup_password"
                 label="Password"
+                type="password"
                 size="small"
                 fullWidth
               />
@@ -77,6 +78,7 @@ const SignUpForm = () => {
               <RHFTextField<AuthSchema>
                 name="confirm_signup_password"
                 label="confirm Password"
+                type="password"
                 size="small"
                 fullWidth
               />
