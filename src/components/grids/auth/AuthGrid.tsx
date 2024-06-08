@@ -1,11 +1,17 @@
 import { Grid, Box, Stack, Typography } from '@mui/material';
 import TextLogo from '../../../components/logo/TextLogo';
+import { FormProvider, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import resetPassword from './resetpassword.png';
+import React, { useEffect } from 'react';
+import {
+  AuthSchema,
+  auth_schema,
+  defaultValues,
+} from '../../form/schemas/authSchema';
 import signin from './signin.png';
 import signup from './signup.png';
-import React, { useEffect } from 'react';
 import './authgrid.scss';
-
 interface Props {
   type: string;
   messageTitle: string;
@@ -14,6 +20,12 @@ interface Props {
 }
 
 const AuthGrid = ({ type, messageTitle, message, form }: Props) => {
+  const methods = useForm<AuthSchema>({
+    mode: 'all',
+    resolver: zodResolver(auth_schema),
+    defaultValues,
+  });
+
   useEffect(() => {
     // Dynamically set the CSS variable
     switch (type) {
@@ -45,48 +57,50 @@ const AuthGrid = ({ type, messageTitle, message, form }: Props) => {
   }, [type]);
 
   return (
-    <Grid container className="signinContainer">
-      <Grid item xs={12} className="header">
-        <Stack className="logo">
-          <TextLogo />
-        </Stack>
-      </Grid>
-      <Grid container item className="lowerSection">
-        <Box
-          component={Grid}
-          item
-          md={6}
-          className="leftSide"
-          display={{ xs: 'none', sm: 'none', md: 'block' }}
-        >
-          <Box className="welcomeText">
-            <Typography
-              variant="h4"
-              style={{
-                color: '#264a99',
-                fontWeight: 'bold',
-                marginBottom: '20px',
-              }}
-            >
-              {messageTitle}
-            </Typography>
-            <Typography
-              variant="h5"
-              style={{
-                color: '#6695ff',
-                fontWeight: 'normal',
-                marginBottom: '20px',
-              }}
-            >
-              {message}
-            </Typography>
+    <FormProvider {...methods}>
+      <Grid container className="signinContainer">
+        <Grid item xs={12} className="header">
+          <Stack className="logo">
+            <TextLogo />
+          </Stack>
+        </Grid>
+        <Grid container item className="lowerSection">
+          <Box
+            component={Grid}
+            item
+            md={6}
+            className="leftSide"
+            display={{ xs: 'none', sm: 'none', md: 'block' }}
+          >
+            <Box className="welcomeText">
+              <Typography
+                variant="h4"
+                style={{
+                  color: '#264a99',
+                  fontWeight: 'bold',
+                  marginBottom: '20px',
+                }}
+              >
+                {messageTitle}
+              </Typography>
+              <Typography
+                variant="h5"
+                style={{
+                  color: '#6695ff',
+                  fontWeight: 'normal',
+                  marginBottom: '20px',
+                }}
+              >
+                {message}
+              </Typography>
+            </Box>
           </Box>
-        </Box>
-        <Grid item sm={12} md={6} className="rightSide">
-          <div className="formContainer">{form}</div>
+          <Grid item sm={12} md={6} className="rightSide">
+            <div className="formContainer">{form}</div>
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </FormProvider>
   );
 };
 
