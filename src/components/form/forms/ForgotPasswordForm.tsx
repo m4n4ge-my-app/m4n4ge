@@ -53,7 +53,7 @@ const ForgotPasswordForm = () => {
               <Typography variant="body2">Remember now? Awesome, </Typography>
               <Typography
                 component={Link}
-                to="/signup"
+                to="/signin"
                 variant="body2"
                 sx={{ textDecoration: 'none' }}
                 color="primary"
