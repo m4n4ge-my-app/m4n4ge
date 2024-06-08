@@ -14,9 +14,9 @@ const SignIn = () => {
         <Box
           component={Grid}
           item
-          sm={6}
+          md={6}
           className="leftSide"
-          display={{ xs: 'none', sm: 'block' }}
+          display={{ sm: 'none', md: 'block' }}
         >
           <Box className="welcomeText">
             <Typography
@@ -41,7 +41,7 @@ const SignIn = () => {
             </Typography>
           </Box>
         </Box>
-        <Grid item xs={12} sm={6} className="rightSide">
+        <Grid item sm={12} md={6} className="rightSide">
           This is signin form area
         </Grid>
       </Grid>
