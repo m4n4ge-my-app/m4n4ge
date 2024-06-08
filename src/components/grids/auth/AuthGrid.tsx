@@ -49,7 +49,7 @@ const AuthGrid = ({ messageTitle, message, form }: Props) => {
           </Box>
         </Box>
         <Grid item sm={12} md={6} className="rightSide">
-          {form}
+          <div className="formContainer">{form}</div>
         </Grid>
       </Grid>
     </Grid>

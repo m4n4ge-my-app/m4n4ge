@@ -1,12 +1,12 @@
+import SignInForm from '../../../components/form/forms/SignInForm';
 import AuthGrid from '../../../components/grids/auth/AuthGrid';
-import './signin.scss';
 
 const SignIn = () => {
   return (
     <AuthGrid
       messageTitle="Welcome Back!"
-      message="Your journey awaits, log in to continue."
-      form={<div>Sign In Form</div>}
+      message="Your journey awaits, sign in to continue."
+      form={<SignInForm />}
     />
   );
 };
