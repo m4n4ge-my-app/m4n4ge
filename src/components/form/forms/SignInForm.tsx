@@ -35,7 +35,7 @@ const SignInForm = () => {
                 sx={{ textDecoration: 'none' }}
                 color="primary"
               >
-                Don't have an account?
+                {"Don't have an account?"}
               </Typography>
             </Stack>
           </Grid>
