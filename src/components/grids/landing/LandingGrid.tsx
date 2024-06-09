@@ -36,14 +36,14 @@ const LandingGrid = () => {
         <Grid item xs={6} sm={8} md={10} container justifyContent="flex-end">
           <Box pr={{ xs: 2, sm: 3 }}>
             <Link to="/signin">
-              <Button variant="outlined" color="primary" size="small">
+              <Button variant="outlined" color="primary">
                 Sign In
               </Button>
             </Link>
           </Box>
           <Box pr={{ xs: 2, sm: 3 }}>
             <Link to="/signup">
-              <Button variant="contained" color="primary" size="small">
+              <Button variant="contained" color="primary">
                 Sign Up
               </Button>
             </Link>
