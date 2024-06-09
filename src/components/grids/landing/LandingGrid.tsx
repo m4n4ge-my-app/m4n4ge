@@ -99,6 +99,7 @@ const LandingGrid = () => {
           {!isSmallScreen && (
             <Grid
               item
+              sm={12}
               md={6}
               sx={{
                 display: 'flex',

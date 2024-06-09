@@ -19,6 +19,8 @@ import './landing.scss';
 
 const Features = () => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const matches = useMediaQuery((theme) => theme.breakpoints.down('xs'));
+
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -31,6 +33,8 @@ const Features = () => {
         <Tabs
           value={value}
           onChange={handleChange}
+          variant="scrollable"
+          allowScrollButtonsMobile
           centered
           sx={{
             '& .MuiTabs-indicator': {
@@ -40,6 +44,8 @@ const Features = () => {
             },
             position: 'sticky',
             top: 0,
+            width: matches ? '60%' : '100%', // Apply different width based on screen size
+            marginLeft: matches ? '20%' : '0', // Center the tabs on small screens
           }}
         >
           {appFeatures.map((feature) => (
@@ -67,7 +73,7 @@ const Features = () => {
                   item
                   xs={12}
                   md={6}
-                  style={{ padding: '20px', paddingLeft: '100px' }}
+                  style={{ padding: '20px', paddingLeft: '5%' }}
                 >
                   <Typography
                     variant="h5"
@@ -85,12 +91,12 @@ const Features = () => {
                       <ListItem key={index} alignItems="flex-start">
                         <ListItemIcon>
                           <TaskAltIcon
-                            style={{ color: theme.palette.primary.main }}
+                            sx={{ color: theme.palette.primary.main }}
                           />
                         </ListItemIcon>
                         <ListItemText
                           primary={point}
-                          style={{
+                          sx={{
                             color: '#6695ff',
                             fontWeight: 'normal',
                             marginBottom: '20px',
@@ -126,6 +132,7 @@ const Features = () => {
                         justifyContent: 'center',
                         alignItems: 'flex-start',
                         paddingTop: '40px',
+                        paddingRight: '5%',
                       }}
                     >
                       <img
