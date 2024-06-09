@@ -110,6 +110,11 @@ const LandingGrid = () => {
                   >
                     {feature.description}
                   </Typography>
+                  <Link to="/signup">
+                    <Button variant="contained" color="primary">
+                      {"Let's Get Started!"}
+                    </Button>
+                  </Link>
                 </Grid>
                 <Grid item xs={6}>
                   <Box
