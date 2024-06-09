@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Tab, Tabs, Typography } from '@mui/material';
+import { Box, Button, Grid, Stack, Tab, Tabs, Typography } from '@mui/material';
 import TextLogo from '../../logo/TextLogo';
 import { Link } from 'react-router-dom';
 import './landing.scss';
@@ -46,32 +46,34 @@ const LandingGrid = () => {
           </Box>
         </Grid>
       </Grid>
+      <Stack justifyContent="center" alignItems="center" sx={{ width: '100%' }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          centered
+          sx={{
+            '& .MuiTabs-indicator': {
+              width: 'fit-content',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+            },
+            position: 'sticky',
+            top: 0,
+          }}
+        >
+          {[...Array(5)].map((_, i) => (
+            <Tab key={i} label={`Tab ${i + 1}`} />
+          ))}
+        </Tabs>
+      </Stack>
       <Grid container item className="bodySection">
         <Grid
           container
           item
           xs={12}
-          className="bodySection"
-          justifyContent="center"
           direction="column"
           sx={{ padding: '20px', flexGrow: 1, minHeight: '100vh' }}
         >
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            centered
-            sx={{
-              '& .MuiTabs-indicator': {
-                width: 'fit-content',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-              },
-            }}
-          >
-            {[...Array(5)].map((_, i) => (
-              <Tab key={i} label={`Tab ${i + 1}`} />
-            ))}
-          </Tabs>
           {[...Array(5)].map((_, i) => (
             <Box key={i} display={value === i ? 'block' : 'none'}>
               <Grid container>
