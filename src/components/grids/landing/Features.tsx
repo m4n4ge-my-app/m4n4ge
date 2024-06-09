@@ -130,34 +130,6 @@ const Features = () => {
               </Grid>
             </Box>
           ))}
-        </Grid>{' '}
-        <Grid
-          container
-          item
-          xs={12}
-          direction="column"
-          sx={{ padding: '20px', flexGrow: 1, minHeight: '100vh' }}
-        >
-          {appFeatures.map((feature, i) => (
-            <Box key={i} display={value === i ? 'block' : 'none'}>
-              <Grid container>
-                <Grid item xs={6}>
-                  <Typography variant="h4">{feature.title}</Typography>
-                  <Typography variant="body1">{feature.message}</Typography>
-                  <Typography variant="body2">{feature.description}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Box sx={{ height: 200, width: '100%' }}>
-                    <img
-                      src={feature.image}
-                      alt={feature.title}
-                      style={{ width: '100%', height: '100%' }}
-                    />
-                  </Box>
-                </Grid>
-              </Grid>
-            </Box>
-          ))}
         </Grid>
       </Grid>
     </>
