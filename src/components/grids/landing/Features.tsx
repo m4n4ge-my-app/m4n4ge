@@ -1,3 +1,9 @@
+import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import { appFeatures } from './appFeatures';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -9,12 +15,6 @@ import {
   Typography,
   useMediaQuery,
 } from '@mui/material';
-import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
-import TaskAltIcon from '@mui/icons-material/TaskAlt';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { appFeatures } from './appFeatures';
 import './landing.scss';
 
 const Features = () => {
