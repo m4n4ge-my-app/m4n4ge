@@ -1,10 +1,13 @@
 import { Box, Button, Grid, Stack, Tab, Tabs, Typography } from '@mui/material';
+import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import TextLogo from '../../logo/TextLogo';
 import { Link } from 'react-router-dom';
 import './landing.scss';
 import Logo from '../../logo/Logo';
 import { useState } from 'react';
 import { appFeatures } from './appFeatures';
+import theme from '../../../theme';
 
 const LandingGrid = () => {
   const [value, setValue] = useState(0);
@@ -99,17 +102,26 @@ const LandingGrid = () => {
                   >
                     {feature.message}
                   </Typography>
-                  <Typography
-                    variant="h6"
-                    style={{
-                      color: '#6695ff',
-                      fontWeight: 'normal',
-                      marginBottom: '20px',
-                      fontSize: '1.2em',
-                    }}
-                  >
-                    {feature.description}
-                  </Typography>
+                  <List>
+                    {feature.description.map((point, index) => (
+                      <ListItem key={index} alignItems="flex-start">
+                        <ListItemIcon>
+                          <TaskAltIcon
+                            style={{ color: theme.palette.primary.main }}
+                          />
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={point}
+                          style={{
+                            color: '#6695ff',
+                            fontWeight: 'normal',
+                            marginBottom: '20px',
+                            fontSize: '1.2em',
+                          }}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
                   <Link to="/signup">
                     <Button variant="contained" color="primary">
                       {"Let's Get Started!"}
