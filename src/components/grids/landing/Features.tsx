@@ -1,4 +1,13 @@
-import { Box, Button, Grid, Stack, Tab, Tabs, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Grid,
+  Stack,
+  Tab,
+  Tabs,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
@@ -9,6 +18,7 @@ import theme from '../../../theme';
 import './landing.scss';
 
 const Features = () => {
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -55,7 +65,8 @@ const Features = () => {
               <Grid container>
                 <Grid
                   item
-                  xs={6}
+                  xs={12}
+                  md={6}
                   style={{ padding: '20px', paddingLeft: '100px' }}
                 >
                   <Typography
@@ -105,28 +116,30 @@ const Features = () => {
                     )}
                   </Link>
                 </Grid>
-                <Grid item xs={6}>
-                  <Box
-                    sx={{
-                      height: '100%',
-                      width: '100%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'flex-start',
-                      paddingTop: '40px',
-                    }}
-                  >
-                    <img
-                      src={feature.image}
-                      alt={feature.title}
-                      style={{
-                        maxWidth: '100%',
-                        maxHeight: '50%',
-                        objectFit: 'contain',
+                {!isSmallScreen && (
+                  <Grid item sm={12} md={6}>
+                    <Box
+                      sx={{
+                        height: '100%',
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'flex-start',
+                        paddingTop: '40px',
                       }}
-                    />
-                  </Box>
-                </Grid>
+                    >
+                      <img
+                        src={feature.image}
+                        alt={feature.title}
+                        style={{
+                          maxWidth: '100%',
+                          maxHeight: '50%',
+                          objectFit: 'contain',
+                        }}
+                      />
+                    </Box>
+                  </Grid>
+                )}
               </Grid>
             </Box>
           ))}
