@@ -1,5 +1,6 @@
 import { Box, Button, Grid, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
@@ -89,9 +90,19 @@ const Features = () => {
                     ))}
                   </List>
                   <Link to="/signup">
-                    <Button variant="contained" color="primary">
-                      {"Let's Get Started!"}
-                    </Button>
+                    {i === appFeatures.length - 1 ? (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        endIcon={<RocketLaunchIcon />}
+                      >
+                        Convinced? {"Let's get you on onboard!"}
+                      </Button>
+                    ) : (
+                      <Button variant="contained" color="primary">
+                        {"Let's Get Started!"}
+                      </Button>
+                    )}
                   </Link>
                 </Grid>
                 <Grid item xs={6}>
