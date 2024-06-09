@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import './landing.scss';
 import Logo from '../../logo/Logo';
 import { useState } from 'react';
+import { appFeatures } from './appFeatures';
 
 const LandingGrid = () => {
   const [value, setValue] = useState(0);
@@ -61,8 +62,8 @@ const LandingGrid = () => {
             top: 0,
           }}
         >
-          {[...Array(5)].map((_, i) => (
-            <Tab key={i} label={`Tab ${i + 1}`} />
+          {appFeatures.map((feature) => (
+            <Tab key={feature.title} label={feature.title} />
           ))}
         </Tabs>
       </Stack>
@@ -72,22 +73,93 @@ const LandingGrid = () => {
           item
           xs={12}
           direction="column"
-          sx={{ padding: '20px', flexGrow: 1, minHeight: '100vh' }}
+          sx={{
+            padding: '20px',
+            flexGrow: 1,
+            minHeight: '100vh',
+            height: 'auto',
+          }}
         >
-          {[...Array(5)].map((_, i) => (
+          {appFeatures.map((feature, i) => (
             <Box key={i} display={value === i ? 'block' : 'none'}>
               <Grid container>
-                <Grid item xs={6}>
-                  <Typography variant="h4">Feature {i + 1}</Typography>
-                  <Typography variant="body1">
-                    Details about feature {i + 1}
+                <Grid
+                  item
+                  xs={6}
+                  style={{ padding: '20px', paddingLeft: '100px' }}
+                >
+                  <Typography
+                    variant="h5"
+                    style={{
+                      color: '#264a99',
+                      fontWeight: 'bold',
+                      marginBottom: '20px',
+                      fontSize: '1.5em',
+                    }}
+                  >
+                    {feature.message}
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    style={{
+                      color: '#6695ff',
+                      fontWeight: 'normal',
+                      marginBottom: '20px',
+                      fontSize: '1.2em',
+                    }}
+                  >
+                    {feature.description}
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  {/* Placeholder for image */}
                   <Box
-                    sx={{ height: 200, width: '100%', bgcolor: 'grey.300' }}
-                  />
+                    sx={{
+                      height: '100%',
+                      width: '100%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'flex-start',
+                      paddingTop: '40px',
+                    }}
+                  >
+                    <img
+                      src={feature.image}
+                      alt={feature.title}
+                      style={{
+                        maxWidth: '100%',
+                        maxHeight: '50%',
+                        objectFit: 'contain',
+                      }}
+                    />
+                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
+          ))}
+        </Grid>{' '}
+        <Grid
+          container
+          item
+          xs={12}
+          direction="column"
+          sx={{ padding: '20px', flexGrow: 1, minHeight: '100vh' }}
+        >
+          {appFeatures.map((feature, i) => (
+            <Box key={i} display={value === i ? 'block' : 'none'}>
+              <Grid container>
+                <Grid item xs={6}>
+                  <Typography variant="h4">{feature.title}</Typography>
+                  <Typography variant="body1">{feature.message}</Typography>
+                  <Typography variant="body2">{feature.description}</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Box sx={{ height: 200, width: '100%' }}>
+                    <img
+                      src={feature.image}
+                      alt={feature.title}
+                      style={{ width: '100%', height: '100%' }}
+                    />
+                  </Box>
                 </Grid>
               </Grid>
             </Box>
