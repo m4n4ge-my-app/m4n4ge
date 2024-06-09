@@ -5,6 +5,7 @@ import {
   Stack,
   Tab,
   Tabs,
+  useTheme,
   Typography,
   useMediaQuery,
 } from '@mui/material';
@@ -14,12 +15,11 @@ import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { appFeatures } from './appFeatures';
-import theme from '../../../theme';
 import './landing.scss';
 
 const Features = () => {
+  const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const matches = useMediaQuery((theme) => theme.breakpoints.down('xs'));
 
   const [value, setValue] = useState(0);
 
@@ -30,28 +30,57 @@ const Features = () => {
   return (
     <>
       <Stack justifyContent="center" alignItems="center" sx={{ width: '100%' }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          variant="scrollable"
-          allowScrollButtonsMobile
-          centered
+        <Box
           sx={{
-            '& .MuiTabs-indicator': {
-              width: 'fit-content',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-            },
-            position: 'sticky',
-            top: 0,
-            width: matches ? '60%' : '100%', // Apply different width based on screen size
-            marginLeft: matches ? '20%' : '0', // Center the tabs on small screens
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
           }}
         >
-          {appFeatures.map((feature) => (
-            <Tab key={feature.title} label={feature.title} />
-          ))}
-        </Tabs>
+          {isSmallScreen ? (
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              variant="scrollable"
+              scrollButtons
+              allowScrollButtonsMobile
+              sx={{
+                '& .MuiTabs-indicator': {
+                  width: 'fit-content',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                },
+                position: 'sticky',
+                top: 0,
+                width: '60%',
+              }}
+            >
+              {appFeatures.map((feature) => (
+                <Tab key={feature.title} label={feature.title} />
+              ))}
+            </Tabs>
+          ) : (
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              centered
+              sx={{
+                '& .MuiTabs-indicator': {
+                  width: 'fit-content',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                },
+                position: 'sticky',
+                top: 0,
+              }}
+            >
+              {appFeatures.map((feature) => (
+                <Tab key={feature.title} label={feature.title} />
+              ))}
+            </Tabs>
+          )}
+        </Box>
       </Stack>
       <Grid container item className="bodySection">
         <Grid
