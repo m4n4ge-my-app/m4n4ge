@@ -1,0 +1,19 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to top right, #ebf1ff 30%, #ffffff 70%);
+}
+
+.landingContainer {
+  height: 100vh;
+
+  .navbar {
+    height: 10%;
+    padding: 0px 5px 0px 10px;
+  }
+
+  .bodySection {
+    height: 90%;
+  }
+}

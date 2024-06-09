@@ -1,5 +1,7 @@
+import LandingGrid from '../../../components/grids/landing/LandingGrid';
+
 const Landing = () => {
-  return <div>Landing</div>;
+  return <LandingGrid />;
 };
 
 export default Landing;
