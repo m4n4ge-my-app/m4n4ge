@@ -60,29 +60,29 @@ const LandingGrid = () => {
             item
             xs={12}
             md={6}
-            style={{
+            sx={{
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'center',
-              padding: '0 20px',
+              justifyContent: 'start',
             }}
           >
             <Typography
               variant="h4"
-              style={{
+              sx={{
                 color: '#264a99',
                 fontWeight: 'bold',
-                marginBottom: '20px',
+                margin: '10% 15% 5% 12%',
               }}
             >
               {callToAction.title}
             </Typography>
             <Typography
               variant="h5"
-              style={{
+              sx={{
                 color: '#6695ff',
                 fontWeight: 'normal',
                 marginBottom: '20px',
+                margin: '0% 15% 5% 15%',
               }}
             >
               {callToAction.description}
@@ -91,20 +91,29 @@ const LandingGrid = () => {
               variant="contained"
               color="primary"
               onClick={() => setIsInterested(true)}
+              sx={{ width: '200px', margin: '0% 15% 5% 15%' }}
             >
               Learn More
             </Button>
           </Grid>
           {!isSmallScreen && (
-            <Grid item md={6}>
+            <Grid
+              item
+              md={6}
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
               <img
                 src={callToAction.image}
                 alt="Call to action"
                 style={{
-                  maxWidth: '300px',
-                  maxHeight: '300px',
+                  maxWidth: '550px',
+                  maxHeight: '550px',
                   height: 'auto',
                   width: 'auto',
+                  margin: '5% 15% 5% 15%',
                 }}
               />
             </Grid>
