@@ -55,10 +55,38 @@ const LandingGrid = () => {
         </Grid>
       </Grid>
       {!isInterested && (
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <Typography variant="h4">{callToAction.title}</Typography>
-            <Typography variant="body1">{callToAction.description}</Typography>
+        <Grid container spacing={3} className="bodySection">
+          <Grid
+            item
+            xs={12}
+            md={6}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              padding: '0 20px',
+            }}
+          >
+            <Typography
+              variant="h4"
+              style={{
+                color: '#264a99',
+                fontWeight: 'bold',
+                marginBottom: '20px',
+              }}
+            >
+              {callToAction.title}
+            </Typography>
+            <Typography
+              variant="h5"
+              style={{
+                color: '#6695ff',
+                fontWeight: 'normal',
+                marginBottom: '20px',
+              }}
+            >
+              {callToAction.description}
+            </Typography>
             <Button
               variant="contained"
               color="primary"
