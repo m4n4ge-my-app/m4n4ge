@@ -3,6 +3,7 @@ import { AuthSchema } from '../schemas/authSchema';
 import { Link } from 'react-router-dom';
 import Facebook from './images/facebook.png';
 import Google from './images/google.png';
+import GitHub from './images/github.png';
 import {
   Box,
   Button,
@@ -125,6 +126,23 @@ const SignInForm = () => {
                 }}
               >
                 {!isSmallScreen ? 'Google' : ''}
+              </Button>
+              <Button
+                variant="text"
+                startIcon={
+                  <img
+                    src={GitHub}
+                    alt="GitHub"
+                    style={{ width: '20px', height: '20px' }}
+                  />
+                }
+                sx={{
+                  '&:focus': {
+                    outline: 'none',
+                  },
+                }}
+              >
+                {!isSmallScreen ? 'GitHub' : ''}
               </Button>
               <Button
                 variant="text"
