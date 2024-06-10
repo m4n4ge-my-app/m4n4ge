@@ -25,7 +25,7 @@ const AddApplicationForm = () => {
   }, [watch]);
 
   return (
-    <Grid container padding="20px" spacing={3}>
+    <Grid container padding="40px 20px 20px 20px" spacing={3}>
       <Row
         itemOne={
           <RHFTextField<AddAppSchema>
