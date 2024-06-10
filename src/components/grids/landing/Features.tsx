@@ -16,6 +16,16 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import './landing.scss';
+import { keyframes } from '@emotion/react';
+
+const rocketLaunchAnimation = keyframes`
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(1em, -1em);
+  }
+`;
 
 const Features = () => {
   const theme = useTheme();
@@ -140,9 +150,16 @@ const Features = () => {
                       <Button
                         variant="contained"
                         color="primary"
-                        endIcon={<RocketLaunchIcon />}
+                        endIcon={
+                          <RocketLaunchIcon
+                            sx={{
+                              color: '#ffc440',
+                              animation: `${rocketLaunchAnimation} 2s linear infinite`,
+                            }}
+                          />
+                        }
                       >
-                        Convinced? {"Let's get you on onboard!"}
+                        Convinced? {"Let's get onboard!"}
                       </Button>
                     ) : (
                       <Button variant="contained" color="primary">
