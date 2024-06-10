@@ -88,7 +88,7 @@ const AddApplicationForm = () => {
               mt: 0,
               border: 1,
               borderColor: 'divider',
-              height: 150,
+              height: '100%',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
@@ -172,7 +172,7 @@ interface ItemProps {
 
 const Row: React.FC<RowProps> = (props) => {
   return (
-    <Grid container item xs={12} spacing={3}>
+    <Grid container item xs={12} spacing={3} sx={{ alignItems: 'stratch' }}>
       <RowItem>{props.itemOne}</RowItem>
       <RowItem>{props.itemTwo}</RowItem>
       <RowItem>{props.itemThree}</RowItem>

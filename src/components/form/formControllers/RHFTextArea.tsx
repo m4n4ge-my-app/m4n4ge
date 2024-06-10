@@ -21,7 +21,7 @@ export function RHFTextArea<T extends FieldValues>({
           {...field}
           {...props}
           color="gray"
-          minRows={5}
+          minRows={20}
           placeholder="Note: "
           style={{
             width: '100%',
