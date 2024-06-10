@@ -13,6 +13,8 @@ import Logo from '../../logo/Logo';
 import Features from './Features';
 import { useState } from 'react';
 import { callToAction } from './callToAction';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import LoginIcon from '@mui/icons-material/Login';
 
 const LandingGrid = () => {
   const [isInterested, setIsInterested] = useState(false);
@@ -38,19 +40,32 @@ const LandingGrid = () => {
           </Box>
         </Grid>
         <Grid item xs={6} sm={8} md={10} container justifyContent="flex-end">
-          <Box pr={{ xlxs: 2, sm: 3 }}>
-            <Link to="/signin">
-              <Button variant="outlined" color="primary">
-                Sign In
-              </Button>
-            </Link>
-          </Box>
           <Box pr={{ xs: 2, sm: 3 }}>
-            <Link to="/signup">
-              <Button variant="contained" color="primary">
-                Sign Up
-              </Button>
-            </Link>
+            {isSmallScreen ? (
+              <Link to="/signin">
+                <LoginIcon sx={{ fontSize: 30, color: '#407BFF' }} />
+              </Link>
+            ) : (
+              <Link to="/signin">
+                <Button variant="outlined" color="primary">
+                  Sign In
+                </Button>
+              </Link>
+            )}
+          </Box>
+
+          <Box pr={{ xs: 2, sm: 3 }}>
+            {isSmallScreen ? (
+              <Link to="/signup">
+                <AppRegistrationIcon sx={{ fontSize: 30, color: '#407BFF' }} />
+              </Link>
+            ) : (
+              <Link to="/signup">
+                <Button variant="contained" color="primary">
+                  Sign Up
+                </Button>
+              </Link>
+            )}
           </Box>
         </Grid>
       </Grid>
