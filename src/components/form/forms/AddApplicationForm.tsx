@@ -25,78 +25,165 @@ const AddApplicationForm = () => {
 
   return (
     <Grid container padding="20px">
-      <Grid container item xs={12} sx={{ marginTop: '20px' }}>
-        <Grid
-          item
-          xs={12}
-          sm={12}
-          md={10}
-          lg={4}
-          sx={{ backgroundColor: 'orange' }}
-        >
+      <Row
+        itemOne={
           <RHFTextField<AddAppSchema>
             name="employer"
             label="Employer Name"
             size="small"
             fullWidth
           />
-        </Grid>
-      </Grid>
+        }
+        itemTwo={null}
+        itemThree={null}
+      />
 
-      <Grid container item xs={12}>
-        <Grid
-          item
-          xs={12}
-          sm={12}
-          md={10}
-          lg={4}
-          sx={{ backgroundColor: 'blue' }}
-        >
-          postion name
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={12}
-          md={10}
-          lg={4}
-          sx={{ backgroundColor: 'yellow' }}
-        >
-          location
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={12}
-          md={10}
-          lg={4}
-          sx={{ backgroundColor: 'purple' }}
-        >
-          platform
-        </Grid>
-      </Grid>
+      <Row
+        itemOne={
+          <RHFTextField<AddAppSchema>
+            name="position"
+            label="Position Name"
+            size="small"
+            fullWidth
+          />
+        }
+        itemTwo={
+          <RHFTextField<AddAppSchema>
+            name="location"
+            label="Job Location"
+            size="small"
+            fullWidth
+          />
+        }
+        itemThree={
+          <RHFSelect<AddAppSchema>
+            name="platform"
+            label="Job Platform"
+            options={[
+              { id: '1', label: 'CareerBuilder' },
+              { id: '2', label: 'Company Website' },
+              { id: '3', label: 'Direct Email' },
+              { id: '4', label: 'Dice' },
+              { id: '5', label: 'FlexJobs' },
+              { id: '6', label: 'Glassdoor' },
+              { id: '7', label: 'Indeed' },
+              { id: '8', label: 'LinkedIn' },
+              { id: '9', label: 'Monster' },
+              { id: '10', label: 'SimplyHired' },
+              { id: '11', label: 'Wellfound' },
+              { id: '12', label: 'Workopolis' },
+              { id: '13', label: 'ZipRecruiter' },
+              { id: '14', label: 'Other' },
+            ]}
+          />
+        }
+      />
+
+      <Row
+        itemOne={<RHFDateCalendar<AddAppSchema> name="applicationDate" />}
+        itemTwo={<RHFTextArea<AddAppSchema> name="note" />}
+        itemThree={
+          <Box
+            sx={{
+              mt: 0,
+              border: 1,
+              borderColor: 'divider',
+              height: 150,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 1,
+              marginBottom: '20px',
+            }}
+            gap={1}
+          >
+            <Button variant="outlined" component="label">
+              Upload Job Decription
+              <input type="file" hidden />
+            </Button>
+            <Typography variant="body2">
+              Click the button to upload a file
+            </Typography>
+          </Box>
+        }
+      />
+
+      <Row
+        itemOne={
+          <>
+            <Typography
+              fontSize={16}
+              sx={{ display: 'flex', flexDirection: 'start' }}
+            >
+              Job Post Posting & Ending Dates
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 2, marginTop: '15px' }}>
+              <RHFDatePicker<AddAppSchema>
+                name="jobPostPostingDate"
+                label="Posting Date"
+              />
+              <RHFDatePicker<AddAppSchema>
+                name="jobPostExpirationDate"
+                label="Ending Date"
+              />
+            </Box>
+          </>
+        }
+        itemTwo={
+          <>
+            <Typography
+              fontSize={16}
+              sx={{
+                display: 'flex',
+                flexDirection: 'start',
+                marginBottom: '10px',
+              }}
+            >
+              Work Model
+            </Typography>
+            <RHFToggleButtonGroup<AddAppSchema>
+              name="workModel"
+              options={[
+                { id: '1', label: 'On Site' },
+                { id: '2', label: 'Hybrid' },
+                { id: '3', label: 'Remote' },
+              ]}
+            />
+          </>
+        }
+        itemThree={<RHFFavoriteCheckbox<AddAppSchema> name="isFavorite" />}
+      />
     </Grid>
   );
 };
 
 export default AddApplicationForm;
 
-interface Props {
-  children: React.ReactNode;
+interface RowProps {
+  itemOne: React.ReactNode | null;
+  itemTwo: React.ReactNode | null;
+  itemThree: React.ReactNode | null;
 }
 
-const PanelItemWrapper: React.FC<Props> = (props) => {
+interface ItemProps {
+  children: React.ReactNode | null;
+}
+
+const Row: React.FC<RowProps> = (props) => {
   return (
-    <>
-      <Grid item xs={1} sm={1} md={1} lg={1} xl={1}>
-        <div style={{ display: 'none' }} />
-      </Grid>
-      <Grid item xs={9} sm={8} md={6} lg={6} xl={6}>
-        {props.children}
-      </Grid>
-      <Grid item xs={3} sm={3} md={5} lg={5} xl={5}>
-        <div style={{ display: 'none' }} />
-      </Grid>
-    </>
+    <Grid container item xs={12}>
+      <RowItem>{props.itemOne}</RowItem>
+      <RowItem>{props.itemTwo}</RowItem>
+      <RowItem>{props.itemThree}</RowItem>
+    </Grid>
+  );
+};
+
+const RowItem: React.FC<ItemProps> = (props) => {
+  return (
+    <Grid item xs={12} sm={12} md={10} lg={4}>
+      {props.children}
+    </Grid>
   );
 };
