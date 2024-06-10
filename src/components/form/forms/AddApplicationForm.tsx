@@ -24,7 +24,7 @@ const AddApplicationForm = () => {
   }, [watch]);
 
   return (
-    <Grid container padding="20px">
+    <Grid container padding="20px" spacing={3}>
       <Row
         itemOne={
           <RHFTextField<AddAppSchema>
@@ -172,7 +172,7 @@ interface ItemProps {
 
 const Row: React.FC<RowProps> = (props) => {
   return (
-    <Grid container item xs={12}>
+    <Grid container item xs={12} spacing={3}>
       <RowItem>{props.itemOne}</RowItem>
       <RowItem>{props.itemTwo}</RowItem>
       <RowItem>{props.itemThree}</RowItem>
