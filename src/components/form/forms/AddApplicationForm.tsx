@@ -4,6 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import React, { useEffect } from 'react';
 //local imports
 import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
+import FilterDramaOutlinedIcon from '@mui/icons-material/FilterDramaOutlined';
 import { RHFFavoriteCheckbox } from '../formControllers/RHFFavoriteCheckbox';
 import { RHFDateCalendar } from '../formControllers/RHFDateCalendar';
 import { RHFDatePicker } from '../formControllers/RHFDatePicker';
@@ -98,12 +99,19 @@ const AddApplicationForm = () => {
             }}
             gap={1}
           >
-            <Button variant="outlined" component="label">
+            <Button
+              variant="outlined"
+              component="label"
+              sx={{ marginTop: '20px' }}
+            >
               Upload Job Decription
+              <FilterDramaOutlinedIcon sx={{ marginLeft: '10px' }} />
               <input type="file" hidden />
             </Button>
-            <Typography variant="body2">
-              Click the button to upload a file
+            <Typography variant="body2" padding={3}>
+              Although you can add it later, we strongly recommend promptly
+              uploading the job description to ensure its preservation before
+              the online post is potentially removed.
             </Typography>
           </Box>
         }
