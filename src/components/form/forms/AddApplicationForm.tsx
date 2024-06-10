@@ -25,7 +25,12 @@ const AddApplicationForm = () => {
   }, [watch]);
 
   return (
-    <Grid container padding="40px 20px 20px 20px" spacing={3}>
+    <Grid
+      container
+      padding="40px 20px 20px 20px"
+      spacing={3}
+      sx={{ position: 'relative' }}
+    >
       <Row
         itemOne={
           <RHFTextField<AddAppSchema>
@@ -162,6 +167,22 @@ const AddApplicationForm = () => {
         }
         itemThree={<RHFFavoriteCheckbox<AddAppSchema> name="isFavorite" />}
       />
+
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          position: 'absolute',
+          right: 0,
+          bottom: 0,
+          width: '100%',
+          padding: '20px',
+        }}
+      >
+        <Button variant="contained" type="submit" size="small">
+          Add Application
+        </Button>
+      </Box>
     </Grid>
   );
 };
