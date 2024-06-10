@@ -32,12 +32,16 @@ const LandingGrid = () => {
         justifyContent="space-between"
       >
         <Grid item xs={6} sm={4} md={2} onClick={() => setIsInterested(false)}>
-          <Box display={{ xs: 'block', sm: 'block', md: 'block', lg: 'none' }}>
-            <Logo />
-          </Box>
-          <Box display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
-            <TextLogo />
-          </Box>
+          <Link to="/" style={{ textDecoration: 'none', cursor: 'pointer' }}>
+            <Box
+              display={{ xs: 'block', sm: 'block', md: 'block', lg: 'none' }}
+            >
+              <Logo />
+            </Box>
+            <Box display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
+              <TextLogo />
+            </Box>
+          </Link>
         </Grid>
         <Grid item xs={6} sm={8} md={10} container justifyContent="flex-end">
           <Box pr={{ xs: 2, sm: 3 }}>

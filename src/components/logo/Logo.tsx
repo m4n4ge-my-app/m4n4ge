@@ -1,20 +1,18 @@
 import Filter4TwoToneIcon from '@mui/icons-material/Filter4TwoTone';
 import theme from '../../theme';
-import { Link } from 'react-router-dom';
 
 const Logo = () => {
   return (
-    <Link to="/" style={{ textDecoration: 'none', cursor: 'pointer' }}>
-      <Filter4TwoToneIcon
-        fontSize="large"
-        sx={{
-          transform: 'rotate(45deg)',
-          fontSize: 30,
-          color: theme.palette.primary.main,
-          marginLeft: 2,
-        }}
-      />
-    </Link>
+    <Filter4TwoToneIcon
+      fontSize="large"
+      sx={{
+        transform: 'rotate(45deg)',
+        fontSize: 30,
+        color: theme.palette.primary.main,
+        marginLeft: 2,
+        cursor: 'pointer',
+      }}
+    />
   );
 };
 
