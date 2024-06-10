@@ -107,7 +107,7 @@ const AddApplicationForm = () => {
             <Button
               variant="outlined"
               component="label"
-              sx={{ marginTop: '20px' }}
+              sx={{ margin: '20px' }}
             >
               Upload Job Decription
               <FilterDramaOutlinedIcon sx={{ marginLeft: '10px' }} />
