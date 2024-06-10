@@ -105,7 +105,16 @@ const LandingGrid = () => {
                 margin: '0% 15% 5% 15%',
               }}
             >
-              {callToAction.description}
+              Simplify your job application process with us.{' '}
+              <span className="keyword1">Manage</span>,{' '}
+              <span className="keyword2">track</span>, and{' '}
+              <span className="keyword3">automate </span>
+              applications, prepare for interviews with{' '}
+              <span className="keyword4">AI</span> simulations, and store
+              multiple resume versions. Your data is secure and privacy is our
+              priority. Stay organized and increase your chances of landing your
+              dream job. Curious to know more? click below to explore our
+              features.
             </Typography>
             <Button
               variant="contained"

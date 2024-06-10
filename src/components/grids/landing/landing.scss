@@ -14,5 +14,87 @@ body {
 
   .bodySection {
     height: 90%;
+
+    .keyword1,
+    .keyword2,
+    .keyword3,
+    .keyword4 {
+      position: relative;
+      font-weight: bolder;
+      overflow: hidden;
+    }
+
+    .keyword1 {
+      color: #ff40da;
+    }
+
+    .keyword1::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 0.2em;
+      width: 0%;
+      border-radius: 0.1em;
+      background-image: linear-gradient(to right, transparent, #ff40da);
+      animation: underline 2s linear infinite;
+    }
+
+    .keyword2 {
+      color: #ffc440;
+    }
+
+    .keyword2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 0.2em;
+      width: 0%;
+      border-radius: 0.1em;
+      background-image: linear-gradient(to right, transparent, #ffc440);
+      animation: underline 2s linear infinite;
+    }
+
+    .keyword3 {
+      color: #407bff;
+    }
+
+    .keyword3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 0.2em;
+      width: 0%;
+      border-radius: 0.1em;
+      background-image: linear-gradient(to right, transparent, #407bff);
+      animation: underline 2s linear infinite;
+    }
+
+    .keyword4 {
+      color: #40ff64;
+    }
+
+    .keyword4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 0.2em;
+      width: 0%;
+      border-radius: 0.1em;
+      background-image: linear-gradient(to right, transparent, #40ff64);
+      animation: underline 2s linear infinite;
+    }
+  }
+}
+
+@keyframes underline {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
   }
 }
