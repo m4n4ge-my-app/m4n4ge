@@ -30,6 +30,7 @@ const LandingGrid = () => {
         className="navbar"
         alignItems="center"
         justifyContent="space-between"
+        padding="2%"
       >
         <Grid item xs={6} sm={4} md={2} onClick={() => setIsInterested(false)}>
           <Link to="/" style={{ textDecoration: 'none', cursor: 'pointer' }}>

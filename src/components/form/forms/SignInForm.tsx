@@ -11,9 +11,14 @@ import {
   Grid,
   Stack,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 
 const SignInForm = () => {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Card>
       {/* Box container is to give responsive padding for various sizes */}
@@ -105,7 +110,7 @@ const SignInForm = () => {
               }}
             >
               <Button
-                variant="outlined"
+                variant="text"
                 startIcon={
                   <img
                     src={Google}
@@ -119,10 +124,10 @@ const SignInForm = () => {
                   },
                 }}
               >
-                Google
+                {!isSmallScreen ? 'Google' : ''}
               </Button>
               <Button
-                variant="outlined"
+                variant="text"
                 startIcon={
                   <img
                     src={Facebook}
@@ -136,7 +141,7 @@ const SignInForm = () => {
                   },
                 }}
               >
-                Facebook
+                {!isSmallScreen ? 'Facebook' : ''}
               </Button>
             </Stack>
           </Grid>

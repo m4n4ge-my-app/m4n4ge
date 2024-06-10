@@ -60,7 +60,7 @@ const AuthGrid = ({ type, messageTitle, message, form }: Props) => {
   return (
     <FormProvider {...methods}>
       <Grid container className="signinContainer">
-        <Grid item xs={12} className="header">
+        <Grid item xs={12} className="header" padding="2%">
           <Stack className="logo">
             <Link to="/" style={{ textDecoration: 'none', cursor: 'pointer' }}>
               <TextLogo />
