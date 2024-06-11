@@ -3,6 +3,7 @@ import { AuthSchema } from '../schemas/authSchema';
 import { Link } from 'react-router-dom';
 import Facebook from './images/facebook.png';
 import Google from './images/google.png';
+import GitHub from './images/github.png';
 import {
   Box,
   Button,
@@ -11,9 +12,14 @@ import {
   Grid,
   Stack,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 
 const SignInForm = () => {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Card>
       {/* Box container is to give responsive padding for various sizes */}
@@ -105,7 +111,7 @@ const SignInForm = () => {
               }}
             >
               <Button
-                variant="outlined"
+                variant="text"
                 startIcon={
                   <img
                     src={Google}
@@ -119,10 +125,27 @@ const SignInForm = () => {
                   },
                 }}
               >
-                Google
+                {!isSmallScreen ? 'Google' : ''}
               </Button>
               <Button
-                variant="outlined"
+                variant="text"
+                startIcon={
+                  <img
+                    src={GitHub}
+                    alt="GitHub"
+                    style={{ width: '20px', height: '20px' }}
+                  />
+                }
+                sx={{
+                  '&:focus': {
+                    outline: 'none',
+                  },
+                }}
+              >
+                {!isSmallScreen ? 'GitHub' : ''}
+              </Button>
+              <Button
+                variant="text"
                 startIcon={
                   <img
                     src={Facebook}
@@ -136,7 +159,7 @@ const SignInForm = () => {
                   },
                 }}
               >
-                Facebook
+                {!isSmallScreen ? 'Facebook' : ''}
               </Button>
             </Stack>
           </Grid>

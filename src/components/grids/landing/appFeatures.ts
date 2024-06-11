@@ -33,7 +33,7 @@ export const appFeatures = [
     message: 'Delegate your job application process.',
     description: [
       'Based on your profile and preference, our auto pilot can find jobs matching your criteria and apply for them automatically.',
-      'Once your application records reach 44, the automation is fully aware of your specific goals and ready to take over. Fun fact: this is the origin of the "44" in our app name',
+      'Once your application records reach 44, the automation is fully aware of your specific goals and ready to take over. Fun fact: this is the origin of the "44" in our app name.',
       'Get notified each time automation finds and applies to new jobs. Automation data will automatically reflect in the dashboard.',
       'Engage with AI to simulate real job interviews and practice before the actual interview happens.',
       'Interviews are automatically personalized and focused on specific job application and company background.',

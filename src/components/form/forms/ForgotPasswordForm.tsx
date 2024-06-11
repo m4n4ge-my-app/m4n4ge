@@ -20,7 +20,7 @@ const ForgotPasswordForm = () => {
               </Typography>
               <Typography variant="body2" sx={{ textDecoration: 'none' }}>
                 Enter your email address and we will send you intructions on how
-                to reset your password
+                to reset your password.
               </Typography>
             </Stack>
 

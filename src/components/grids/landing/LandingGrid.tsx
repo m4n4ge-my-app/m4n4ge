@@ -13,6 +13,8 @@ import Logo from '../../logo/Logo';
 import Features from './Features';
 import { useState } from 'react';
 import { callToAction } from './callToAction';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import LoginIcon from '@mui/icons-material/Login';
 
 const LandingGrid = () => {
   const [isInterested, setIsInterested] = useState(false);
@@ -28,29 +30,47 @@ const LandingGrid = () => {
         className="navbar"
         alignItems="center"
         justifyContent="space-between"
+        padding="2%"
       >
         <Grid item xs={6} sm={4} md={2} onClick={() => setIsInterested(false)}>
-          <Box display={{ xs: 'block', sm: 'block', md: 'block', lg: 'none' }}>
-            <Logo />
-          </Box>
-          <Box display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
-            <TextLogo />
-          </Box>
+          <Link to="/" style={{ textDecoration: 'none', cursor: 'pointer' }}>
+            <Box
+              display={{ xs: 'block', sm: 'block', md: 'block', lg: 'none' }}
+            >
+              <Logo />
+            </Box>
+            <Box display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
+              <TextLogo />
+            </Box>
+          </Link>
         </Grid>
         <Grid item xs={6} sm={8} md={10} container justifyContent="flex-end">
-          <Box pr={{ xlxs: 2, sm: 3 }}>
-            <Link to="/signin">
-              <Button variant="outlined" color="primary">
-                Sign In
-              </Button>
-            </Link>
-          </Box>
           <Box pr={{ xs: 2, sm: 3 }}>
-            <Link to="/signup">
-              <Button variant="contained" color="primary">
-                Sign Up
-              </Button>
-            </Link>
+            {isSmallScreen ? (
+              <Link to="/signin">
+                <LoginIcon sx={{ fontSize: 30, color: '#407BFF' }} />
+              </Link>
+            ) : (
+              <Link to="/signin">
+                <Button variant="outlined" color="primary">
+                  Sign In
+                </Button>
+              </Link>
+            )}
+          </Box>
+
+          <Box pr={{ xs: 2, sm: 3 }}>
+            {isSmallScreen ? (
+              <Link to="/signup">
+                <AppRegistrationIcon sx={{ fontSize: 30, color: '#407BFF' }} />
+              </Link>
+            ) : (
+              <Link to="/signup">
+                <Button variant="contained" color="primary">
+                  Sign Up
+                </Button>
+              </Link>
+            )}
           </Box>
         </Grid>
       </Grid>
@@ -85,7 +105,16 @@ const LandingGrid = () => {
                 margin: '0% 15% 5% 15%',
               }}
             >
-              {callToAction.description}
+              Simplify your job application process with us.{' '}
+              <span className="keyword1">Manage</span>,{' '}
+              <span className="keyword2">track</span>, and{' '}
+              <span className="keyword3">automate </span>
+              applications, prepare for interviews with{' '}
+              <span className="keyword4">AI</span> simulations, and store
+              multiple resume versions. Your data is secure and privacy is our
+              priority. Stay organized and increase your chances of landing your
+              dream job. Curious to know more? click below to explore our
+              features.
             </Typography>
             <Button
               variant="contained"

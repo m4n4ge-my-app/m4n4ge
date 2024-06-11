@@ -34,7 +34,10 @@ const GenericGrid = ({ type, formLabel }: Props) => {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
-            <Item className="temporary" sx={{ border: 'none' }}>
+            <Item
+              className={type === 'add' ? 'addBox' : 'temporary'}
+              sx={{ border: 'none' }}
+            >
               {type === 'add' ? (
                 <AddApplicationForm />
               ) : (

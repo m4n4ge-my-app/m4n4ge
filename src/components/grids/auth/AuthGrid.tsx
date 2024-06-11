@@ -12,6 +12,7 @@ import {
 import signin from './signin.png';
 import signup from './signup.png';
 import './authgrid.scss';
+import { Link } from 'react-router-dom';
 interface Props {
   type: string;
   messageTitle: string;
@@ -59,9 +60,11 @@ const AuthGrid = ({ type, messageTitle, message, form }: Props) => {
   return (
     <FormProvider {...methods}>
       <Grid container className="signinContainer">
-        <Grid item xs={12} className="header">
+        <Grid item xs={12} className="header" padding="2%">
           <Stack className="logo">
-            <TextLogo />
+            <Link to="/" style={{ textDecoration: 'none', cursor: 'pointer' }}>
+              <TextLogo />
+            </Link>
           </Stack>
         </Grid>
         <Grid container item className="lowerSection">
