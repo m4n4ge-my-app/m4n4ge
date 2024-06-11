@@ -21,9 +21,11 @@ import { keyframes } from '@emotion/react';
 const rocketLaunchAnimation = keyframes`
   0% {
     transform: translate(0, 0);
+    opacity: 1;
   }
   100% {
     transform: translate(1em, -1em);
+     opacity: 0;
   }
 `;
 
