@@ -124,6 +124,7 @@ const SignInForm = () => {
                     outline: 'none',
                   },
                 }}
+                href="api/auth/google"
               >
                 {!isSmallScreen ? 'Google' : ''}
               </Button>
