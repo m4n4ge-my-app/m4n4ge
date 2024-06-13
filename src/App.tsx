@@ -1,7 +1,7 @@
 //external imports
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { ThemeProvider } from '@mui/material/styles';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { ThemeProvider } from '@mui/material/styles';
 import { useEffect } from 'react';
 //local imports
 import JobDescriptions from './pages/iManage/jobDescriptions/JobDescriptions';
@@ -15,6 +15,7 @@ import Calendar from './pages/iManage/calendar/Calendar';
 import NotFound from './pages/system/notFound/NotFound';
 import Settings from './pages/system/settings/Settings';
 import Resumes from './pages/iManage/resumes/Resumes';
+import ProtectedRoute from './routes/ProtectedRoute';
 import Landing from './pages/system/landing/Landing';
 import Dashboard from './pages/dashboard/Dashboard';
 import AddApp from './pages/iManage/addApp/AddApp';
@@ -26,28 +27,6 @@ import Todos from './pages/iManage/todos/Todos';
 import { checkAuth } from './services/auth';
 import theme from './theme';
 import { RootState } from './state/store';
-
-interface ProtectedRouteProps {
-  isAuthenticated: boolean;
-  children: React.ReactNode;
-  isLoading: boolean;
-}
-
-function ProtectedRoute({
-  isAuthenticated,
-  children,
-  isLoading,
-}: ProtectedRouteProps) {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      navigate('/', { replace: true });
-    }
-  }, [isAuthenticated, navigate, isLoading]);
-
-  return isAuthenticated ? children : null;
-}
 
 function App() {
   const isAuthenticated = useSelector(
