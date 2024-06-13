@@ -1,11 +1,14 @@
 //external imports
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 //local imports
 import JobDescriptions from './pages/iManage/jobDescriptions/JobDescriptions';
 import ForgotPassword from './pages/auth/forgotPassword/ForgotPassword';
 import CoverLetters from './pages/iManage/coverletters/CoverLetter';
 import UserProfile from './pages/system/userProfile/UserProfile';
+import { setAuthState } from './state/authentication/authSlice';
 import Interview from './pages/getAssist/interview/Interview';
 import Automated from './pages/getAssist/automated/Automated';
 import Calendar from './pages/iManage/calendar/Calendar';
@@ -20,9 +23,23 @@ import Archives from './pages/archives/Archives';
 import SignIn from './pages/auth/signin/SignIn';
 import SignUp from './pages/auth/signup/SignUp';
 import Todos from './pages/iManage/todos/Todos';
+import { checkAuth } from './services/auth';
 import theme from './theme';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchAuthStatus = async () => {
+      const isAuthenticated = await checkAuth();
+      dispatch(setAuthState(isAuthenticated));
+    };
+
+    fetchAuthStatus().catch((error) => {
+      console.error('Failed to fetch auth status:', error);
+    });
+  }, [dispatch]);
+
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
