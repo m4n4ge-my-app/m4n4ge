@@ -1,6 +1,8 @@
 import { Logout, Settings } from '@mui/icons-material';
 import { Avatar, Divider, ListItemIcon, Menu, MenuItem } from '@mui/material';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logout } from '../../../state/authentication/authSlice';
 
 interface Prop {
   open: boolean;
@@ -9,6 +11,8 @@ interface Prop {
 }
 
 const AccountMenu = (props: Prop) => {
+  const dispatch = useDispatch();
+
   return (
     <Menu
       anchorEl={props.anchorEl}
@@ -60,7 +64,24 @@ const AccountMenu = (props: Prop) => {
         </MenuItem>
       </Link>
 
-      <MenuItem onClick={props.handleClose}>
+      <MenuItem
+        onClick={() => {
+          void (async () => {
+            try {
+              const response = await fetch('/api/auth/logout', {
+                method: 'GET',
+              });
+              if (!response.ok) {
+                throw new Error('Logout failed');
+              }
+              dispatch(logout());
+              props.handleClose();
+            } catch (error) {
+              console.error(error);
+            }
+          })();
+        }}
+      >
         <ListItemIcon>
           <Logout fontSize="small" />
         </ListItemIcon>

@@ -15,3 +15,11 @@ export const checkAuth = async () => {
     return false;
   }
 };
+
+export const logout = async () => {
+  try {
+    await axios.get('/api/auth/logout');
+  } catch (error) {
+    console.error(error);
+  }
+};
