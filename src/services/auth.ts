@@ -1,13 +1,15 @@
 import axios from 'axios';
 
 interface Response {
-  isAuthenticated: boolean;
+  data: {
+    isAuthenticated: boolean;
+  };
 }
 
 export const checkAuth = async () => {
   try {
     const response: Response = await axios.get('/api/auth/check');
-    return response.isAuthenticated;
+    return response.data.isAuthenticated;
   } catch (error) {
     console.error(error);
     return false;
