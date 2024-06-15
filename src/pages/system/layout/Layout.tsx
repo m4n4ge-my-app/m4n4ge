@@ -6,8 +6,16 @@ import SideBar from '../../../components/navigation/sideBar/SideBar';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
 import Navbar from '../../../components/navigation/navbar/Navbar';
+import { useEffect } from 'react';
+import { getLoggedInUser } from '../../../services/auth';
 
 const Layout = () => {
+  useEffect(() => {
+    getLoggedInUser().catch((error) => {
+      console.error('Failed to fetch user data:', error);
+    });
+  }, []);
+
   const sidebarWidth = useSelector(
     (state: RootState) => state.sidebar.sidebarWidth
   );
