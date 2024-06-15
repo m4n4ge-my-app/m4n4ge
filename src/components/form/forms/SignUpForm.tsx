@@ -26,7 +26,7 @@ const SignUpForm = () => {
                 sx={{ textDecoration: 'none' }}
                 color="primary"
               >
-                Already have an account?
+                Account holder? Sign in or use external account.
               </Typography>
             </Stack>
           </Grid>
