@@ -6,14 +6,22 @@ import { RootState } from '../../../state/store';
 import { toggleDrawer } from '../../../state/navigation/sidebarSlice';
 import Logo from '../../logo/Logo';
 import { Avatar, Box, Tooltip } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import AccountMenu from './AccountMenu';
+import { User } from '../../../state/user/userSlice';
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const sidebarWidth = useSelector(
     (state: RootState) => state.sidebar.sidebarWidth
   );
+  const response = useSelector((state: RootState) => state.user);
+  const [user, setUser] = React.useState<User | null>(null);
+
+  useEffect(() => {
+    setUser(response.user);
+  }, [response]);
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -56,7 +64,13 @@ const Navbar = () => {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            {user?.photoString ? (
+              <Avatar src={user.photoString} sx={{ width: 36, height: 36 }} />
+            ) : (
+              <Avatar sx={{ width: 36, height: 36 }}>
+                {user?.firstName.charAt(0).toUpperCase()}
+              </Avatar>
+            )}
           </IconButton>
         </Tooltip>
         <AccountMenu
