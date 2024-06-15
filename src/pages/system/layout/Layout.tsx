@@ -8,13 +8,30 @@ import { RootState } from '../../../state/store';
 import Navbar from '../../../components/navigation/navbar/Navbar';
 import { useEffect } from 'react';
 import { getLoggedInUser } from '../../../services/auth';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../../state/user/userSlice';
+import { User } from '../../../state/user/userSlice';
+import { AxiosResponse } from 'axios';
 
 const Layout = () => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    getLoggedInUser().catch((error) => {
-      console.error('Failed to fetch user data:', error);
-    });
-  }, []);
+    const fetchUser = async () => {
+      try {
+        const response = await getLoggedInUser();
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const user: User | null = (response as AxiosResponse).data;
+        if (user) {
+          dispatch(setUser(user));
+        }
+      } catch (error) {
+        console.error('Failed to fetch logged in user:', error);
+      }
+    };
+
+    fetchUser().catch((error) => console.error(error));
+  }, [dispatch]);
 
   const sidebarWidth = useSelector(
     (state: RootState) => state.sidebar.sidebarWidth
