@@ -57,150 +57,29 @@ function App() {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
 
         {/* Protected/private routes */}
-        <Route element={<Layout />}>
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute
-                isAuthenticated={isAuthenticated}
-                isLoading={isLoading}
-              >
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/add"
-            element={
-              <ProtectedRoute
-                isAuthenticated={isAuthenticated}
-                isLoading={isLoading}
-              >
-                <AddApp />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/resumes"
-            element={
-              <ProtectedRoute
-                isAuthenticated={isAuthenticated}
-                isLoading={isLoading}
-              >
-                <Resumes />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/coverletters"
-            element={
-              <ProtectedRoute
-                isAuthenticated={isAuthenticated}
-                isLoading={isLoading}
-              >
-                <CoverLetters />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/calendar"
-            element={
-              <ProtectedRoute
-                isAuthenticated={isAuthenticated}
-                isLoading={isLoading}
-              >
-                <Calendar />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/descriptions"
-            element={
-              <ProtectedRoute
-                isAuthenticated={isAuthenticated}
-                isLoading={isLoading}
-              >
-                <JobDescriptions />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/todos"
-            element={
-              <ProtectedRoute
-                isAuthenticated={isAuthenticated}
-                isLoading={isLoading}
-              >
-                <Todos />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/interview"
-            element={
-              <ProtectedRoute
-                isAuthenticated={isAuthenticated}
-                isLoading={isLoading}
-              >
-                <Interview />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/automated"
-            element={
-              <ProtectedRoute
-                isAuthenticated={isAuthenticated}
-                isLoading={isLoading}
-              >
-                <Automated />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/archives"
-            element={
-              <ProtectedRoute
-                isAuthenticated={isAuthenticated}
-                isLoading={isLoading}
-              >
-                <Archives />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute
-                isAuthenticated={isAuthenticated}
-                isLoading={isLoading}
-              >
-                <UserProfile />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/settings"
-            element={
-              <ProtectedRoute
-                isAuthenticated={isAuthenticated}
-                isLoading={isLoading}
-              >
-                <Settings />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="*"
-            element={
-              <ProtectedRoute
-                isAuthenticated={isAuthenticated}
-                isLoading={isLoading}
-              >
-                <NotFound isPrivateRoute={true} />
-              </ProtectedRoute>
-            }
-          />
+        <Route
+          element={
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              isLoading={isLoading}
+            >
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/add" element={<AddApp />} />
+          <Route path="/resumes" element={<Resumes />} />
+          <Route path="/coverletters" element={<CoverLetters />} />
+          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/descriptions" element={<JobDescriptions />} />
+          <Route path="/todos" element={<Todos />} />
+          <Route path="/interview" element={<Interview />} />
+          <Route path="/automated" element={<Automated />} />
+          <Route path="/archives" element={<Archives />} />
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="*" element={<NotFound isPrivateRoute={true} />} />
         </Route>
 
         {/* Invalid public routes */}
