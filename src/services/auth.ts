@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 interface Response {
   data: {
@@ -14,6 +14,27 @@ export const checkAuth = async () => {
     console.error(error);
     return false;
   }
+};
+
+export const getLoggedInUser = async () => {
+  const userId = getCookieByName('userId');
+
+  try {
+    if (userId) {
+      const response: AxiosResponse = await axios.get(`/api/users/${userId}`);
+      return response;
+    } else {
+      return { message: 'No user ID found in cookies' };
+    }
+  } catch (error) {
+    return null;
+  }
+};
+
+const getCookieByName = (name: string) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts?.pop()?.split(';').shift();
 };
 
 export const logout = async () => {
