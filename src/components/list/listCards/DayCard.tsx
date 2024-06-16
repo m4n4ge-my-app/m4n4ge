@@ -78,19 +78,30 @@ const rows = [
 
 export default function DayCard() {
   return (
-    <Paper sx={{ width: '100%', mb: 2 }}>
-      <Stack direction="row" alignItems="center" paddingTop="10px">
-        <Typography variant="body1" align="left" sx={{ marginLeft: 2 }}>
-          2023-07-12
+    <Paper sx={{ width: '100%' }}>
+      <Stack
+        direction="row"
+        alignItems="center"
+        padding="10px"
+        bgcolor={'#f0f5ff'}
+      >
+        <Typography
+          variant="body1"
+          align="left"
+          sx={{ marginLeft: 2, fontWeight: 'bold', color: 'GrayText' }}
+        >
+          Sunday, June 16th, 2024
         </Typography>
         <Typography
           variant="body2"
           align="left"
           sx={{
             marginLeft: 2,
-            backgroundColor: '#d3d3d3',
+            backgroundColor: '#bcc1cc',
             borderRadius: '8px',
             padding: '2px 5px',
+            color: 'GrayText',
+            fontWeight: 'bold',
           }}
         >
           5 applications
@@ -99,14 +110,44 @@ export default function DayCard() {
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
-            <TableRow>
+            <TableRow sx={{ backgroundColor: '#fbfcff' }}>
               <TableCell></TableCell>
-              <TableCell align="center">Employer Name</TableCell>
-              <TableCell align="center">Role Name</TableCell>
-              <TableCell align="center">Location</TableCell>
-              <TableCell align="center">Platform</TableCell>
-              <TableCell align="center">Status</TableCell>
-              <TableCell align="center">Note</TableCell>
+              <TableCell
+                align="center"
+                sx={{ fontWeight: '700', color: 'GrayText' }}
+              >
+                Employer Name
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ fontWeight: 'bold', color: 'GrayText' }}
+              >
+                Role Name
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ fontWeight: 'bold', color: 'GrayText' }}
+              >
+                Location
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ fontWeight: 'bold', color: 'GrayText' }}
+              >
+                Platform
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ fontWeight: 'bold', color: 'GrayText' }}
+              >
+                Status
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ fontWeight: 'bold', color: 'GrayText' }}
+              >
+                Note
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
