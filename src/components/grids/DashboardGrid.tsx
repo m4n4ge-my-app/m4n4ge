@@ -5,6 +5,9 @@ import { Item } from './utils/MuiItem';
 import Grid from '@mui/material/Grid';
 import { useState } from 'react';
 import DayView from '../list/DayView';
+import ExpandedView from '../list/ExpandedView';
+import WeekView from '../list/WeekView';
+import MonthView from '../list/MonthView';
 
 //will be replace with proper model from server later
 interface Application {
@@ -18,7 +21,7 @@ interface Props {
 }
 
 const DashboardGrid = ({ username, applications }: Props) => {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
   const [viewMode, setViewMode] = useState('days');
   return (
     //Main Grid Container
@@ -112,18 +115,25 @@ const DashboardGrid = ({ username, applications }: Props) => {
                   color="primary"
                   onClick={() => {
                     setExpanded(!expanded);
-                    //TODO: also change the view to days if user chooses to collapse here
+                    if (expanded) {
+                      setViewMode('expanded');
+                    } else {
+                      setViewMode('days');
+                    }
                   }}
                 >
                   {expanded ? (
-                    <CloseFullscreenIcon sx={{ fontSize: '25px' }} />
-                  ) : (
                     <OpenInFullIcon sx={{ fontSize: '25px' }} />
+                  ) : (
+                    <CloseFullscreenIcon sx={{ fontSize: '25px' }} />
                   )}
                 </IconButton>
               </ButtonGroup>
             </div>
-            <DayView />
+            {viewMode === 'days' && <DayView />}
+            {viewMode === 'weeks' && <WeekView />}
+            {viewMode === 'months' && <MonthView />}
+            {viewMode === 'expanded' && <ExpandedView />}
           </Item>
         </Grid>
       </Grid>
