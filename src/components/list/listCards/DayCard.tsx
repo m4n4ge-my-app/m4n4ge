@@ -10,6 +10,7 @@ import { Stack } from '@mui/system';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined';
+import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
 import { pink } from '@mui/material/colors';
 
 function createData(
@@ -126,7 +127,7 @@ export default function DayCard() {
                 align="center"
                 sx={{ fontWeight: 'bold', color: 'GrayText' }}
               >
-                #
+                <NumbersOutlinedIcon fontSize="inherit" />
               </TableCell>
               <TableCell
                 align="center"
