@@ -1,6 +1,9 @@
-import { Typography } from '@mui/material';
+import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
+import { Button, ButtonGroup, IconButton, Typography } from '@mui/material';
+import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import { Item } from './utils/MuiItem';
 import Grid from '@mui/material/Grid';
+import { useState } from 'react';
 
 //will be replace with proper model from server later
 interface Application {
@@ -14,6 +17,8 @@ interface Props {
 }
 
 const DashboardGrid = ({ username, applications }: Props) => {
+  const [expanded, setExpanded] = useState(false);
+  const [viewMode, setViewMode] = useState('days');
   return (
     //Main Grid Container
     <Grid
@@ -81,8 +86,42 @@ const DashboardGrid = ({ username, applications }: Props) => {
         {/* Applications List */}
         <Grid item xs={12} sm={12} md={12}>
           <Item className="lists">
-            This is MUI Data Table area to display applications data
-            {JSON.stringify(applications, null, 2)}
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                marginBottom: '10px',
+              }}
+            >
+              <ButtonGroup
+                color="primary"
+                variant="text"
+                aria-label="Basic button group"
+              >
+                <Button onClick={() => setViewMode('days')} size="small">
+                  Days
+                </Button>
+                <Button onClick={() => setViewMode('weeks')} size="small">
+                  Weeks
+                </Button>
+                <Button onClick={() => setViewMode('months')} size="small">
+                  Months
+                </Button>
+                <IconButton
+                  color="primary"
+                  onClick={() => {
+                    setExpanded(!expanded);
+                    //TODO: also change the view to days if user chooses to collapse here
+                  }}
+                >
+                  {expanded ? (
+                    <CloseFullscreenIcon sx={{ fontSize: '25px' }} />
+                  ) : (
+                    <OpenInFullIcon sx={{ fontSize: '25px' }} />
+                  )}
+                </IconButton>
+              </ButtonGroup>
+            </div>
           </Item>
         </Grid>
       </Grid>
