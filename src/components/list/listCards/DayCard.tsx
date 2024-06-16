@@ -19,6 +19,7 @@ function createData(
   location: string,
   platform: string,
   status: string,
+  workMode: string,
   note: string
 ) {
   return {
@@ -28,6 +29,7 @@ function createData(
     location,
     platform,
     status,
+    workMode,
     note,
   };
 }
@@ -37,45 +39,50 @@ const rows = [
     true,
     'Westjet',
     'Intermediate QA Analyst',
-    'Remote',
+    'Calgary, AB',
     'Indeed',
     'Applied',
+    'Remote',
     'Interview scheduled'
   ),
   createData(
     false,
     'Amazon',
     'Software Developer',
-    'Hybrid',
+    'Seattle, WA',
     'ZipRecruiter',
     'Applied',
+    'On-Site',
     'Interview scheduled'
   ),
   createData(
     true,
     'Google',
     'Software Engineer',
-    'Remote',
+    'Santa Clara, CA',
     'Linkedin',
     'Applied',
+    'Hybrid',
     'Interview scheduled'
   ),
   createData(
     false,
     'Facebook',
     'Software Developer',
-    'On-Site',
+    'Austin, TX',
     'Indeed',
     'Contacted',
+    'On-Site',
     'Interview scheduled'
   ),
   createData(
     true,
     'Microsoft',
     'Software Engineer',
-    'Remote',
+    'Redmond, WA',
     'Indeed',
     'Interviwing',
+    'Remote',
     'Interview scheduled'
   ),
 ];
@@ -161,6 +168,12 @@ export default function DayCard() {
                 align="center"
                 sx={{ fontWeight: 'bold', color: 'GrayText' }}
               >
+                Work Mode
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ fontWeight: 'bold', color: 'GrayText' }}
+              >
                 Note
               </TableCell>
             </TableRow>
@@ -174,7 +187,10 @@ export default function DayCard() {
                 <TableCell align="center">{i + 1}</TableCell>
                 <TableCell align="center">
                   {row.isFavourite === true ? (
-                    <FavoriteIcon style={{ color: pink[600] }} />
+                    <FavoriteIcon
+                      style={{ color: pink[600] }}
+                      fontSize="small"
+                    />
                   ) : (
                     <FavoriteBorderOutlinedIcon fontSize="small" />
                   )}
@@ -184,6 +200,7 @@ export default function DayCard() {
                 <TableCell align="center">{row.location}</TableCell>
                 <TableCell align="center">{row.platform}</TableCell>
                 <TableCell align="center">{row.status}</TableCell>
+                <TableCell align="center">{row.workMode}</TableCell>
                 <TableCell align="center">{row.note}</TableCell>
               </TableRow>
             ))}
