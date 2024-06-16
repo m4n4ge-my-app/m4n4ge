@@ -89,7 +89,7 @@ const DashboardGrid = ({ username, applications }: Props) => {
       <Grid container item spacing={2.5} className="row6">
         {/* Applications List */}
         <Grid item xs={12} sm={12} md={12}>
-          <Item className="lists">
+          <Item className="lists" style={{ padding: '15px' }}>
             <div
               style={{
                 display: 'flex',
