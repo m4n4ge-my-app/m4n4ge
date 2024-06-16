@@ -4,6 +4,7 @@ import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import { Item } from './utils/MuiItem';
 import Grid from '@mui/material/Grid';
 import { useState } from 'react';
+import DayView from '../list/DayView';
 
 //will be replace with proper model from server later
 interface Application {
@@ -122,6 +123,7 @@ const DashboardGrid = ({ username, applications }: Props) => {
                 </IconButton>
               </ButtonGroup>
             </div>
+            <DayView />
           </Item>
         </Grid>
       </Grid>
