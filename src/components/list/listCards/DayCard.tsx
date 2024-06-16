@@ -7,6 +7,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
 import { Stack } from '@mui/system';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined';
+import { pink } from '@mui/material/colors';
 
 function createData(
   isFavourite: boolean,
@@ -111,10 +115,21 @@ export default function DayCard() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow sx={{ backgroundColor: '#fbfcff' }}>
-              <TableCell></TableCell>
               <TableCell
                 align="center"
-                sx={{ fontWeight: '700', color: 'GrayText' }}
+                sx={{ fontWeight: 'bold', color: 'GrayText' }}
+              >
+                #
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ fontWeight: 'bold', color: 'GrayText' }}
+              >
+                <VolunteerActivismOutlinedIcon fontSize="small" />
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ fontWeight: 'bold', color: 'GrayText' }}
               >
                 Employer Name
               </TableCell>
@@ -156,8 +171,13 @@ export default function DayCard() {
                 key={i}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
-                  {row.isFavourite}
+                <TableCell align="center">{i + 1}</TableCell>
+                <TableCell align="center">
+                  {row.isFavourite === true ? (
+                    <FavoriteIcon style={{ color: pink[600] }} />
+                  ) : (
+                    <FavoriteBorderOutlinedIcon fontSize="small" />
+                  )}
                 </TableCell>
                 <TableCell align="center">{row.employerName}</TableCell>
                 <TableCell align="center">{row.positionName}</TableCell>
