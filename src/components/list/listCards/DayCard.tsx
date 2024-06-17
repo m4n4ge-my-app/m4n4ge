@@ -13,84 +13,28 @@ import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivism
 import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
 import { pink } from '@mui/material/colors';
 
-function createData(
-  isFavourite: boolean,
-  employerName: string,
-  positionName: string,
-  location: string,
-  platform: string,
-  status: string,
-  workMode: string,
-  note: string
-) {
-  return {
-    isFavourite,
-    employerName,
-    positionName,
-    location,
-    platform,
-    status,
-    workMode,
-    note,
-  };
+interface Application {
+  employerName: string;
+  positionName: string;
+  location: string;
+  platform: string;
+  status: string;
+  workMode: string;
+  note: string;
+  isFavourite: boolean;
 }
 
-const rows = [
-  createData(
-    true,
-    'Westjet',
-    'Intermediate QA Analyst',
-    'Calgary, AB',
-    'Indeed',
-    'Applied',
-    'Remote',
-    'Interview scheduled'
-  ),
-  createData(
-    false,
-    'Amazon',
-    'Software Developer',
-    'Seattle, WA',
-    'ZipRecruiter',
-    'Applied',
-    'On-Site',
-    'Interview scheduled'
-  ),
-  createData(
-    true,
-    'Google',
-    'Software Engineer',
-    'Santa Clara, CA',
-    'Linkedin',
-    'Applied',
-    'Hybrid',
-    'Interview scheduled'
-  ),
-  createData(
-    false,
-    'Facebook',
-    'Software Developer',
-    'Austin, TX',
-    'Indeed',
-    'Contacted',
-    'On-Site',
-    'Interview scheduled'
-  ),
-  createData(
-    true,
-    'Microsoft',
-    'Software Engineer',
-    'Redmond, WA',
-    'Indeed',
-    'Interviwing',
-    'Remote',
-    'Interview scheduled'
-  ),
-];
+interface DayCardProps {
+  applicationDate: string;
+  applications: Application[];
+}
 
-export default function DayCard() {
+export default function DayCard({
+  applicationDate,
+  applications,
+}: DayCardProps) {
   return (
-    <Paper sx={{ width: '100%' }}>
+    <Paper sx={{ width: '100%', marginBottom: '20px' }}>
       <Stack
         direction="row"
         alignItems="center"
@@ -102,7 +46,7 @@ export default function DayCard() {
           align="left"
           sx={{ marginLeft: 2, fontWeight: 'bold', color: 'GrayText' }}
         >
-          Sunday, June 16th, 2024
+          {applicationDate}
         </Typography>
         <Typography
           variant="body2"
@@ -116,7 +60,7 @@ export default function DayCard() {
             fontWeight: 'bold',
           }}
         >
-          5 applications
+          {applications.length} applications
         </Typography>
       </Stack>
       <TableContainer component={Paper}>
@@ -180,14 +124,14 @@ export default function DayCard() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, i) => (
+            {applications.map((application, i) => (
               <TableRow
                 key={i}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell align="center">{i + 1}</TableCell>
                 <TableCell align="center">
-                  {row.isFavourite === true ? (
+                  {application.isFavourite === true ? (
                     <FavoriteIcon
                       style={{ color: pink[600] }}
                       fontSize="small"
@@ -196,13 +140,13 @@ export default function DayCard() {
                     <FavoriteBorderOutlinedIcon fontSize="small" />
                   )}
                 </TableCell>
-                <TableCell align="center">{row.employerName}</TableCell>
-                <TableCell align="center">{row.positionName}</TableCell>
-                <TableCell align="center">{row.location}</TableCell>
-                <TableCell align="center">{row.platform}</TableCell>
-                <TableCell align="center">{row.status}</TableCell>
-                <TableCell align="center">{row.workMode}</TableCell>
-                <TableCell align="center">{row.note}</TableCell>
+                <TableCell align="center">{application.employerName}</TableCell>
+                <TableCell align="center">{application.positionName}</TableCell>
+                <TableCell align="center">{application.location}</TableCell>
+                <TableCell align="center">{application.platform}</TableCell>
+                <TableCell align="center">{application.status}</TableCell>
+                <TableCell align="center">{application.workMode}</TableCell>
+                <TableCell align="center">{application.note}</TableCell>
               </TableRow>
             ))}
           </TableBody>
