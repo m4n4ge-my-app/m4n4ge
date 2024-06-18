@@ -283,8 +283,10 @@ const ExpandedView = () => {
   const isSelected = (id: number) => selected.indexOf(id) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
+  const totalRows =
+    keyword.length > 0 ? searchResult!.length : applications.length;
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - applications.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - totalRows) : 0;
 
   const visibleRows = React.useMemo(() => {
     // Determine if the user is searching
