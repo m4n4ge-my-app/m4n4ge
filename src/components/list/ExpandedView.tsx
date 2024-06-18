@@ -311,45 +311,41 @@ const ExpandedView = () => {
               onRequestSort={handleRequestSort}
             />
             <TableBody>
-              {(searchResult !== null ? searchResult : visibleRows).map(
-                (row, index) => {
-                  const isItemSelected = isSelected(index);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+              {(searchResult ?? visibleRows).map((row, index) => {
+                const isItemSelected = isSelected(index);
+                const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <MUIStyledTableRow
-                      hover
-                      onClick={(event) => handleClick(event, index)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={index}
-                      selected={isItemSelected}
-                      sx={{ cursor: 'pointer' }}
-                    >
-                      <TableCell align="center" id={labelId}>
-                        {row.isFavourite === true ? (
-                          <FavoriteIcon
-                            style={{ color: '#ff40da' }}
-                            fontSize="small"
-                          />
-                        ) : (
-                          <FavoriteBorderOutlinedIcon fontSize="small" />
-                        )}
-                      </TableCell>
-                      <TableCell align="center">{row.employerName}</TableCell>
-                      <TableCell align="center">{row.positionName}</TableCell>
-                      <TableCell align="center">{row.location}</TableCell>
-                      <TableCell align="center">
-                        {row.applicationDate}
-                      </TableCell>
-                      <TableCell align="center">{row.platform}</TableCell>
-                      <TableCell align="center">{row.status}</TableCell>
-                      <TableCell align="center">{row.workMode}</TableCell>
-                    </MUIStyledTableRow>
-                  );
-                }
-              )}
+                return (
+                  <MUIStyledTableRow
+                    hover
+                    onClick={(event) => handleClick(event, index)}
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={index}
+                    selected={isItemSelected}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    <TableCell align="center" id={labelId}>
+                      {row.isFavourite === true ? (
+                        <FavoriteIcon
+                          style={{ color: '#ff40da' }}
+                          fontSize="small"
+                        />
+                      ) : (
+                        <FavoriteBorderOutlinedIcon fontSize="small" />
+                      )}
+                    </TableCell>
+                    <TableCell align="center">{row.employerName}</TableCell>
+                    <TableCell align="center">{row.positionName}</TableCell>
+                    <TableCell align="center">{row.location}</TableCell>
+                    <TableCell align="center">{row.applicationDate}</TableCell>
+                    <TableCell align="center">{row.platform}</TableCell>
+                    <TableCell align="center">{row.status}</TableCell>
+                    <TableCell align="center">{row.workMode}</TableCell>
+                  </MUIStyledTableRow>
+                );
+              })}
               {emptyRows > 0 && (
                 <TableRow>
                   <TableCell colSpan={6} />
