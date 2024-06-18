@@ -226,6 +226,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           sx={{ width: '36%', marginLeft: '10px' }}
           id="input-with-icon-textfield"
           label="Search"
+          placeholder="Search by employer, role, etc."
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
