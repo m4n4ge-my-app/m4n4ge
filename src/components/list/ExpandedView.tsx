@@ -15,7 +15,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Toolbar from '@mui/material/Toolbar';
 import { visuallyHidden } from '@mui/utils';
-import { pink } from '@mui/material/colors';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
 import React, { useState } from 'react';
@@ -339,7 +338,7 @@ const ExpandedView = () => {
                     <TableCell align="center">
                       {row.isFavourite === true ? (
                         <FavoriteIcon
-                          style={{ color: pink[600] }}
+                          style={{ color: '#ff40da' }}
                           fontSize="small"
                         />
                       ) : (

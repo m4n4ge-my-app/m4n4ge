@@ -11,7 +11,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined';
 import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
-import { pink } from '@mui/material/colors';
 import { Application } from '../../../utils/mockDataGenerator';
 
 interface DayCardProps {
@@ -123,7 +122,7 @@ export default function ApplicationsTable({
                 <TableCell align="center">
                   {application.isFavourite === true ? (
                     <FavoriteIcon
-                      style={{ color: pink[600] }}
+                      style={{ color: '#ff40da' }}
                       fontSize="small"
                     />
                   ) : (
