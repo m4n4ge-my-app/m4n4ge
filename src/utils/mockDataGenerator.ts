@@ -1,3 +1,85 @@
+// Global constants
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+const companies = [
+  'Google',
+  'Microsoft',
+  'Apple',
+  'Amazon',
+  'Facebook',
+  'Netflix',
+  'Tesla',
+  'IBM',
+];
+
+const positions = [
+  'Software Developer',
+  'Data Scientist',
+  'Product Manager',
+  'System Analyst',
+  'Web Developer',
+  'UX Designer',
+  'Database Administrator',
+  'Network Engineer',
+];
+
+const locations = [
+  'London, ON',
+  'Toronto, ON',
+  'Vancouver, BC',
+  'Seattle, WA',
+  'San Francisco, CA',
+  'New York, NY',
+  'Austin, TX',
+  'Chicago, IL',
+];
+
+const platforms = [
+  'CareerBuilder',
+  'FlexJobs',
+  'WellFound',
+  'Glassdoor',
+  'SimplyHired',
+  'Other',
+  'LinkedIn',
+  'Indeed',
+  'ZipRecruiter',
+  'Monster',
+  'Dice',
+  'Direct Email',
+  'Company Website',
+];
+
+const statuses = [
+  'Applied',
+  'Engaged',
+  'Interviewing',
+  'Rejected',
+  'Offer',
+  'Accepted',
+];
+
+const workModes = ['on-site', 'hybrid', 'remote'];
+const notes = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+const startDate = new Date('2023-07-12');
+const endDate = new Date('2024-08-01');
+const uniqueDates: string[] = [];
+const applications: Application[] = [];
+
+// Interfaces
 interface Application {
   isFavourite: boolean;
   employerName: string;
@@ -10,6 +92,7 @@ interface Application {
   workMode: string;
 }
 
+// Helper functions
 function getRandomDate(start: Date, end: Date): string {
   return new Date(
     start.getTime() + Math.random() * (end.getTime() - start.getTime())
@@ -30,76 +113,28 @@ function getRandomString(words: string): string {
     .join(' ');
 }
 
-const companies = [
-  'Google',
-  'Microsoft',
-  'Apple',
-  'Amazon',
-  'Facebook',
-  'Netflix',
-  'Tesla',
-  'IBM',
-];
-const positions = [
-  'Software Developer',
-  'Data Scientist',
-  'Product Manager',
-  'System Analyst',
-  'Web Developer',
-  'UX Designer',
-  'Database Administrator',
-  'Network Engineer',
-];
-const locations = [
-  'London, ON',
-  'Toronto, ON',
-  'Vancouver, BC',
-  'Seattle, WA',
-  'San Francisco, CA',
-  'New York, NY',
-  'Austin, TX',
-  'Chicago, IL',
-];
-const platforms = [
-  'CareerBuilder',
-  'FlexJobs',
-  'WellFound',
-  'Glassdoor',
-  'SimplyHired',
-  'Other',
-  'LinkedIn',
-  'Indeed',
-  'ZipRecruiter',
-  'Monster',
-  'Dice',
-  'Direct Email',
-  'Company Website',
-];
-const statuses = [
-  'Applied',
-  'Engaged',
-  'Interviewing',
-  'Rejected',
-  'Offer',
-  'Accepted',
-];
-const workModes = ['on-site', 'hybrid', 'remote'];
-const notes = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+function getWeekStart(date: Date): string {
+  const day = date.getDay();
+  const diff = day < 7 ? 7 - day : 0; // find the number of days to next Sunday
+  const nextSunday = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate() + diff
+  );
+  return `Week of ${monthNames[nextSunday.getMonth()]} ${nextSunday.getDate()}, ${nextSunday.getFullYear()}`;
+}
 
-export const applications: Application[] = [];
+function getMonthYear(date: Date): string {
+  return `${monthNames[date.getMonth()]}, ${date.getFullYear()}`;
+}
 
-const uniqueDates: string[] = [];
-const startDate = new Date('2023-07-12');
-const endDate = new Date('2024-08-01');
-
-// Generate sequence of adjacent dates
+// Data generation
 for (let i = 0; i < 10; i++) {
   const date = new Date(startDate);
   date.setDate(startDate.getDate() + i);
   uniqueDates.push(date.toISOString().split('T')[0]);
 }
 
-// Generate random dates
 while (uniqueDates.length < 50) {
   const randomDate = getRandomDate(startDate, endDate);
   if (!uniqueDates.includes(randomDate)) {
@@ -121,8 +156,6 @@ for (let i = 0; i < 50; i++) {
     workMode: workModes[Math.floor(Math.random() * workModes.length)],
   });
 }
-
-console.log(applications);
 
 function groupByDate(
   applications: Application[]
@@ -151,35 +184,6 @@ function groupByDate(
     });
 }
 
-export const groupedApplicationsByDate = groupByDate(applications);
-
-console.log(groupedApplicationsByDate);
-
-function getWeekStart(date: Date): string {
-  const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  const day = date.getDay();
-  const diff = day < 7 ? 7 - day : 0; // find the number of days to next Sunday
-  const nextSunday = new Date(
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate() + diff
-  );
-  return `Week of ${monthNames[nextSunday.getMonth()]} ${nextSunday.getDate()}, ${nextSunday.getFullYear()}`;
-}
-
 function groupByWeek(
   applications: Application[]
 ): Record<string, Application[]>[] {
@@ -206,28 +210,6 @@ function groupByWeek(
     .map(([week, applications]) => ({
       [week]: applications,
     }));
-}
-
-export const groupedApplicationsByWeek = groupByWeek(applications);
-
-console.log(groupedApplicationsByWeek);
-
-function getMonthYear(date: Date): string {
-  const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  return `${monthNames[date.getMonth()]}, ${date.getFullYear()}`;
 }
 
 function groupByMonth(
@@ -269,6 +251,7 @@ function groupByMonth(
     }));
 }
 
+// Exports
+export const groupedApplicationsByDate = groupByDate(applications);
+export const groupedApplicationsByWeek = groupByWeek(applications);
 export const groupedApplicationsByMonth = groupByMonth(applications);
-
-console.log(groupedApplicationsByMonth);
