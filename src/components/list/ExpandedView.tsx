@@ -301,13 +301,13 @@ const ExpandedView = () => {
     }
 
     // Sort rows
-    rows = stableSort(rows, getComparator(order, orderBy));
+    rows = stableSort(rows ?? [], getComparator(order, orderBy));
 
     // Apply pagination
     rows = rows.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
 
     return rows;
-  }, [keyword, searchResult, applications, order, orderBy, page, rowsPerPage]);
+  }, [keyword, searchResult, order, orderBy, page, rowsPerPage]);
 
   return (
     <Box sx={{ width: '100%' }}>
