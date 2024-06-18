@@ -195,7 +195,7 @@ function groupByWeek(
     .sort(([weekA], [weekB]) => {
       const dateA = new Date(weekA.split(' ').slice(2).join(' '));
       const dateB = new Date(weekB.split(' ').slice(2).join(' '));
-      return dateA.getTime() - dateB.getTime();
+      return dateB.getTime() - dateA.getTime();
     })
     .map(([week, applications]) => ({
       [week]: applications,
