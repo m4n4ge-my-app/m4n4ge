@@ -75,7 +75,7 @@ const statuses = [
 const workModes = ['on-site', 'hybrid', 'remote'];
 const notes = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 const startDate = new Date('2023-07-12');
-const endDate = new Date('2024-08-01');
+const endDate = new Date();
 const uniqueDates: string[] = [];
 const applications: Application[] = [];
 
@@ -142,7 +142,7 @@ while (uniqueDates.length < 50) {
   }
 }
 
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 55; i++) {
   applications.push({
     isFavourite: Math.random() < 0.5,
     employerName: companies[Math.floor(Math.random() * companies.length)],
