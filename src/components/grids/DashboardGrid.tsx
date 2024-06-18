@@ -139,9 +139,9 @@ const DashboardGrid = ({ username, applications }: Props) => {
                   }}
                 >
                   {expanded ? (
-                    <OpenInFullIcon sx={{ fontSize: '25px' }} />
+                    <OpenInFullIcon sx={{ fontSize: '20px' }} />
                   ) : (
-                    <CloseFullscreenIcon sx={{ fontSize: '25px' }} />
+                    <CloseFullscreenIcon sx={{ fontSize: '20px' }} />
                   )}
                 </IconButton>
               </ButtonGroup>
