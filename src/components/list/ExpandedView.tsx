@@ -127,26 +127,16 @@ const headCells: readonly HeadCell[] = [
 ];
 
 interface EnhancedTableProps {
-  numSelected: number;
   onRequestSort: (
     event: React.MouseEvent<unknown>,
     property: keyof Application
   ) => void;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
   order: Order;
   orderBy: string;
-  rowCount: number;
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-  const {
-    onSelectAllClick,
-    order,
-    orderBy,
-    numSelected,
-    rowCount,
-    onRequestSort,
-  } = props;
+  const { order, orderBy, onRequestSort } = props;
   const createSortHandler =
     (property: keyof Application) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
@@ -254,7 +244,7 @@ const ExpandedView = () => {
   const [orderBy, setOrderBy] = useState<keyof Application>('applicationDate');
   const [selected, setSelected] = useState<readonly number[]>([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -264,15 +254,6 @@ const ExpandedView = () => {
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
-
-  // const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (event.target.checked) {
-  //     const newSelected = rows.map((n) => n.id);
-  //     setSelected(newSelected);
-  //     return;
-  //   }
-  //   setSelected([]);
-  // };
 
   const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
     const selectedIndex = selected.indexOf(id);
@@ -296,14 +277,14 @@ const ExpandedView = () => {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - applications.length) : 0;
 
-  // const visibleRows = React.useMemo(
-  //   () =>
-  //     stableSort(applications, getComparator(order, orderBy)).slice(
-  //       page * rowsPerPage,
-  //       page * rowsPerPage + rowsPerPage
-  //     ),
-  //   [order, orderBy, page, rowsPerPage]
-  // );
+  const visibleRows = React.useMemo(
+    () =>
+      stableSort(applications, getComparator(order, orderBy)).slice(
+        page * rowsPerPage,
+        page * rowsPerPage + rowsPerPage
+      ),
+    [order, orderBy, page, rowsPerPage]
+  );
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -315,15 +296,12 @@ const ExpandedView = () => {
         <TableContainer>
           <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
             <EnhancedTableHead
-              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={() => {}}
               onRequestSort={handleRequestSort}
-              rowCount={applications.length}
             />
             <TableBody>
-              {applications.map((row, index) => {
+              {visibleRows.map((row, index) => {
                 const isItemSelected = isSelected(index);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -338,7 +316,7 @@ const ExpandedView = () => {
                     selected={isItemSelected}
                     sx={{ cursor: 'pointer' }}
                   >
-                    <TableCell align="center">
+                    <TableCell align="center" id={labelId}>
                       {row.isFavourite === true ? (
                         <FavoriteIcon
                           style={{ color: '#ff40da' }}
@@ -367,7 +345,12 @@ const ExpandedView = () => {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[
+            5,
+            10,
+            25,
+            { label: 'All', value: applications.length },
+          ]}
           component="div"
           count={applications.length}
           rowsPerPage={rowsPerPage}
