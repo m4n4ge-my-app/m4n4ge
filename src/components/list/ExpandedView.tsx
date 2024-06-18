@@ -9,6 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import SearchIcon from '@mui/icons-material/Search';
+import React, { useEffect, useState } from 'react';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
@@ -17,7 +18,6 @@ import Toolbar from '@mui/material/Toolbar';
 import { visuallyHidden } from '@mui/utils';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
-import React, { useEffect, useState } from 'react';
 import { Stack } from '@mui/system';
 import Box from '@mui/material/Box';
 import {
@@ -244,13 +244,13 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 
 const ExpandedView = () => {
   console.log(applications);
-  const [order, setOrder] = useState<Order>('asc');
   const [orderBy, setOrderBy] = useState<keyof Application>('applicationDate');
-  const [selected, setSelected] = useState<readonly number[]>([]);
   const [searchResult, setSearchResult] = useState<Application[] | null>(null);
+  const [selected, setSelected] = useState<readonly number[]>([]);
   const [keyword, setKeyword] = useState<string>('');
-  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [order, setOrder] = useState<Order>('asc');
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     setSearchResult(searchApplications(applications, keyword));
