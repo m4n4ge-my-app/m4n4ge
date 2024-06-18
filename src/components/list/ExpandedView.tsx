@@ -11,16 +11,17 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import SearchIcon from '@mui/icons-material/Search';
 import React, { useEffect, useState } from 'react';
+import { getColors } from './utils/colorUtilities';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { Stack, lighten } from '@mui/system';
 import Toolbar from '@mui/material/Toolbar';
 import { visuallyHidden } from '@mui/utils';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import { Stack } from '@mui/system';
 import {
   applicationsData as applications,
   Application,
@@ -128,24 +129,6 @@ const headCells: readonly HeadCell[] = [
   },
 ];
 
-const getColors = (status: string) => {
-  switch (status) {
-    case 'Applied':
-      return { backgroundColor: lighten('#D3D3D3', 0.3), color: 'GrayText' };
-    case 'Engaged':
-      return { backgroundColor: lighten('#407bff', 0.3), color: 'white' };
-    case 'Interviewing':
-      return { backgroundColor: lighten('#ffc440', 0.3), color: 'GrayText' };
-    case 'Rejected':
-      return { backgroundColor: lighten('#ff40da', 0.3), color: 'white' };
-    case 'Offer':
-      return { backgroundColor: lighten('#40ff64', 0.3), color: 'GrayText' };
-    case 'Accepted':
-      return { backgroundColor: lighten('#40ff64', 0.3), color: 'GrayText' };
-    default:
-      return { backgroundColor: '', color: 'GrayText' };
-  }
-};
 interface EnhancedTableProps {
   onRequestSort: (
     event: React.MouseEvent<unknown>,
