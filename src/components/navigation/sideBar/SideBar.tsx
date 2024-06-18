@@ -46,9 +46,13 @@ const SideBar = () => {
         to="/dashboard"
         sx={{
           marginTop: '40px',
-          color: selected ? theme.palette.primary.main : 'gray',
+          color:
+            selected || location.pathname === '/dashboard'
+              ? theme.palette.primary.main
+              : 'gray',
         }}
         onClick={() => setSelected(true)}
+        onFocus={() => setSelected(true)}
         onBlur={() => setSelected(false)}
         selected={location.pathname === '/dashboard'}
       >
@@ -56,7 +60,10 @@ const SideBar = () => {
           <DashboardOutlinedIcon
             sx={{
               marginLeft: '20px',
-              color: selected ? theme.palette.primary.main : 'gray',
+              color:
+                selected || location.pathname === '/dashboard'
+                  ? theme.palette.primary.main
+                  : 'gray',
             }}
           />
         </ListItemIcon>
@@ -87,7 +94,8 @@ const SideBar = () => {
                       selected={location.pathname === child.path}
                       sx={{
                         color:
-                          selectedItem === child.name
+                          selectedItem === child.name ||
+                          location.pathname === child.path
                             ? theme.palette.primary.main
                             : 'gray',
                       }}
