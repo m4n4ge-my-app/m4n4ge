@@ -297,9 +297,9 @@ const ExpandedView = () => {
       ? searchResult
       : applications;
 
-    // If the user is searching but there are no search results, fall back to the full list
+    // If the user is searching but there are no search results, return an empty array
     if (isSearching && rows?.length === 0) {
-      rows = applications;
+      return [];
     }
 
     // Sort rows
