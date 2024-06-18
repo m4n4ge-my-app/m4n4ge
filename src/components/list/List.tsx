@@ -1,4 +1,4 @@
-import DayCard from './listCards/DayCard';
+import ApplicationsTable from './listTable/ApplicationsTable';
 import {
   groupedApplicationsByDate,
   groupedApplicationsByWeek,
@@ -33,7 +33,7 @@ export default function List({ viewMode }: ListProps) {
         const applications = appGroup[groupTitle];
 
         return (
-          <DayCard
+          <ApplicationsTable
             key={index}
             applicationDate={groupTitle}
             applications={applications}

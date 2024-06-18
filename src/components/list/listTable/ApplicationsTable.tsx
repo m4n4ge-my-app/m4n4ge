@@ -14,13 +14,12 @@ import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
 import { pink } from '@mui/material/colors';
 import { Application } from '../../../utils/mockDataGenerator';
 
-
 interface DayCardProps {
   applicationDate: string;
   applications: Application[];
 }
 
-export default function DayCard({
+export default function ApplicationsTable({
   applicationDate,
   applications,
 }: DayCardProps) {
