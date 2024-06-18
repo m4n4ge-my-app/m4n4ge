@@ -5,6 +5,7 @@ import { Item } from './utils/MuiItem';
 import Grid from '@mui/material/Grid';
 import { useState } from 'react';
 import List from '../list/List';
+import ExpandedView from '../list/ExpandedView';
 
 //will be replace with proper model from server later
 interface Application {
@@ -146,6 +147,7 @@ const DashboardGrid = ({ username, applications }: Props) => {
               </ButtonGroup>
             </div>
             <List viewMode={viewMode} />
+            {viewMode === 'expanded' && <ExpandedView />}
           </Item>
         </Grid>
       </Grid>

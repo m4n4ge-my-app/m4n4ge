@@ -252,6 +252,7 @@ function groupByMonth(
 }
 
 // Exports
+export const applicationsData = applications;
 export const groupedApplicationsByDate = groupByDate(applications);
 export const groupedApplicationsByWeek = groupByWeek(applications);
 export const groupedApplicationsByMonth = groupByMonth(applications);
