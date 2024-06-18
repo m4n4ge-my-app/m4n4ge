@@ -251,6 +251,52 @@ function groupByMonth(
     }));
 }
 
+export function searchApplications(
+  applications: Application[],
+  term: string
+): Application[] {
+  return applications
+    .filter(
+      (application) =>
+        application.employerName.toLowerCase().includes(term.toLowerCase()) ||
+        application.positionName.toLowerCase().includes(term.toLowerCase()) ||
+        application.location.toLowerCase().includes(term.toLowerCase()) ||
+        application.platform.toLowerCase().includes(term.toLowerCase()) ||
+        application.status.toLowerCase().includes(term.toLowerCase())
+    )
+    .sort((a, b) => {
+      const aValues = [
+        a.employerName,
+        a.positionName,
+        a.location,
+        a.platform,
+        a.status,
+      ]
+        .join(' ')
+        .toLowerCase();
+      const bValues = [
+        b.employerName,
+        b.positionName,
+        b.location,
+        b.platform,
+        b.status,
+      ]
+        .join(' ')
+        .toLowerCase();
+
+      if (
+        aValues.includes(term.toLowerCase()) &&
+        bValues.includes(term.toLowerCase())
+      ) {
+        return (
+          bValues.indexOf(term.toLowerCase()) -
+          aValues.indexOf(term.toLowerCase())
+        );
+      }
+      return bValues.includes(term.toLowerCase()) ? 1 : -1;
+    });
+}
+
 // Exports
 export const applicationsData = applications;
 export const groupedApplicationsByDate = groupByDate(applications);
