@@ -1,8 +1,9 @@
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { Button, InputAdornment, TextField } from '@mui/material';
+import { Button, InputAdornment, TextField, Typography } from '@mui/material';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import TablePagination from '@mui/material/TablePagination';
 import MUIStyledTableRow from './utils/MUIStyledTableRow';
 import TableContainer from '@mui/material/TableContainer';
@@ -14,11 +15,11 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { Stack, lighten } from '@mui/system';
 import Toolbar from '@mui/material/Toolbar';
 import { visuallyHidden } from '@mui/utils';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
-import { Stack } from '@mui/system';
 import Box from '@mui/material/Box';
 import {
   applicationsData as applications,
@@ -127,6 +128,24 @@ const headCells: readonly HeadCell[] = [
   },
 ];
 
+const getColors = (status: string) => {
+  switch (status) {
+    case 'Applied':
+      return { backgroundColor: lighten('#D3D3D3', 0.3), color: 'GrayText' };
+    case 'Engaged':
+      return { backgroundColor: lighten('#407bff', 0.3), color: 'white' };
+    case 'Interviewing':
+      return { backgroundColor: lighten('#ffc440', 0.3), color: 'GrayText' };
+    case 'Rejected':
+      return { backgroundColor: lighten('#ff40da', 0.3), color: 'white' };
+    case 'Offer':
+      return { backgroundColor: lighten('#40ff64', 0.3), color: 'GrayText' };
+    case 'Accepted':
+      return { backgroundColor: lighten('#40ff64', 0.3), color: 'GrayText' };
+    default:
+      return { backgroundColor: '', color: 'GrayText' };
+  }
+};
 interface EnhancedTableProps {
   onRequestSort: (
     event: React.MouseEvent<unknown>,
@@ -358,7 +377,24 @@ const ExpandedView = () => {
                     <TableCell align="center">{row.location}</TableCell>
                     <TableCell align="center">{row.applicationDate}</TableCell>
                     <TableCell align="center">{row.platform}</TableCell>
-                    <TableCell align="center">{row.status}</TableCell>
+                    <TableCell align="center">
+                      <Box
+                        sx={{
+                          marginLeft: 2,
+                          ...getColors(row.status),
+                          borderRadius: '8px',
+                          padding: '2px 5px',
+                          fontWeight: 'bold',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: getColors(row.status).color,
+                        }}
+                      >
+                        <Typography>{row.status}</Typography>
+                        {row.status === 'Accepted' && <SportsScoreIcon />}
+                      </Box>
+                    </TableCell>
                     <TableCell align="center">{row.workMode}</TableCell>
                   </MUIStyledTableRow>
                 );
