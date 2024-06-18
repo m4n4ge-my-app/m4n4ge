@@ -286,14 +286,28 @@ const ExpandedView = () => {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - applications.length) : 0;
 
-  const visibleRows = React.useMemo(
-    () =>
-      stableSort(applications, getComparator(order, orderBy)).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage
-      ),
-    [order, orderBy, page, rowsPerPage]
-  );
+  const visibleRows = React.useMemo(() => {
+    // Determine if the user is searching
+    const isSearching = keyword.length > 0;
+
+    // Start with either the search results or the full list of applications
+    let rows: typeof searchResult | typeof applications = isSearching
+      ? searchResult
+      : applications;
+
+    // If the user is searching but there are no search results, fall back to the full list
+    if (isSearching && rows?.length === 0) {
+      rows = applications;
+    }
+
+    // Sort rows
+    rows = stableSort(rows, getComparator(order, orderBy));
+
+    // Apply pagination
+    rows = rows.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
+
+    return rows;
+  }, [keyword, searchResult, applications, order, orderBy, page, rowsPerPage]);
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -311,7 +325,7 @@ const ExpandedView = () => {
               onRequestSort={handleRequestSort}
             />
             <TableBody>
-              {(searchResult ?? visibleRows).map((row, index) => {
+              {visibleRows.map((row, index) => {
                 const isItemSelected = isSelected(index);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -362,7 +376,7 @@ const ExpandedView = () => {
             { label: 'All', value: applications.length },
           ]}
           component="div"
-          count={applications.length}
+          count={(searchResult ?? applications).length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
