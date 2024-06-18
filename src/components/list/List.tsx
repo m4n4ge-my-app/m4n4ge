@@ -39,13 +39,13 @@ export default function List({ viewMode }: ListProps) {
   return (
     <div>
       {applicationsGroup.map((appGroup, index) => {
-        const applicationDate = Object.keys(appGroup)[0];
-        const applications = appGroup[applicationDate];
+        const groupTitle = Object.keys(appGroup)[0];
+        const applications = appGroup[groupTitle];
 
         return (
           <DayCard
             key={index}
-            applicationDate={applicationDate}
+            applicationDate={groupTitle}
             applications={applications}
           />
         );
