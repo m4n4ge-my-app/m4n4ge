@@ -205,3 +205,64 @@ function groupByWeek(
 export const groupedApplicationsByWeek = groupByWeek(applications);
 
 console.log(groupedApplicationsByWeek);
+
+function getMonthYear(date: Date): string {
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  return `${monthNames[date.getMonth()]}, ${date.getFullYear()}`;
+}
+
+function groupByMonth(
+  applications: Application[]
+): Record<string, Application[]>[] {
+  const groupedApplications: Record<string, Application[]> =
+    applications.reduce(
+      (grouped, application) => {
+        const date = new Date(application.applicationDate);
+        const monthYear = getMonthYear(date);
+        if (!grouped[monthYear]) {
+          grouped[monthYear] = [];
+        }
+        grouped[monthYear].push(application);
+        return grouped;
+      },
+      {} as Record<string, Application[]>
+    );
+
+  // Sort applications within each month in descending order
+  for (const monthYear in groupedApplications) {
+    groupedApplications[monthYear].sort((a, b) => {
+      const dateA = new Date(a.applicationDate);
+      const dateB = new Date(b.applicationDate);
+      return dateB.getTime() - dateA.getTime();
+    });
+  }
+
+  return Object.entries(groupedApplications)
+    .sort(([monthYearA], [monthYearB]) => {
+      const [monthA, yearA] = monthYearA.split(', ');
+      const [monthB, yearB] = monthYearB.split(', ');
+      const dateA = new Date(`${monthA} 1, ${yearA}`);
+      const dateB = new Date(`${monthB} 1, ${yearB}`);
+      return dateB.getTime() - dateA.getTime();
+    })
+    .map(([monthYear, applications]) => ({
+      [monthYear]: applications,
+    }));
+}
+
+export const groupedApplicationsByMonth = groupByMonth(applications);
+
+console.log(groupedApplicationsByMonth);
