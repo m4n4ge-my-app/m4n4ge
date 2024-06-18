@@ -3,21 +3,11 @@ import {
   groupedApplicationsByDate,
   groupedApplicationsByWeek,
   groupedApplicationsByMonth,
+  Application,
 } from '../../utils/mockDataGenerator';
 
 interface ListProps {
   viewMode: string;
-}
-
-interface Application {
-  employerName: string;
-  positionName: string;
-  location: string;
-  platform: string;
-  status: string;
-  workMode: string;
-  note: string;
-  isFavourite: boolean;
 }
 
 export default function List({ viewMode }: ListProps) {

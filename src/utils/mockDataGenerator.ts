@@ -80,7 +80,7 @@ const uniqueDates: string[] = [];
 const applications: Application[] = [];
 
 // Interfaces
-interface Application {
+export interface Application {
   isFavourite: boolean;
   employerName: string;
   positionName: string;

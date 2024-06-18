@@ -12,17 +12,8 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined';
 import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
 import { pink } from '@mui/material/colors';
+import { Application } from '../../../utils/mockDataGenerator';
 
-interface Application {
-  employerName: string;
-  positionName: string;
-  location: string;
-  platform: string;
-  status: string;
-  workMode: string;
-  note: string;
-  isFavourite: boolean;
-}
 
 interface DayCardProps {
   applicationDate: string;
