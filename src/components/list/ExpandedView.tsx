@@ -203,6 +203,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           gap="10px"
           justifyContent="flex-end"
           sx={{ width: '100%' }}
+          paddingRight="20px"
         >
           <Button
             variant="text"
@@ -230,7 +231,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         </Stack>
       ) : (
         <TextField
-          sx={{ width: '36%' }}
+          sx={{ width: '36%', marginLeft: '10px' }}
           id="input-with-icon-textfield"
           label="Search"
           InputProps={{
