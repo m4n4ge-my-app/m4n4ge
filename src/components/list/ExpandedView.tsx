@@ -229,6 +229,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         </Stack>
       ) : (
         <TextField
+          sx={{ width: '36%' }}
           id="input-with-icon-textfield"
           label="Search"
           InputProps={{
