@@ -89,10 +89,22 @@ const notes = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 export const applications: Application[] = [];
 
 const uniqueDates: string[] = [];
+const startDate = new Date('2023-07-12');
+const endDate = new Date('2024-08-01');
+
+// Generate sequence of adjacent dates
 for (let i = 0; i < 10; i++) {
-  uniqueDates.push(
-    getRandomDate(new Date('2023-07-12'), new Date('2024-08-01'))
-  );
+  const date = new Date(startDate);
+  date.setDate(startDate.getDate() + i);
+  uniqueDates.push(date.toISOString().split('T')[0]);
+}
+
+// Generate random dates
+while (uniqueDates.length < 50) {
+  const randomDate = getRandomDate(startDate, endDate);
+  if (!uniqueDates.includes(randomDate)) {
+    uniqueDates.push(randomDate);
+  }
 }
 
 for (let i = 0; i < 50; i++) {
@@ -136,3 +148,60 @@ function groupByDate(
 export const groupedApplicationsByDate = groupByDate(applications);
 
 console.log(groupedApplicationsByDate);
+
+function getWeekStart(date: Date): string {
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  const day = date.getDay();
+  const diff = day < 7 ? 7 - day : 0; // find the number of days to next Sunday
+  const nextSunday = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate() + diff
+  );
+  return `Week of ${monthNames[nextSunday.getMonth()]} ${nextSunday.getDate()}, ${nextSunday.getFullYear()}`;
+}
+
+function groupByWeek(
+  applications: Application[]
+): Record<string, Application[]>[] {
+  const groupedApplications: Record<string, Application[]> =
+    applications.reduce(
+      (grouped, application) => {
+        const date = new Date(application.applicationDate);
+        const week = getWeekStart(date);
+        if (!grouped[week]) {
+          grouped[week] = [];
+        }
+        grouped[week].push(application);
+        return grouped;
+      },
+      {} as Record<string, Application[]>
+    );
+
+  return Object.entries(groupedApplications)
+    .sort(([weekA], [weekB]) => {
+      const dateA = new Date(weekA.split(' ').slice(2).join(' '));
+      const dateB = new Date(weekB.split(' ').slice(2).join(' '));
+      return dateA.getTime() - dateB.getTime();
+    })
+    .map(([week, applications]) => ({
+      [week]: applications,
+    }));
+}
+
+export const groupedApplicationsByWeek = groupByWeek(applications);
+
+console.log(groupedApplicationsByWeek);
