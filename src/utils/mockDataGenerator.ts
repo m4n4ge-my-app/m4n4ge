@@ -140,9 +140,15 @@ function groupByDate(
       {} as Record<string, Application[]>
     );
 
-  return Object.entries(groupedApplications).map(([date, applications]) => ({
-    [date]: applications,
-  }));
+  return Object.entries(groupedApplications)
+    .map(([date, applications]) => ({
+      [date]: applications,
+    }))
+    .sort((a, b) => {
+      const dateA = new Date(Object.keys(a)[0]);
+      const dateB = new Date(Object.keys(b)[0]);
+      return dateB.getTime() - dateA.getTime();
+    });
 }
 
 export const groupedApplicationsByDate = groupByDate(applications);
