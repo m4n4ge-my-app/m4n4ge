@@ -37,7 +37,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 
 type Order = 'asc' | 'desc';
 
-function getComparator<Key extends keyof any>(
+function getComparator<Key extends keyof Application>(
   order: Order,
   orderBy: Key
 ): (
@@ -247,7 +247,7 @@ const ExpandedView = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
+    _event: React.MouseEvent<unknown>,
     property: keyof Application
   ) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -255,12 +255,12 @@ const ExpandedView = () => {
     setOrderBy(property);
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
+  const handleClick = (_event: React.MouseEvent<unknown>, id: number) => {
     const selectedIndex = selected.indexOf(id);
     setSelected([selectedIndex]);
   };
 
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
   };
 
