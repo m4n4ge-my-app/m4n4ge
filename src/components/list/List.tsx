@@ -1,10 +1,20 @@
 import DayCard from './listCards/DayCard';
-import { groupedApplicationsByDate } from '../../utils/mockDataGenerator';
+import {
+  groupedApplicationsByDate,
+  groupedApplicationsByWeek,
+} from '../../utils/mockDataGenerator';
 
-export default function DayView() {
+interface ListProps {
+  viewMode: string;
+}
+
+export default function List({ viewMode }: ListProps) {
   return (
     <div>
-      {groupedApplicationsByDate.map((appGroup, index) => {
+      {(viewMode === 'days'
+        ? groupedApplicationsByDate
+        : groupedApplicationsByWeek
+      ).map((appGroup, index) => {
         const applicationDate = Object.keys(appGroup)[0];
         const applications = appGroup[applicationDate];
 

@@ -4,10 +4,7 @@ import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import { Item } from './utils/MuiItem';
 import Grid from '@mui/material/Grid';
 import { useState } from 'react';
-import DayView from '../list/DayView';
-import ExpandedView from '../list/ExpandedView';
-import WeekView from '../list/WeekView';
-import MonthView from '../list/MonthView';
+import List from '../list/List';
 
 //will be replace with proper model from server later
 interface Application {
@@ -130,10 +127,7 @@ const DashboardGrid = ({ username, applications }: Props) => {
                 </IconButton>
               </ButtonGroup>
             </div>
-            {viewMode === 'days' && <DayView />}
-            {viewMode === 'weeks' && <WeekView />}
-            {viewMode === 'months' && <MonthView />}
-            {viewMode === 'expanded' && <ExpandedView />}
+            <List viewMode={viewMode} />
           </Item>
         </Grid>
       </Grid>
