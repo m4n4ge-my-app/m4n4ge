@@ -115,13 +115,13 @@ function getRandomString(words: string): string {
 
 function getWeekStart(date: Date): string {
   const day = date.getDay();
-  const diff = day < 7 ? 7 - day : 0; // find the number of days to next Sunday
-  const nextSunday = new Date(
+  const diff = day > 0 ? day : 0; // find the number of days to last Sunday
+  const lastSunday = new Date(
     date.getFullYear(),
     date.getMonth(),
-    date.getDate() + diff
+    date.getDate() - diff
   );
-  return `Week of ${monthNames[nextSunday.getMonth()]} ${nextSunday.getDate()}, ${nextSunday.getFullYear()}`;
+  return `Week of ${monthNames[lastSunday.getMonth()]} ${lastSunday.getDate()}, ${lastSunday.getFullYear()}`;
 }
 
 function getMonthYear(date: Date): string {
