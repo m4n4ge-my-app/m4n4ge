@@ -135,7 +135,9 @@ export default function ApplicationsTable({
                 <TableCell align="center">{application.platform}</TableCell>
                 <TableCell align="center">{application.status}</TableCell>
                 <TableCell align="center">{application.workMode}</TableCell>
-                <TableCell align="center">{application.note}</TableCell>
+                <TableCell align="center" style={{ width: '400px' }}>
+                  {application.note}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
