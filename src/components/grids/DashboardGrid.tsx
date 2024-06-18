@@ -99,13 +99,31 @@ const DashboardGrid = ({ username, applications }: Props) => {
                 variant="text"
                 aria-label="Basic button group"
               >
-                <Button onClick={() => setViewMode('days')} size="small">
+                <Button
+                  onClick={() => setViewMode('days')}
+                  size="small"
+                  style={{
+                    fontWeight: viewMode === 'days' ? 'bold' : 'normal',
+                  }}
+                >
                   Days
                 </Button>
-                <Button onClick={() => setViewMode('weeks')} size="small">
+                <Button
+                  onClick={() => setViewMode('weeks')}
+                  size="small"
+                  style={{
+                    fontWeight: viewMode === 'weeks' ? 'bold' : 'normal',
+                  }}
+                >
                   Weeks
                 </Button>
-                <Button onClick={() => setViewMode('months')} size="small">
+                <Button
+                  onClick={() => setViewMode('months')}
+                  size="small"
+                  style={{
+                    fontWeight: viewMode === 'months' ? 'bold' : 'normal',
+                  }}
+                >
                   Months
                 </Button>
                 <IconButton
