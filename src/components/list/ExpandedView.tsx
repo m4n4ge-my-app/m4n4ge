@@ -4,6 +4,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import { Button, InputAdornment, TextField } from '@mui/material';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import TablePagination from '@mui/material/TablePagination';
+import MUIStyledTableRow from './utils/MUIStyledTableRow';
 import TableContainer from '@mui/material/TableContainer';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -193,6 +194,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
       sx={{
         pl: { sm: 2 },
         pr: { xs: 1, sm: 1 },
+        backgroundColor: '#f0f5ff',
       }}
     >
       {selected > 0 ? (
@@ -324,7 +326,7 @@ const ExpandedView = () => {
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
-                  <TableRow
+                  <MUIStyledTableRow
                     hover
                     onClick={(event) => handleClick(event, index)}
                     role="checkbox"
@@ -351,7 +353,7 @@ const ExpandedView = () => {
                     <TableCell align="center">{row.platform}</TableCell>
                     <TableCell align="center">{row.status}</TableCell>
                     <TableCell align="center">{row.workMode}</TableCell>
-                  </TableRow>
+                  </MUIStyledTableRow>
                 );
               })}
               {emptyRows > 0 && (
