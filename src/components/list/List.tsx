@@ -35,6 +35,7 @@ export default function List({ viewMode }: ListProps) {
         return (
           <ApplicationsTable
             key={index}
+            viewMode={viewMode}
             applicationDate={groupTitle}
             applications={applications}
           />

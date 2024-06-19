@@ -14,13 +14,16 @@ import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
 import { Application } from '../../../utils/mockDataGenerator';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import { getColors } from '../utils/colorUtilities';
+import moment from 'moment';
 
 interface DayCardProps {
+  viewMode: string;
   applicationDate: string;
   applications: Application[];
 }
 
 export default function ApplicationsTable({
+  viewMode,
   applicationDate,
   applications,
 }: DayCardProps) {
@@ -37,7 +40,9 @@ export default function ApplicationsTable({
           align="left"
           sx={{ marginLeft: 2, fontWeight: 'bold', color: 'GrayText' }}
         >
-          {applicationDate}
+          {viewMode === 'days'
+            ? moment(applicationDate).format('dddd, MMMM D, YYYY')
+            : applicationDate}
         </Typography>
         <Box
           sx={{
