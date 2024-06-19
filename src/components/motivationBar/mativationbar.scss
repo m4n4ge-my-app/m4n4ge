@@ -1,0 +1,25 @@
+.animatedDate {
+  position: relative;
+  color: #407bff;
+}
+
+.animatedDate::after {
+  content: '';
+  position: absolute;
+  bottom: -0.2em;
+  left: 0;
+  height: 0.2em;
+  width: 0%;
+  border-radius: 0.1em;
+  background-image: linear-gradient(to right, transparent, #ff40da);
+  animation: underline var(--animation-duration, 2s) linear infinite;
+}
+
+@keyframes underline {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
