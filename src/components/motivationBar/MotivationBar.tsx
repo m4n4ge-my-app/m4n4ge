@@ -1,11 +1,15 @@
-import { Grid, Typography } from '@mui/material';
+import { Divider, Grid, Typography } from '@mui/material';
 import AnalogClock from 'analog-clock-react';
+import { quotes } from './quotes/sampleQuotes';
 import moment from 'moment';
+import { useEffect, useState } from 'react';
 
 const MotivationBar = () => {
   const today = moment();
   const dayOfWeek = today.format('dddd');
   const restOfDate = today.format('MMMM D, YYYY');
+  const [quoteIndex, setQuoteIndex] = useState(0);
+
   const options = {
     useCustomTime: false,
     width: '150px',
@@ -20,6 +24,16 @@ const MotivationBar = () => {
       hour: '#ffc440',
     },
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const quote = quotes[quoteIndex];
 
   return (
     <Grid container>
@@ -56,9 +70,18 @@ const MotivationBar = () => {
           <Typography variant="h6">{restOfDate}</Typography>
         </Grid>
       </Grid>
-      <Grid item xs={12} sm={8}>
-        {/* Content for the right column */}
-        <div>Right Column</div>
+      <Grid item xs={12} sm={8} container direction="column" spacing={2}>
+        <Grid item>
+          <Typography variant="body1">{quote.quote}</Typography>
+          <Typography variant="body2" align="right">
+            {quote.author}
+          </Typography>
+        </Grid>
+        <Divider />
+        <Grid item>
+          {/* Content for the bottom half of the right column */}
+          <div>Bottom Half</div>
+        </Grid>
       </Grid>
     </Grid>
   );
