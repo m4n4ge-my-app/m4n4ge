@@ -1,7 +1,10 @@
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
 import { Button, InputAdornment, TextField, Typography } from '@mui/material';
+import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
+import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import TablePagination from '@mui/material/TablePagination';
@@ -26,6 +29,7 @@ import {
   applicationsData as applications,
   Application,
   searchApplications,
+  workModes,
 } from '../../utils/mockDataGenerator';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -378,7 +382,41 @@ const ExpandedView = () => {
                         {row.status === 'Accepted' && <SportsScoreIcon />}
                       </Box>
                     </TableCell>
-                    <TableCell align="center">{row.workMode}</TableCell>
+                    <TableCell align="center" style={{ width: '10%' }}>
+                      {row.workMode === workModes[0] && (
+                        <Box
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="center"
+                          gap={1}
+                        >
+                          <BusinessOutlinedIcon fontSize="small" />
+                          {workModes[0]}
+                        </Box>
+                      )}
+                      {row.workMode === workModes[1] && (
+                        <Box
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="center"
+                          gap={1}
+                        >
+                          <MapsHomeWorkOutlinedIcon fontSize="small" />
+                          {workModes[1]}
+                        </Box>
+                      )}
+                      {row.workMode === workModes[2] && (
+                        <Box
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="center"
+                          gap={1}
+                        >
+                          <CottageOutlinedIcon fontSize="small" />
+                          {workModes[2]}
+                        </Box>
+                      )}
+                    </TableCell>
                   </MUIStyledTableRow>
                 );
               })}
