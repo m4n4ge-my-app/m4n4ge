@@ -72,7 +72,7 @@ const statuses = [
   'Accepted',
 ];
 
-const workModes = ['On-site', 'Hybrid', 'Remote'];
+export const workModes = ['On-site', 'Hybrid', 'Remote'];
 const notes = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 const startDate = new Date('2023-07-12');
 const endDate = new Date();
