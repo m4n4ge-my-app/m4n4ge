@@ -2,7 +2,6 @@
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import { Box, Checkbox, Typography } from '@mui/material';
-import { pink } from '@mui/material/colors';
 
 type Props<T extends FieldValues> = {
   name: Path<T>;
@@ -34,7 +33,7 @@ export function RHFFavoriteCheckbox<T extends FieldValues>({ name }: Props<T>) {
             checkedIcon={<Favorite fontSize="small" />}
             sx={{
               '&.Mui-checked': {
-                color: pink[600],
+                color: '#ff40da',
               },
             }}
           />
