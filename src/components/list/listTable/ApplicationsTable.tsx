@@ -13,7 +13,7 @@ import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivism
 import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
 import { Application } from '../../../utils/mockDataGenerator';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
-import { getColors } from '../utils/colorUtilities';
+import { getColors } from '../utils/designUtilities';
 import moment from 'moment';
 
 interface DayCardProps {

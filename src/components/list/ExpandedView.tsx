@@ -11,7 +11,7 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import SearchIcon from '@mui/icons-material/Search';
 import React, { useEffect, useState } from 'react';
-import { getColors } from './utils/colorUtilities';
+import { getColors } from './utils/designUtilities';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
