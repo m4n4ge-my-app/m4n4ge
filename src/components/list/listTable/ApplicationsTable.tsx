@@ -6,12 +6,14 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
-import { Stack } from '@mui/system';
+import { Box, Stack } from '@mui/system';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined';
 import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
 import { Application } from '../../../utils/mockDataGenerator';
+import SportsScoreIcon from '@mui/icons-material/SportsScore';
+import { getColors } from '../utils/colorUtilities';
 
 interface DayCardProps {
   applicationDate: string;
@@ -133,7 +135,25 @@ export default function ApplicationsTable({
                 <TableCell align="center">{application.positionName}</TableCell>
                 <TableCell align="center">{application.location}</TableCell>
                 <TableCell align="center">{application.platform}</TableCell>
-                <TableCell align="center">{application.status}</TableCell>
+                <TableCell align="center">
+                  <Box
+                    sx={{
+                      width: '100px',
+                      marginLeft: 2,
+                      ...getColors(application.status),
+                      borderRadius: '8px',
+                      padding: '2px 5px',
+                      fontWeight: 'bold',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: getColors(application.status).color,
+                    }}
+                  >
+                    <Typography>{application.status}</Typography>
+                    {application.status === 'Accepted' && <SportsScoreIcon />}
+                  </Box>
+                </TableCell>
                 <TableCell align="center">{application.workMode}</TableCell>
                 <TableCell align="center" style={{ width: '400px' }}>
                   {application.note}
