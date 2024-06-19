@@ -1,29 +1,32 @@
 import { Grid, Typography } from '@mui/material';
+import AnalogClock from 'analog-clock-react';
 import moment from 'moment';
-import { useState, useEffect } from 'react';
 
 const MotivationBar = () => {
   const today = moment();
   const dayOfWeek = today.format('dddd');
   const restOfDate = today.format('MMMM D, YYYY');
-
-  const [time, setTime] = useState(moment().format('HH:mm:ss'));
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTime(moment().format('HH:mm:ss'));
-    }, 1000);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
+  const options = {
+    useCustomTime: false,
+    width: '150px',
+    border: false,
+    borderColor: '#ffffff',
+    baseColor: '#ffffff',
+    centerColor: '#ffffff',
+    centerBorderColor: '#40ff64',
+    handColors: {
+      second: '#407bff',
+      minute: '#ff40da',
+      hour: '#ffc440',
+    },
+  };
 
   return (
     <Grid container>
       <Grid item xs={12} sm={4}>
         <Typography variant="h4">{dayOfWeek}</Typography>
         <Typography variant="h6">{restOfDate}</Typography>
-        <Typography variant="h6">{time}</Typography>
+        <AnalogClock {...options} />
       </Grid>
       <Grid item xs={12} sm={8}>
         {/* Content for the right column */}
