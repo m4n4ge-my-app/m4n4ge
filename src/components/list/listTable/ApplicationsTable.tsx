@@ -1,22 +1,22 @@
-import Table from '@mui/material/Table';
+import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
+import { Application, workModes } from '../../../utils/mockDataGenerator';
+import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
+import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
+import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
+import SportsScoreIcon from '@mui/icons-material/SportsScore';
+import TableContainer from '@mui/material/TableContainer';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { getColors } from '../utils/designUtilities';
+import { Box, Stack, lighten } from '@mui/system';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
-import { Box, Stack, lighten } from '@mui/system';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined';
-import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
-import { Application, workModes } from '../../../utils/mockDataGenerator';
-import SportsScoreIcon from '@mui/icons-material/SportsScore';
-import { getColors } from '../utils/designUtilities';
-import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
-import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
-import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
+import Table from '@mui/material/Table';
+import Paper from '@mui/material/Paper';
 import moment from 'moment';
 
 interface DayCardProps {
