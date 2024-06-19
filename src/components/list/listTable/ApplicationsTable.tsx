@@ -123,8 +123,10 @@ export default function ApplicationsTable({
                 key={i}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell align="center">{i + 1}</TableCell>
-                <TableCell align="center">
+                <TableCell align="center" style={{ width: '5%' }}>
+                  {i + 1}
+                </TableCell>
+                <TableCell align="center" style={{ width: '5%' }}>
                   {application.isFavourite === true ? (
                     <FavoriteIcon
                       style={{ color: '#ff40da' }}
@@ -134,11 +136,19 @@ export default function ApplicationsTable({
                     <FavoriteBorderOutlinedIcon fontSize="small" />
                   )}
                 </TableCell>
-                <TableCell align="center">{application.employerName}</TableCell>
-                <TableCell align="center">{application.positionName}</TableCell>
-                <TableCell align="center">{application.location}</TableCell>
-                <TableCell align="center">{application.platform}</TableCell>
-                <TableCell align="center">
+                <TableCell align="center" style={{ width: '10%' }}>
+                  {application.employerName}
+                </TableCell>
+                <TableCell align="center" style={{ width: '10%' }}>
+                  {application.positionName}
+                </TableCell>
+                <TableCell align="center" style={{ width: '10%' }}>
+                  {application.location}
+                </TableCell>
+                <TableCell align="center" style={{ width: '10%' }}>
+                  {application.platform}
+                </TableCell>
+                <TableCell align="center" style={{ width: '10%' }}>
                   <Box
                     sx={{
                       width: '100px',
@@ -157,8 +167,10 @@ export default function ApplicationsTable({
                     {application.status === 'Accepted' && <SportsScoreIcon />}
                   </Box>
                 </TableCell>
-                <TableCell align="center">{application.workMode}</TableCell>
-                <TableCell align="center" style={{ width: '400px' }}>
+                <TableCell align="center" style={{ width: '10%' }}>
+                  {application.workMode}
+                </TableCell>
+                <TableCell align="center" style={{ width: '30%' }}>
                   {application.note}
                 </TableCell>
               </TableRow>
