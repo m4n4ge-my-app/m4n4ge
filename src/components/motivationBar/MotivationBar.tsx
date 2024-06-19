@@ -23,10 +23,38 @@ const MotivationBar = () => {
 
   return (
     <Grid container>
-      <Grid item xs={12} sm={4}>
-        <Typography variant="h4">{dayOfWeek}</Typography>
-        <Typography variant="h6">{restOfDate}</Typography>
-        <AnalogClock {...options} />
+      <Grid item xs={12} sm={4} container>
+        <Grid
+          item
+          xs={2}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Typography
+            variant="h4"
+            sx={{
+              transform: 'rotate(-90deg)',
+              transformOrigin: 'center',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {dayOfWeek}
+          </Typography>
+        </Grid>
+        <Grid
+          item
+          xs={10}
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <AnalogClock {...options} />
+          <Typography variant="h6">{restOfDate}</Typography>
+        </Grid>
       </Grid>
       <Grid item xs={12} sm={8}>
         {/* Content for the right column */}
