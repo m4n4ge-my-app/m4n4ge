@@ -6,7 +6,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
-import { Box, Stack } from '@mui/system';
+import { Box, Stack, lighten } from '@mui/system';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined';
@@ -39,20 +39,23 @@ export default function ApplicationsTable({
         >
           {applicationDate}
         </Typography>
-        <Typography
-          variant="body2"
-          align="left"
+        <Box
           sx={{
+            width: 'auto',
             marginLeft: 2,
-            backgroundColor: '#bcc1cc',
+            backgroundColor: lighten('#D3D3D3', 0.3),
             borderRadius: '8px',
             padding: '2px 5px',
-            color: 'GrayText',
             fontWeight: 'bold',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'GrayText',
           }}
         >
-          {applications.length} applications
-        </Typography>
+          <Typography>{`${applications.length} applications`}</Typography>
+        </Box>
       </Stack>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
