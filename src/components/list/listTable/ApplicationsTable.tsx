@@ -11,9 +11,12 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined';
 import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
-import { Application } from '../../../utils/mockDataGenerator';
+import { Application, workModes } from '../../../utils/mockDataGenerator';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import { getColors } from '../utils/designUtilities';
+import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
+import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
+import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
 import moment from 'moment';
 
 interface DayCardProps {
@@ -173,7 +176,39 @@ export default function ApplicationsTable({
                   </Box>
                 </TableCell>
                 <TableCell align="center" style={{ width: '10%' }}>
-                  {application.workMode}
+                  {application.workMode === workModes[0] && (
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      gap={1}
+                    >
+                      <BusinessOutlinedIcon fontSize="small" />
+                      {workModes[0]}
+                    </Box>
+                  )}
+                  {application.workMode === workModes[1] && (
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      gap={1}
+                    >
+                      <MapsHomeWorkOutlinedIcon fontSize="small" />
+                      {workModes[1]}
+                    </Box>
+                  )}
+                  {application.workMode === workModes[2] && (
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      gap={1}
+                    >
+                      <CottageOutlinedIcon fontSize="small" />
+                      {workModes[2]}
+                    </Box>
+                  )}
                 </TableCell>
                 <TableCell align="center" style={{ width: '30%' }}>
                   {application.note}
