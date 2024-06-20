@@ -326,9 +326,65 @@ function getEarliestApplicationDate(applications: Application[]): {
   return { earliestDate: earliestDateString, elapsedDays };
 }
 
+function getApplicationSummary(
+  applications: Application[]
+): Record<string, number> {
+  const summary: Record<string, number> = {
+    total: applications.length,
+    Applied: 0,
+    Engaged: 0,
+    Interviewing: 0,
+    Rejected: 0,
+    Offer: 0,
+    Accepted: 0,
+  };
+
+  applications.forEach((application) => {
+    if (application.status in summary) {
+      summary[application.status]++;
+    }
+  });
+
+  return summary;
+}
+
+function getApplicationTrend(
+  applications: Application[]
+): { monthYear: string; statusCounts: Record<string, number> }[] {
+  const trend: Record<string, Record<string, number>> = {};
+
+  applications.forEach((application) => {
+    const monthYear = getMonthYear(new Date(application.applicationDate));
+
+    if (!trend[monthYear]) {
+      trend[monthYear] = {
+        Applied: 0,
+        Engaged: 0,
+        Interviewing: 0,
+        Rejected: 0,
+        Offer: 0,
+        Accepted: 0,
+      };
+    }
+
+    // Ensure the status exists in the trend[monthYear] object
+    if (!trend[monthYear][application.status]) {
+      trend[monthYear][application.status] = 0;
+    }
+
+    trend[monthYear][application.status]++;
+  });
+
+  return Object.entries(trend)
+    .map(([monthYear, statusCounts]) => ({ monthYear, statusCounts }))
+    .sort((a, b) => +new Date(a.monthYear) - +new Date(b.monthYear));
+}
+
 // Exports
 export const applicationsData = applications;
 export const earliestDate = getEarliestApplicationDate(applications);
+export const applicationsTrend = getApplicationTrend(applications);
+export const applicationSummary = getApplicationSummary(applications);
 export const groupedApplicationsByDate = groupByDate(applications);
 export const groupedApplicationsByWeek = groupByWeek(applications);
 export const groupedApplicationsByMonth = groupByMonth(applications);
