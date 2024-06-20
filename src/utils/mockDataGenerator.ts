@@ -376,7 +376,7 @@ function getApplicationTrend(
 // Exports
 export const applicationsData = applications;
 export const earliestDate = getEarliestApplicationDate(applications);
-export const applicationTrend = getApplicationTrend(applications);
+export const applicationsTrend = getApplicationTrend(applications);
 export const applicationSummary = getApplicationSummary(applications);
 export const groupedApplicationsByDate = groupByDate(applications);
 export const groupedApplicationsByWeek = groupByWeek(applications);
