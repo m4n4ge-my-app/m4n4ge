@@ -348,9 +348,35 @@ function getApplicationSummary(
   return summary;
 }
 
+function getApplicationTrend(
+  applications: Application[]
+): Record<string, Record<string, number>> {
+  const trend: Record<string, Record<string, number>> = {};
+
+  applications.forEach((application) => {
+    const monthYear = getMonthYear(new Date(application.applicationDate));
+
+    if (!trend[monthYear]) {
+      trend[monthYear] = {
+        Applied: 0,
+        Engaged: 0,
+        Interviewing: 0,
+        Rejected: 0,
+        Offer: 0,
+        Accepted: 0,
+      };
+    }
+
+    trend[monthYear][application.status]++;
+  });
+
+  return trend;
+}
+
 // Exports
 export const applicationsData = applications;
 export const earliestDate = getEarliestApplicationDate(applications);
+export const applicationTrend = getApplicationTrend(applications);
 export const applicationSummary = getApplicationSummary(applications);
 export const groupedApplicationsByDate = groupByDate(applications);
 export const groupedApplicationsByWeek = groupByWeek(applications);
