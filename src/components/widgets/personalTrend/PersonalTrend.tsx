@@ -60,16 +60,15 @@ const PersonalTrend = () => {
         data={transformedData}
         margin={{
           top: 5,
-          right: 30,
-          left: 20,
+          right: 10,
+          left: 0,
           bottom: 5,
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
+        <XAxis dataKey="name" padding={{ left: 0 }} />
+        <YAxis width={20} />
         <Tooltip />
-        <Legend />
         {lineKeys.map((key, index) => (
           <Line
             key={key}
