@@ -11,12 +11,13 @@ import {
 import { applicationSummary } from '../../../utils/mockDataGenerator';
 
 const data = [
-  { name: 'Group A', value: 400 },
-  { name: 'Group B', value: 300 },
-  { name: 'Group C', value: 300 },
-  { name: 'Group D', value: 200 },
+  { name: 'Applied', value: applicationSummary.Applied },
+  { name: 'Engaged', value: applicationSummary.Engaged },
+  { name: 'Interviewing', value: applicationSummary.Interviewing },
+  { name: 'Rejected Applicaitons', value: applicationSummary.Rejected },
+  { name: 'Offers', value: applicationSummary.Offer },
 ];
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const COLORS = ['lightgray', '#407bff', '#ffc440', '#ff40da', '#40ff64'];
 
 const ApplicationsOverview = () => {
   console.log(applicationSummary);
