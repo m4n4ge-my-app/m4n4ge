@@ -7,6 +7,7 @@ import { useState } from 'react';
 import List from '../list/List';
 import ExpandedView from '../list/ExpandedView';
 import MotivationBar from '../motivationBar/MotivationBar';
+import ApplicationsOverview from '../widgets/applicationsOverview/ApplicationsOverview';
 
 //will be replace with proper model from server later
 interface Application {
@@ -63,7 +64,9 @@ const DashboardGrid = ({ username, applications }: Props) => {
       {/* Sub Grid Container/Row #4 - Status Widgets */}
       <Grid container item spacing={2.5} className="row4">
         <Grid item xs={12} sm={6} md={6} lg={3}>
-          <Item className="stats">Stats 1</Item>
+          <Item className="stats">
+            <ApplicationsOverview />
+          </Item>
         </Grid>
         <Grid item xs={12} sm={6} md={6} lg={3}>
           <Item className="stats">Stats 2</Item>
