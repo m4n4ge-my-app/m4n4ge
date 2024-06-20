@@ -249,7 +249,6 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 }
 
 const ExpandedView = () => {
-  console.log(applications);
   const [orderBy, setOrderBy] = useState<keyof Application>('applicationDate');
   const [searchResult, setSearchResult] = useState<Application[] | null>(null);
   const [selected, setSelected] = useState<readonly number[]>([]);

@@ -13,7 +13,6 @@ const data = [
 const COLORS = ['lightgray', '#407bff', '#ffc440', '#ff40da', '#40ff64'];
 
 const ApplicationsOverview = () => {
-  console.log(applicationSummary);
   return (
     <Grid container direction="row">
       <Grid item xs={8} style={{ height: '150px' }}>

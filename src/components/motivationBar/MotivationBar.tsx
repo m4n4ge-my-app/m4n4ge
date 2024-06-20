@@ -18,9 +18,6 @@ const MotivationBar = () => {
     ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
   );
 
-  console.log(moment(earliestDate.earliestDate).format('ddd, MMM D, YY'));
-  console.log(earliestDate.elapsedDays);
-
   const options = {
     useCustomTime: false,
     width: '150px',
