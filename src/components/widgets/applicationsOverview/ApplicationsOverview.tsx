@@ -1,6 +1,13 @@
 import { Grid, Typography } from '@mui/material';
 import React, { PureComponent } from 'react';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
+import {
+  PieChart,
+  Pie,
+  Sector,
+  Cell,
+  ResponsiveContainer,
+  Tooltip,
+} from 'recharts';
 import { applicationSummary } from '../../../utils/mockDataGenerator';
 
 const data = [
@@ -35,6 +42,7 @@ const ApplicationsOverview = () => {
                 />
               ))}
             </Pie>
+            <Tooltip />
           </PieChart>
         </ResponsiveContainer>
       </Grid>
