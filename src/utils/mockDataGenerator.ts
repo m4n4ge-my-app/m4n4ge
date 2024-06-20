@@ -326,9 +326,32 @@ function getEarliestApplicationDate(applications: Application[]): {
   return { earliestDate: earliestDateString, elapsedDays };
 }
 
+function getApplicationSummary(
+  applications: Application[]
+): Record<string, number> {
+  const summary: Record<string, number> = {
+    total: applications.length,
+    Applied: 0,
+    Engaged: 0,
+    Interviewing: 0,
+    Rejected: 0,
+    Offer: 0,
+    Accepted: 0,
+  };
+
+  applications.forEach((application) => {
+    if (application.status in summary) {
+      summary[application.status]++;
+    }
+  });
+
+  return summary;
+}
+
 // Exports
 export const applicationsData = applications;
 export const earliestDate = getEarliestApplicationDate(applications);
+export const applicationSummary = getApplicationSummary(applications);
 export const groupedApplicationsByDate = groupByDate(applications);
 export const groupedApplicationsByWeek = groupByWeek(applications);
 export const groupedApplicationsByMonth = groupByMonth(applications);
