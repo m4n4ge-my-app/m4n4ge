@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 import { useState } from 'react';
 import List from '../list/List';
 import ExpandedView from '../list/ExpandedView';
+import MotivationBar from '../motivationBar/MotivationBar';
 
 //will be replace with proper model from server later
 interface Application {
@@ -42,7 +43,7 @@ const DashboardGrid = ({ username, applications }: Props) => {
         {/* Motivation Box */}
         <Grid item xs={12} sm={12} md={8}>
           <Item className="mativationBox" sx={{ border: 'none' }}>
-            Motivation Bar
+            <MotivationBar />
           </Item>
         </Grid>
         {/* Job Outlook Box  */}

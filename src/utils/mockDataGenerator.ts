@@ -297,8 +297,38 @@ export function searchApplications(
     });
 }
 
+function getDaysElapsed(earliestDate: string): number {
+  const earliest = new Date(earliestDate);
+  const now = new Date();
+
+  const differenceInTime = now.getTime() - earliest.getTime();
+  const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+
+  return Math.floor(differenceInDays);
+}
+
+function getEarliestApplicationDate(applications: Application[]): {
+  earliestDate: string;
+  elapsedDays: number;
+} {
+  let earliestDate = new Date(applications[0].applicationDate);
+
+  for (let i = 1; i < applications.length; i++) {
+    const applicationDate = new Date(applications[i].applicationDate);
+    if (applicationDate < earliestDate) {
+      earliestDate = applicationDate;
+    }
+  }
+
+  const earliestDateString = earliestDate.toISOString().split('T')[0];
+  const elapsedDays = getDaysElapsed(earliestDateString);
+
+  return { earliestDate: earliestDateString, elapsedDays };
+}
+
 // Exports
 export const applicationsData = applications;
+export const earliestDate = getEarliestApplicationDate(applications);
 export const groupedApplicationsByDate = groupByDate(applications);
 export const groupedApplicationsByWeek = groupByWeek(applications);
 export const groupedApplicationsByMonth = groupByMonth(applications);
