@@ -1,6 +1,7 @@
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import React, { PureComponent } from 'react';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
+import { applicationSummary } from '../../../utils/mockDataGenerator';
 
 const data = [
   { name: 'Group A', value: 400 },
@@ -11,6 +12,7 @@ const data = [
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const ApplicationsOverview = () => {
+  console.log(applicationSummary);
   return (
     <Grid container direction="row">
       <Grid item xs={8} style={{ height: '150px' }}>
@@ -37,7 +39,7 @@ const ApplicationsOverview = () => {
         </ResponsiveContainer>
       </Grid>
       <Grid item xs={4}>
-        {/* Content for the right column goes here */}
+        <Typography variant="h5">Total: {applicationSummary.total}</Typography>
       </Grid>
     </Grid>
   );
