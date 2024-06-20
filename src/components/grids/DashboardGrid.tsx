@@ -9,6 +9,7 @@ import ExpandedView from '../list/ExpandedView';
 import MotivationBar from '../motivationBar/MotivationBar';
 import ApplicationsOverview from '../widgets/applicationsOverview/ApplicationsOverview';
 import PersonalTrend from '../widgets/personalTrend/PersonalTrend';
+import greetingTime from 'greeting-time'; //there is tpescript types for this package from the package maintainer, so this error cant be fixed
 
 //will be replace with proper model from server later
 interface Application {
@@ -36,7 +37,7 @@ const DashboardGrid = ({ username, applications }: Props) => {
       <Grid item xs={12} sm={12} md={12} className="row1">
         {/* Label */}
         <Typography variant="h6" className="label" gutterBottom>
-          Hello {username}
+          {greetingTime(new Date())} {username}
         </Typography>
       </Grid>
 
