@@ -5,6 +5,7 @@ import { earliestDate } from '../../utils/mockDataGenerator';
 import { quotes } from './quotes/sampleQuotes';
 import AnalogClock from 'analog-clock-react'; //there is tpescript types for this package from the package maintainer, so this error cant be fixed
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Box } from '@mui/system';
 import './mativationbar.scss';
 import moment from 'moment';
@@ -182,32 +183,38 @@ const MotivationBar = () => {
           gap={2}
         >
           <Grid item>
-            <Badge
-              badgeContent={2}
-              color="error"
-              sx={{
-                '.MuiBadge-badge': {
-                  bgcolor: '#ff40da',
-                  transform: 'scale(0.65)',
-                },
-              }}
-            >
-              <CalendarMonthOutlinedIcon />
-            </Badge>
+            <Link to="/calendar">
+              <Badge
+                badgeContent={2}
+                color="error"
+                sx={{
+                  '.MuiBadge-badge': {
+                    bgcolor: '#ff40da',
+                    transform: 'scale(0.65)',
+                  },
+                  cursor: 'pointer',
+                }}
+              >
+                <CalendarMonthOutlinedIcon />
+              </Badge>
+            </Link>
           </Grid>
           <Grid item>
-            <Badge
-              badgeContent={3}
-              color="error"
-              sx={{
-                '.MuiBadge-badge': {
-                  bgcolor: '#ff40da',
-                  transform: 'scale(0.65)',
-                },
-              }}
-            >
-              <PlaylistAddCheckOutlinedIcon />
-            </Badge>
+            <Link to="/todos">
+              <Badge
+                badgeContent={3}
+                color="error"
+                sx={{
+                  '.MuiBadge-badge': {
+                    bgcolor: '#ff40da',
+                    transform: 'scale(0.65)',
+                  },
+                  cursor: 'pointer',
+                }}
+              >
+                <PlaylistAddCheckOutlinedIcon />
+              </Badge>
+            </Link>
           </Grid>
         </Grid>
       </Grid>
