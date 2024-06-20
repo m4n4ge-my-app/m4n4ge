@@ -4,7 +4,7 @@ import { applicationSummary } from '../../../utils/mockDataGenerator';
 import { Grid, Typography } from '@mui/material';
 
 const data = [
-  { name: 'Applied', value: applicationSummary.Applied },
+  { name: 'Applied, no response', value: applicationSummary.Applied },
   { name: 'Engaged', value: applicationSummary.Engaged },
   { name: 'Interviewing', value: applicationSummary.Interviewing },
   { name: 'Rejections', value: applicationSummary.Rejected },
