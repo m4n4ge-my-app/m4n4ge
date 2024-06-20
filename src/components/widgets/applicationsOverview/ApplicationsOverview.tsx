@@ -18,8 +18,8 @@ const ApplicationsOverview = () => {
           <PieChart>
             <Pie
               data={data}
-              cx="50%"
-              cy="50%"
+              cx="35%"
+              cy="45%"
               innerRadius={50}
               outerRadius={60}
               fill="#8884d8"
