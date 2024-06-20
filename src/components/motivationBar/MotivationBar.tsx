@@ -22,7 +22,7 @@ const MotivationBar = () => {
 
   const options = {
     useCustomTime: false,
-    width: '180px',
+    width: '150px',
     border: false,
     borderColor: '#ffffff',
     baseColor: '#ffffff',
@@ -149,7 +149,7 @@ const MotivationBar = () => {
             }}
           >
             Your journey started
-            <span className="animatedDate">{displayString}</span>, keep going!
+            <span className="animatedDate">{displayString}</span>, persist!
           </Typography>
         </Grid>
       </Grid>
