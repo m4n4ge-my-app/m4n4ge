@@ -8,6 +8,7 @@ import List from '../list/List';
 import ExpandedView from '../list/ExpandedView';
 import MotivationBar from '../motivationBar/MotivationBar';
 import ApplicationsOverview from '../widgets/applicationsOverview/ApplicationsOverview';
+import PersonalTrend from '../widgets/personalTrend/PersonalTrend';
 
 //will be replace with proper model from server later
 interface Application {
@@ -75,7 +76,9 @@ const DashboardGrid = ({ username, applications }: Props) => {
           <Item className="stats">Stats 3</Item>
         </Grid>
         <Grid item xs={12} sm={6} md={6} lg={3}>
-          <Item className="stats">Stats 4</Item>
+          <Item className="stats">
+            <PersonalTrend />
+          </Item>
         </Grid>
       </Grid>
 
