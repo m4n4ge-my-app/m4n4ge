@@ -1,8 +1,11 @@
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import PlaylistAddCheckOutlinedIcon from '@mui/icons-material/PlaylistAddCheckOutlined';
+import { Badge, Divider, Grid, Typography } from '@mui/material';
 import { earliestDate } from '../../utils/mockDataGenerator';
-import { Divider, Grid, Typography } from '@mui/material';
 import { quotes } from './quotes/sampleQuotes';
 import AnalogClock from 'analog-clock-react';
 import { useEffect, useState } from 'react';
+import { Box } from '@mui/system';
 import './mativationbar.scss';
 import moment from 'moment';
 
@@ -18,7 +21,7 @@ const MotivationBar = () => {
 
   const options = {
     useCustomTime: false,
-    width: '200px',
+    width: '180px',
     border: false,
     borderColor: '#ffffff',
     baseColor: '#ffffff',
@@ -76,7 +79,7 @@ const MotivationBar = () => {
         height: '250px',
       }}
     >
-      <Grid item xs={4} container>
+      <Grid item xs={3} container>
         <Grid
           item
           xs={1}
@@ -84,7 +87,6 @@ const MotivationBar = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            // padding: '1rem',
           }}
         >
           <Typography
@@ -113,7 +115,7 @@ const MotivationBar = () => {
       </Grid>
       <Grid
         item
-        xs={8}
+        xs={7}
         container
         direction="column"
         justifyContent="space-between"
@@ -133,7 +135,9 @@ const MotivationBar = () => {
             {quote.author}
           </Typography>
         </Grid>
-        <Divider />
+        <Box display="flex" justifyContent="center">
+          <Divider sx={{ width: '90%' }} />
+        </Box>
         <Grid item>
           <Typography
             variant="h6"
@@ -146,6 +150,65 @@ const MotivationBar = () => {
             Your journey started
             <span className="animatedDate">{displayString}</span>, keep going!
           </Typography>
+        </Grid>
+      </Grid>
+
+      <Grid
+        item
+        xs={2}
+        container
+        direction="column"
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ height: '100%' }}
+        padding={2}
+      >
+        <Box display="flex" alignItems="center" height="100%">
+          <Divider orientation="vertical" sx={{ height: '100%' }} flexItem />
+        </Box>
+        <Grid item>
+          <Typography variant="body1" align="center">
+            Tasks
+          </Typography>
+        </Grid>
+        <Grid
+          item
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={2}
+          sx={{ flex: 1 }}
+          gap={2}
+        >
+          <Grid item>
+            <Badge
+              badgeContent={2}
+              color="error"
+              sx={{
+                '.MuiBadge-badge': {
+                  bgcolor: '#ff40da',
+                  transform: 'scale(0.65)',
+                },
+              }}
+            >
+              <CalendarMonthOutlinedIcon />
+            </Badge>
+          </Grid>
+          <Grid item>
+            <Badge
+              badgeContent={3}
+              color="error"
+              sx={{
+                '.MuiBadge-badge': {
+                  bgcolor: '#ff40da',
+                  transform: 'scale(0.65)',
+                },
+              }}
+            >
+              <PlaylistAddCheckOutlinedIcon />
+            </Badge>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
