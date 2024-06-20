@@ -12,6 +12,7 @@ import moment from 'moment';
 
 const MotivationBar = () => {
   const today = moment().format('ddd, MMM D, YY');
+  const [day, ...rest] = today.split(' ');
   const [quoteIndex, setQuoteIndex] = useState(0);
   const [displayString, setDisplayString] = useState(
     ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
@@ -100,7 +101,12 @@ const MotivationBar = () => {
               color: 'lightgray',
             }}
           >
-            {today}
+            <Link to="/calendar">
+              <span style={{ color: '#ffc440', textDecoration: 'underline' }}>
+                {day}
+              </span>
+            </Link>{' '}
+            {rest.join(' ')}
           </Typography>
         </Grid>
         <Grid
