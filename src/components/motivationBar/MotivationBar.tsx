@@ -193,9 +193,12 @@ const MotivationBar = () => {
                     transform: 'scale(0.65)',
                   },
                   cursor: 'pointer',
+                  '&:focus': {
+                    outline: 'none',
+                  },
                 }}
               >
-                <CalendarMonthOutlinedIcon />
+                <CalendarMonthOutlinedIcon color="action" />
               </Badge>
             </Link>
           </Grid>
@@ -210,9 +213,12 @@ const MotivationBar = () => {
                     transform: 'scale(0.65)',
                   },
                   cursor: 'pointer',
+                  '&:focus': {
+                    outline: 'none',
+                  },
                 }}
               >
-                <PlaylistAddCheckOutlinedIcon />
+                <PlaylistAddCheckOutlinedIcon color="action" />
               </Badge>
             </Link>
           </Grid>
