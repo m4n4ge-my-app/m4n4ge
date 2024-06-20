@@ -350,7 +350,7 @@ function getApplicationSummary(
 
 function getApplicationTrend(
   applications: Application[]
-): Record<string, Record<string, number>> {
+): { monthYear: string; statusCounts: Record<string, number> }[] {
   const trend: Record<string, Record<string, number>> = {};
 
   applications.forEach((application) => {
@@ -367,10 +367,17 @@ function getApplicationTrend(
       };
     }
 
+    // Ensure the status exists in the trend[monthYear] object
+    if (!trend[monthYear][application.status]) {
+      trend[monthYear][application.status] = 0;
+    }
+
     trend[monthYear][application.status]++;
   });
 
-  return trend;
+  return Object.entries(trend)
+    .map(([monthYear, statusCounts]) => ({ monthYear, statusCounts }))
+    .sort((a, b) => +new Date(a.monthYear) - +new Date(b.monthYear));
 }
 
 // Exports
