@@ -1,14 +1,6 @@
-import { Grid, Typography } from '@mui/material';
-import React, { PureComponent } from 'react';
-import {
-  PieChart,
-  Pie,
-  Sector,
-  Cell,
-  ResponsiveContainer,
-  Tooltip,
-} from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { applicationSummary } from '../../../utils/mockDataGenerator';
+import { Grid, Typography } from '@mui/material';
 
 const data = [
   { name: 'Applied', value: applicationSummary.Applied },
@@ -36,7 +28,7 @@ const ApplicationsOverview = () => {
               paddingAngle={5}
               dataKey="value"
             >
-              {data.map((entry, index) => (
+              {data.map((_entry, index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={COLORS[index % COLORS.length]}
