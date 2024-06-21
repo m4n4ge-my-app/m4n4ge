@@ -9,20 +9,22 @@ import ExpandedView from '../list/ExpandedView';
 import MotivationBar from '../motivationBar/MotivationBar';
 import ApplicationsOverview from '../widgets/applicationsOverview/ApplicationsOverview';
 import PersonalTrend from '../widgets/personalTrend/PersonalTrend';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import greetingTime from 'greeting-time'; //there is tpescript types for this package from the package maintainer, so this error cant be fixed
 
 //will be replace with proper model from server later
-interface Application {
-  id: number;
-  employerName: string;
-  positionName: string;
-}
+// interface Application {
+//   id: number;
+//   employerName: string;
+//   positionName: string;
+// }
 interface Props {
   username: string;
-  applications: Application[];
+  // applications: Application[];
 }
 
-const DashboardGrid = ({ username, applications }: Props) => {
+const DashboardGrid = ({ username }: Props) => {
   const [expanded, setExpanded] = useState(true);
   const [viewMode, setViewMode] = useState('days');
   return (

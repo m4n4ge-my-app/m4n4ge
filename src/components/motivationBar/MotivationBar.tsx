@@ -3,6 +3,8 @@ import PlaylistAddCheckOutlinedIcon from '@mui/icons-material/PlaylistAddCheckOu
 import { Badge, Divider, Grid, Typography } from '@mui/material';
 import { earliestDate } from '../../utils/mockDataGenerator';
 import { quotes } from './quotes/sampleQuotes';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
 import AnalogClock from 'analog-clock-react'; //there is tpescript types for this package from the package maintainer, so this error cant be fixed
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';

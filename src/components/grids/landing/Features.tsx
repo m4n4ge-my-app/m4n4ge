@@ -35,7 +35,10 @@ const Features = () => {
 
   const [value, setValue] = useState(0);
 
-  const handleChange = (event: React.ChangeEvent<object>, newValue: number) => {
+  const handleChange = (
+    _event: React.ChangeEvent<object>,
+    newValue: number
+  ) => {
     setValue(newValue);
   };
 

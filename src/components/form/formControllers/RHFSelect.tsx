@@ -43,9 +43,13 @@ export function RHFSelect<T extends FieldValues>({
             onChange={(_, newValue) => {
               if (Array.isArray(newValue)) {
                 onChange(newValue.map((item) => item.id));
-              } else if (newValue && typeof newValue === 'object') {
+              } else if (
+                newValue &&
+                typeof newValue === 'object' &&
+                'props' in newValue
+              ) {
                 // appearently newValue is an object with a props property, so its this block that gets executed
-                onChange(newValue.props.value);
+                onChange((newValue as React.ReactElement).props.value);
               } else {
                 console.warn('Unexpected value:', newValue);
               }
