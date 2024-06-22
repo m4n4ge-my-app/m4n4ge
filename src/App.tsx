@@ -28,6 +28,7 @@ import { checkAuth } from './services/auth';
 import theme from './theme';
 import { RootState } from './state/store';
 import Toast from './components/feedback/Toast';
+import { hide } from './state/feeback/feedbackSlice';
 
 function App() {
   const isAuthenticated = useSelector(
@@ -49,10 +50,17 @@ function App() {
       setShowToast(true);
     }
 
+    // Automatically hide after 3 seconds otherwise it will pop up again when navigating to a new route
+    const timer = setTimeout(() => {
+      dispatch(hide());
+    }, 3000);
+
     fetchAuthStatus().catch((error) => {
       console.error('Failed to fetch auth status:', error);
     });
-  }, [dispatch, location]);
+
+    return () => clearTimeout(timer);
+  }, [dispatch, location, feedback.open]);
 
   return (
     <ThemeProvider theme={theme}>
