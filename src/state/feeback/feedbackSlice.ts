@@ -33,8 +33,6 @@ export const feedbackSlice = createSlice({
     // Action to hide the toast
     hide: (state) => {
       state.open = false;
-      state.message = '';
-      state.severity = 'info';
     },
   },
 });
