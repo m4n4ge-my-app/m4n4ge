@@ -9,17 +9,7 @@ interface Response {
 export const checkAuth = async () => {
   try {
     const response: Response = await axios.get('/api/auth/check');
-    if (
-      response.data.isAuthenticated &&
-      getCookieByName('userId') !== undefined
-    ) {
-      return true;
-    } else if (
-      response.data.isAuthenticated &&
-      getCookieByName('userId') === undefined
-    ) {
-      return false;
-    }
+    return response.data.isAuthenticated;
   } catch (error) {
     console.error(error);
     return false;
