@@ -1,9 +1,9 @@
 import SignInForm from '../../../components/form/forms/SignInForm';
-import AuthGrid from '../../../components/grids/auth/AuthGrid';
+import SigninGrid from '../../../components/grids/auth/SigninGrid';
 
 const SignIn = () => {
   return (
-    <AuthGrid
+    <SigninGrid
       type="signin"
       messageTitle="Welcome Back!"
       message="Your journey awaits, sign in to continue."
