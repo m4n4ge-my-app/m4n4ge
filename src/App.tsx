@@ -2,7 +2,7 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 //local imports
 import JobDescriptions from './pages/iManage/jobDescriptions/JobDescriptions';
 import ForgotPassword from './pages/auth/forgotPassword/ForgotPassword';
@@ -27,12 +27,15 @@ import Todos from './pages/iManage/todos/Todos';
 import { checkAuth } from './services/auth';
 import theme from './theme';
 import { RootState } from './state/store';
+import Toast from './components/feedback/Toast';
 
 function App() {
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
+  const feedback = useSelector((state: RootState) => state.feedback);
+  const [showToast, setShowToast] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -41,6 +44,10 @@ function App() {
       const _isAuthenticated = await checkAuth();
       dispatch(setAuthState(_isAuthenticated));
     };
+
+    if (feedback.open) {
+      setShowToast(true);
+    }
 
     fetchAuthStatus().catch((error) => {
       console.error('Failed to fetch auth status:', error);
@@ -85,6 +92,12 @@ function App() {
         {/* Invalid public routes */}
         <Route path="*" element={<NotFound isPrivateRoute={false} />} />
       </Routes>
+      <Toast
+        open={showToast}
+        setOpen={setShowToast}
+        message={feedback.message}
+        severity={feedback.severity}
+      />
     </ThemeProvider>
   );
 }

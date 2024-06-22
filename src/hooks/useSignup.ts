@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { setAuthState } from '../state/authentication/authSlice';
+import { show } from '../state/feeback/feedbackSlice';
 
 export const useSingup = () => {
   const [error, setError] = useState<string | null>(null);
@@ -30,6 +31,12 @@ export const useSingup = () => {
         localStorage.setItem('user', JSON.stringify(json));
         setIsLoading(false);
         dispatch(setAuthState(true));
+        dispatch(
+          show({
+            message: 'Welcome aboard! Signup successful.',
+            severity: 'success',
+          })
+        );
         navigate('/dashboard');
       }
     } catch (error) {
