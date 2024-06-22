@@ -28,7 +28,7 @@ import { checkAuth } from './services/auth';
 import theme from './theme';
 import { RootState } from './state/store';
 import Toast from './components/feedback/Toast';
-import { hide } from './state/feeback/feedbackSlice';
+import { hide, show } from './state/feeback/feedbackSlice';
 
 function App() {
   const isAuthenticated = useSelector(
@@ -43,7 +43,13 @@ function App() {
   useEffect(() => {
     const fetchAuthStatus = async () => {
       const _isAuthenticated = await checkAuth();
-      dispatch(setAuthState(_isAuthenticated));
+      if (_isAuthenticated === undefined) {
+        dispatch(
+          show({ message: 'Failed to fetch auth status', severity: 'error' })
+        );
+      } else {
+        dispatch(setAuthState(_isAuthenticated));
+      }
     };
 
     if (feedback.open) {
