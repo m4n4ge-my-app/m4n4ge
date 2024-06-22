@@ -1,5 +1,5 @@
 import ForgotPasswordForm from '../../../components/form/forms/ForgotPasswordForm';
-import AuthGrid from '../../../components/grids/auth/AuthGrid';
+import AuthGrid from '../../../components/grids/auth/SignupGrid';
 
 const ForgotPassword = () => {
   return (

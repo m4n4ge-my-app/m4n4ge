@@ -1,5 +1,5 @@
 import { Grid, Box, Stack, Typography } from '@mui/material';
-import TextLogo from '../../../components/logo/TextLogo';
+import TextLogo from '../../logo/TextLogo';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import resetPassword from './resetpassword.png';
@@ -20,7 +20,7 @@ interface Props {
   form: React.ReactNode;
 }
 
-const AuthGrid = ({ type, messageTitle, message, form }: Props) => {
+const SignupGrid = ({ type, messageTitle, message, form }: Props) => {
   const methods = useForm<SignupSchema>({
     mode: 'all',
     resolver: zodResolver(signup_schema),
@@ -107,4 +107,4 @@ const AuthGrid = ({ type, messageTitle, message, form }: Props) => {
   );
 };
 
-export default AuthGrid;
+export default SignupGrid;
