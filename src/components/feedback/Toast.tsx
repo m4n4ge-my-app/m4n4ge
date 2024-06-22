@@ -3,15 +3,20 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
-const Toast = () => {
-  const [open, setOpen] = React.useState(false);
+interface ToastProps {
+  severity: 'error' | 'warning' | 'info' | 'success';
+  message: string;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}
 
+const Toast: React.FC<ToastProps> = ({ severity, message, open, setOpen }) => {
   const handleClick = () => {
     setOpen(true);
   };
 
   const handleClose = (
-    event?: React.SyntheticEvent | Event,
+    _event?: React.SyntheticEvent | Event,
     reason?: string
   ) => {
     if (reason === 'clickaway') {
@@ -27,11 +32,11 @@ const Toast = () => {
       <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
-          severity="success"
+          severity={severity}
           variant="filled"
           sx={{ width: '100%' }}
         >
-          This is a success Alert inside a Snackbar!
+          {message}
         </Alert>
       </Snackbar>
     </div>
