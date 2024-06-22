@@ -28,7 +28,7 @@ import { checkAuth } from './services/auth';
 import theme from './theme';
 import { RootState } from './state/store';
 import Toast from './components/feedback/Toast';
-import { hide, show } from './state/feeback/feedbackSlice';
+import { hide } from './state/feeback/feedbackSlice';
 
 function App() {
   const isAuthenticated = useSelector(
