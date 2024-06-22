@@ -7,17 +7,10 @@ import { useSingup } from '../../../hooks/useSignup';
 
 const SignUpForm = () => {
   const { handleSubmit } = useFormContext<SignupSchema>();
-  const { signup, isLoading, error } = useSingup();
+  const { signup, isLoading } = useSingup();
 
   const onsubmit = async (data: SignupSchema) => {
-    console.log(data);
-
-    try {
-      await signup(data);
-    } catch (error) {
-      // Handle error here
-      console.error(error);
-    }
+    await signup(data);
   };
 
   return (

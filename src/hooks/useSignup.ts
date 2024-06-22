@@ -7,14 +7,12 @@ import { setAuthState } from '../state/authentication/authSlice';
 import { show } from '../state/feeback/feedbackSlice';
 
 export const useSingup = () => {
-  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean | null>(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const signup = async (data: SignupSchema) => {
     setIsLoading(true);
-    setError(null); //reset error here because if previous request failed, error will persist for this request if not reset
     const { firstName, lastName, email, password } = data;
     const payload = { firstName, lastName, email, password };
 
@@ -24,7 +22,6 @@ export const useSingup = () => {
 
       if (response.status !== 200) {
         setIsLoading(false);
-        setError(json.error);
       }
 
       if (response.status === 200) {
@@ -41,8 +38,13 @@ export const useSingup = () => {
       }
     } catch (error) {
       setIsLoading(false);
-      setError(error);
+      dispatch(
+        show({
+          message: error.response.data.error as string,
+          severity: 'error',
+        })
+      );
     }
   };
-  return { signup, isLoading, error };
+  return { signup, isLoading };
 };
