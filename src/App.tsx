@@ -44,9 +44,7 @@ function App() {
     const fetchAuthStatus = async () => {
       const _isAuthenticated = await checkAuth();
       if (_isAuthenticated === undefined) {
-        dispatch(
-          show({ message: 'Failed to fetch auth status', severity: 'error' })
-        );
+        //do nothing!
       } else {
         dispatch(setAuthState(_isAuthenticated));
       }
