@@ -3,6 +3,7 @@ import { Avatar, Divider, ListItemIcon, Menu, MenuItem } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../../state/authentication/authSlice';
+import { show } from '../../../state/feeback/feedbackSlice';
 
 interface Prop {
   open: boolean;
@@ -75,6 +76,10 @@ const AccountMenu = (props: Prop) => {
                 throw new Error('Logout failed');
               }
               dispatch(logout());
+              dispatch(
+                show({ message: 'Logout successful', severity: 'success' })
+              );
+
               props.handleClose();
             } catch (error) {
               console.error(error);

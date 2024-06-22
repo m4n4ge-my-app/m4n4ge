@@ -1,9 +1,9 @@
 import SignUpForm from '../../../components/form/forms/SignUpForm';
-import AuthGrid from '../../../components/grids/auth/AuthGrid';
+import SignupGrid from '../../../components/grids/auth/SignupGrid';
 
 const SignUp = () => {
   return (
-    <AuthGrid
+    <SignupGrid
       type="signup"
       messageTitle="Start your journey with us!"
       message="Register to create a new account."

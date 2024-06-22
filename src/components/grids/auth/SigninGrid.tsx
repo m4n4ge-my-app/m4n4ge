@@ -5,10 +5,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import resetPassword from './resetpassword.png';
 import React, { useEffect } from 'react';
 import {
-  AuthSchema,
-  auth_schema,
+  SigninSchema,
+  signin_schema,
   defaultValues,
-} from '../../form/schemas/authSchema';
+} from '../../form/schemas/signinSchema';
 import signin from './signin.png';
 import signup from './signup.png';
 import './authgrid.scss';
@@ -20,10 +20,10 @@ interface Props {
   form: React.ReactNode;
 }
 
-const AuthGrid = ({ type, messageTitle, message, form }: Props) => {
-  const methods = useForm<AuthSchema>({
+const SigninGrid = ({ type, messageTitle, message, form }: Props) => {
+  const methods = useForm<SigninSchema>({
     mode: 'all',
-    resolver: zodResolver(auth_schema),
+    resolver: zodResolver(signin_schema),
     defaultValues,
   });
 
@@ -107,4 +107,4 @@ const AuthGrid = ({ type, messageTitle, message, form }: Props) => {
   );
 };
 
-export default AuthGrid;
+export default SigninGrid;

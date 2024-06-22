@@ -21,7 +21,9 @@ export const getLoggedInUser = async () => {
 
   try {
     if (userId) {
-      const response: AxiosResponse = await axios.get(`/api/users/${userId}`);
+      const response: AxiosResponse = await axios.get(
+        `/api/auth/users/${userId}`
+      );
       return response;
     } else {
       return { message: 'No user ID found in cookies' };
