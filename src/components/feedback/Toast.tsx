@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
@@ -11,10 +10,6 @@ interface ToastProps {
 }
 
 const Toast: React.FC<ToastProps> = ({ severity, message, open, setOpen }) => {
-  const handleClick = () => {
-    setOpen(true);
-  };
-
   const handleClose = (
     _event?: React.SyntheticEvent | Event,
     reason?: string
@@ -27,9 +22,8 @@ const Toast: React.FC<ToastProps> = ({ severity, message, open, setOpen }) => {
   };
 
   return (
-    <div>
-      <Button onClick={handleClick}>Open Snackbar</Button>
-      <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
+    <div style={{ fontSize: '1rem' }}>
+      <Snackbar open={open} autoHideDuration={10000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
           severity={severity}
