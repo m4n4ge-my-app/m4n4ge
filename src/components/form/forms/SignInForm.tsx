@@ -11,6 +11,7 @@ import {
   Divider,
   Grid,
   Stack,
+  Tooltip,
   Typography,
   useMediaQuery,
   useTheme,
@@ -128,40 +129,44 @@ const SignInForm = () => {
               >
                 {!isSmallScreen ? 'Google' : ''}
               </Button>
-              <Button
-                variant="text"
-                startIcon={
-                  <img
-                    src={GitHub}
-                    alt="GitHub"
-                    style={{ width: '20px', height: '20px' }}
-                  />
-                }
-                sx={{
-                  '&:focus': {
-                    outline: 'none',
-                  },
-                }}
-              >
-                {!isSmallScreen ? 'GitHub' : ''}
-              </Button>
-              <Button
-                variant="text"
-                startIcon={
-                  <img
-                    src={Facebook}
-                    alt="Facebook"
-                    style={{ width: '20px', height: '20px' }}
-                  />
-                }
-                sx={{
-                  '&:focus': {
-                    outline: 'none',
-                  },
-                }}
-              >
-                {!isSmallScreen ? 'Facebook' : ''}
-              </Button>
+              <Tooltip title="Implementation coming soon">
+                <Button
+                  variant="text"
+                  startIcon={
+                    <img
+                      src={GitHub}
+                      alt="GitHub"
+                      style={{ width: '20px', height: '20px' }}
+                    />
+                  }
+                  sx={{
+                    '&:focus': {
+                      outline: 'none',
+                    },
+                  }}
+                >
+                  {!isSmallScreen ? 'GitHub' : ''}
+                </Button>
+              </Tooltip>
+              <Tooltip title="Implementation coming soon">
+                <Button
+                  variant="text"
+                  startIcon={
+                    <img
+                      src={Facebook}
+                      alt="Facebook"
+                      style={{ width: '20px', height: '20px' }}
+                    />
+                  }
+                  sx={{
+                    '&:focus': {
+                      outline: 'none',
+                    },
+                  }}
+                >
+                  {!isSmallScreen ? 'Facebook' : ''}
+                </Button>
+              </Tooltip>
             </Stack>
           </Grid>
         </Grid>
