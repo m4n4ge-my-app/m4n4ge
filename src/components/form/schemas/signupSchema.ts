@@ -25,13 +25,13 @@ export const signup_schema = z
   .refine(
     (data) => {
       if (data.password && data.confirmPassword) {
-        return data.password >= data.confirmPassword;
+        return data.password === data.confirmPassword;
       }
       return true;
     },
     {
       message: 'Confirm password must match password',
-      path: ['confirm_signup_password'],
+      path: ['confirmPassword'],
     }
   );
 
