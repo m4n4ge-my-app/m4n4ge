@@ -17,7 +17,7 @@ const SignUpForm = () => {
     <form onSubmit={handleSubmit(onsubmit)}>
       <Card>
         {/* Box container is to give responsive padding for various sizes */}
-        <Box sx={{ p: { xs: 2, sm: 3, md: 4, xl: 5 } }}>
+        <Box sx={{ p: { xs: 3, sm: 3, md: 4, xl: 5 } }}>
           {/* Grid is for giving spaces between rows and full widths witin the grid container */}
           <Grid container spacing={3}>
             {/* Top area */}
