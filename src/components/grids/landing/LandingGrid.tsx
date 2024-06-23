@@ -159,7 +159,7 @@ const LandingGrid = () => {
           <a href="https://github.com/orgs/m4n4ge-my-app/repositories">
             <Tooltip title="Curious about the behind-the-scenes?">
               <Box
-                pr={{ xs: 2, sm: 3 }}
+                pr={{ xs: 3, sm: 5, md: 6 }}
                 style={{
                   position: 'absolute',
                   bottom: '10px',
