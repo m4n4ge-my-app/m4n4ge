@@ -25,10 +25,14 @@ const SignUpForm = () => {
               <Stack
                 direction="row"
                 justifyContent="space-between"
-                alignItems="baseline"
-                sx={{ mb: { xs: -0.5, sm: 0.5 } }}
+                sx={{
+                  mb: { xs: -0.5, sm: 0.5 },
+                  alignItems: { xs: 'center', sm: 'baseline', gap: 10 },
+                }}
               >
-                <Typography variant="h5">Sign Up</Typography>
+                <Typography variant="h5" noWrap sx={{ width: '200px' }}>
+                  Sign Up
+                </Typography>
                 <Typography
                   component={Link}
                   to="/signin"
