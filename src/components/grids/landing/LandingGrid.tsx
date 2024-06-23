@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Grid,
+  Tooltip,
   Typography,
   useMediaQuery,
   useTheme,
@@ -15,6 +16,7 @@ import { useState } from 'react';
 import { callToAction } from './callToAction';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import LoginIcon from '@mui/icons-material/Login';
+import DataObjectIcon from '@mui/icons-material/DataObject';
 
 const LandingGrid = () => {
   const [isInterested, setIsInterested] = useState(false);
@@ -75,7 +77,12 @@ const LandingGrid = () => {
         </Grid>
       </Grid>
       {!isInterested && (
-        <Grid container spacing={3} className="bodySection">
+        <Grid
+          container
+          spacing={3}
+          className="bodySection"
+          style={{ position: 'relative' }}
+        >
           <Grid
             item
             xs={12}
@@ -148,6 +155,21 @@ const LandingGrid = () => {
               />
             </Grid>
           )}
+          <Tooltip title="Curious about the behind-the-scenes?">
+            <a href="https://github.com/orgs/m4n4ge-my-app/repositories">
+              <Box
+                pr={{ xs: 2, sm: 3 }}
+                style={{
+                  position: 'absolute',
+                  bottom: '10px',
+                  right: 0,
+                  cursor: 'pointer',
+                }}
+              >
+                <DataObjectIcon sx={{ fontSize: 30, color: '#407BFF' }} />
+              </Box>
+            </a>
+          </Tooltip>
         </Grid>
       )}
       {isInterested && <Features />}
