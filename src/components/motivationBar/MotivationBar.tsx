@@ -22,7 +22,7 @@ const MotivationBar = () => {
 
   const options = {
     useCustomTime: false,
-    width: '150px',
+    width: '175px',
     border: false,
     borderColor: '#ffffff',
     baseColor: '#ffffff',
