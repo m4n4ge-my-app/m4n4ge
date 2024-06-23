@@ -79,7 +79,7 @@ const SignUpForm = () => {
                 {/* Retype Password Input */}
                 <RHFTextField<SignupSchema>
                   name="confirmPassword"
-                  label="confirm Password"
+                  label="Confirm Password"
                   type="password"
                   size="small"
                   fullWidth
