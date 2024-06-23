@@ -155,8 +155,9 @@ const LandingGrid = () => {
               />
             </Grid>
           )}
-          <Tooltip title="Curious about the behind-the-scenes?">
-            <a href="https://github.com/orgs/m4n4ge-my-app/repositories">
+
+          <a href="https://github.com/orgs/m4n4ge-my-app/repositories">
+            <Tooltip title="Curious about the behind-the-scenes?">
               <Box
                 pr={{ xs: 2, sm: 3 }}
                 style={{
@@ -168,8 +169,8 @@ const LandingGrid = () => {
               >
                 <DataObjectIcon sx={{ fontSize: 30, color: '#407BFF' }} />
               </Box>
-            </a>
-          </Tooltip>
+            </Tooltip>
+          </a>
         </Grid>
       )}
       {isInterested && <Features />}
