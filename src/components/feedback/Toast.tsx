@@ -23,12 +23,22 @@ const Toast: React.FC<ToastProps> = ({ severity, message, open, setOpen }) => {
 
   return (
     <div style={{ fontSize: '1rem' }}>
-      <Snackbar open={open} autoHideDuration={10000} onClose={handleClose}>
+      <Snackbar
+        open={open}
+        autoHideDuration={5000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        sx={{
+          '& .css-p4rpmy-MuiPaper-root-MuiAlert-root': {
+            padding: '0px 16px',
+          },
+        }}
+      >
         <Alert
           onClose={handleClose}
           severity={severity}
           variant="filled"
-          sx={{ width: '100%' }}
+          sx={{ width: '100%', minHeight: '32px' }}
         >
           {message}
         </Alert>
