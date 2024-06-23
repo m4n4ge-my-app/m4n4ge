@@ -16,6 +16,7 @@ export const useSignin = () => {
 
     try {
       const response = await axios.post('/api/auth/signin', data);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const json = response.data;
 
       if (response.status !== 200) {
@@ -34,14 +35,30 @@ export const useSignin = () => {
         );
         navigate('/dashboard');
       }
-    } catch (error) {
+    } catch (error: unknown) {
       setIsLoading(false);
-      dispatch(
-        show({
-          message: error.response.data.error as string,
-          severity: 'error',
-        })
-      );
+
+      // Check if the error is an AxiosError
+      if (axios.isAxiosError(error)) {
+        // Now TypeScript knows error is an AxiosError, so error.response is accessible
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        const message = error.response?.data.error as string | undefined;
+
+        dispatch(
+          show({
+            message: message ?? 'An unexpected error occurred',
+            severity: 'error',
+          })
+        );
+      } else {
+        // Handle non-Axios errors
+        dispatch(
+          show({
+            message: 'An unexpected error occurred',
+            severity: 'error',
+          })
+        );
+      }
     }
   };
   return { signin, isLoading };

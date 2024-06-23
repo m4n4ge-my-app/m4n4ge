@@ -18,6 +18,7 @@ export const useSingup = () => {
 
     try {
       const response = await axios.post('/api/auth/signup', payload);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const json = response.data;
 
       if (response.status !== 200) {
@@ -37,13 +38,35 @@ export const useSingup = () => {
         navigate('/dashboard');
       }
     } catch (error) {
-      setIsLoading(false);
-      dispatch(
-        show({
-          message: error.response.data.error as string,
-          severity: 'error',
-        })
-      );
+      if (axios.isAxiosError(error)) {
+        // Now TypeScript knows error is an AxiosError, so error.response is accessible
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        const errorMessage = error.response?.data.error as string | undefined;
+        if (errorMessage) {
+          dispatch(
+            show({
+              message: errorMessage,
+              severity: 'error',
+            })
+          );
+        } else {
+          // Handle case where error.response.data.error is not available
+          dispatch(
+            show({
+              message: 'An unexpected error occurred',
+              severity: 'error',
+            })
+          );
+        }
+      } else {
+        // Handle any non-Axios errors
+        dispatch(
+          show({
+            message: 'An unexpected error occurred',
+            severity: 'error',
+          })
+        );
+      }
     }
   };
   return { signup, isLoading };

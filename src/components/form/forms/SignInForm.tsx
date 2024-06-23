@@ -1,5 +1,4 @@
 import { RHFTextField } from '../formControllers/RHFTextField';
-import { AuthSchema } from '../schemas/authSchema';
 import { Link } from 'react-router-dom';
 import Facebook from './images/facebook.png';
 import Google from './images/google.png';
@@ -27,6 +26,8 @@ const SignInForm = () => {
   const { signin, isLoading } = useSignin();
 
   const onsubmit = async (data: SigninSchema) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     await signin(data);
   };
 
