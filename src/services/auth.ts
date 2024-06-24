@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 // import 'dotenv/config';
 
-const baseUrl = 'https://m4n4gemy.app:5000';
+const baseUrl = 'https://m4n4gemy.app';
 
 interface Response {
   data: {

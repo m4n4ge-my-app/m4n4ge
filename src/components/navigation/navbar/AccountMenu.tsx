@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { logout } from '../../../state/authentication/authSlice';
 import { show } from '../../../state/feeback/feedbackSlice';
 
-const baseUrl = 'https://m4n4gemy.app:5000';
+const baseUrl = 'https://m4n4gemy.app';
 
 interface Prop {
   open: boolean;

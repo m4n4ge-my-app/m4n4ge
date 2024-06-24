@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   // server: {
   //   proxy: {
-  //     '/api': 'https://m4n4gemy.app:5000',
+  //     '/api': 'https://m4n4gemy.app',
   //   },
   // },
 });
