@@ -6,6 +6,8 @@ import axios from 'axios';
 import { setAuthState } from '../state/authentication/authSlice';
 import { show } from '../state/feeback/feedbackSlice';
 
+const baseUrl = 'https://m4n4gemy.app:5000';
+
 export const useSingup = () => {
   const [isLoading, setIsLoading] = useState<boolean | null>(null);
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ export const useSingup = () => {
     const payload = { firstName, lastName, email, password };
 
     try {
-      const response = await axios.post('/api/auth/signup', payload);
+      const response = await axios.post(baseUrl + '/api/auth/signup', payload);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const json = response.data;
 

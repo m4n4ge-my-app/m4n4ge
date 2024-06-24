@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { logout } from '../../../state/authentication/authSlice';
 import { show } from '../../../state/feeback/feedbackSlice';
 
+const baseUrl = 'https://m4n4gemy.app:5000';
+
 interface Prop {
   open: boolean;
   handleClose: () => void;
@@ -69,7 +71,7 @@ const AccountMenu = (props: Prop) => {
         onClick={() => {
           void (async () => {
             try {
-              const response = await fetch('/api/auth/logout', {
+              const response = await fetch(baseUrl + '/api/auth/logout', {
                 method: 'GET',
               });
               if (!response.ok) {

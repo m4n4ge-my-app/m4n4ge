@@ -1,4 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
+// import 'dotenv/config';
+
+const baseUrl = 'https://m4n4gemy.app:5000';
 
 interface Response {
   data: {
@@ -8,7 +11,7 @@ interface Response {
 
 export const checkAuth = async () => {
   try {
-    const response: Response = await axios.get('/api/auth/check');
+    const response: Response = await axios.get(baseUrl + '/api/auth/check');
     return response.data.isAuthenticated;
   } catch (error) {
     console.error(error);
@@ -22,7 +25,7 @@ export const getLoggedInUser = async () => {
   try {
     if (userId) {
       const response: AxiosResponse = await axios.get(
-        `/api/auth/users/${userId}`
+        baseUrl + `/api/auth/users/${userId}`
       );
       return response;
     } else {
@@ -41,7 +44,7 @@ const getCookieByName = (name: string) => {
 
 export const logout = async () => {
   try {
-    await axios.get('/api/auth/logout');
+    await axios.get(baseUrl + '/api/auth/logout');
   } catch (error) {
     console.error(error);
   }
