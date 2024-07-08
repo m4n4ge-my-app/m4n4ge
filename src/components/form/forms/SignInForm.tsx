@@ -24,6 +24,7 @@ const SignInForm = () => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const { handleSubmit } = useFormContext<SigninSchema>();
   const { signin, isLoading } = useSignin();
+  const baseUrl = 'https://m4n4gemy.app';
 
   const onsubmit = async (data: SigninSchema) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -137,7 +138,7 @@ const SignInForm = () => {
                       outline: 'none',
                     },
                   }}
-                  href="api/auth/google"
+                  href={baseUrl + 'api/auth/google'}
                 >
                   {!isSmallScreen ? 'Google' : ''}
                 </Button>
