@@ -3,11 +3,11 @@ import { RHFTextField } from '../formControllers/RHFTextField';
 import { Link } from 'react-router-dom';
 import { useFormContext } from 'react-hook-form';
 import { SignupSchema } from '../schemas/signupSchema';
-import { useSingup } from '../../../hooks/useSignup';
+import { useSignup } from '../../../hooks/useSignup';
 
 const SignUpForm = () => {
   const { handleSubmit } = useFormContext<SignupSchema>();
-  const { signup, isLoading } = useSingup();
+  const { signup, isLoading } = useSignup();
 
   const onsubmit = async (data: SignupSchema) => {
     await signup(data);

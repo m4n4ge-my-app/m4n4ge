@@ -8,7 +8,7 @@ import { show } from '../state/feeback/feedbackSlice';
 
 const baseUrl = import.meta.env.VITE_BASE_URL as string;
 
-export const useSingup = () => {
+export const useSignup = () => {
   const [isLoading, setIsLoading] = useState<boolean | null>(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
