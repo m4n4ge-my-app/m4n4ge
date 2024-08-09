@@ -6,7 +6,7 @@ import axios from 'axios';
 import { setAuthState } from '../state/authentication/authSlice';
 import { show } from '../state/feeback/feedbackSlice';
 
-const baseUrl = 'https://m4n4gemy.app';
+const baseUrl = import.meta.env.VITE_BASE_URL as string;
 
 export const useSingup = () => {
   const [isLoading, setIsLoading] = useState<boolean | null>(null);

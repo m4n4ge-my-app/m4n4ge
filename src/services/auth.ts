@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
-// import 'dotenv/config';
 
-const baseUrl = 'https://m4n4gemy.app';
+const baseUrl = import.meta.env.VITE_BASE_URL as string;
 
 interface Response {
   data: {

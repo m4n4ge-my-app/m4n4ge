@@ -4,8 +4,9 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../../state/authentication/authSlice';
 import { show } from '../../../state/feeback/feedbackSlice';
+import axios from 'axios';
 
-const baseUrl = 'https://m4n4gemy.app';
+const baseUrl = import.meta.env.VITE_BASE_URL as string;
 
 interface Prop {
   open: boolean;
@@ -71,10 +72,9 @@ const AccountMenu = (props: Prop) => {
         onClick={() => {
           void (async () => {
             try {
-              const response = await fetch(baseUrl + '/api/auth/logout', {
-                method: 'GET',
-              });
-              if (!response.ok) {
+              const response = await axios.get(baseUrl + '/api/auth/logout');
+
+              if (response.status !== 200) {
                 throw new Error('Logout failed');
               }
               dispatch(logout());
