@@ -1,14 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import sidebarReducer from './navigation/sidebarSlice';
-import authReducer from './authentication/authSlice';
 import userReducer from './user/userSlice';
 import feedbackReducer from './feeback/feedbackSlice';
 
 export const store = configureStore({
   reducer: {
-    sidebar: sidebarReducer,
-    auth: authReducer,
     user: userReducer,
+    sidebar: sidebarReducer,
     feedback: feedbackReducer,
   },
 });
