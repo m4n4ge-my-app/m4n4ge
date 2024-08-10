@@ -3,8 +3,8 @@ import { SignupSchema } from '../components/form/schemas/signupSchema';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { setAuthState } from '../state/authentication/authSlice';
 import { show } from '../state/feeback/feedbackSlice';
+import { setUser } from '../state/user/userSlice';
 
 const baseUrl = import.meta.env.VITE_BASE_URL as string;
 
@@ -30,7 +30,7 @@ export const useSignup = () => {
       if (response.status === 200) {
         localStorage.setItem('user', JSON.stringify(json));
         setIsLoading(false);
-        dispatch(setAuthState(true));
+        dispatch(setUser(json));
         dispatch(
           show({
             message: 'Welcome aboard! Signup successful.',
