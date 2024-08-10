@@ -124,24 +124,26 @@ const SignInForm = () => {
                   },
                 }}
               >
-                <Button
-                  variant="text"
-                  startIcon={
-                    <img
-                      src={Google}
-                      alt="Google"
-                      style={{ width: '20px', height: '20px' }}
-                    />
-                  }
-                  sx={{
-                    '&:focus': {
-                      outline: 'none',
-                    },
-                  }}
-                  href={baseUrl + '/api/auth/google'}
-                >
-                  {!isSmallScreen ? 'Google' : ''}
-                </Button>
+                <Tooltip title="Implementation coming soon">
+                  <Button
+                    variant="text"
+                    startIcon={
+                      <img
+                        src={Google}
+                        alt="Google"
+                        style={{ width: '20px', height: '20px' }}
+                      />
+                    }
+                    sx={{
+                      '&:focus': {
+                        outline: 'none',
+                      },
+                    }}
+                    // href={baseUrl + '/api/auth/google'}
+                  >
+                    {!isSmallScreen ? 'Google' : ''}
+                  </Button>
+                </Tooltip>
                 <Tooltip title="Implementation coming soon">
                   <Button
                     variant="text"
