@@ -2,11 +2,8 @@ import { Logout, Settings } from '@mui/icons-material';
 import { Avatar, Divider, ListItemIcon, Menu, MenuItem } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout } from '../../../state/authentication/authSlice';
 import { show } from '../../../state/feeback/feedbackSlice';
-import axios from 'axios';
-
-const baseUrl = import.meta.env.VITE_BASE_URL as string;
+import { useSignout } from '../../../hooks/useSingout';
 
 interface Prop {
   open: boolean;
@@ -16,6 +13,7 @@ interface Prop {
 
 const AccountMenu = (props: Prop) => {
   const dispatch = useDispatch();
+  const { signout, isLoading } = useSignout();
 
   return (
     <Menu
@@ -72,22 +70,18 @@ const AccountMenu = (props: Prop) => {
         onClick={() => {
           void (async () => {
             try {
-              const response = await axios.get(baseUrl + '/api/auth/logout');
-
-              if (response.status !== 200) {
-                throw new Error('Logout failed');
-              }
-              dispatch(logout());
+              await signout();
               dispatch(
                 show({ message: 'Logout successful', severity: 'success' })
               );
-
+  
               props.handleClose();
             } catch (error) {
               console.error(error);
             }
           })();
         }}
+        disabled={Boolean(isLoading)}
       >
         <ListItemIcon>
           <Logout fontSize="small" />
