@@ -3,10 +3,12 @@ import { TextField, TextFieldProps } from '@mui/material';
 
 type Props<T extends FieldValues> = {
   name: Path<T>;
+  value?: string;
 } & Pick<TextFieldProps, 'label' | 'sx' | 'size' | 'fullWidth' | 'type'>;
 
 export function RHFTextField<T extends FieldValues>({
   name,
+  value,
   ...props
 }: Props<T>) {
   const { control } = useFormContext();
@@ -19,6 +21,7 @@ export function RHFTextField<T extends FieldValues>({
         <TextField
           {...field}
           {...props}
+          value={value ?? field.value}
           error={!!error}
           helperText={error?.message}
         />

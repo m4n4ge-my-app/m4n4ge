@@ -1,4 +1,6 @@
 import { RHFTextField } from '../formControllers/RHFTextField';
+import Face5Icon from '@mui/icons-material/Face5';
+import FaceIcon from '@mui/icons-material/Face';
 import { Link } from 'react-router-dom';
 import Facebook from './images/facebook.png';
 import Google from './images/google.png';
@@ -18,18 +20,30 @@ import {
 import { useFormContext } from 'react-hook-form';
 import { SigninSchema } from '../schemas/signinSchema';
 import { useSignin } from '../../../hooks/useSignin';
+import { useState } from 'react';
 
 const SignInForm = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const { handleSubmit } = useFormContext<SigninSchema>();
+  const [isPeaking, setIsPeaking] = useState(false);
+  const { handleSubmit, setValue } = useFormContext<SigninSchema>();
   const { signin, isLoading } = useSignin();
-  const baseUrl = import.meta.env.VITE_BASE_URL as string;
 
   const onsubmit = async (data: SigninSchema) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
     await signin(data);
+  };
+
+  const populateCredentials = (userType: string) => {
+    setIsPeaking(false);
+    if (userType === 'newUser') {
+      setValue('email', 'new_user@m4n4gemy.app');
+      setValue('password', 'nEwUser1@!');
+    } else if (userType === 'expertUser') {
+      setValue('email', 'expert_user@m4n4gemy.app');
+      setValue('password', 'eXpErTuSeR1@!');
+    }
   };
 
   return (
@@ -89,6 +103,40 @@ const SignInForm = () => {
                     Forgot password?
                   </Typography>
                 </Box>
+                {!isPeaking? (
+                  <Box 
+                  display="flex" justifyContent="flex-end"
+                  onClick={() => setIsPeaking(!isPeaking)}
+                >
+                  <Typography
+                    variant="body2"
+                    sx={{ textDecoration: 'none', cursor: 'pointer' }}
+                    color="primary"
+                  >
+                    Would you like to peak inside?
+                  </Typography>
+                </Box>
+                ) : (
+                  <Stack
+                direction="row"
+                spacing={{ xs: 1, sm: 2 }}
+                justifyContent="space-around"
+                sx={{
+                  '& .MuiButton-startIcon': {
+                    mr: { xs: 0, sm: 1 },
+                    ml: { xs: 0, sm: -0.5 },
+                  },
+                }}
+              >
+                <Button  startIcon={<Face5Icon />} onClick={() => populateCredentials('newUser')} size="small">
+                  New User
+                </Button>
+                <Button  startIcon={<FaceIcon />} onClick={() => populateCredentials('expertUser')} size="small">
+                  Expert User
+                </Button>
+              </Stack>
+                )}
+                
                 {/* Login button */}
                 <Button
                   fullWidth
