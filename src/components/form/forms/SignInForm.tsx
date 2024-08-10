@@ -35,6 +35,7 @@ const SignInForm = () => {
     await signin(data);
   };
 
+  //credentials below are for app demonstration purposes only and does not reflect company's actual credentials
   const populateCredentials = (userType: string) => {
     setIsPeaking(false);
     if (userType === 'newUser') {
