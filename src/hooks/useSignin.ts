@@ -3,7 +3,7 @@ import { SignupSchema } from '../components/form/schemas/signupSchema';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { setAuthState } from '../state/authentication/authSlice';
+import { setUser } from '../state/user/userSlice';
 import { show } from '../state/feeback/feedbackSlice';
 
 const baseUrl = import.meta.env.VITE_BASE_URL as string;
@@ -28,7 +28,7 @@ export const useSignin = () => {
       if (response.status === 200) {
         localStorage.setItem('user', JSON.stringify(json));
         setIsLoading(false);
-        dispatch(setAuthState(true));
+        dispatch(setUser(json));
         dispatch(
           show({
             message: "Welcome back! let's continue your journey.",
@@ -48,7 +48,7 @@ export const useSignin = () => {
 
         dispatch(
           show({
-            message: message ?? 'An unexpected error occurred',
+            message: message ?? 'An un-expected error occurred',
             severity: 'error',
           })
         );
@@ -56,7 +56,7 @@ export const useSignin = () => {
         // Handle non-Axios errors
         dispatch(
           show({
-            message: 'An unexpected error occurred',
+            message: 'An un-expected error occurred',
             severity: 'error',
           })
         );

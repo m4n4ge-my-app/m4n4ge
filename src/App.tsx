@@ -8,7 +8,6 @@ import JobDescriptions from './pages/iManage/jobDescriptions/JobDescriptions';
 import ForgotPassword from './pages/auth/forgotPassword/ForgotPassword';
 import CoverLetters from './pages/iManage/coverletters/CoverLetter';
 import UserProfile from './pages/system/userProfile/UserProfile';
-import { setAuthState } from './state/authentication/authSlice';
 import Interview from './pages/getAssist/interview/Interview';
 import Automated from './pages/getAssist/automated/Automated';
 import Calendar from './pages/iManage/calendar/Calendar';
@@ -24,31 +23,18 @@ import Archives from './pages/archives/Archives';
 import SignIn from './pages/auth/signin/SignIn';
 import SignUp from './pages/auth/signup/SignUp';
 import Todos from './pages/iManage/todos/Todos';
-import { checkAuth } from './services/auth';
 import theme from './theme';
 import { RootState } from './state/store';
 import Toast from './components/feedback/Toast';
 import { hide } from './state/feeback/feedbackSlice';
 
 function App() {
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  );
-  const isLoading = useSelector((state: RootState) => state.auth.isLoading);
   const feedback = useSelector((state: RootState) => state.feedback);
   const [showToast, setShowToast] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
 
   useEffect(() => {
-    const fetchAuthStatus = async () => {
-      const _isAuthenticated = await checkAuth();
-      if (_isAuthenticated === undefined) {
-        //do nothing!
-      } else {
-        dispatch(setAuthState(_isAuthenticated));
-      }
-    };
 
     if (feedback.open) {
       setShowToast(true);
@@ -58,10 +44,6 @@ function App() {
     const timer = setTimeout(() => {
       dispatch(hide());
     }, 3000);
-
-    fetchAuthStatus().catch((error) => {
-      console.error('Failed to fetch auth status:', error);
-    });
 
     return () => clearTimeout(timer);
   }, [dispatch, location, feedback.open]);
@@ -79,8 +61,6 @@ function App() {
         <Route
           element={
             <ProtectedRoute
-              isAuthenticated={isAuthenticated}
-              isLoading={isLoading}
             >
               <Layout />
             </ProtectedRoute>
