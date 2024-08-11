@@ -1,13 +1,13 @@
 import ApplicationsTable from './listTable/ApplicationsTable';
 import {
-  groupedApplicationsByDate,
-  groupedApplicationsByWeek,
-  groupedApplicationsByMonth,
   Application,
+  groupByWeek,
+  groupByMonth,
 } from '../../utils/mockDataGenerator';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getApplications } from '../../services/applications';
 import { useAuthToken } from '../../hooks/useAuthToken';
+ import { groupByDate } from '../../utils/mockDataGenerator';
 
 interface ListProps {
   viewMode: string;
@@ -15,14 +15,16 @@ interface ListProps {
 
 export default function List({ viewMode }: ListProps) {
   const token = useAuthToken();
+  const [applications, setApplications] = useState<Application[]>([]);
 
   useEffect(() => {
     if (token) {
         getApplications(token).then((data) => {
             console.log('data', data);
+            setApplications(data);
         })
         .catch((error) => {
-            console.log('error', error);
+            console.log('error fetching user application records: ', error);
         });
     }
 }, [token]);
@@ -30,13 +32,13 @@ export default function List({ viewMode }: ListProps) {
   let applicationsGroup: Record<string, Application[]>[] = [];
   switch (viewMode) {
     case 'days':
-      applicationsGroup = groupedApplicationsByDate;
+      applicationsGroup = groupByDate(applications);
       break;
     case 'weeks':
-      applicationsGroup = groupedApplicationsByWeek;
+      applicationsGroup = groupByWeek(applications);
       break;
     case 'months':
-      applicationsGroup = groupedApplicationsByMonth;
+      applicationsGroup = groupByMonth(applications);
       break;
     default:
       applicationsGroup = [];

@@ -157,9 +157,9 @@ for (let i = 0; i < 55; i++) {
   });
 }
 
-function groupByDate(
+export const groupByDate = (
   applications: Application[]
-): Record<string, Application[]>[] {
+): Record<string, Application[]>[] => {
   const groupedApplications: Record<string, Application[]> =
     applications.reduce(
       (grouped, application) => {
@@ -184,9 +184,9 @@ function groupByDate(
     });
 }
 
-function groupByWeek(
+export const groupByWeek = (
   applications: Application[]
-): Record<string, Application[]>[] {
+): Record<string, Application[]>[] => {
   const groupedApplications: Record<string, Application[]> =
     applications.reduce(
       (grouped, application) => {
@@ -212,9 +212,9 @@ function groupByWeek(
     }));
 }
 
-function groupByMonth(
+export const groupByMonth = (
   applications: Application[]
-): Record<string, Application[]>[] {
+): Record<string, Application[]>[] => {
   const groupedApplications: Record<string, Application[]> =
     applications.reduce(
       (grouped, application) => {
@@ -385,6 +385,3 @@ export const applicationsData = applications;
 export const earliestDate = getEarliestApplicationDate(applications);
 export const applicationsTrend = getApplicationTrend(applications);
 export const applicationSummary = getApplicationSummary(applications);
-export const groupedApplicationsByDate = groupByDate(applications);
-export const groupedApplicationsByWeek = groupByWeek(applications);
-export const groupedApplicationsByMonth = groupByMonth(applications);
