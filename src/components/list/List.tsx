@@ -5,12 +5,28 @@ import {
   groupedApplicationsByMonth,
   Application,
 } from '../../utils/mockDataGenerator';
+import { useEffect } from 'react';
+import { getApplications } from '../../services/applications';
+import { useAuthToken } from '../../hooks/useAuthToken';
 
 interface ListProps {
   viewMode: string;
 }
 
 export default function List({ viewMode }: ListProps) {
+  const token = useAuthToken();
+
+  useEffect(() => {
+    if (token) {
+        getApplications(token).then((data) => {
+            console.log('data', data);
+        })
+        .catch((error) => {
+            console.log('error', error);
+        });
+    }
+}, [token]);
+
   let applicationsGroup: Record<string, Application[]>[] = [];
   switch (viewMode) {
     case 'days':
