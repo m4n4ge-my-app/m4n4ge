@@ -59,7 +59,7 @@ export function RHFSelect<T extends FieldValues>({
             {/* added this below line from this suggestion: https://stackoverflow.com/questions/76159113/material-ui-you-have-provided-an-out-of-range-value-for-the-select-component-d */}
             <MenuItem value="">{''}</MenuItem>
             {options?.map((option) => (
-              <MenuItem value={option.id} key={option.id}>
+              <MenuItem value={option.label} key={option.id}>
                 {option.label}
               </MenuItem>
             ))}

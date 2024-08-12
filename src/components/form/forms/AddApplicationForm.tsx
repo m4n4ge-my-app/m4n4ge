@@ -12,174 +12,173 @@ import { RHFTextField } from '../formControllers/RHFTextField';
 import { RHFTextArea } from '../formControllers/RHFTextArea';
 import { RHFSelect } from '../formControllers/RHFSelect';
 import { AddAppSchema } from '../schemas/addAppSchema';
+import { addApplication } from '../../../services/applications';
+import { useAuthToken } from '../../../hooks/useAuthToken';
 
 const AddApplicationForm = () => {
-  const { watch } = useFormContext<AddAppSchema>();
+  const { handleSubmit } = useFormContext<AddAppSchema>();
+  const token = useAuthToken();
 
-  useEffect(() => {
-    const subscription = watch((value) => {
-      console.log(value);
-    });
-
-    return () => subscription.unsubscribe();
-  }, [watch]);
+  const onsubmit =  async (data: AddAppSchema) => await addApplication(token!, data);
 
   return (
-    <Grid
-      container
-      padding="40px 20px 20px 20px"
-      spacing={3}
-    >
-      <Row
-        itemOne={
-          <RHFTextField<AddAppSchema>
-            name="employer"
-            label="Employer Name"
-            size="small"
-            fullWidth
-          />
-        }
-        itemTwo={null}
-        itemThree={null}
-      />
+    <form onSubmit={handleSubmit(onsubmit)}>
+      <Grid
+        container
+        padding="40px 20px 20px 20px"
+        spacing={3}
+      >
+        <Row
+          itemOne={
+            <RHFTextField<AddAppSchema>
+              name="employerName"
+              label="Employer Name"
+              size="small"
+              fullWidth
+            />
+          }
+          itemTwo={null}
+          itemThree={null}
+        />
 
-      <Row
-        itemOne={
-          <RHFTextField<AddAppSchema>
-            name="position"
-            label="Position Name"
-            size="small"
-            fullWidth
-          />
-        }
-        itemTwo={
-          <RHFTextField<AddAppSchema>
-            name="location"
-            label="Job Location"
-            size="small"
-            fullWidth
-          />
-        }
-        itemThree={
-          <RHFSelect<AddAppSchema>
-            name="platform"
-            label="Job Platform"
-            options={[
-              { id: '1', label: 'CareerBuilder' },
-              { id: '2', label: 'Company Website' },
-              { id: '3', label: 'Direct Email' },
-              { id: '4', label: 'Dice' },
-              { id: '5', label: 'FlexJobs' },
-              { id: '6', label: 'Glassdoor' },
-              { id: '7', label: 'Indeed' },
-              { id: '8', label: 'LinkedIn' },
-              { id: '9', label: 'Monster' },
-              { id: '10', label: 'SimplyHired' },
-              { id: '11', label: 'Wellfound' },
-              { id: '12', label: 'Workopolis' },
-              { id: '13', label: 'ZipRecruiter' },
-              { id: '14', label: 'Other' },
-            ]}
-          />
-        }
-      />
-
-      <Row
-        itemOne={<RHFDateCalendar<AddAppSchema> name="applicationDate" />}
-        itemTwo={<RHFTextArea<AddAppSchema> name="note" />}
-        itemThree={
-          <Box
-            sx={{
-              mt: 0,
-              border: 1,
-              borderColor: 'divider',
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 1,
-              marginBottom: '20px',
-            }}
-            gap={1}
-          >
-            <Button
-              variant="outlined"
-              component="label"
-              sx={{ margin: '20px' }}
-            >
-              Upload Job Decription
-              <FilterDramaOutlinedIcon sx={{ marginLeft: '10px' }} />
-              <input type="file" hidden />
-            </Button>
-            <Typography variant="body2" padding={3}>
-              Although you can add it later, we strongly recommend promptly
-              uploading the job description to ensure its preservation before
-              the online post is potentially removed.
-            </Typography>
-          </Box>
-        }
-      />
-
-      <Row
-        itemOne={
-          <>
-            <Typography
-              fontSize={16}
-              sx={{ display: 'flex', flexDirection: 'start' }}
-            >
-              Job Post Posting & Ending Dates
-            </Typography>
-            <Box sx={{ display: 'flex', gap: 2, marginTop: '15px' }}>
-              <RHFDatePicker<AddAppSchema>
-                name="jobPostPostingDate"
-                label="Posting Date"
-              />
-              <RHFDatePicker<AddAppSchema>
-                name="jobPostExpirationDate"
-                label="Ending Date"
-              />
-            </Box>
-          </>
-        }
-        itemTwo={
-          <>
-            <Typography
-              fontSize={16}
-              sx={{
-                display: 'flex',
-                flexDirection: 'start',
-                marginBottom: '10px',
-              }}
-            >
-              Work Model
-            </Typography>
-            <RHFToggleButtonGroup<AddAppSchema>
-              name="workModel"
+        <Row
+          itemOne={
+            <RHFTextField<AddAppSchema>
+              name="positionName"
+              label="Position Name"
+              size="small"
+              fullWidth
+            />
+          }
+          itemTwo={
+            <RHFTextField<AddAppSchema>
+              name="jobLocation"
+              label="Job Location"
+              size="small"
+              fullWidth
+            />
+          }
+          itemThree={
+            <RHFSelect<AddAppSchema>
+              name="jobPlatform"
+              label="Job Platform"
               options={[
-                { id: '1', label: 'On Site' },
-                { id: '2', label: 'Hybrid' },
-                { id: '3', label: 'Remote' },
+                { id: '1', label: 'CareerBuilder' },
+                { id: '2', label: 'Company Website' },
+                { id: '3', label: 'Direct Email' },
+                { id: '4', label: 'Dice' },
+                { id: '5', label: 'FlexJobs' },
+                { id: '6', label: 'Glassdoor' },
+                { id: '7', label: 'Indeed' },
+                { id: '8', label: 'LinkedIn' },
+                { id: '9', label: 'Monster' },
+                { id: '10', label: 'SimplyHired' },
+                { id: '11', label: 'Wellfound' },
+                { id: '12', label: 'Workopolis' },
+                { id: '13', label: 'ZipRecruiter' },
+                { id: '14', label: 'Other' },
               ]}
             />
-          </>
-        }
-        itemThree={<RHFFavoriteCheckbox<AddAppSchema> name="isFavorite" />}
-      />
+          }
+        />
 
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          width: '100%',
-          marginTop: '20px',
-        }}
-      >
-        <Button variant="contained" type="submit" size="small">
-          Add Application
-        </Button>
-      </Box>
-    </Grid>
+        <Row
+          itemOne={<RHFDateCalendar<AddAppSchema> name="applicationDate" />}
+          itemTwo={<RHFTextArea<AddAppSchema> name="note" />}
+          itemThree={
+            <Box
+              sx={{
+                mt: 0,
+                border: 1,
+                borderColor: 'divider',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 1,
+                marginBottom: '20px',
+              }}
+              gap={1}
+            >
+              <Button
+                variant="outlined"
+                component="label"
+                sx={{ margin: '20px' }}
+              >
+                Upload Job Decription
+                <FilterDramaOutlinedIcon sx={{ marginLeft: '10px' }} />
+                <input type="file" hidden />
+              </Button>
+              <Typography variant="body2" padding={3}>
+                Although you can add it later, we strongly recommend promptly
+                uploading the job description to ensure its preservation before
+                the online post is potentially removed.
+              </Typography>
+            </Box>
+          }
+        />
+
+        <Row
+          itemOne={
+            <>
+              <Typography
+                fontSize={16}
+                sx={{ display: 'flex', flexDirection: 'start' }}
+              >
+                Job Post Posting & Ending Dates
+              </Typography>
+              <Box sx={{ display: 'flex', gap: 2, marginTop: '15px' }}>
+                <RHFDatePicker<AddAppSchema>
+                  name="jobPostPostingDate"
+                  label="Posting Date"
+                />
+                <RHFDatePicker<AddAppSchema>
+                  name="jobPostEndingDate"
+                  label="Ending Date"
+                />
+              </Box>
+            </>
+          }
+          itemTwo={
+            <>
+              <Typography
+                fontSize={16}
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'start',
+                  marginBottom: '10px',
+                }}
+              >
+                Work Model
+              </Typography>
+              <RHFToggleButtonGroup<AddAppSchema>
+                name="workModel"
+                options={[
+                  { id: '1', label: 'On Site' },
+                  { id: '2', label: 'Hybrid' },
+                  { id: '3', label: 'Remote' },
+                ]}
+              />
+            </>
+          }
+          itemThree={<RHFFavoriteCheckbox<AddAppSchema> name="isFavorite" />}
+        />
+
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            width: '100%',
+            marginTop: '20px',
+          }}
+        >
+          <Button variant="contained" type="submit" size="small">
+            Add Application
+          </Button>
+        </Box>
+      </Grid>
+    </form>
   );
 };
 
