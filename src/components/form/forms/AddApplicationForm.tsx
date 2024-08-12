@@ -13,13 +13,37 @@ import { RHFTextArea } from '../formControllers/RHFTextArea';
 import { RHFSelect } from '../formControllers/RHFSelect';
 import { AddAppSchema } from '../schemas/addAppSchema';
 import { addApplication } from '../../../services/applications';
+import { show } from '../../../state/feeback/feedbackSlice';
 import { useAuthToken } from '../../../hooks/useAuthToken';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 const AddApplicationForm = () => {
   const { handleSubmit } = useFormContext<AddAppSchema>();
   const token = useAuthToken();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const onsubmit =  async (data: AddAppSchema) => await addApplication(token!, data);
+  const onsubmit =  async (data: AddAppSchema) => {
+    try {
+      await addApplication(token!, data);
+      navigate('/dashboard');
+      dispatch(
+        show({
+          message: 'Application added successfully',
+          severity: 'success',
+        })
+      );
+  } catch (error) {
+    dispatch(
+      show({
+        message: 'Something went wrong, please try again later',
+        severity: 'error',
+      })
+    );
+    console.error(error);
+  }
+  };
 
   return (
     <form onSubmit={handleSubmit(onsubmit)}>
