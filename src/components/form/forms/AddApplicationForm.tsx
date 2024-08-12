@@ -29,7 +29,6 @@ const AddApplicationForm = () => {
       container
       padding="40px 20px 20px 20px"
       spacing={3}
-      sx={{ position: 'relative' }}
     >
       <Row
         itemOne={
@@ -172,11 +171,8 @@ const AddApplicationForm = () => {
         sx={{
           display: 'flex',
           justifyContent: 'flex-end',
-          position: 'absolute',
-          right: 0,
-          bottom: 0,
           width: '100%',
-          padding: '20px',
+          marginTop: '20px',
         }}
       >
         <Button variant="contained" type="submit" size="small">
