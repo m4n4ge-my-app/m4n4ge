@@ -1,7 +1,7 @@
 //external imports
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
-import React, { useEffect } from 'react';
+import React from 'react';
 //local imports
 import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 import FilterDramaOutlinedIcon from '@mui/icons-material/FilterDramaOutlined';
