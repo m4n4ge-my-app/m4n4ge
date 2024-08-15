@@ -53,37 +53,6 @@ const ApplicationsOverview = () => {
         >
           Total: {applicationSummary.total}
         </Typography>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-end',
-            width: '100%',
-            marginTop: '5px',
-            paddingRight: '10px',
-          }}
-        >
-          {data.map((entry, index) => (
-            <div
-              key={index}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginBottom: '10px',
-              }}
-            >
-              <FiberManualRecordIcon
-                style={{
-                  color: COLORS[index % COLORS.length],
-                  marginRight: '5px',
-                  width: '8px',
-                  height: '8px',
-                }}
-              />
-              <span style={{ fontSize: '0.5rem' }}>{entry.name}</span>
-            </div>
-          ))}
-        </div>
       </Grid>
     </Grid>
   );
