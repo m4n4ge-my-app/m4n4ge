@@ -26,11 +26,12 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { Stack } from '@mui/system';
 import {
-  applicationsData as applications,
   Application,
   searchApplications,
   workModes,
 } from '../../utils/mockDataGenerator';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../state/store';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -249,6 +250,8 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 }
 
 const ExpandedView = () => {
+  const _applications = useSelector((state: RootState) => state.applications.applications);
+  const [applications, setApplications] = useState<Application[]>([]);
   const [orderBy, setOrderBy] = useState<keyof Application>('applicationDate');
   const [searchResult, setSearchResult] = useState<Application[] | null>(null);
   const [selected, setSelected] = useState<readonly number[]>([]);
@@ -259,6 +262,7 @@ const ExpandedView = () => {
 
   useEffect(() => {
     setSearchResult(searchApplications(applications, keyword));
+    setApplications(_applications);
   }, [keyword]);
 
   const handleRequestSort = (
