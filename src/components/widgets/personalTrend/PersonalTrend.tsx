@@ -1,4 +1,6 @@
-import { applicationsTrend } from '../../../utils/mockDataGenerator';
+import { useSelector } from 'react-redux';
+import { getApplicationTrend } from '../../../utils/mockDataGenerator';
+import { RootState } from '../../../state/store';
 import {
   LineChart,
   Line,
@@ -19,10 +21,11 @@ interface StatusCounts {
 
 interface Item {
   monthYear: string;
-  statusCounts: StatusCounts;
+  statusCounts: StatusCounts | Record<string, number>;
 }
 
 const PersonalTrend = () => {
+  const applications = useSelector((state: RootState) => state.applications.applications);
   const statusColorMapping = {
     applied: 'lightgray',
     engaged: '#407bff',
@@ -43,14 +46,13 @@ const PersonalTrend = () => {
   };
 
   // Transform the data
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //@ts-ignore
+  const applicationsTrend = getApplicationTrend(applications);
   const transformedData = transformData(applicationsTrend);
 
-  // Get the keys from the first item in the transformedData array
-  const lineKeys = Object.keys(transformedData[0]).filter(
-    (key) => key !== 'name'
-  );
+  // Get the keys from the first item in the transformedData array only when  transformedData is not empty
+  const lineKeys = transformedData.length > 0
+    ? Object.keys(transformedData[0]).filter((key) => key !== 'name')
+    : [];
 
   return (
     // Use the keys to generate the lines in the LineChart

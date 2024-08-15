@@ -348,7 +348,7 @@ export function getApplicationSummary(
   return summary;
 }
 
-function getApplicationTrend(
+export function getApplicationTrend(
   applications: Application[]
 ): { monthYear: string; statusCounts: Record<string, number> }[] {
   const trend: Record<string, Record<string, number>> = {};
