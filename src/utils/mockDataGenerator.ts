@@ -72,7 +72,7 @@ const statuses = [
   'Accepted',
 ];
 
-export const workModes = ['On-site', 'Hybrid', 'Remote'];
+export const workModes = ['On-Site', 'Hybrid', 'Remote'];
 const notes = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 const startDate = new Date('2023-07-12');
 const endDate = new Date();
@@ -81,15 +81,15 @@ const applications: Application[] = [];
 
 // Interfaces
 export interface Application {
-  isFavourite: boolean;
+  isFavorite: boolean;
   employerName: string;
   positionName: string;
-  location: string;
+  jobLocation: string;
   applicationDate: string;
-  platform: string;
+  jobPlatform: string;
   status: string;
   note: string;
-  workMode: string;
+  workModel: string;
 }
 
 // Helper functions
@@ -144,16 +144,16 @@ while (uniqueDates.length < 50) {
 
 for (let i = 0; i < 55; i++) {
   applications.push({
-    isFavourite: Math.random() < 0.5,
+    isFavorite: Math.random() < 0.5,
     employerName: companies[Math.floor(Math.random() * companies.length)],
     positionName: positions[Math.floor(Math.random() * positions.length)],
-    location: locations[Math.floor(Math.random() * locations.length)],
+    jobLocation: locations[Math.floor(Math.random() * locations.length)],
     applicationDate:
       uniqueDates[Math.floor(Math.random() * uniqueDates.length)], // Select a random date from the uniqueDates array
-    platform: platforms[Math.floor(Math.random() * platforms.length)],
+    jobPlatform: platforms[Math.floor(Math.random() * platforms.length)],
     status: statuses[Math.floor(Math.random() * statuses.length)],
     note: getRandomString(notes),
-    workMode: workModes[Math.floor(Math.random() * workModes.length)],
+    workModel: workModes[Math.floor(Math.random() * workModes.length)],
   });
 }
 
@@ -260,16 +260,16 @@ export function searchApplications(
       (application) =>
         application.employerName.toLowerCase().includes(term.toLowerCase()) ||
         application.positionName.toLowerCase().includes(term.toLowerCase()) ||
-        application.location.toLowerCase().includes(term.toLowerCase()) ||
-        application.platform.toLowerCase().includes(term.toLowerCase()) ||
+        application.jobLocation.toLowerCase().includes(term.toLowerCase()) ||
+        application.jobPlatform.toLowerCase().includes(term.toLowerCase()) ||
         application.status.toLowerCase().includes(term.toLowerCase())
     )
     .sort((a, b) => {
       const aValues = [
         a.employerName,
         a.positionName,
-        a.location,
-        a.platform,
+        a.jobLocation,
+        a.jobPlatform,
         a.status,
       ]
         .join(' ')
@@ -277,8 +277,8 @@ export function searchApplications(
       const bValues = [
         b.employerName,
         b.positionName,
-        b.location,
-        b.platform,
+        b.jobLocation,
+        b.jobPlatform,
         b.status,
       ]
         .join(' ')

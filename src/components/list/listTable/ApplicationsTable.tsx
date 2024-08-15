@@ -135,7 +135,7 @@ export default function ApplicationsTable({
                   {i + 1}
                 </TableCell>
                 <TableCell align="center" style={{ width: '5%' }}>
-                  {application.isFavourite === true ? (
+                  {application.isFavorite === true ? (
                     <FavoriteIcon
                       style={{ color: '#ff40da' }}
                       fontSize="small"
@@ -151,10 +151,10 @@ export default function ApplicationsTable({
                   {application.positionName}
                 </TableCell>
                 <TableCell align="center" style={{ width: '10%' }}>
-                  {application.location}
+                  {application.jobLocation}
                 </TableCell>
                 <TableCell align="center" style={{ width: '10%' }}>
-                  {application.platform}
+                  {application.jobPlatform}
                 </TableCell>
                 <TableCell align="center" style={{ width: '10%' }}>
                   <Box
@@ -176,7 +176,7 @@ export default function ApplicationsTable({
                   </Box>
                 </TableCell>
                 <TableCell align="center" style={{ width: '10%' }}>
-                  {application.workMode === workModes[0] && (
+                  {application.workModel.replace(/"/g, '') === workModes[0]&& (
                     <Box
                       display="flex"
                       alignItems="center"
@@ -187,7 +187,7 @@ export default function ApplicationsTable({
                       {workModes[0]}
                     </Box>
                   )}
-                  {application.workMode === workModes[1] && (
+                  {application.workModel.replace(/"/g, '') === workModes[1] && (
                     <Box
                       display="flex"
                       alignItems="center"
@@ -198,7 +198,7 @@ export default function ApplicationsTable({
                       {workModes[1]}
                     </Box>
                   )}
-                  {application.workMode === workModes[2] && (
+                  {application.workModel.replace(/"/g, '') === workModes[2] && (
                     <Box
                       display="flex"
                       alignItems="center"
