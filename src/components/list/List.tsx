@@ -1,3 +1,4 @@
+import { setApplications } from '../../state/application/applicationSlice';
 import ApplicationsTable from './listTable/ApplicationsTable';
 import {
   Application,
@@ -8,20 +9,23 @@ import { useEffect, useState } from 'react';
 import { getApplications } from '../../services/applications';
 import { useAuthToken } from '../../hooks/useAuthToken';
  import { groupByDate } from '../../utils/mockDataGenerator';
+import { useDispatch } from 'react-redux';
 
 interface ListProps {
   viewMode: string;
 }
 
 export default function List({ viewMode }: ListProps) {
+  const [applications, set_Applications] = useState<Application[]>([]);
+  const dispatch = useDispatch();
   const token = useAuthToken();
-  const [applications, setApplications] = useState<Application[]>([]);
 
   useEffect(() => {
     if (token) {
         getApplications(token).then((data) => {
             console.log('data', data);
-            setApplications(data);
+            set_Applications(data);
+            dispatch(setApplications(data));
         })
         .catch((error) => {
             console.log('error fetching user application records: ', error);
