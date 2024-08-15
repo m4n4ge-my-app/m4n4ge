@@ -326,7 +326,7 @@ function getEarliestApplicationDate(applications: Application[]): {
   return { earliestDate: earliestDateString, elapsedDays };
 }
 
-function getApplicationSummary(
+export function getApplicationSummary(
   applications: Application[]
 ): Record<string, number> {
   const summary: Record<string, number> = {

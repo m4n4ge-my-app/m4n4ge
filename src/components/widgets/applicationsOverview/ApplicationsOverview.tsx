@@ -1,18 +1,24 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import { applicationSummary } from '../../../utils/mockDataGenerator';
+import { getApplicationSummary } from '../../../utils/mockDataGenerator';
 import { Grid, Typography } from '@mui/material';
-
-const data = [
-  { name: 'Applied', value: applicationSummary.Applied },
-  { name: 'Engaged', value: applicationSummary.Engaged },
-  { name: 'Interviewing', value: applicationSummary.Interviewing },
-  { name: 'Rejections', value: applicationSummary.Rejected },
-  { name: 'Offers', value: applicationSummary.Offer },
-];
-const COLORS = ['lightgray', '#407bff', '#ffc440', '#ff40da', '#40ff64'];
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../state/store';
 
 const ApplicationsOverview = () => {
+  const applications = useSelector((state: RootState) => state.applications.applications);
+  const applicationSummary = getApplicationSummary(applications);
+
+  const data = [
+    { name: 'Applied', value: applicationSummary.Applied },
+    { name: 'Engaged', value: applicationSummary.Engaged },
+    { name: 'Interviewing', value: applicationSummary.Interviewing },
+    { name: 'Rejections', value: applicationSummary.Rejected },
+    { name: 'Offers', value: applicationSummary.Offer },
+  ];
+
+  const COLORS = ['lightgray', '#407bff', '#ffc440', '#ff40da', '#40ff64'];
+
   return (
     <Grid container direction="row">
       <Grid item xs={8} style={{ height: '150px' }}>
