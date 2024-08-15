@@ -23,7 +23,6 @@ export default function List({ viewMode }: ListProps) {
   useEffect(() => {
     if (token) {
         getApplications(token).then((data) => {
-            console.log('data', data);
             set_Applications(data);
             dispatch(setApplications(data));
         })
