@@ -84,10 +84,10 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
-    id: 'isFavourite',
+    id: 'isFavorite',
     numeric: false,
     disablePadding: true,
-    label: 'Favourite',
+    label: 'Favorite',
   },
   {
     id: 'employerName',
@@ -102,7 +102,7 @@ const headCells: readonly HeadCell[] = [
     label: 'Role Name',
   },
   {
-    id: 'location',
+    id: 'jobLocation',
     numeric: false,
     disablePadding: false,
     label: 'Location',
@@ -114,7 +114,7 @@ const headCells: readonly HeadCell[] = [
     label: 'Job Application Date',
   },
   {
-    id: 'platform',
+    id: 'jobPlatform',
     numeric: false,
     disablePadding: false,
     label: 'Platform',
@@ -126,7 +126,7 @@ const headCells: readonly HeadCell[] = [
     label: 'Status',
   },
   {
-    id: 'workMode',
+    id: 'workModel',
     numeric: false,
     disablePadding: false,
     label: 'Work Mode',
@@ -349,7 +349,7 @@ const ExpandedView = () => {
                     sx={{ cursor: 'pointer' }}
                   >
                     <TableCell align="center" id={labelId}>
-                      {row.isFavourite === true ? (
+                      {row.isFavorite === true ? (
                         <FavoriteIcon
                           style={{ color: '#ff40da' }}
                           fontSize="small"
@@ -360,9 +360,9 @@ const ExpandedView = () => {
                     </TableCell>
                     <TableCell align="center">{row.employerName}</TableCell>
                     <TableCell align="center">{row.positionName}</TableCell>
-                    <TableCell align="center">{row.location}</TableCell>
+                    <TableCell align="center">{row.jobLocation}</TableCell>
                     <TableCell align="center">{row.applicationDate}</TableCell>
-                    <TableCell align="center">{row.platform}</TableCell>
+                    <TableCell align="center">{row.jobPlatform}</TableCell>
                     <TableCell align="center">
                       <Box
                         sx={{
@@ -382,7 +382,7 @@ const ExpandedView = () => {
                       </Box>
                     </TableCell>
                     <TableCell align="center" style={{ width: '10%' }}>
-                      {row.workMode === workModes[0] && (
+                      {row.workModel.replace(/"/g, '') === workModes[0] && (
                         <Box
                           display="flex"
                           alignItems="center"
@@ -393,7 +393,7 @@ const ExpandedView = () => {
                           {workModes[0]}
                         </Box>
                       )}
-                      {row.workMode === workModes[1] && (
+                      {row.workModel.replace(/"/g, '') === workModes[1] && (
                         <Box
                           display="flex"
                           alignItems="center"
@@ -404,7 +404,7 @@ const ExpandedView = () => {
                           {workModes[1]}
                         </Box>
                       )}
-                      {row.workMode === workModes[2] && (
+                      {row.workModel.replace(/"/g, '') === workModes[2] && (
                         <Box
                           display="flex"
                           alignItems="center"
