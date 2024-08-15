@@ -1,5 +1,4 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';;
 import { getApplicationSummary } from '../../../utils/mockDataGenerator';
 import { Grid, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
