@@ -29,9 +29,9 @@ export const addApplication = async (token: string, data: any) => {
                 'Authorization': `Bearer ${token}`
             }
         });
-        return response.data;
+        return response;
     } catch (error) {
         console.error('error from addApplication', error);
-        return null;
+        return error;
     }
 };

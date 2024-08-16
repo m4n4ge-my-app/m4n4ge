@@ -18,6 +18,21 @@ import { useAuthToken } from '../../../hooks/useAuthToken';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+interface Response {
+  config: {},
+  data: {},
+  headers: {},
+  request: {},
+  response: {
+    status: number,
+    data: {
+      error: string
+    }
+  },
+  status: number,
+  statusText: string
+}
+
 const AddApplicationForm = () => {
   const { handleSubmit } = useFormContext<AddAppSchema>();
   const token = useAuthToken();
@@ -26,14 +41,26 @@ const AddApplicationForm = () => {
 
   const onsubmit =  async (data: AddAppSchema) => {
     try {
-      await addApplication(token!, data);
-      navigate('/dashboard');
-      dispatch(
-        show({
-          message: 'Application added successfully',
-          severity: 'success',
-        })
-      );
+      const res: Response = await addApplication(token!, data) as Response;
+      const statusCode = res.response? res.response.status : res.status;
+
+      if(statusCode === 201) {
+        navigate('/dashboard');
+        dispatch(
+          show({
+            message: 'Application added successfully',
+            severity: 'success',
+          })
+        );
+      }
+      if(statusCode === 403) {
+        dispatch(
+          show({
+            message: res.response.data.error,
+            severity: 'error',
+          })
+        );
+      }
   } catch (error) {
     dispatch(
       show({
@@ -41,7 +68,6 @@ const AddApplicationForm = () => {
         severity: 'error',
       })
     );
-    console.error(error);
   }
   };
 
