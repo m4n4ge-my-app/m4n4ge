@@ -24,6 +24,7 @@ import moment from 'moment';
 //local imports
 import { Application, workModes } from '../../../utils/mockDataGenerator';
 import { getColors } from '../utils/designUtilities';
+import { setFocusedApplication } from '../../../state/application/applicationSlice';
 
 interface DayCardProps {
   viewMode: string;
@@ -144,7 +145,10 @@ export default function ApplicationsTable({
               <TableRow
                 key={rowIndex}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 },  cursor: 'pointer' }}
-                onClick={() => setFocusedRow(rowIndex)}
+                onClick={() => {
+                  setFocusedRow(rowIndex);
+                  setFocusedApplication(application)
+                }}
               >
                 <TableCell align="center" style={{ width: '5%' }}>
                   {rowIndex + 1}

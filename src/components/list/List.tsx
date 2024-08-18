@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 //local imports
-import { setApplications } from '../../state/application/applicationSlice';
+import { setApplications, setFocusedApplication } from '../../state/application/applicationSlice';
 import { getApplications } from '../../services/applications';
 import ApplicationsTable from './listTable/ApplicationsTable';
 import { groupByDate } from '../../utils/mockDataGenerator';
@@ -34,8 +34,9 @@ export default function List({ viewMode }: ListProps) {
             console.log('error fetching user application records: ', error);
         });
 
-        // Reset focused row when view mode changes, otheswise it will persist between different views
+        // Reset focused row/application when view mode changes, otheswise it will persist between different views
         setFocusedRow(null);
+        setFocusedApplication(null);
     }
 }, [token, viewMode]);
 

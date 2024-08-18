@@ -3,10 +3,12 @@ import { Application } from "../../utils/mockDataGenerator";
 
 interface ApplicationState {
     applications: Application[] | [];
+    focusedApplication: Application | null;
 }
 
 const initialState: ApplicationState = {
     applications: [],
+    focusedApplication: null,
 };
 
 const applicationSlice = createSlice({
@@ -16,9 +18,13 @@ const applicationSlice = createSlice({
         setApplications(state, action: PayloadAction<Application[]>) {
             state.applications = action.payload;
         },
+        setFocusedApplication(state, action: PayloadAction<Application | null>) {
+            state.focusedApplication = action.payload;
+        }
+       
     },
 });
 
-export const { setApplications } = applicationSlice.actions;
+export const { setApplications, setFocusedApplication } = applicationSlice.actions;
 
 export default applicationSlice.reducer;
