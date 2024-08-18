@@ -1,16 +1,15 @@
+//external imports
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
-import { Application, workModes } from '../../../utils/mockDataGenerator';
 import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
 import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import TableContainer from '@mui/material/TableContainer';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { getColors } from '../utils/designUtilities';
 import { Button, Typography } from '@mui/material';
 import { Box, Stack, lighten } from '@mui/system';
 import TableBody from '@mui/material/TableBody';
@@ -21,6 +20,10 @@ import Table from '@mui/material/Table';
 import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import moment from 'moment';
+
+//local imports
+import { Application, workModes } from '../../../utils/mockDataGenerator';
+import { getColors } from '../utils/designUtilities';
 
 interface DayCardProps {
   viewMode: string;
