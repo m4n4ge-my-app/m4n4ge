@@ -36,7 +36,7 @@ export default function List({ viewMode }: ListProps) {
 
         // Reset focused row/application when view mode changes, otheswise it will persist between different views
         setFocusedRow(null);
-        setFocusedApplication(null);
+        dispatch(setFocusedApplication(null));
     }
 }, [token, viewMode]);
 

@@ -16,6 +16,7 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { useDispatch } from 'react-redux';
 import Table from '@mui/material/Table';
 import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
@@ -43,7 +44,7 @@ export default function ApplicationsTable({
   setFocusedRow,
   tableIndex,
 }: DayCardProps) {
-
+  const dispatch = useDispatch();
 
   return (
     <Paper sx={{ width: '100%', marginBottom: '20px' }}>
@@ -147,7 +148,7 @@ export default function ApplicationsTable({
                 sx={{ '&:last-child td, &:last-child th': { border: 0 },  cursor: 'pointer' }}
                 onClick={() => {
                   setFocusedRow(rowIndex);
-                  setFocusedApplication(application)
+                  dispatch(setFocusedApplication(application))
                 }}
               >
                 <TableCell align="center" style={{ width: '5%' }}>
