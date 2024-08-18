@@ -33,7 +33,7 @@ interface Response {
   statusText: string
 }
 
-const AddApplicationForm = () => {
+const AddEditApplicationForm = () => {
   const { handleSubmit } = useFormContext<AddAppSchema>();
   const token = useAuthToken();
   const navigate = useNavigate();
@@ -232,7 +232,7 @@ const AddApplicationForm = () => {
   );
 };
 
-export default AddApplicationForm;
+export default AddEditApplicationForm;
 
 interface RowProps {
   itemOne: React.ReactNode | null;
