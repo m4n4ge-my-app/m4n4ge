@@ -17,6 +17,7 @@ interface ListProps {
 
 export default function List({ viewMode }: ListProps) {
   const [applications, set_Applications] = useState<Application[]>([]);
+  const [focusedRow, setFocusedRow] = useState<{ tableIndex: number; rowIndex: number } | null>(null);
   const dispatch = useDispatch();
   const token = useAuthToken();
 
@@ -29,8 +30,11 @@ export default function List({ viewMode }: ListProps) {
         .catch((error) => {
             console.log('error fetching user application records: ', error);
         });
+
+        // Reset focused row when view mode changes, otheswise it will persist between different views
+        setFocusedRow(null);
     }
-}, [token]);
+}, [token, viewMode]);
 
   let applicationsGroup: Record<string, Application[]>[] = [];
   switch (viewMode) {
@@ -49,16 +53,19 @@ export default function List({ viewMode }: ListProps) {
 
   return (
     <div>
-      {applicationsGroup.map((appGroup, index) => {
+      {applicationsGroup.map((appGroup, tableIndex) => {
         const groupTitle = Object.keys(appGroup)[0];
         const applications = appGroup[groupTitle];
 
         return (
           <ApplicationsTable
-            key={index}
+            key={tableIndex}
             viewMode={viewMode}
             applicationDate={groupTitle}
             applications={applications}
+            focusedRow={focusedRow}
+            setFocusedRow={(rowIndex) => setFocusedRow({ tableIndex, rowIndex })}
+            tableIndex={tableIndex}
           />
         );
       })}
