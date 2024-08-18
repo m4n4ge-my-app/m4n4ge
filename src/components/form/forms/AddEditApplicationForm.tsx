@@ -3,6 +3,7 @@ import { Box, Button, Grid, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import React from 'react';
 //local imports
+import { setFocusedApplication } from '../../../state/application/applicationSlice';
 import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 import FilterDramaOutlinedIcon from '@mui/icons-material/FilterDramaOutlined';
 import { RHFFavoriteCheckbox } from '../formControllers/RHFFavoriteCheckbox';
@@ -15,8 +16,9 @@ import { AddAppSchema } from '../schemas/addAppSchema';
 import { addApplication } from '../../../services/applications';
 import { show } from '../../../state/feeback/feedbackSlice';
 import { useAuthToken } from '../../../hooks/useAuthToken';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../state/store';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 interface Response {
   config: {},
@@ -34,6 +36,7 @@ interface Response {
 }
 
 const AddEditApplicationForm = () => {
+  const focusedApplication = useSelector((state: RootState) => state.applications.focusedApplication);
   const { handleSubmit } = useFormContext<AddAppSchema>();
   const token = useAuthToken();
   const navigate = useNavigate();
@@ -224,8 +227,21 @@ const AddEditApplicationForm = () => {
           }}
         >
           <Button variant="contained" type="submit" size="small">
-            Add Application
+            {focusedApplication? 'Save Changes' : 'Add Application'}
           </Button>
+          {focusedApplication && (
+            <Button
+              variant="outlined"
+              size="small"
+              sx={{ marginLeft: '10px' }}
+              onClick={() => {
+                dispatch(setFocusedApplication(null));
+                navigate('/dashboard')
+              }}
+            >
+              Cancel
+            </Button>
+          )}
         </Box>
       </Grid>
     </form>
