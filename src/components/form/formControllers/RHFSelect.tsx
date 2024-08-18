@@ -15,12 +15,14 @@ interface Props<T extends FieldValues> {
   name: Path<T>;
   label: string;
   options?: Options[];
+  defaultValue?: string;
 }
 
 export function RHFSelect<T extends FieldValues>({
   name,
   label,
   options,
+  defaultValue,
   ...props
 }: Props<T>) {
   const { control } = useFormContext();
@@ -39,6 +41,7 @@ export function RHFSelect<T extends FieldValues>({
                 ? ''
                 : value
             }
+            defaultValue=''
             label="Platform"
             onChange={(_, newValue) => {
               if (Array.isArray(newValue)) {

@@ -19,6 +19,7 @@ import { useAuthToken } from '../../../hooks/useAuthToken';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
 import { useNavigate } from 'react-router-dom';
+import { statuses as applicationStatuses } from '../../../utils/mockDataGenerator';
 
 interface Response {
   config: {},
@@ -90,7 +91,19 @@ const AddEditApplicationForm = () => {
               fullWidth
             />
           }
-          itemTwo={null}
+          itemTwo={
+            focusedApplication ? (
+              <RHFSelect<AddAppSchema>
+              name="applicationStatus"
+              label="Job Status"
+              options={applicationStatuses.map((status, i) => ({
+                id: (i + 1).toString(),
+                label: status
+              }))}
+              defaultValue={applicationStatuses[0]}
+            />
+            ) : null
+          }
           itemThree={null}
         />
 

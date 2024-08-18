@@ -63,7 +63,7 @@ const platforms = [
   'Company Website',
 ];
 
-const statuses = [
+export const statuses = [
   'Applied',
   'Engaged',
   'Interviewing',
