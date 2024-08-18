@@ -17,7 +17,7 @@ import Resumes from './pages/iManage/resumes/Resumes';
 import ProtectedRoute from './routes/ProtectedRoute';
 import Landing from './pages/system/landing/Landing';
 import Dashboard from './pages/dashboard/Dashboard';
-import AddApp from './pages/iManage/addApp/AddApp';
+import AddEditApp from './pages/iManage/addApp/AddEditApp';
 import Layout from './pages/system/layout/Layout';
 import Archives from './pages/archives/Archives';
 import SignIn from './pages/auth/signin/SignIn';
@@ -67,7 +67,8 @@ function App() {
           }
         >
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/add" element={<AddApp />} />
+          <Route path="/add" element={<AddEditApp />} />
+          <Route path="/app/edit" element={<AddEditApp />} />
           <Route path="/resumes" element={<Resumes />} />
           <Route path="/coverletters" element={<CoverLetters />} />
           <Route path="/calendar" element={<Calendar />} />

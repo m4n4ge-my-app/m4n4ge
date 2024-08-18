@@ -1,7 +1,7 @@
 import BaseLayer from '../../../components/baseLayer/BaseLayer';
 import GenericGrid from '../../../components/grids/GenericGrid';
 
-const AddApp = () => {
+const AddEditApp = () => {
   return (
     <BaseLayer type="add">
       <GenericGrid formLabel="Add Application Record" type="add" />
@@ -9,4 +9,4 @@ const AddApp = () => {
   );
 };
 
-export default AddApp;
+export default AddEditApp;
