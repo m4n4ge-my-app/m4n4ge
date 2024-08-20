@@ -9,12 +9,12 @@ import { Application, statuses as applicationStatuses } from '../../../utils/moc
 import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 import FilterDramaOutlinedIcon from '@mui/icons-material/FilterDramaOutlined';
 import { RHFFavoriteCheckbox } from '../formControllers/RHFFavoriteCheckbox';
+import { AddAppSchema, defaultValues } from '../schemas/addAppSchema';
 import { RHFDateCalendar } from '../formControllers/RHFDateCalendar';
 import { RHFDatePicker } from '../formControllers/RHFDatePicker';
 import { RHFTextField } from '../formControllers/RHFTextField';
 import { RHFTextArea } from '../formControllers/RHFTextArea';
 import { RHFSelect } from '../formControllers/RHFSelect';
-import { AddAppSchema } from '../schemas/addAppSchema';
 import { show } from '../../../state/feeback/feedbackSlice';
 import { useAuthToken } from '../../../hooks/useAuthToken';
 import { useDispatch, useSelector } from 'react-redux';
@@ -67,6 +67,8 @@ const AddEditApplicationForm = () => {
       getApplicationDetails(token!, id!).then((data) => {
         updateFormState(data);
       });
+    } else {
+      reset(defaultValues);
     }
   }, [focusedApplication, id, reset, token]);
 

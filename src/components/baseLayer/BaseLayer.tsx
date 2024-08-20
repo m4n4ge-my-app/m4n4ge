@@ -5,9 +5,11 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import { Fab, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Tooltip from '@mui/material/Tooltip';
+import { useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 //local imports
+import { setFocusedApplication } from '../../state/application/applicationSlice';
 import coverLetter from './baseLayerImages/coverletter.png';
 import description from './baseLayerImages/description.png';
 import dashboard from './baseLayerImages/dashboard.png';
@@ -30,6 +32,7 @@ interface Props {
 
 const BaseLayer = ({ type, children }: Props) => {
   const [lightMode, setLightMode] = React.useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // Dynamically set the CSS variable
@@ -115,12 +118,19 @@ const BaseLayer = ({ type, children }: Props) => {
     }
   }, [type]);
 
+  const clearForms = () => {
+    dispatch(setFocusedApplication(null));
+  };
+
   return (
     <div className="pageContainer">
       <div className="left">{children}</div>
       <div className="right">
         <div className="iconsGroup">
-          <Link to="/add">
+          <Link 
+            to="/add"
+            onClick={clearForms}
+          >
             <Tooltip title="Add application record" placement="left">
               <Fab
                 size="small"
