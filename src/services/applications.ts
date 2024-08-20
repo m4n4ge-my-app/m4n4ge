@@ -62,3 +62,17 @@ export const editApplication = async (token: string, data: any, id: string) => {
         return error;
     }
 };
+
+export const getApplicationDetails = async (token: string, id: string) => {
+    try {
+        const response: AxiosResponse = await axios.get(baseUrl + `/api/applications/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('error from getApplicationDetails', error);
+        return error;
+    }
+}

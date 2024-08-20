@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import React, { useEffect } from 'react';
 //local imports
 import { setFocusedApplication } from '../../../state/application/applicationSlice';
-import { addApplication, editApplication,  getKeyByWorkModel } from '../../../services/applications';
+import { addApplication, editApplication,  getApplicationDetails,  getKeyByWorkModel } from '../../../services/applications';
 import { statuses as applicationStatuses } from '../../../utils/mockDataGenerator';
 import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 import FilterDramaOutlinedIcon from '@mui/icons-material/FilterDramaOutlined';
@@ -61,6 +61,28 @@ const AddEditApplicationForm = () => {
       });
     }
   }, [focusedApplication]);
+ 
+  //fetch application details if user freshes the page before editing is complete
+  useEffect(() => {
+    if (!focusedApplication && id) {
+      // dispatch(getApplicationDetails(token!, id));
+      getApplicationDetails(token!, id!).then((data) => {
+        reset({
+          employerName: data.employerName,
+          applicationStatus: data.applicationStatus,
+          positionName: data.positionName,
+          jobLocation: data.jobLocation,
+          jobPlatform: data.jobPlatform,
+          applicationDate: new Date(data.applicationDate),
+          jobPostPostingDate: new Date(data.jobPostPostingDate),
+          jobPostEndingDate: new Date(data.jobPostEndingDate),
+          workModel: [getKeyByWorkModel(data.workModel)],
+          note: data.note,
+          isFavorite: data.isFavorite
+        });
+    })
+  }
+  }, [id]);
 
   const onsubmit = async (data: AddAppSchema) => {
     console.log("data", data);
