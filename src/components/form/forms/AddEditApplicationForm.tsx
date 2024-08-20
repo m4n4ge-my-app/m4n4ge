@@ -75,17 +75,22 @@ const AddEditApplicationForm = () => {
         res = await addApplication(token!, data) as Response;
       }
 
-      console.log("res", res);
-  
       const statusCode = res.response ? res.response.status : res.status;
 
-    
-  
       if (statusCode === 201) {
         navigate('/dashboard');
         dispatch(
           show({
             message: 'Application added successfully',
+            severity: 'success',
+          })
+        );
+      }
+      if (statusCode === 200) {
+        navigate('/dashboard');
+        dispatch(
+          show({
+            message: 'Application updated successfully',
             severity: 'success',
           })
         );
