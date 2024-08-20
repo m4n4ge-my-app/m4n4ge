@@ -37,6 +37,7 @@ interface DayCardProps {
   viewMode: string;
   applicationDate: string;
   applications: Application[];
+  fetchApplicationsData: () => void;
   focusedRow: { tableIndex: number; rowIndex: number } | null;
   setFocusedRow: (rowIndex: number) => void;
   tableIndex: number;
@@ -46,6 +47,7 @@ export default function ApplicationsTable({
   viewMode,
   applicationDate,
   applications,
+  fetchApplicationsData,
   focusedRow,
   setFocusedRow,
   tableIndex,
@@ -295,7 +297,9 @@ export default function ApplicationsTable({
                   title="Delete Application"
                   message={`Are you sure you want to delete the application for ${application?.positionName} at ${application?.employerName}?`}
                   confirmAction={() =>
-                    deleteApplication(token!, application._id!)
+                    deleteApplication(token!, application._id!).then(() =>
+                      fetchApplicationsData()
+                    )
                   }
                 />
               </TableRow>

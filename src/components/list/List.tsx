@@ -30,21 +30,24 @@ export default function List({ viewMode }: ListProps) {
   const dispatch = useDispatch();
   const token = useAuthToken();
 
-  useEffect(() => {
+  const fetchApplicationsData = async () => {
     if (token) {
-      getApplications(token)
-        .then((data) => {
-          set_Applications(data);
-          dispatch(setApplications(data));
-        })
-        .catch((error) => {
-          console.log('error fetching user application records: ', error);
-        });
+      try {
+        const data = await getApplications(token);
+        set_Applications(data);
+        dispatch(setApplications(data));
+      } catch (error) {
+        console.log('error fetching user application records: ', error);
+      }
 
-      // Reset focused row/application when view mode changes, otheswise it will persist between different views
+      // Reset focused row/application when view mode changes, otherwise it will persist between different views
       setFocusedRow(null);
       dispatch(setFocusedApplication(null));
     }
+  };
+
+  useEffect(() => {
+    fetchApplicationsData();
   }, [token, viewMode]);
 
   let applicationsGroup: Record<string, Application[]>[] = [];
@@ -74,6 +77,7 @@ export default function List({ viewMode }: ListProps) {
             viewMode={viewMode}
             applicationDate={groupTitle}
             applications={applications}
+            fetchApplicationsData={fetchApplicationsData}
             focusedRow={focusedRow}
             setFocusedRow={(rowIndex) =>
               setFocusedRow({ tableIndex, rowIndex })
