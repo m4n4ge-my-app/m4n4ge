@@ -76,3 +76,17 @@ export const getApplicationDetails = async (token: string, id: string) => {
         return error;
     }
 }
+
+export const deleteApplication = async (token: string, id: string) => {
+    try {
+        const response: AxiosResponse = await axios.delete(baseUrl + `/api/applications/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }   
+        });
+        return response;
+    } catch (error) {
+        console.error('error from deleteApplication', error);
+        return error;
+    }
+}

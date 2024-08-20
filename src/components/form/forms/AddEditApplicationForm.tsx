@@ -1,12 +1,13 @@
 //external imports
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 //local imports
-import { addApplication, editApplication,  getApplicationDetails,  getKeyByWorkModel } from '../../../services/applications';
+import { addApplication, deleteApplication, editApplication,  getApplicationDetails,  getKeyByWorkModel } from '../../../services/applications';
 import { Application, statuses as applicationStatuses } from '../../../utils/mockDataGenerator';
 import { setFocusedApplication } from '../../../state/application/applicationSlice';
+import ConfirmationModal, { ConfirmationModalRef } from '../../modals/confirmationModal/ConfirmationModal';
 import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 import FilterDramaOutlinedIcon from '@mui/icons-material/FilterDramaOutlined';
 import { RHFFavoriteCheckbox } from '../formControllers/RHFFavoriteCheckbox';
@@ -44,6 +45,13 @@ const AddEditApplicationForm = () => {
   const token = useAuthToken();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const modalRef = useRef<ConfirmationModalRef>(null);;
+
+    const openModal = () => {
+        if (modalRef.current) {
+            modalRef.current.setOpen(true);
+        }
+    };
 
   useEffect(() => {
     const updateFormState = (application: Application) => {
@@ -291,19 +299,37 @@ const AddEditApplicationForm = () => {
             {focusedApplication? 'Save Changes' : 'Add Application'}
           </Button>
           {focusedApplication && (
-            <Button
-              variant="outlined"
-              size="small"
-              sx={{ marginLeft: '10px' }}
-              onClick={() => {
-                dispatch(setFocusedApplication(null));
-                navigate('/dashboard')
-              }}
-            >
-              Cancel
-            </Button>
+            <>
+              <Button
+                variant="contained"
+                size="small"
+                sx={{ marginLeft: '10px' }}
+                onClick={openModal}
+                color="secondary"
+              >
+                Delete
+              </Button>
+              <Button
+                variant="outlined"
+                size="small"
+                sx={{ marginLeft: '10px' }}
+                onClick={() => {
+                  dispatch(setFocusedApplication(null));
+                  navigate('/dashboard')
+                }}
+              >
+                Cancel
+              </Button>
+            </>
           )}
         </Box>
+        <ConfirmationModal
+          ref={modalRef}
+          title="Delete Application"
+          message={`Are you sure you want to delete the application for ${focusedApplication?.positionName} at ${focusedApplication?.employerName}?`}
+          confirmAction={() => deleteApplication(token!, id!)}
+          subsquentPath="/dashboard"
+        />
       </Grid>
     </form>
   );
