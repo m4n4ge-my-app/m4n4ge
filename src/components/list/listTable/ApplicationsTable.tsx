@@ -297,7 +297,6 @@ export default function ApplicationsTable({
                   confirmAction={() =>
                     deleteApplication(token!, application._id!)
                   }
-                  subsquentPath="/dashboard"
                 />
               </TableRow>
             ))}

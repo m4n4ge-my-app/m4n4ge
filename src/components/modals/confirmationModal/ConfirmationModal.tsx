@@ -1,5 +1,5 @@
 //external imports
-import React, { forwardRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -68,6 +68,8 @@ const ConfirmationModal = forwardRef(
               confirmAction().then(() => {
                 if (subsquentPath) {
                   navigate(subsquentPath);
+                } else {
+                  handleClose();
                 }
                 dispatch(
                   show({
