@@ -26,6 +26,12 @@ import moment from 'moment';
 import { setFocusedApplication } from '../../../state/application/applicationSlice';
 import { Application, workModes } from '../../../utils/mockDataGenerator';
 import { getColors } from '../utils/designUtilities';
+import { useRef } from 'react';
+import ConfirmationModal, {
+  ConfirmationModalRef,
+} from '../../modals/confirmationModal/ConfirmationModal';
+import { deleteApplication } from '../../../services/applications';
+import { useAuthToken } from '../../../hooks/useAuthToken';
 
 interface DayCardProps {
   viewMode: string;
@@ -44,8 +50,16 @@ export default function ApplicationsTable({
   setFocusedRow,
   tableIndex,
 }: DayCardProps) {
+  const modalRef = useRef<ConfirmationModalRef>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const token = useAuthToken();
+
+  const openModal = () => {
+    if (modalRef.current) {
+      modalRef.current.setOpen(true);
+    }
+  };
 
   const handleEditClick = (id: string) => {
     navigate(`/app/edit/${id}`);
@@ -265,6 +279,7 @@ export default function ApplicationsTable({
                         size="small"
                         color="secondary"
                         startIcon={<DeleteOutlineOutlinedIcon />}
+                        onClick={openModal}
                       >
                         Delete
                       </Button>
@@ -275,6 +290,15 @@ export default function ApplicationsTable({
                     {application.note}
                   </TableCell>
                 )}
+                <ConfirmationModal
+                  ref={modalRef}
+                  title="Delete Application"
+                  message={`Are you sure you want to delete the application for ${application?.positionName} at ${application?.employerName}?`}
+                  confirmAction={() =>
+                    deleteApplication(token!, application._id!)
+                  }
+                  subsquentPath="/dashboard"
+                />
               </TableRow>
             ))}
           </TableBody>
