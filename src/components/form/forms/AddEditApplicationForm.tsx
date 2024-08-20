@@ -2,10 +2,11 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import React, { useEffect } from 'react';
+
 //local imports
-import { setFocusedApplication } from '../../../state/application/applicationSlice';
 import { addApplication, editApplication,  getApplicationDetails,  getKeyByWorkModel } from '../../../services/applications';
 import { Application, statuses as applicationStatuses } from '../../../utils/mockDataGenerator';
+import { setFocusedApplication } from '../../../state/application/applicationSlice';
 import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 import FilterDramaOutlinedIcon from '@mui/icons-material/FilterDramaOutlined';
 import { RHFFavoriteCheckbox } from '../formControllers/RHFFavoriteCheckbox';
@@ -14,12 +15,12 @@ import { RHFDateCalendar } from '../formControllers/RHFDateCalendar';
 import { RHFDatePicker } from '../formControllers/RHFDatePicker';
 import { RHFTextField } from '../formControllers/RHFTextField';
 import { RHFTextArea } from '../formControllers/RHFTextArea';
-import { RHFSelect } from '../formControllers/RHFSelect';
 import { show } from '../../../state/feeback/feedbackSlice';
 import { useAuthToken } from '../../../hooks/useAuthToken';
+import { useNavigate, useParams } from 'react-router-dom';
+import { RHFSelect } from '../formControllers/RHFSelect';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
-import { useNavigate, useParams } from 'react-router-dom';
 
 interface Response {
   config: {},

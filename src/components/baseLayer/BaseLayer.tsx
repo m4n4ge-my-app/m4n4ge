@@ -8,6 +8,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
 //local imports
 import { setFocusedApplication } from '../../state/application/applicationSlice';
 import coverLetter from './baseLayerImages/coverletter.png';

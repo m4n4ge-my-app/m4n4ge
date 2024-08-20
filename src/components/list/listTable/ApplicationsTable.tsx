@@ -23,9 +23,9 @@ import Paper from '@mui/material/Paper';
 import moment from 'moment';
 
 //local imports
+import { setFocusedApplication } from '../../../state/application/applicationSlice';
 import { Application, workModes } from '../../../utils/mockDataGenerator';
 import { getColors } from '../utils/designUtilities';
-import { setFocusedApplication } from '../../../state/application/applicationSlice';
 
 interface DayCardProps {
   viewMode: string;
