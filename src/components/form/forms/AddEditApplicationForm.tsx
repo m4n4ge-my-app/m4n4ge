@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 //local imports
 import { setFocusedApplication } from '../../../state/application/applicationSlice';
 import { addApplication, editApplication,  getApplicationDetails,  getKeyByWorkModel } from '../../../services/applications';
-import { statuses as applicationStatuses } from '../../../utils/mockDataGenerator';
+import { Application, statuses as applicationStatuses } from '../../../utils/mockDataGenerator';
 import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 import FilterDramaOutlinedIcon from '@mui/icons-material/FilterDramaOutlined';
 import { RHFFavoriteCheckbox } from '../formControllers/RHFFavoriteCheckbox';
@@ -45,44 +45,30 @@ const AddEditApplicationForm = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(focusedApplication) {
+    const updateFormState = (application: Application) => {
       reset({
-        employerName: focusedApplication.employerName,
-        applicationStatus: focusedApplication.applicationStatus,
-        positionName: focusedApplication.positionName,
-        jobLocation: focusedApplication.jobLocation,
-        jobPlatform: focusedApplication.jobPlatform,
-        applicationDate: new Date(focusedApplication.applicationDate),
-        jobPostPostingDate: new Date(focusedApplication.jobPostPostingDate),
-        jobPostEndingDate: new Date(focusedApplication.jobPostEndingDate),
-        workModel: [getKeyByWorkModel(focusedApplication.workModel)],
-        note: focusedApplication.note,
-        isFavorite: focusedApplication.isFavorite
+        employerName: application.employerName,
+        applicationStatus: application.applicationStatus,
+        positionName: application.positionName,
+        jobLocation: application.jobLocation,
+        jobPlatform: application.jobPlatform,
+        applicationDate: new Date(application.applicationDate),
+        jobPostPostingDate: new Date(application.jobPostPostingDate),
+        jobPostEndingDate: new Date(application.jobPostEndingDate),
+        workModel: [getKeyByWorkModel(application.workModel)],
+        note: application.note,
+        isFavorite: application.isFavorite
+      });
+    };
+  
+    if (focusedApplication) {
+      updateFormState(focusedApplication);
+    } else if (id) {
+      getApplicationDetails(token!, id!).then((data) => {
+        updateFormState(data);
       });
     }
-  }, [focusedApplication]);
- 
-  //fetch application details if user freshes the page before editing is complete
-  useEffect(() => {
-    if (!focusedApplication && id) {
-      // dispatch(getApplicationDetails(token!, id));
-      getApplicationDetails(token!, id!).then((data) => {
-        reset({
-          employerName: data.employerName,
-          applicationStatus: data.applicationStatus,
-          positionName: data.positionName,
-          jobLocation: data.jobLocation,
-          jobPlatform: data.jobPlatform,
-          applicationDate: new Date(data.applicationDate),
-          jobPostPostingDate: new Date(data.jobPostPostingDate),
-          jobPostEndingDate: new Date(data.jobPostEndingDate),
-          workModel: [getKeyByWorkModel(data.workModel)],
-          note: data.note,
-          isFavorite: data.isFavorite
-        });
-    })
-  }
-  }, [id]);
+  }, [focusedApplication, id, reset, token]);
 
   const onsubmit = async (data: AddAppSchema) => {
     console.log("data", data);
