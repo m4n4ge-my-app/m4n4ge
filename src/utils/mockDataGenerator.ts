@@ -93,6 +93,7 @@ export interface Application {
   status: string;
   note: string;
   workModel: string;
+  _id: string;
 }
 
 // Helper functions

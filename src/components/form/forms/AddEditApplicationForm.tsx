@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import React, { useEffect } from 'react';
 //local imports
 import { setFocusedApplication } from '../../../state/application/applicationSlice';
-import { addApplication, getKeyByWorkModel } from '../../../services/applications';
+import { addApplication, editApplication,  getKeyByWorkModel } from '../../../services/applications';
 import { statuses as applicationStatuses } from '../../../utils/mockDataGenerator';
 import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 import FilterDramaOutlinedIcon from '@mui/icons-material/FilterDramaOutlined';
@@ -19,7 +19,7 @@ import { show } from '../../../state/feeback/feedbackSlice';
 import { useAuthToken } from '../../../hooks/useAuthToken';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 interface Response {
   config: {},
@@ -39,6 +39,7 @@ interface Response {
 const AddEditApplicationForm = () => {
   const focusedApplication = useSelector((state: RootState) => state.applications.focusedApplication);
   const { handleSubmit, reset } = useFormContext<AddAppSchema>();
+  const { id } = useParams<{ id: string }>();
   const token = useAuthToken();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -61,12 +62,26 @@ const AddEditApplicationForm = () => {
     }
   }, [focusedApplication]);
 
-  const onsubmit =  async (data: AddAppSchema) => {
+  const onsubmit = async (data: AddAppSchema) => {
+    console.log("data", data);
     try {
-      const res: Response = await addApplication(token!, data) as Response;
-      const statusCode = res.response? res.response.status : res.status;
+      let res: Response;
+  
+      if (focusedApplication) {
+        // Call editApplication if focusedApplication is defined
+        res = await editApplication(token!, data, id!) as Response;
+      } else {
+        // Call addApplication if focusedApplication is not defined
+        res = await addApplication(token!, data) as Response;
+      }
 
-      if(statusCode === 201) {
+      console.log("res", res);
+  
+      const statusCode = res.response ? res.response.status : res.status;
+
+    
+  
+      if (statusCode === 201) {
         navigate('/dashboard');
         dispatch(
           show({
@@ -75,7 +90,7 @@ const AddEditApplicationForm = () => {
           })
         );
       }
-      if(statusCode === 403) {
+      if (statusCode === 403) {
         dispatch(
           show({
             message: res.response.data.error,
@@ -83,14 +98,14 @@ const AddEditApplicationForm = () => {
           })
         );
       }
-  } catch (error) {
-    dispatch(
-      show({
-        message: 'Something went wrong, please try again later',
-        severity: 'error',
-      })
-    );
-  }
+    } catch (error) {
+      dispatch(
+        show({
+          message: 'Something went wrong, please try again later',
+          severity: 'error',
+        })
+      );
+    }
   };
 
   return (

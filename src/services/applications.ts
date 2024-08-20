@@ -47,3 +47,18 @@ export const addApplication = async (token: string, data: any) => {
         return error;
     }
 };
+
+export const editApplication = async (token: string, data: any, id: string) => {
+    data.workModel = "On-Site";//this is temporary
+    try {
+        const response: AxiosResponse = await axios.patch(baseUrl + `/api/applications/${id}`, data, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response;
+    } catch (error) {
+        console.error('error from editApplication', error);
+        return error;
+    }
+};

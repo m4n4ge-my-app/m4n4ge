@@ -68,7 +68,7 @@ function App() {
         >
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/add" element={<AddEditApp />} />
-          <Route path="/app/edit" element={<AddEditApp />} />
+          <Route path="/app/edit/:id" element={<AddEditApp />} />
           <Route path="/resumes" element={<Resumes />} />
           <Route path="/coverletters" element={<CoverLetters />} />
           <Route path="/calendar" element={<Calendar />} />

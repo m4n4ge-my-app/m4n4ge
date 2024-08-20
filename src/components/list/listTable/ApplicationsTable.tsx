@@ -15,10 +15,10 @@ import { Box, Stack, lighten } from '@mui/system';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
+import { useNavigate } from 'react-router-dom';
 import TableRow from '@mui/material/TableRow';
 import { useDispatch } from 'react-redux';
 import Table from '@mui/material/Table';
-import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import moment from 'moment';
 
@@ -45,6 +45,11 @@ export default function ApplicationsTable({
   tableIndex,
 }: DayCardProps) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleEditClick = (id: string) => {
+    navigate(`/app/edit/${id}`);
+  };
 
   return (
     <Paper sx={{ width: '100%', marginBottom: '20px' }}>
@@ -238,15 +243,14 @@ export default function ApplicationsTable({
                       justifyContent="center"
                       gap={1}
                     >  
-                      <Link to="/app/edit">
-                        <Button
-                          variant="text"
-                          size="small"
-                          startIcon={<ModeEditOutlineOutlinedIcon />}
-                        >
-                          Edit
-                        </Button>
-                      </Link>
+                      <Button
+                        variant="text"
+                        size="small"
+                        startIcon={<ModeEditOutlineOutlinedIcon />}
+                        onClick={() => handleEditClick(application._id)}
+                      >
+                        Edit
+                      </Button>
                       <Button
                         variant="text"
                         size="small"
