@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
+
 //local imports
 import JobDescriptions from './pages/iManage/jobDescriptions/JobDescriptions';
 import ForgotPassword from './pages/auth/forgotPassword/ForgotPassword';
@@ -10,23 +11,23 @@ import CoverLetters from './pages/iManage/coverletters/CoverLetter';
 import UserProfile from './pages/system/userProfile/UserProfile';
 import Interview from './pages/getAssist/interview/Interview';
 import Automated from './pages/getAssist/automated/Automated';
+import AddEditApp from './pages/iManage/addApp/AddEditApp';
 import Calendar from './pages/iManage/calendar/Calendar';
 import NotFound from './pages/system/notFound/NotFound';
 import Settings from './pages/system/settings/Settings';
 import Resumes from './pages/iManage/resumes/Resumes';
 import ProtectedRoute from './routes/ProtectedRoute';
 import Landing from './pages/system/landing/Landing';
+import { hide } from './state/feeback/feedbackSlice';
 import Dashboard from './pages/dashboard/Dashboard';
-import AddApp from './pages/iManage/addApp/AddApp';
 import Layout from './pages/system/layout/Layout';
 import Archives from './pages/archives/Archives';
 import SignIn from './pages/auth/signin/SignIn';
 import SignUp from './pages/auth/signup/SignUp';
 import Todos from './pages/iManage/todos/Todos';
-import theme from './theme';
-import { RootState } from './state/store';
 import Toast from './components/feedback/Toast';
-import { hide } from './state/feeback/feedbackSlice';
+import { RootState } from './state/store';
+import theme from './theme';
 
 function App() {
   const feedback = useSelector((state: RootState) => state.feedback);
@@ -67,7 +68,8 @@ function App() {
           }
         >
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/add" element={<AddApp />} />
+          <Route path="/add" element={<AddEditApp />} />
+          <Route path="/app/edit/:id" element={<AddEditApp />} />
           <Route path="/resumes" element={<Resumes />} />
           <Route path="/coverletters" element={<CoverLetters />} />
           <Route path="/calendar" element={<Calendar />} />

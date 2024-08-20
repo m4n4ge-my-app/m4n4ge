@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const add_app_schema = z
   .object({
     employerName: z.string().min(1, { message: 'Employer name is required' }),
+    applicationStatus: z.string().optional(),
     positionName: z.string().min(1, { message: 'Position name is required' }),
     jobLocation: z.string().optional(),
     jobPlatform: z.string().min(1, { message: 'Platform is required' }),
@@ -39,6 +40,7 @@ export type AddAppSchema = z.infer<typeof add_app_schema>;
 
 export const defaultValues: AddAppSchema = {
   employerName: '',
+  applicationStatus: 'Applied',
   positionName: '',
   jobLocation: '',
   jobPlatform: '',

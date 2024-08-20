@@ -63,7 +63,7 @@ const platforms = [
   'Company Website',
 ];
 
-const statuses = [
+export const statuses = [
   'Applied',
   'Engaged',
   'Interviewing',
@@ -83,13 +83,17 @@ const applications: Application[] = [];
 export interface Application {
   isFavorite: boolean;
   employerName: string;
+  applicationStatus: string;
   positionName: string;
   jobLocation: string;
   applicationDate: string;
+  jobPostPostingDate: string;
+  jobPostEndingDate: string;
   jobPlatform: string;
   status: string;
   note: string;
   workModel: string;
+  _id: string;
 }
 
 // Helper functions
@@ -142,20 +146,20 @@ while (uniqueDates.length < 50) {
   }
 }
 
-for (let i = 0; i < 55; i++) {
-  applications.push({
-    isFavorite: Math.random() < 0.5,
-    employerName: companies[Math.floor(Math.random() * companies.length)],
-    positionName: positions[Math.floor(Math.random() * positions.length)],
-    jobLocation: locations[Math.floor(Math.random() * locations.length)],
-    applicationDate:
-      uniqueDates[Math.floor(Math.random() * uniqueDates.length)], // Select a random date from the uniqueDates array
-    jobPlatform: platforms[Math.floor(Math.random() * platforms.length)],
-    status: statuses[Math.floor(Math.random() * statuses.length)],
-    note: getRandomString(notes),
-    workModel: workModes[Math.floor(Math.random() * workModes.length)],
-  });
-}
+// for (let i = 0; i < 55; i++) {
+//   applications.push({
+//     isFavorite: Math.random() < 0.5,
+//     employerName: companies[Math.floor(Math.random() * companies.length)],
+//     positionName: positions[Math.floor(Math.random() * positions.length)],
+//     jobLocation: locations[Math.floor(Math.random() * locations.length)],
+//     applicationDate:
+//       uniqueDates[Math.floor(Math.random() * uniqueDates.length)], // Select a random date from the uniqueDates array
+//     jobPlatform: platforms[Math.floor(Math.random() * platforms.length)],
+//     status: statuses[Math.floor(Math.random() * statuses.length)],
+//     note: getRandomString(notes),
+//     workModel: workModes[Math.floor(Math.random() * workModes.length)],
+//   });
+// }
 
 export const groupByDate = (
   applications: Application[]
@@ -307,24 +311,24 @@ function getDaysElapsed(earliestDate: string): number {
   return Math.floor(differenceInDays);
 }
 
-function getEarliestApplicationDate(applications: Application[]): {
-  earliestDate: string;
-  elapsedDays: number;
-} {
-  let earliestDate = new Date(applications[0].applicationDate);
+// function getEarliestApplicationDate(applications: Application[]): {
+//   earliestDate: string;
+//   elapsedDays: number;
+// } {
+//   let earliestDate = new Date(applications[0].applicationDate);
 
-  for (let i = 1; i < applications.length; i++) {
-    const applicationDate = new Date(applications[i].applicationDate);
-    if (applicationDate < earliestDate) {
-      earliestDate = applicationDate;
-    }
-  }
+//   for (let i = 1; i < applications.length; i++) {
+//     const applicationDate = new Date(applications[i].applicationDate);
+//     if (applicationDate < earliestDate) {
+//       earliestDate = applicationDate;
+//     }
+//   }
 
-  const earliestDateString = earliestDate.toISOString().split('T')[0];
-  const elapsedDays = getDaysElapsed(earliestDateString);
+//   const earliestDateString = earliestDate.toISOString().split('T')[0];
+//   const elapsedDays = getDaysElapsed(earliestDateString);
 
-  return { earliestDate: earliestDateString, elapsedDays };
-}
+//   return { earliestDate: earliestDateString, elapsedDays };
+// }
 
 export function getApplicationSummary(
   applications: Application[]
@@ -382,6 +386,6 @@ export function getApplicationTrend(
 
 // Exports
 export const applicationsData = applications;
-export const earliestDate = getEarliestApplicationDate(applications);
+// export const earliestDate = getEarliestApplicationDate(applications);
 export const applicationsTrend = getApplicationTrend(applications);
 export const applicationSummary = getApplicationSummary(applications);

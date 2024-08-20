@@ -1,22 +1,26 @@
 //external imports
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
-import React from 'react';
+import React, { useEffect } from 'react';
+
 //local imports
+import { addApplication, editApplication,  getApplicationDetails,  getKeyByWorkModel } from '../../../services/applications';
+import { Application, statuses as applicationStatuses } from '../../../utils/mockDataGenerator';
+import { setFocusedApplication } from '../../../state/application/applicationSlice';
 import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 import FilterDramaOutlinedIcon from '@mui/icons-material/FilterDramaOutlined';
 import { RHFFavoriteCheckbox } from '../formControllers/RHFFavoriteCheckbox';
+import { AddAppSchema, defaultValues } from '../schemas/addAppSchema';
 import { RHFDateCalendar } from '../formControllers/RHFDateCalendar';
 import { RHFDatePicker } from '../formControllers/RHFDatePicker';
 import { RHFTextField } from '../formControllers/RHFTextField';
 import { RHFTextArea } from '../formControllers/RHFTextArea';
-import { RHFSelect } from '../formControllers/RHFSelect';
-import { AddAppSchema } from '../schemas/addAppSchema';
-import { addApplication } from '../../../services/applications';
 import { show } from '../../../state/feeback/feedbackSlice';
 import { useAuthToken } from '../../../hooks/useAuthToken';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { RHFSelect } from '../formControllers/RHFSelect';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../state/store';
 
 interface Response {
   config: {},
@@ -33,18 +37,58 @@ interface Response {
   statusText: string
 }
 
-const AddApplicationForm = () => {
-  const { handleSubmit } = useFormContext<AddAppSchema>();
+const AddEditApplicationForm = () => {
+  const focusedApplication = useSelector((state: RootState) => state.applications.focusedApplication);
+  const { handleSubmit, reset } = useFormContext<AddAppSchema>();
+  const { id } = useParams<{ id: string }>();
   const token = useAuthToken();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onsubmit =  async (data: AddAppSchema) => {
-    try {
-      const res: Response = await addApplication(token!, data) as Response;
-      const statusCode = res.response? res.response.status : res.status;
+  useEffect(() => {
+    const updateFormState = (application: Application) => {
+      reset({
+        employerName: application.employerName,
+        applicationStatus: application.applicationStatus,
+        positionName: application.positionName,
+        jobLocation: application.jobLocation,
+        jobPlatform: application.jobPlatform,
+        applicationDate: new Date(application.applicationDate),
+        jobPostPostingDate: new Date(application.jobPostPostingDate),
+        jobPostEndingDate: new Date(application.jobPostEndingDate),
+        workModel: [getKeyByWorkModel(application.workModel)],
+        note: application.note,
+        isFavorite: application.isFavorite
+      });
+    };
+  
+    if (focusedApplication) {
+      updateFormState(focusedApplication);
+    } else if (id) {
+      getApplicationDetails(token!, id!).then((data) => {
+        updateFormState(data);
+      });
+    } else {
+      reset(defaultValues);
+    }
+  }, [focusedApplication, id, reset, token]);
 
-      if(statusCode === 201) {
+  const onsubmit = async (data: AddAppSchema) => {
+    console.log("data", data);
+    try {
+      let res: Response;
+  
+      if (focusedApplication) {
+        // Call editApplication if focusedApplication is defined
+        res = await editApplication(token!, data, id!) as Response;
+      } else {
+        // Call addApplication if focusedApplication is not defined
+        res = await addApplication(token!, data) as Response;
+      }
+
+      const statusCode = res.response ? res.response.status : res.status;
+
+      if (statusCode === 201) {
         navigate('/dashboard');
         dispatch(
           show({
@@ -53,7 +97,16 @@ const AddApplicationForm = () => {
           })
         );
       }
-      if(statusCode === 403) {
+      if (statusCode === 200) {
+        navigate('/dashboard');
+        dispatch(
+          show({
+            message: 'Application updated successfully',
+            severity: 'success',
+          })
+        );
+      }
+      if (statusCode === 403) {
         dispatch(
           show({
             message: res.response.data.error,
@@ -61,14 +114,14 @@ const AddApplicationForm = () => {
           })
         );
       }
-  } catch (error) {
-    dispatch(
-      show({
-        message: 'Something went wrong, please try again later',
-        severity: 'error',
-      })
-    );
-  }
+    } catch (error) {
+      dispatch(
+        show({
+          message: 'Something went wrong, please try again later',
+          severity: 'error',
+        })
+      );
+    }
   };
 
   return (
@@ -87,7 +140,18 @@ const AddApplicationForm = () => {
               fullWidth
             />
           }
-          itemTwo={null}
+          itemTwo={
+            focusedApplication ? (
+              <RHFSelect<AddAppSchema>
+                name="applicationStatus"
+                label="Job Status"
+                options={applicationStatuses.map((status, i) => ({
+                  id: (i + 1).toString(),
+                  label: status
+                }))}
+              />
+            ) : null
+          }
           itemThree={null}
         />
 
@@ -224,15 +288,28 @@ const AddApplicationForm = () => {
           }}
         >
           <Button variant="contained" type="submit" size="small">
-            Add Application
+            {focusedApplication? 'Save Changes' : 'Add Application'}
           </Button>
+          {focusedApplication && (
+            <Button
+              variant="outlined"
+              size="small"
+              sx={{ marginLeft: '10px' }}
+              onClick={() => {
+                dispatch(setFocusedApplication(null));
+                navigate('/dashboard')
+              }}
+            >
+              Cancel
+            </Button>
+          )}
         </Box>
       </Grid>
     </form>
   );
 };
 
-export default AddApplicationForm;
+export default AddEditApplicationForm;
 
 interface RowProps {
   itemOne: React.ReactNode | null;

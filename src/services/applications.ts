@@ -1,11 +1,23 @@
 import axios, { AxiosResponse } from 'axios';
 
 const baseUrl = import.meta.env.VITE_BASE_URL as string;
+
 const workModelMapping: { [key: string]: string } = {
     "1": "On-Site",
     "2": "Hybrid",
     "3": "Remote"
 }
+
+const reverseWorkModelMapping: { [key: string]: string } = {};
+for (const key in workModelMapping) {
+    if (workModelMapping.hasOwnProperty(key)) {
+        reverseWorkModelMapping[workModelMapping[key]] = key;
+    }
+}
+
+export const getKeyByWorkModel = (value: string): string | undefined => {
+    return reverseWorkModelMapping[value];
+};
 
 export const getApplications = async (token: string) => {
     try {
@@ -35,3 +47,32 @@ export const addApplication = async (token: string, data: any) => {
         return error;
     }
 };
+
+export const editApplication = async (token: string, data: any, id: string) => {
+    data.workModel = "On-Site";//this is temporary
+    try {
+        const response: AxiosResponse = await axios.patch(baseUrl + `/api/applications/${id}`, data, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response;
+    } catch (error) {
+        console.error('error from editApplication', error);
+        return error;
+    }
+};
+
+export const getApplicationDetails = async (token: string, id: string) => {
+    try {
+        const response: AxiosResponse = await axios.get(baseUrl + `/api/applications/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('error from getApplicationDetails', error);
+        return error;
+    }
+}

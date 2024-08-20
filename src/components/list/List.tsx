@@ -1,15 +1,18 @@
-import { setApplications } from '../../state/application/applicationSlice';
+//external imports
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+//local imports
+import { setApplications, setFocusedApplication } from '../../state/application/applicationSlice';
+import { getApplications } from '../../services/applications';
 import ApplicationsTable from './listTable/ApplicationsTable';
+import { groupByDate } from '../../utils/mockDataGenerator';
+import { useAuthToken } from '../../hooks/useAuthToken';
 import {
   Application,
   groupByWeek,
   groupByMonth,
 } from '../../utils/mockDataGenerator';
-import { useEffect, useState } from 'react';
-import { getApplications } from '../../services/applications';
-import { useAuthToken } from '../../hooks/useAuthToken';
- import { groupByDate } from '../../utils/mockDataGenerator';
-import { useDispatch } from 'react-redux';
 
 interface ListProps {
   viewMode: string;
@@ -17,6 +20,7 @@ interface ListProps {
 
 export default function List({ viewMode }: ListProps) {
   const [applications, set_Applications] = useState<Application[]>([]);
+  const [focusedRow, setFocusedRow] = useState<{ tableIndex: number; rowIndex: number } | null>(null);
   const dispatch = useDispatch();
   const token = useAuthToken();
 
@@ -29,8 +33,12 @@ export default function List({ viewMode }: ListProps) {
         .catch((error) => {
             console.log('error fetching user application records: ', error);
         });
+
+        // Reset focused row/application when view mode changes, otheswise it will persist between different views
+        setFocusedRow(null);
+        dispatch(setFocusedApplication(null));
     }
-}, [token]);
+}, [token, viewMode]);
 
   let applicationsGroup: Record<string, Application[]>[] = [];
   switch (viewMode) {
@@ -49,16 +57,19 @@ export default function List({ viewMode }: ListProps) {
 
   return (
     <div>
-      {applicationsGroup.map((appGroup, index) => {
+      {applicationsGroup.map((appGroup, tableIndex) => {
         const groupTitle = Object.keys(appGroup)[0];
         const applications = appGroup[groupTitle];
 
         return (
           <ApplicationsTable
-            key={index}
+            key={tableIndex}
             viewMode={viewMode}
             applicationDate={groupTitle}
             applications={applications}
+            focusedRow={focusedRow}
+            setFocusedRow={(rowIndex) => setFocusedRow({ tableIndex, rowIndex })}
+            tableIndex={tableIndex}
           />
         );
       })}

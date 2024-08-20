@@ -3,7 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Grid, Typography } from '@mui/material';
 //local imports
-import AddApplicationForm from '../form/forms/AddApplicationForm';
+import AddEditApplicationForm from '../form/forms/AddEditApplicationForm';
 import { Item } from './utils/MuiItem';
 import {
   AddAppSchema,
@@ -39,7 +39,7 @@ const GenericGrid = ({ type, formLabel }: Props) => {
               sx={{ border: 'none' }}
             >
               {type === 'add' ? (
-                <AddApplicationForm />
+                <AddEditApplicationForm />
               ) : (
                 'This container is temporary, implmentation is out of scope for now'
               )}

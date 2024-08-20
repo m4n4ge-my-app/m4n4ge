@@ -1,35 +1,56 @@
+//external imports
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
-import { Application, workModes } from '../../../utils/mockDataGenerator';
 import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
 import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import TableContainer from '@mui/material/TableContainer';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { getColors } from '../utils/designUtilities';
+import { Button, Typography } from '@mui/material';
 import { Box, Stack, lighten } from '@mui/system';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
+import { useNavigate } from 'react-router-dom';
 import TableRow from '@mui/material/TableRow';
-import { Typography } from '@mui/material';
+import { useDispatch } from 'react-redux';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
 import moment from 'moment';
+
+//local imports
+import { setFocusedApplication } from '../../../state/application/applicationSlice';
+import { Application, workModes } from '../../../utils/mockDataGenerator';
+import { getColors } from '../utils/designUtilities';
 
 interface DayCardProps {
   viewMode: string;
   applicationDate: string;
   applications: Application[];
+  focusedRow: { tableIndex: number; rowIndex: number } | null;
+  setFocusedRow: (rowIndex: number) => void;
+  tableIndex: number;
 }
 
 export default function ApplicationsTable({
   viewMode,
   applicationDate,
   applications,
+  focusedRow,
+  setFocusedRow,
+  tableIndex,
 }: DayCardProps) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleEditClick = (id: string) => {
+    navigate(`/app/edit/${id}`);
+  };
+
   return (
     <Paper sx={{ width: '100%', marginBottom: '20px' }}>
       <Stack
@@ -121,18 +142,22 @@ export default function ApplicationsTable({
                 align="center"
                 sx={{ fontWeight: 'bold', color: 'GrayText' }}
               >
-                Note
+                {focusedRow && focusedRow.tableIndex === tableIndex ?  '' : 'Notes'}
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {applications.map((application, i) => (
+            {applications.map((application, rowIndex) => (
               <TableRow
-                key={i}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
+                key={rowIndex}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 },  cursor: 'pointer' }}
+                onClick={() => {
+                  setFocusedRow(rowIndex);
+                  dispatch(setFocusedApplication(application))
+                }}
+              >            
                 <TableCell align="center" style={{ width: '5%' }}>
-                  {i + 1}
+                  {rowIndex + 1}
                 </TableCell>
                 <TableCell align="center" style={{ width: '5%' }}>
                   {application.isFavorite === true ? (
@@ -161,18 +186,18 @@ export default function ApplicationsTable({
                     sx={{
                       width: '100px',
                       marginLeft: 2,
-                      ...getColors(application.status),
+                      ...getColors(application.applicationStatus),
                       borderRadius: '8px',
                       padding: '2px 5px',
                       fontWeight: 'bold',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: getColors(application.status).color,
+                      color: getColors(application.applicationStatus).color,
                     }}
                   >
-                    <Typography>{application.status}</Typography>
-                    {application.status === 'Accepted' && <SportsScoreIcon />}
+                    <Typography>{application.applicationStatus}</Typography>
+                    {application.applicationStatus === 'Accepted' && <SportsScoreIcon />}
                   </Box>
                 </TableCell>
                 <TableCell align="center" style={{ width: '10%' }}>
@@ -210,9 +235,38 @@ export default function ApplicationsTable({
                     </Box>
                   )}
                 </TableCell>
-                <TableCell align="center" style={{ width: '30%' }}>
+                {focusedRow && focusedRow.tableIndex === tableIndex && focusedRow.rowIndex === rowIndex ? (
+                  <TableCell align="center" style={{ width: '30%' }}>
+                  <Box
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      gap={1}
+                    >  
+                      <Button
+                        variant="text"
+                        size="small"
+                        startIcon={<ModeEditOutlineOutlinedIcon />}
+                        onClick={() => handleEditClick(application._id)}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        variant="text"
+                        size="small"
+                        color="secondary"
+                        startIcon={<DeleteOutlineOutlinedIcon />}
+                      >
+                        Delete
+                      </Button>
+ 
+                    </Box>
+                </TableCell>
+                ) : (
+                  <TableCell align="center" style={{ width: '30%' }}>
                   {application.note}
                 </TableCell>
+                )}        
               </TableRow>
             ))}
           </TableBody>
