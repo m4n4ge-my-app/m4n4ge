@@ -25,7 +25,9 @@ interface Item {
 }
 
 const PersonalTrend = () => {
-  const applications = useSelector((state: RootState) => state.applications.applications);
+  const applications = useSelector(
+    (state: RootState) => state.applications.applications
+  );
   const statusColorMapping = {
     applied: 'lightgray',
     engaged: '#407bff',
@@ -50,9 +52,10 @@ const PersonalTrend = () => {
   const transformedData = transformData(applicationsTrend);
 
   // Get the keys from the first item in the transformedData array only when  transformedData is not empty
-  const lineKeys = transformedData.length > 0
-    ? Object.keys(transformedData[0]).filter((key) => key !== 'name')
-    : [];
+  const lineKeys =
+    transformedData.length > 0
+      ? Object.keys(transformedData[0]).filter((key) => key !== 'name')
+      : [];
 
   return (
     // Use the keys to generate the lines in the LineChart

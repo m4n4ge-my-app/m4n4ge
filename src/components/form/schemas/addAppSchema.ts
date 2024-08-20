@@ -16,7 +16,7 @@ export const add_app_schema = z
         message: 'Posting date must be in the past',
       })
       .optional(),
-      jobPostEndingDate: z.date().optional(),
+    jobPostEndingDate: z.date().optional(),
     workModel: z
       .array(z.string())
       .max(1, { message: 'Only select one type of work model' }),

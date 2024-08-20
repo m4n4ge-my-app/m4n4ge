@@ -74,7 +74,7 @@ const AccountMenu = (props: Prop) => {
               dispatch(
                 show({ message: 'Logout successful', severity: 'success' })
               );
-  
+
               props.handleClose();
             } catch (error) {
               console.error(error);

@@ -1,11 +1,13 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';;
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { getApplicationSummary } from '../../../utils/mockDataGenerator';
 import { Grid, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
 
 const ApplicationsOverview = () => {
-  const applications = useSelector((state: RootState) => state.applications.applications);
+  const applications = useSelector(
+    (state: RootState) => state.applications.applications
+  );
   const applicationSummary = getApplicationSummary(applications);
 
   const data = [

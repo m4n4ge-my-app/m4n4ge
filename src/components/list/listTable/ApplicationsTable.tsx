@@ -26,11 +26,18 @@ import moment from 'moment';
 import { setFocusedApplication } from '../../../state/application/applicationSlice';
 import { Application, workModes } from '../../../utils/mockDataGenerator';
 import { getColors } from '../utils/designUtilities';
+import { useRef } from 'react';
+import ConfirmationModal, {
+  ConfirmationModalRef,
+} from '../../modals/confirmationModal/ConfirmationModal';
+import { deleteApplication } from '../../../services/applications';
+import { useAuthToken } from '../../../hooks/useAuthToken';
 
 interface DayCardProps {
   viewMode: string;
   applicationDate: string;
   applications: Application[];
+  fetchApplicationsData: () => void;
   focusedRow: { tableIndex: number; rowIndex: number } | null;
   setFocusedRow: (rowIndex: number) => void;
   tableIndex: number;
@@ -40,12 +47,21 @@ export default function ApplicationsTable({
   viewMode,
   applicationDate,
   applications,
+  fetchApplicationsData,
   focusedRow,
   setFocusedRow,
   tableIndex,
 }: DayCardProps) {
+  const modalRef = useRef<ConfirmationModalRef>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const token = useAuthToken();
+
+  const openModal = () => {
+    if (modalRef.current) {
+      modalRef.current.setOpen(true);
+    }
+  };
 
   const handleEditClick = (id: string) => {
     navigate(`/app/edit/${id}`);
@@ -142,7 +158,9 @@ export default function ApplicationsTable({
                 align="center"
                 sx={{ fontWeight: 'bold', color: 'GrayText' }}
               >
-                {focusedRow && focusedRow.tableIndex === tableIndex ?  '' : 'Notes'}
+                {focusedRow && focusedRow.tableIndex === tableIndex
+                  ? ''
+                  : 'Notes'}
               </TableCell>
             </TableRow>
           </TableHead>
@@ -150,12 +168,15 @@ export default function ApplicationsTable({
             {applications.map((application, rowIndex) => (
               <TableRow
                 key={rowIndex}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 },  cursor: 'pointer' }}
+                sx={{
+                  '&:last-child td, &:last-child th': { border: 0 },
+                  cursor: 'pointer',
+                }}
                 onClick={() => {
                   setFocusedRow(rowIndex);
-                  dispatch(setFocusedApplication(application))
+                  dispatch(setFocusedApplication(application));
                 }}
-              >            
+              >
                 <TableCell align="center" style={{ width: '5%' }}>
                   {rowIndex + 1}
                 </TableCell>
@@ -197,11 +218,13 @@ export default function ApplicationsTable({
                     }}
                   >
                     <Typography>{application.applicationStatus}</Typography>
-                    {application.applicationStatus === 'Accepted' && <SportsScoreIcon />}
+                    {application.applicationStatus === 'Accepted' && (
+                      <SportsScoreIcon />
+                    )}
                   </Box>
                 </TableCell>
                 <TableCell align="center" style={{ width: '10%' }}>
-                  {application.workModel.replace(/"/g, '') === workModes[0]&& (
+                  {application.workModel.replace(/"/g, '') === workModes[0] && (
                     <Box
                       display="flex"
                       alignItems="center"
@@ -235,14 +258,16 @@ export default function ApplicationsTable({
                     </Box>
                   )}
                 </TableCell>
-                {focusedRow && focusedRow.tableIndex === tableIndex && focusedRow.rowIndex === rowIndex ? (
+                {focusedRow &&
+                focusedRow.tableIndex === tableIndex &&
+                focusedRow.rowIndex === rowIndex ? (
                   <TableCell align="center" style={{ width: '30%' }}>
-                  <Box
+                    <Box
                       display="flex"
                       alignItems="center"
                       justifyContent="center"
                       gap={1}
-                    >  
+                    >
                       <Button
                         variant="text"
                         size="small"
@@ -256,17 +281,27 @@ export default function ApplicationsTable({
                         size="small"
                         color="secondary"
                         startIcon={<DeleteOutlineOutlinedIcon />}
+                        onClick={openModal}
                       >
                         Delete
                       </Button>
- 
                     </Box>
-                </TableCell>
+                  </TableCell>
                 ) : (
                   <TableCell align="center" style={{ width: '30%' }}>
-                  {application.note}
-                </TableCell>
-                )}        
+                    {application.note}
+                  </TableCell>
+                )}
+                <ConfirmationModal
+                  ref={modalRef}
+                  title="Delete Application"
+                  message={`Are you sure you want to delete the application for ${application?.positionName} at ${application?.employerName}?`}
+                  confirmAction={() =>
+                    deleteApplication(token!, application._id!).then(() =>
+                      fetchApplicationsData()
+                    )
+                  }
+                />
               </TableRow>
             ))}
           </TableBody>

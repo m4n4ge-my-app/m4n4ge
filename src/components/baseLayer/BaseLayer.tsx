@@ -128,10 +128,7 @@ const BaseLayer = ({ type, children }: Props) => {
       <div className="left">{children}</div>
       <div className="right">
         <div className="iconsGroup">
-          <Link 
-            to="/add"
-            onClick={clearForms}
-          >
+          <Link to="/add" onClick={clearForms}>
             <Tooltip title="Add application record" placement="left">
               <Fab
                 size="small"

@@ -36,7 +36,6 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-
     if (feedback.open) {
       setShowToast(true);
     }
@@ -61,8 +60,7 @@ function App() {
         {/* Protected/private routes */}
         <Route
           element={
-            <ProtectedRoute
-            >
+            <ProtectedRoute>
               <Layout />
             </ProtectedRoute>
           }

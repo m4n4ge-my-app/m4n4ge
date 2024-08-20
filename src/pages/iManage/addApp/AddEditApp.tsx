@@ -4,8 +4,10 @@ import GenericGrid from '../../../components/grids/GenericGrid';
 import { RootState } from '../../../state/store';
 
 const AddEditApp = () => {
-  const focusedApplication = useSelector((state: RootState) => state.applications.focusedApplication);
-  const formLabel = `${focusedApplication? 'Edit' :  'Add'} Application Record`;
+  const focusedApplication = useSelector(
+    (state: RootState) => state.applications.focusedApplication
+  );
+  const formLabel = `${focusedApplication ? 'Edit' : 'Add'} Application Record`;
 
   return (
     <BaseLayer type="add">

@@ -44,27 +44,27 @@ const MotivationBar = () => {
   }, []);
 
   // useEffect(() => {
-    // const updateDisplayString = () => {
-    //   setDisplayString((prevString) =>
-    //     prevString.includes('on')
-    //       ? ` ${earliestDate.elapsedDays} days ago`
-    //       : ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
-    //   );
-    //   const animatedDateElements = document.querySelectorAll('.animatedDate');
-    //   animatedDateElements.forEach((element: Element) => {
-    //     (element as HTMLElement).style.setProperty(
-    //       '--animation-duration',
-    //       '5s'
-    //     );
-    //   });
-    // };
+  // const updateDisplayString = () => {
+  //   setDisplayString((prevString) =>
+  //     prevString.includes('on')
+  //       ? ` ${earliestDate.elapsedDays} days ago`
+  //       : ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
+  //   );
+  //   const animatedDateElements = document.querySelectorAll('.animatedDate');
+  //   animatedDateElements.forEach((element: Element) => {
+  //     (element as HTMLElement).style.setProperty(
+  //       '--animation-duration',
+  //       '5s'
+  //     );
+  //   });
+  // };
 
-    // // Call the function once immediately because there is discrepency between how long the animation is taking to complete and the interval time
-    // updateDisplayString();
+  // // Call the function once immediately because there is discrepency between how long the animation is taking to complete and the interval time
+  // updateDisplayString();
 
-    // const intervalId = setInterval(updateDisplayString, 5000);
+  // const intervalId = setInterval(updateDisplayString, 5000);
 
-    // return () => clearInterval(intervalId);
+  // return () => clearInterval(intervalId);
   // }, []);
 
   const quote = quotes[quoteIndex];
