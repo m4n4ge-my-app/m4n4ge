@@ -142,7 +142,9 @@ export default function ApplicationsTable({
                 align="center"
                 sx={{ fontWeight: 'bold', color: 'GrayText' }}
               >
-                {focusedRow && focusedRow.tableIndex === tableIndex ?  '' : 'Notes'}
+                {focusedRow && focusedRow.tableIndex === tableIndex
+                  ? ''
+                  : 'Notes'}
               </TableCell>
             </TableRow>
           </TableHead>
@@ -150,12 +152,15 @@ export default function ApplicationsTable({
             {applications.map((application, rowIndex) => (
               <TableRow
                 key={rowIndex}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 },  cursor: 'pointer' }}
+                sx={{
+                  '&:last-child td, &:last-child th': { border: 0 },
+                  cursor: 'pointer',
+                }}
                 onClick={() => {
                   setFocusedRow(rowIndex);
-                  dispatch(setFocusedApplication(application))
+                  dispatch(setFocusedApplication(application));
                 }}
-              >            
+              >
                 <TableCell align="center" style={{ width: '5%' }}>
                   {rowIndex + 1}
                 </TableCell>
@@ -197,11 +202,13 @@ export default function ApplicationsTable({
                     }}
                   >
                     <Typography>{application.applicationStatus}</Typography>
-                    {application.applicationStatus === 'Accepted' && <SportsScoreIcon />}
+                    {application.applicationStatus === 'Accepted' && (
+                      <SportsScoreIcon />
+                    )}
                   </Box>
                 </TableCell>
                 <TableCell align="center" style={{ width: '10%' }}>
-                  {application.workModel.replace(/"/g, '') === workModes[0]&& (
+                  {application.workModel.replace(/"/g, '') === workModes[0] && (
                     <Box
                       display="flex"
                       alignItems="center"
@@ -235,14 +242,16 @@ export default function ApplicationsTable({
                     </Box>
                   )}
                 </TableCell>
-                {focusedRow && focusedRow.tableIndex === tableIndex && focusedRow.rowIndex === rowIndex ? (
+                {focusedRow &&
+                focusedRow.tableIndex === tableIndex &&
+                focusedRow.rowIndex === rowIndex ? (
                   <TableCell align="center" style={{ width: '30%' }}>
-                  <Box
+                    <Box
                       display="flex"
                       alignItems="center"
                       justifyContent="center"
                       gap={1}
-                    >  
+                    >
                       <Button
                         variant="text"
                         size="small"
@@ -259,14 +268,13 @@ export default function ApplicationsTable({
                       >
                         Delete
                       </Button>
- 
                     </Box>
-                </TableCell>
+                  </TableCell>
                 ) : (
                   <TableCell align="center" style={{ width: '30%' }}>
-                  {application.note}
-                </TableCell>
-                )}        
+                    {application.note}
+                  </TableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>

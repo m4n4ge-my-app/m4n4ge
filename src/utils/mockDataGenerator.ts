@@ -186,7 +186,7 @@ export const groupByDate = (
       const dateB = new Date(Object.keys(b)[0]);
       return dateB.getTime() - dateA.getTime();
     });
-}
+};
 
 export const groupByWeek = (
   applications: Application[]
@@ -214,7 +214,7 @@ export const groupByWeek = (
     .map(([week, applications]) => ({
       [week]: applications,
     }));
-}
+};
 
 export const groupByMonth = (
   applications: Application[]
@@ -253,7 +253,7 @@ export const groupByMonth = (
     .map(([monthYear, applications]) => ({
       [monthYear]: applications,
     }));
-}
+};
 
 export function searchApplications(
   applications: Application[],

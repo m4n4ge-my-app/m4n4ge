@@ -4,10 +4,21 @@ import { useFormContext } from 'react-hook-form';
 import React, { useEffect, useRef } from 'react';
 
 //local imports
-import { addApplication, deleteApplication, editApplication,  getApplicationDetails,  getKeyByWorkModel } from '../../../services/applications';
-import { Application, statuses as applicationStatuses } from '../../../utils/mockDataGenerator';
+import {
+  addApplication,
+  deleteApplication,
+  editApplication,
+  getApplicationDetails,
+  getKeyByWorkModel,
+} from '../../../services/applications';
+import {
+  Application,
+  statuses as applicationStatuses,
+} from '../../../utils/mockDataGenerator';
 import { setFocusedApplication } from '../../../state/application/applicationSlice';
-import ConfirmationModal, { ConfirmationModalRef } from '../../modals/confirmationModal/ConfirmationModal';
+import ConfirmationModal, {
+  ConfirmationModalRef,
+} from '../../modals/confirmationModal/ConfirmationModal';
 import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 import FilterDramaOutlinedIcon from '@mui/icons-material/FilterDramaOutlined';
 import { RHFFavoriteCheckbox } from '../formControllers/RHFFavoriteCheckbox';
@@ -24,34 +35,36 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
 
 interface Response {
-  config: {},
-  data: {},
-  headers: {},
-  request: {},
+  config: {};
+  data: {};
+  headers: {};
+  request: {};
   response: {
-    status: number,
+    status: number;
     data: {
-      error: string
-    }
-  },
-  status: number,
-  statusText: string
+      error: string;
+    };
+  };
+  status: number;
+  statusText: string;
 }
 
 const AddEditApplicationForm = () => {
-  const focusedApplication = useSelector((state: RootState) => state.applications.focusedApplication);
+  const focusedApplication = useSelector(
+    (state: RootState) => state.applications.focusedApplication
+  );
   const { handleSubmit, reset } = useFormContext<AddAppSchema>();
   const { id } = useParams<{ id: string }>();
   const token = useAuthToken();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const modalRef = useRef<ConfirmationModalRef>(null);;
+  const modalRef = useRef<ConfirmationModalRef>(null);
 
-    const openModal = () => {
-        if (modalRef.current) {
-            modalRef.current.setOpen(true);
-        }
-    };
+  const openModal = () => {
+    if (modalRef.current) {
+      modalRef.current.setOpen(true);
+    }
+  };
 
   useEffect(() => {
     const updateFormState = (application: Application) => {
@@ -66,10 +79,10 @@ const AddEditApplicationForm = () => {
         jobPostEndingDate: new Date(application.jobPostEndingDate),
         workModel: [getKeyByWorkModel(application.workModel)],
         note: application.note,
-        isFavorite: application.isFavorite
+        isFavorite: application.isFavorite,
       });
     };
-  
+
     if (focusedApplication) {
       updateFormState(focusedApplication);
     } else if (id) {
@@ -82,16 +95,16 @@ const AddEditApplicationForm = () => {
   }, [focusedApplication, id, reset, token]);
 
   const onsubmit = async (data: AddAppSchema) => {
-    console.log("data", data);
+    console.log('data', data);
     try {
       let res: Response;
-  
+
       if (focusedApplication) {
         // Call editApplication if focusedApplication is defined
-        res = await editApplication(token!, data, id!) as Response;
+        res = (await editApplication(token!, data, id!)) as Response;
       } else {
         // Call addApplication if focusedApplication is not defined
-        res = await addApplication(token!, data) as Response;
+        res = (await addApplication(token!, data)) as Response;
       }
 
       const statusCode = res.response ? res.response.status : res.status;
@@ -134,11 +147,7 @@ const AddEditApplicationForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onsubmit)}>
-      <Grid
-        container
-        padding="40px 20px 20px 20px"
-        spacing={3}
-      >
+      <Grid container padding="40px 20px 20px 20px" spacing={3}>
         <Row
           itemOne={
             <RHFTextField<AddAppSchema>
@@ -155,7 +164,7 @@ const AddEditApplicationForm = () => {
                 label="Job Status"
                 options={applicationStatuses.map((status, i) => ({
                   id: (i + 1).toString(),
-                  label: status
+                  label: status,
                 }))}
               />
             ) : null
@@ -296,7 +305,7 @@ const AddEditApplicationForm = () => {
           }}
         >
           <Button variant="contained" type="submit" size="small">
-            {focusedApplication? 'Save Changes' : 'Add Application'}
+            {focusedApplication ? 'Save Changes' : 'Add Application'}
           </Button>
           {focusedApplication && (
             <>
@@ -315,7 +324,7 @@ const AddEditApplicationForm = () => {
                 sx={{ marginLeft: '10px' }}
                 onClick={() => {
                   dispatch(setFocusedApplication(null));
-                  navigate('/dashboard')
+                  navigate('/dashboard');
                 }}
               >
                 Cancel
