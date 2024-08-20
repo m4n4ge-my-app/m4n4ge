@@ -155,7 +155,7 @@ export default function ApplicationsTable({
                   setFocusedRow(rowIndex);
                   dispatch(setFocusedApplication(application))
                 }}
-              >
+              >            
                 <TableCell align="center" style={{ width: '5%' }}>
                   {rowIndex + 1}
                 </TableCell>
@@ -186,18 +186,18 @@ export default function ApplicationsTable({
                     sx={{
                       width: '100px',
                       marginLeft: 2,
-                      ...getColors(application.status),
+                      ...getColors(application.applicationStatus),
                       borderRadius: '8px',
                       padding: '2px 5px',
                       fontWeight: 'bold',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: getColors(application.status).color,
+                      color: getColors(application.applicationStatus).color,
                     }}
                   >
-                    <Typography>{application.status}</Typography>
-                    {application.status === 'Accepted' && <SportsScoreIcon />}
+                    <Typography>{application.applicationStatus}</Typography>
+                    {application.applicationStatus === 'Accepted' && <SportsScoreIcon />}
                   </Box>
                 </TableCell>
                 <TableCell align="center" style={{ width: '10%' }}>

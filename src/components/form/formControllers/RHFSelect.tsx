@@ -41,7 +41,6 @@ export function RHFSelect<T extends FieldValues>({
                 ? ''
                 : value
             }
-            defaultValue=''
             label="Platform"
             onChange={(_, newValue) => {
               if (Array.isArray(newValue)) {

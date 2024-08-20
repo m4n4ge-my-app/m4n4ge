@@ -132,14 +132,13 @@ const AddEditApplicationForm = () => {
           itemTwo={
             focusedApplication ? (
               <RHFSelect<AddAppSchema>
-              name="applicationStatus"
-              label="Job Status"
-              options={applicationStatuses.map((status, i) => ({
-                id: (i + 1).toString(),
-                label: status
-              }))}
-              defaultValue={applicationStatuses[0]}
-            />
+                name="applicationStatus"
+                label="Job Status"
+                options={applicationStatuses.map((status, i) => ({
+                  id: (i + 1).toString(),
+                  label: status
+                }))}
+              />
             ) : null
           }
           itemThree={null}
