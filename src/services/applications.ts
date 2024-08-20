@@ -1,11 +1,23 @@
 import axios, { AxiosResponse } from 'axios';
 
 const baseUrl = import.meta.env.VITE_BASE_URL as string;
+
 const workModelMapping: { [key: string]: string } = {
     "1": "On-Site",
     "2": "Hybrid",
     "3": "Remote"
 }
+
+const reverseWorkModelMapping: { [key: string]: string } = {};
+for (const key in workModelMapping) {
+    if (workModelMapping.hasOwnProperty(key)) {
+        reverseWorkModelMapping[workModelMapping[key]] = key;
+    }
+}
+
+export const getKeyByWorkModel = (value: string): string | undefined => {
+    return reverseWorkModelMapping[value];
+};
 
 export const getApplications = async (token: string) => {
     try {

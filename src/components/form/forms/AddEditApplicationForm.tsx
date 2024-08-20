@@ -1,9 +1,11 @@
 //external imports
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
-import React from 'react';
+import React, { useEffect } from 'react';
 //local imports
 import { setFocusedApplication } from '../../../state/application/applicationSlice';
+import { addApplication, getKeyByWorkModel } from '../../../services/applications';
+import { statuses as applicationStatuses } from '../../../utils/mockDataGenerator';
 import { RHFToggleButtonGroup } from '../formControllers/RHFToggleButtonGroup';
 import FilterDramaOutlinedIcon from '@mui/icons-material/FilterDramaOutlined';
 import { RHFFavoriteCheckbox } from '../formControllers/RHFFavoriteCheckbox';
@@ -13,13 +15,11 @@ import { RHFTextField } from '../formControllers/RHFTextField';
 import { RHFTextArea } from '../formControllers/RHFTextArea';
 import { RHFSelect } from '../formControllers/RHFSelect';
 import { AddAppSchema } from '../schemas/addAppSchema';
-import { addApplication } from '../../../services/applications';
 import { show } from '../../../state/feeback/feedbackSlice';
 import { useAuthToken } from '../../../hooks/useAuthToken';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
 import { useNavigate } from 'react-router-dom';
-import { statuses as applicationStatuses } from '../../../utils/mockDataGenerator';
 
 interface Response {
   config: {},
@@ -38,10 +38,28 @@ interface Response {
 
 const AddEditApplicationForm = () => {
   const focusedApplication = useSelector((state: RootState) => state.applications.focusedApplication);
-  const { handleSubmit } = useFormContext<AddAppSchema>();
+  const { handleSubmit, reset } = useFormContext<AddAppSchema>();
   const token = useAuthToken();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(focusedApplication) {
+      reset({
+        employerName: focusedApplication.employerName,
+        applicationStatus: focusedApplication.applicationStatus,
+        positionName: focusedApplication.positionName,
+        jobLocation: focusedApplication.jobLocation,
+        jobPlatform: focusedApplication.jobPlatform,
+        applicationDate: new Date(focusedApplication.applicationDate),
+        jobPostPostingDate: new Date(focusedApplication.jobPostPostingDate),
+        jobPostEndingDate: new Date(focusedApplication.jobPostEndingDate),
+        workModel: [getKeyByWorkModel(focusedApplication.workModel)],
+        note: focusedApplication.note,
+        isFavorite: focusedApplication.isFavorite
+      });
+    }
+  }, [focusedApplication]);
 
   const onsubmit =  async (data: AddAppSchema) => {
     try {
