@@ -25,11 +25,7 @@ const SignInForm = () => {
   const { handleSubmit } = useFormContext<SigninSchema>();
   const { signin, isLoading } = useSignin();
 
-  const onsubmit = async (data: SigninSchema) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    await signin(data);
-  };
+  const onsubmit = async (data: SigninSchema) => await signin(data);
 
   return (
     <form onSubmit={handleSubmit(onsubmit)}>
@@ -110,10 +106,15 @@ const SignInForm = () => {
                 <Button
                   fullWidth
                   size="medium"
-                  type="submit"
                   variant="outlined"
                   color="primary"
                   disabled={Boolean(isLoading)}
+                  onClick={() =>
+                    signin({
+                      email: 'new_user@m4n4gemy.app',
+                      password: 'nEwUser1@!',
+                    })
+                  }
                   sx={{
                     '&:focus': {
                       outline: 'none',
