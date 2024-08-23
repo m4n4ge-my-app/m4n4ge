@@ -344,8 +344,8 @@ export function getApplicationSummary(
   };
 
   applications.forEach((application) => {
-    if (application.status in summary) {
-      summary[application.status]++;
+    if (application.applicationStatus in summary) {
+      summary[application.applicationStatus]++;
     }
   });
 
