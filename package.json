@@ -22,7 +22,7 @@
     "@reduxjs/toolkit": "^2.2.5",
     "@tanstack/react-query": "^5.40.1",
     "analog-clock-react": "^1.3.0",
-    "axios": "^1.7.2",
+    "axios": "^1.7.4",
     "date-fns": "3.2",
     "dayjs": "^1.11.11",
     "greeting-time": "^1.0.0",
