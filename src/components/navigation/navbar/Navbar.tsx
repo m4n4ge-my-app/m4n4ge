@@ -68,7 +68,7 @@ const Navbar = () => {
               <Avatar src={user.photoString} sx={{ width: 36, height: 36 }} />
             ) : (
               <Avatar sx={{ width: 36, height: 36 }}>
-                {user?.email.charAt(0).toUpperCase()}
+                {user?.firstName?.charAt(0).toUpperCase()}
               </Avatar>
             )}
           </IconButton>
