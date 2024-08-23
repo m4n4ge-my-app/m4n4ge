@@ -6,18 +6,34 @@ import SideBar from '../../../components/navigation/sideBar/SideBar';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
 import Navbar from '../../../components/navigation/navbar/Navbar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Divider, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import InfoIcon from '@mui/icons-material/Info';
+import { useSignin } from '../../../hooks/useSignin';
 
 const Layout = () => {
   const [user, setUser] = React.useState('new');
   const [isBannerVisible, setIsBannerVisible] = React.useState(true)
+  const { signin } = useSignin();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUser((event.target as HTMLInputElement).value);
   };
+
+  useEffect(() => {
+    if(user === 'new') {
+      signin({
+        email: 'new_user@m4n4gemy.app',
+        password: 'nEwUser1@!',
+      })
+    } else if (user === 'expert') {
+      signin({
+        email: 'expert_user@m4n4gemy.app',
+        password: 'eXpErTuSeR1@!',
+      })
+    }
+  }, [user])
 
   const sidebarWidth = useSelector(
     (state: RootState) => state.sidebar.sidebarWidth
