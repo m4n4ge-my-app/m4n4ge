@@ -158,7 +158,7 @@ const AddEditApplicationForm = () => {
             />
           }
           itemTwo={
-            focusedApplication ? (
+            (focusedApplication || id) ? (
               <RHFSelect<AddAppSchema>
                 name="applicationStatus"
                 label="Job Status"
@@ -305,9 +305,9 @@ const AddEditApplicationForm = () => {
           }}
         >
           <Button variant="contained" type="submit" size="small">
-            {focusedApplication ? 'Save Changes' : 'Add Application'}
+            {(focusedApplication || id) ? 'Save Changes' : 'Add Application'}
           </Button>
-          {focusedApplication && (
+          {(focusedApplication || id) && (
             <>
               <Button
                 variant="contained"
