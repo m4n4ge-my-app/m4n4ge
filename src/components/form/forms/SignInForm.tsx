@@ -1,6 +1,4 @@
 import { RHFTextField } from '../formControllers/RHFTextField';
-import Face5Icon from '@mui/icons-material/Face5';
-import FaceIcon from '@mui/icons-material/Face';
 import { Link } from 'react-router-dom';
 import Facebook from './images/facebook.png';
 import Google from './images/google.png';
@@ -20,32 +18,14 @@ import {
 import { useFormContext } from 'react-hook-form';
 import { SigninSchema } from '../schemas/signinSchema';
 import { useSignin } from '../../../hooks/useSignin';
-import { useState } from 'react';
 
 const SignInForm = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const [isPeaking, setIsPeaking] = useState(false);
-  const { handleSubmit, setValue } = useFormContext<SigninSchema>();
+  const { handleSubmit } = useFormContext<SigninSchema>();
   const { signin, isLoading } = useSignin();
 
-  const onsubmit = async (data: SigninSchema) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    await signin(data);
-  };
-
-  //credentials below are for app demonstration purposes only and does not reflect company's actual credentials
-  const populateCredentials = (userType: string) => {
-    setIsPeaking(false);
-    if (userType === 'newUser') {
-      setValue('email', 'new_user@m4n4gemy.app');
-      setValue('password', 'nEwUser1@!');
-    } else if (userType === 'expertUser') {
-      setValue('email', 'expert_user@m4n4gemy.app');
-      setValue('password', 'eXpErTuSeR1@!');
-    }
-  };
+  const onsubmit = async (data: SigninSchema) => await signin(data);
 
   return (
     <form onSubmit={handleSubmit(onsubmit)}>
@@ -104,50 +84,8 @@ const SignInForm = () => {
                     Forgot password?
                   </Typography>
                 </Box>
-                {!isPeaking ? (
-                  <Box
-                    display="flex"
-                    justifyContent="flex-end"
-                    onClick={() => setIsPeaking(!isPeaking)}
-                  >
-                    <Typography
-                      variant="body2"
-                      sx={{ textDecoration: 'none', cursor: 'pointer' }}
-                      color="primary"
-                    >
-                      Would you like to peak inside?
-                    </Typography>
-                  </Box>
-                ) : (
-                  <Stack
-                    direction="row"
-                    spacing={{ xs: 1, sm: 2 }}
-                    justifyContent="space-around"
-                    sx={{
-                      '& .MuiButton-startIcon': {
-                        mr: { xs: 0, sm: 1 },
-                        ml: { xs: 0, sm: -0.5 },
-                      },
-                    }}
-                  >
-                    <Button
-                      startIcon={<Face5Icon />}
-                      onClick={() => populateCredentials('newUser')}
-                      size="small"
-                    >
-                      New User
-                    </Button>
-                    <Button
-                      startIcon={<FaceIcon />}
-                      onClick={() => populateCredentials('expertUser')}
-                      size="small"
-                    >
-                      Expert User
-                    </Button>
-                  </Stack>
-                )}
 
-                {/* Login button */}
+                {/* Signin button */}
                 <Button
                   fullWidth
                   size="medium"
@@ -162,6 +100,28 @@ const SignInForm = () => {
                   }}
                 >
                   Sign In
+                </Button>
+
+                {/* Guest signin option */}
+                <Button
+                  fullWidth
+                  size="medium"
+                  variant="outlined"
+                  color="primary"
+                  disabled={Boolean(isLoading)}
+                  onClick={() =>
+                    signin({
+                      email: 'new_user@m4n4gemy.app',
+                      password: 'nEwUser1@!',
+                    })
+                  }
+                  sx={{
+                    '&:focus': {
+                      outline: 'none',
+                    },
+                  }}
+                >
+                  Continue as guest
                 </Button>
               </Stack>
 

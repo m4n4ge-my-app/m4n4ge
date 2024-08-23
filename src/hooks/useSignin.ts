@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SignupSchema } from '../components/form/schemas/signupSchema';
+import { SigninSchema } from '../components/form/schemas/signinSchema';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -13,7 +13,7 @@ export const useSignin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const signin = async (data: SignupSchema) => {
+  const signin = async (data: SigninSchema) => {
     setIsLoading(true);
 
     try {
