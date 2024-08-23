@@ -372,11 +372,11 @@ export function getApplicationTrend(
     }
 
     // Ensure the status exists in the trend[monthYear] object
-    if (!trend[monthYear][application.status]) {
-      trend[monthYear][application.status] = 0;
+    if (!trend[monthYear][application.applicationStatus]) {
+      trend[monthYear][application.applicationStatus] = 0;
     }
 
-    trend[monthYear][application.status]++;
+    trend[monthYear][application.applicationStatus]++;
   });
 
   return Object.entries(trend)
