@@ -113,12 +113,12 @@ const Layout = () => {
                       <FormControlLabel
                         value="new"
                         control={<Radio />}
-                        label="New User"
+                        label="Adam Smith (New User)"
                       />
                       <FormControlLabel
                         value="expert"
                         control={<Radio />}
-                        label="Expert User"
+                        label="John Doe (Expert User)"
                       />
                     </RadioGroup>
                   </Box>
