@@ -104,6 +104,6 @@ export const deleteApplication = async (token: string, id: string): Promise<Axio
     return response;
   } catch (error) {
     console.error('error from deleteApplication', error);
-    return error;
+    return error as AxiosResponse<any, any>;
   }
 };
