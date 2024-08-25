@@ -107,7 +107,7 @@ const SignInForm = () => {
                 <Button
                   fullWidth
                   size="medium"
-                  variant="outlined"
+                  variant="contained"
                   color="primary"
                   disabled={Boolean(isLoading)}
                   onClick={() =>
