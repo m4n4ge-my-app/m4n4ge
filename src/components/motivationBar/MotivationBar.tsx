@@ -1,18 +1,21 @@
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+//external imports
 import PlaylistAddCheckOutlinedIcon from '@mui/icons-material/PlaylistAddCheckOutlined';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import { Badge, Divider, Grid, Typography } from '@mui/material';
-import { getEarliestApplicationDate } from '../../utils/mockDataGenerator';
-import { quotes } from './quotes/sampleQuotes';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import AnalogClock from 'analog-clock-react'; //there is tpescript types for this package from the package maintainer, so this error cant be fixed
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/system';
-import './mativationbar.scss';
 import moment from 'moment';
-import { useSelector } from 'react-redux';
+
+//local imports
+import { getEarliestApplicationDate } from '../../utils/mockDataGenerator';
+import { quotes } from './quotes/sampleQuotes';
 import { RootState } from '../../state/store';
+import './mativationbar.scss';
 
 const MotivationBar = () => {
   const today = moment().format('ddd, MMM D, YY');
@@ -25,11 +28,9 @@ const MotivationBar = () => {
   const [displayString, setDisplayString] = useState(
     ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
   );
-  const user = useSelector(
-    (state: RootState) => state.user
-  );
-  const [calendarItems, setCalendarItems] = useState(0)
-  const [todoItems, setTodoItems] = useState(0)
+  const user = useSelector((state: RootState) => state.user);
+  const [calendarItems, setCalendarItems] = useState(0);
+  const [todoItems, setTodoItems] = useState(0);
 
   const options = {
     useCustomTime: false,
@@ -55,37 +56,40 @@ const MotivationBar = () => {
   }, []);
 
   useEffect(() => {
-  const updateDisplayString = () => {
-    setDisplayString((prevString) => {
-      const elapsedDays = earliestDate.elapsedDays === 0 ? ' today' : ` ${earliestDate.elapsedDays} days ago`
-      return prevString.includes('on')
-        ? elapsedDays
-        : ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
-    });
-    const animatedDateElements = document.querySelectorAll('.animatedDate');
-    animatedDateElements.forEach((element: Element) => {
-      (element as HTMLElement).style.setProperty(
-        '--animation-duration',
-        '5s'
-      );
-    });
-  };
+    const updateDisplayString = () => {
+      setDisplayString((prevString) => {
+        const elapsedDays =
+          earliestDate.elapsedDays === 0
+            ? ' today'
+            : ` ${earliestDate.elapsedDays} days ago`;
+        return prevString.includes('on')
+          ? elapsedDays
+          : ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`;
+      });
+      const animatedDateElements = document.querySelectorAll('.animatedDate');
+      animatedDateElements.forEach((element: Element) => {
+        (element as HTMLElement).style.setProperty(
+          '--animation-duration',
+          '5s'
+        );
+      });
+    };
 
-  // Call the function once immediately because there is discrepency between how long the animation is taking to complete and the interval time
-  updateDisplayString();
+    // Call the function once immediately because there is discrepency between how long the animation is taking to complete and the interval time
+    updateDisplayString();
 
-  //below is random calandar and todo badge numbers showing for expert user. Todo: replace these with actual parameters when these features are developed
-  if(user.user?.email === 'expert_user@m4n4gemy.app') {
-    setCalendarItems(5)
-    setTodoItems(3)
-  } else {
-    setCalendarItems(0)
-    setTodoItems(0)
-  }
+    //below is random calandar and todo badge numbers showing for expert user. Todo: replace these with actual parameters when these features are developed
+    if (user.user?.email === 'expert_user@m4n4gemy.app') {
+      setCalendarItems(5);
+      setTodoItems(3);
+    } else {
+      setCalendarItems(0);
+      setTodoItems(0);
+    }
 
-  const intervalId = setInterval(updateDisplayString, 5000);
+    const intervalId = setInterval(updateDisplayString, 5000);
 
-  return () => clearInterval(intervalId);
+    return () => clearInterval(intervalId);
   }, [applications, user]);
 
   const quote = quotes[quoteIndex];
