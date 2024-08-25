@@ -28,30 +28,30 @@ const Layout = () => {
     (state: RootState) => state.sidebar.sidebarWidth
   );
   const signedInUser = useSelector((state: RootState) => state.user.user);
-  const [user, setUser] = React.useState(
+  const [userOption, setUserOption] = React.useState(
     signedInUser?.email.split('_')[0] || ''
   );
   const { signin } = useSignin();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUser((event.target as HTMLInputElement).value);
+    setUserOption((event.target as HTMLInputElement).value);
   };
 
   useEffect(() => {
-    if (user === 'new') {
+    if (userOption === 'new') {
       signin({
         email: 'new_user@m4n4gemy.app',
         password: 'nEwUser1@!',
       });
-      setUser('new');
-    } else if (user === 'expert') {
+      setUserOption('new');
+    } else if (userOption === 'expert') {
       signin({
         email: 'expert_user@m4n4gemy.app',
         password: 'eXpErTuSeR1@!',
       });
-      setUser('expert');
+      setUserOption('expert');
     }
-  }, [user]);
+  }, [userOption]);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -113,7 +113,7 @@ const Layout = () => {
                       row
                       aria-labelledby="demo-controlled-radio-buttons-group"
                       name="controlled-radio-buttons-group"
-                      defaultValue={user}
+                      defaultValue={userOption}
                       onChange={handleChange}
                     >
                       <FormControlLabel
