@@ -1,12 +1,12 @@
-import Box from '@mui/material/Box';
+//external imports
 import CssBaseline from '@mui/material/CssBaseline';
+import CloseIcon from '@mui/icons-material/Close';
+import InfoIcon from '@mui/icons-material/Info';
 import Toolbar from '@mui/material/Toolbar';
 import { Outlet } from 'react-router-dom';
-import SideBar from '../../../components/navigation/sideBar/SideBar';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../state/store';
-import Navbar from '../../../components/navigation/navbar/Navbar';
 import React, { useEffect } from 'react';
+import Box from '@mui/material/Box';
 import {
   Button,
   Divider,
@@ -15,20 +15,23 @@ import {
   RadioGroup,
   Typography,
 } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import InfoIcon from '@mui/icons-material/Info';
+
+//local imports
+import SideBar from '../../../components/navigation/sideBar/SideBar';
+import Navbar from '../../../components/navigation/navbar/Navbar';
 import { useSignin } from '../../../hooks/useSignin';
+import { RootState } from '../../../state/store';
 
 const Layout = () => {
   const [isBannerVisible, setIsBannerVisible] = React.useState(true);
-  const { signin } = useSignin();
-  
   const sidebarWidth = useSelector(
     (state: RootState) => state.sidebar.sidebarWidth
   );
-  
   const signedInUser = useSelector((state: RootState) => state.user.user);
-  const [user, setUser] = React.useState(signedInUser?.email.split('_')[0] || '');
+  const [user, setUser] = React.useState(
+    signedInUser?.email.split('_')[0] || ''
+  );
+  const { signin } = useSignin();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUser((event.target as HTMLInputElement).value);
@@ -40,13 +43,13 @@ const Layout = () => {
         email: 'new_user@m4n4gemy.app',
         password: 'nEwUser1@!',
       });
-      setUser('new')
+      setUser('new');
     } else if (user === 'expert') {
       signin({
         email: 'expert_user@m4n4gemy.app',
         password: 'eXpErTuSeR1@!',
       });
-      setUser('expert')
+      setUser('expert');
     }
   }, [user]);
 
