@@ -23,7 +23,8 @@ import { useSignin } from '../../../hooks/useSignin';
 import { RootState } from '../../../state/store';
 
 const Layout = () => {
-  const expertUserPassword = import.meta.env.VITE_DEMO_USER_EXPERT_PASSWORD as string;
+  const expertUserPassword = import.meta.env
+    .VITE_DEMO_USER_EXPERT_PASSWORD as string;
   const newUserPassword = import.meta.env.VITE_DEMO_USER_NEW_PASSWORD as string;
   const [isBannerVisible, setIsBannerVisible] = React.useState(true);
   const sidebarWidth = useSelector(

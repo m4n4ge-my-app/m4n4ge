@@ -55,7 +55,7 @@ const AddEditApplicationForm = () => {
     (state: RootState) => state.applications.focusedApplication
   );
   const { handleSubmit, reset } = useFormContext<AddAppSchema>();
-  const [isUserPrevillaged, setIsUserPrevillaged] = useState(true)
+  const [isUserPrevillaged, setIsUserPrevillaged] = useState(true);
   const { id } = useParams<{ id: string }>();
   const token = useAuthToken();
   const navigate = useNavigate();
@@ -338,29 +338,31 @@ const AddEditApplicationForm = () => {
           ref={modalRef}
           title="Delete Application"
           message={`Are you sure you want to delete the application for ${focusedApplication?.positionName} at ${focusedApplication?.employerName}?`}
-          confirmAction={async() =>
-            await deleteApplication(token!, id!).then((response: AxiosResponse ) => {
-              if (response.status === 204) {
-                dispatch(
-                  show({
-                    message: 'Application deleted successfully',
-                    severity: 'success',
-                  })
-                )
+          confirmAction={async () =>
+            await deleteApplication(token!, id!).then(
+              (response: AxiosResponse) => {
+                if (response.status === 204) {
+                  dispatch(
+                    show({
+                      message: 'Application deleted successfully',
+                      severity: 'success',
+                    })
+                  );
+                }
+                if (response instanceof AxiosError) {
+                  setIsUserPrevillaged(false);
+                  dispatch(
+                    show({
+                      message: response?.response?.data.error,
+                      severity: 'error',
+                    })
+                  );
+                }
               }
-              if( response instanceof AxiosError) {
-                setIsUserPrevillaged(false)
-                dispatch(
-                  show({
-                    message: response?.response?.data.error,
-                    severity: 'error',
-                  })
-                )
-              }
-            })
+            )
           }
           //TODO: theres a race condition here, isUserPrevillaged is not getting the latest value when user is a demo account.
-          subsquentPath={isUserPrevillaged ? "/dashboard" :  null}
+          subsquentPath={isUserPrevillaged ? '/dashboard' : null}
         />
       </Grid>
     </form>

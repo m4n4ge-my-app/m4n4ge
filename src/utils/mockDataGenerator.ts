@@ -315,7 +315,10 @@ export function getEarliestApplicationDate(applications: Application[]): {
   earliestDate: string;
   elapsedDays: number;
 } {
-  let earliestDate =applications.length !== 0?  new Date(applications[0].applicationDate) :  new Date();
+  let earliestDate =
+    applications.length !== 0
+      ? new Date(applications[0].applicationDate)
+      : new Date();
 
   for (let i = 1; i < applications.length; i++) {
     const applicationDate = new Date(applications[i].applicationDate);

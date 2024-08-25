@@ -299,25 +299,27 @@ export default function ApplicationsTable({
                   title="Delete Application"
                   message={`Are you sure you want to delete the application for ${application?.positionName} at ${application?.employerName}?`}
                   confirmAction={async () =>
-                    await deleteApplication(token!, application._id!).then((response: AxiosResponse ) => {
-                      fetchApplicationsData()
-                      if (response.status === 204) {
-                        dispatch(
-                          show({
-                            message: 'Application deleted successfully',
-                            severity: 'success',
-                          })
-                        )
+                    await deleteApplication(token!, application._id!).then(
+                      (response: AxiosResponse) => {
+                        fetchApplicationsData();
+                        if (response.status === 204) {
+                          dispatch(
+                            show({
+                              message: 'Application deleted successfully',
+                              severity: 'success',
+                            })
+                          );
+                        }
+                        if (response instanceof AxiosError) {
+                          dispatch(
+                            show({
+                              message: response?.response?.data.error,
+                              severity: 'error',
+                            })
+                          );
+                        }
                       }
-                      if( response instanceof AxiosError) {
-                        dispatch(
-                          show({
-                            message: response?.response?.data.error,
-                            severity: 'error',
-                          })
-                        )
-                      }
-                    })
+                    )
                   }
                 />
               </TableRow>

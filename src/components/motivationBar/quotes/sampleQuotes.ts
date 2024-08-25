@@ -53,23 +53,19 @@ export const quotes = [
   },
   {
     author: 'Babe Ruth',
-    quote:
-      'It’s hard to beat a person who never gives up.',
+    quote: 'It’s hard to beat a person who never gives up.',
   },
   {
     author: 'Maya Angelou',
-    quote:
-      'You may encounter many defeats, but you must not be defeated.',
+    quote: 'You may encounter many defeats, but you must not be defeated.',
   },
   {
     author: 'Nelson Mandela',
-    quote:
-      'It always seems impossible until it’s done.',
+    quote: 'It always seems impossible until it’s done.',
   },
   {
     author: 'Winston Churchill',
-    quote:
-      'If you’re going through hell, keep going.',
+    quote: 'If you’re going through hell, keep going.',
   },
   {
     author: 'Henry Ford',
@@ -78,17 +74,14 @@ export const quotes = [
   },
   {
     author: 'Helen Keller',
-    quote:
-      'We can do anything we want to if we stick to it long enough.',
+    quote: 'We can do anything we want to if we stick to it long enough.',
   },
   {
     author: 'Lou Holtz',
-    quote:
-      'Winners never quit and quitters never win.',
+    quote: 'Winners never quit and quitters never win.',
   },
   {
     author: 'Roy T. Bennett',
-    quote:
-      'Do not fear failure but rather fear not trying.',
+    quote: 'Do not fear failure but rather fear not trying.',
   },
 ];
