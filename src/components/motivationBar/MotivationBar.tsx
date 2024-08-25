@@ -25,6 +25,7 @@ const MotivationBar = () => {
     (state: RootState) => state.applications.applications
   );
   const earliestDate = getEarliestApplicationDate(applications);
+  const newUser = earliestDate.elapsedDays === 0 ? true : false;
   const [displayString, setDisplayString] = useState(
     ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
   );
@@ -58,10 +59,9 @@ const MotivationBar = () => {
   useEffect(() => {
     const updateDisplayString = () => {
       setDisplayString((prevString) => {
-        const elapsedDays =
-          earliestDate.elapsedDays === 0
-            ? ' today'
-            : ` ${earliestDate.elapsedDays} days ago`;
+        const elapsedDays = newUser
+          ? ' today'
+          : ` ${earliestDate.elapsedDays} days ago`;
         return prevString.includes('on')
           ? elapsedDays
           : ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`;
@@ -179,7 +179,8 @@ const MotivationBar = () => {
             }}
           >
             Your journey started
-            <span className="animatedDate">{displayString}</span>, persist!
+            <span className="animatedDate">{displayString}</span>,{' '}
+            {newUser ? "let's get going" : 'keep pushing'}!
           </Typography>
         </Grid>
       </Grid>
