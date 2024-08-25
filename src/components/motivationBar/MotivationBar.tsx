@@ -1,7 +1,7 @@
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import PlaylistAddCheckOutlinedIcon from '@mui/icons-material/PlaylistAddCheckOutlined';
 import { Badge, Divider, Grid, Typography } from '@mui/material';
-// import { earliestDate } from '../../utils/mockDataGenerator';
+import { getEarliestApplicationDate } from '../../utils/mockDataGenerator';
 import { quotes } from './quotes/sampleQuotes';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
@@ -11,14 +11,20 @@ import { Link } from 'react-router-dom';
 import { Box } from '@mui/system';
 import './mativationbar.scss';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../state/store';
 
 const MotivationBar = () => {
   const today = moment().format('ddd, MMM D, YY');
   const [day, ...rest] = today.split(' ');
   const [quoteIndex, setQuoteIndex] = useState(0);
-  // const [displayString, setDisplayString] = useState(
-  //   ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
-  // );
+  const applications = useSelector(
+    (state: RootState) => state.applications.applications
+  );
+  const earliestDate = getEarliestApplicationDate(applications);
+  const [displayString, setDisplayString] = useState(
+    ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
+  );
 
   const options = {
     useCustomTime: false,
@@ -43,29 +49,29 @@ const MotivationBar = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // useEffect(() => {
-  // const updateDisplayString = () => {
-  //   setDisplayString((prevString) =>
-  //     prevString.includes('on')
-  //       ? ` ${earliestDate.elapsedDays} days ago`
-  //       : ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
-  //   );
-  //   const animatedDateElements = document.querySelectorAll('.animatedDate');
-  //   animatedDateElements.forEach((element: Element) => {
-  //     (element as HTMLElement).style.setProperty(
-  //       '--animation-duration',
-  //       '5s'
-  //     );
-  //   });
-  // };
+  useEffect(() => {
+  const updateDisplayString = () => {
+    setDisplayString((prevString) =>
+      prevString.includes('on')
+        ? ` ${earliestDate.elapsedDays} days ago`
+        : ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
+    );
+    const animatedDateElements = document.querySelectorAll('.animatedDate');
+    animatedDateElements.forEach((element: Element) => {
+      (element as HTMLElement).style.setProperty(
+        '--animation-duration',
+        '5s'
+      );
+    });
+  };
 
-  // // Call the function once immediately because there is discrepency between how long the animation is taking to complete and the interval time
-  // updateDisplayString();
+  // Call the function once immediately because there is discrepency between how long the animation is taking to complete and the interval time
+  updateDisplayString();
 
-  // const intervalId = setInterval(updateDisplayString, 5000);
+  const intervalId = setInterval(updateDisplayString, 5000);
 
-  // return () => clearInterval(intervalId);
-  // }, []);
+  return () => clearInterval(intervalId);
+  }, [applications]);
 
   const quote = quotes[quoteIndex];
 
@@ -154,7 +160,7 @@ const MotivationBar = () => {
             }}
           >
             Your journey started
-            {/* <span className="animatedDate">{displayString}</span>, persist! */}
+            <span className="animatedDate">{displayString}</span>, persist!
           </Typography>
         </Grid>
       </Grid>

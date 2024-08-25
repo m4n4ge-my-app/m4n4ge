@@ -311,24 +311,24 @@ function getDaysElapsed(earliestDate: string): number {
   return Math.floor(differenceInDays);
 }
 
-// function getEarliestApplicationDate(applications: Application[]): {
-//   earliestDate: string;
-//   elapsedDays: number;
-// } {
-//   let earliestDate = new Date(applications[0].applicationDate);
+export function getEarliestApplicationDate(applications: Application[]): {
+  earliestDate: string;
+  elapsedDays: number;
+} {
+  let earliestDate =applications.length !== 0?  new Date(applications[0].applicationDate) :  new Date();
 
-//   for (let i = 1; i < applications.length; i++) {
-//     const applicationDate = new Date(applications[i].applicationDate);
-//     if (applicationDate < earliestDate) {
-//       earliestDate = applicationDate;
-//     }
-//   }
+  for (let i = 1; i < applications.length; i++) {
+    const applicationDate = new Date(applications[i].applicationDate);
+    if (applicationDate < earliestDate) {
+      earliestDate = applicationDate;
+    }
+  }
 
-//   const earliestDateString = earliestDate.toISOString().split('T')[0];
-//   const elapsedDays = getDaysElapsed(earliestDateString);
+  const earliestDateString = earliestDate.toISOString().split('T')[0];
+  const elapsedDays = getDaysElapsed(earliestDateString);
 
-//   return { earliestDate: earliestDateString, elapsedDays };
-// }
+  return { earliestDate: earliestDateString, elapsedDays };
+}
 
 export function getApplicationSummary(
   applications: Application[]
