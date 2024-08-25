@@ -214,18 +214,18 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           <Button
             variant="text"
             size="small"
-            startIcon={<CloseOutlinedIcon />}
-            onClick={() => setSelected([])}
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="text"
-            size="small"
             color="secondary"
             startIcon={<DeleteOutlineOutlinedIcon />}
           >
             Delete
+          </Button>
+          <Button
+            variant="text"
+            size="small"
+            startIcon={<CloseOutlinedIcon />}
+            onClick={() => setSelected([])}
+          >
+            Cancel
           </Button>
         </Stack>
       ) : (
