@@ -25,7 +25,7 @@ const sidebarItems = [
     icon: null,
     children: [
       {
-        name: 'Resume',
+        name: 'Resumes',
         path: '/resumes',
         icon: icons.ContactPageOutlinedIcon,
       },
