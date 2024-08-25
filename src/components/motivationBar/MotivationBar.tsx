@@ -51,11 +51,12 @@ const MotivationBar = () => {
 
   useEffect(() => {
   const updateDisplayString = () => {
-    setDisplayString((prevString) =>
-      prevString.includes('on')
-        ? ` ${earliestDate.elapsedDays} days ago`
+    setDisplayString((prevString) => {
+      const elapsedDays = earliestDate.elapsedDays === 0 ? ' today' : ` ${earliestDate.elapsedDays} days ago`
+      return prevString.includes('on')
+        ? elapsedDays
         : ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
-    );
+    });
     const animatedDateElements = document.querySelectorAll('.animatedDate');
     animatedDateElements.forEach((element: Element) => {
       (element as HTMLElement).style.setProperty(
