@@ -373,18 +373,18 @@ const ExpandedView = () => {
                       <Box
                         sx={{
                           marginLeft: 2,
-                          ...getColors(row.status),
+                          ...getColors(row.applicationStatus),
                           borderRadius: '8px',
                           padding: '2px 5px',
                           fontWeight: 'bold',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          color: getColors(row.status).color,
+                          color: getColors(row.applicationStatus).color,
                         }}
                       >
-                        <Typography>{row.status}</Typography>
-                        {row.status === 'Accepted' && <SportsScoreIcon />}
+                        <Typography>{row.applicationStatus}</Typography>
+                        {row.applicationStatus === 'Accepted' && <SportsScoreIcon />}
                       </Box>
                     </TableCell>
                     <TableCell align="center" style={{ width: '10%' }}>
