@@ -32,6 +32,8 @@ import ConfirmationModal, {
 } from '../../modals/confirmationModal/ConfirmationModal';
 import { deleteApplication } from '../../../services/applications';
 import { useAuthToken } from '../../../hooks/useAuthToken';
+import { show } from '../../../state/feeback/feedbackSlice';
+import { AxiosError, AxiosResponse } from 'axios';
 
 interface DayCardProps {
   viewMode: string;
@@ -296,10 +298,27 @@ export default function ApplicationsTable({
                   ref={modalRef}
                   title="Delete Application"
                   message={`Are you sure you want to delete the application for ${application?.positionName} at ${application?.employerName}?`}
-                  confirmAction={() =>
-                    deleteApplication(token!, application._id!).then(() =>
+                  confirmAction={async () =>
+                    await deleteApplication(token!, application._id!).then((response: AxiosResponse ) => {
                       fetchApplicationsData()
-                    )
+                      if (response.status === 204) {
+                        dispatch(
+                          show({
+                            message: 'Application deleted successfully',
+                            severity: 'success',
+                          })
+                        )
+                      }
+                      if( response instanceof AxiosError) {
+                        console.log("are we here")
+                        dispatch(
+                          show({
+                            message: response?.response?.data.error,
+                            severity: 'error',
+                          })
+                        )
+                      }
+                    })
                   }
                 />
               </TableRow>

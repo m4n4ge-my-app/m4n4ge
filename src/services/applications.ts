@@ -91,9 +91,9 @@ export const getApplicationDetails = async (token: string, id: string) => {
   }
 };
 
-export const deleteApplication = async (token: string, id: string) => {
+export const deleteApplication = async (token: string, id: string): Promise<AxiosResponse<any, any>> => {
   try {
-    const response: AxiosResponse = await axios.delete(
+    const response: AxiosResponse<any, any> = await axios.delete(
       baseUrl + `/api/applications/${id}`,
       {
         headers: {

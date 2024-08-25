@@ -2,12 +2,8 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
 import { Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import Modal from '@mui/material/Modal';
 import { Box } from '@mui/system';
-
-//local imports
-import { show } from '../../../state/feeback/feedbackSlice';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -39,7 +35,6 @@ const ConfirmationModal = forwardRef(
   ) => {
     const [open, setOpen] = React.useState(false);
     const handleClose = () => setOpen(false);
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useImperativeHandle(ref, () => ({
@@ -71,12 +66,6 @@ const ConfirmationModal = forwardRef(
                 } else {
                   handleClose();
                 }
-                dispatch(
-                  show({
-                    message: 'Application deleted successfully',
-                    severity: 'success',
-                  })
-                );
               });
             }}
             sx={{ mr: 2 }}
