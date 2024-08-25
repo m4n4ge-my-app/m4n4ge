@@ -72,7 +72,7 @@ const Layout = () => {
           <Box
             sx={{
               p: 3,
-              backgroundColor: isBannerVisible ? '#cce5ff' : 'none',
+              backgroundColor: isBannerVisible ? '#c2d6ff' : 'none',
               display: 'flex',
               alignItems: 'center',
               position: 'fixed',
