@@ -20,15 +20,16 @@ import InfoIcon from '@mui/icons-material/Info';
 import { useSignin } from '../../../hooks/useSignin';
 
 const Layout = () => {
-  const [user, setUser] = React.useState('');
   const [isBannerVisible, setIsBannerVisible] = React.useState(true);
   const { signin } = useSignin();
-
+  
   const sidebarWidth = useSelector(
     (state: RootState) => state.sidebar.sidebarWidth
   );
-
+  
   const signedInUser = useSelector((state: RootState) => state.user.user);
+  const [user, setUser] = React.useState(signedInUser?.email.split('_')[0] || '');
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUser((event.target as HTMLInputElement).value);
   };
@@ -39,11 +40,13 @@ const Layout = () => {
         email: 'new_user@m4n4gemy.app',
         password: 'nEwUser1@!',
       });
+      setUser('new')
     } else if (user === 'expert') {
       signin({
         email: 'expert_user@m4n4gemy.app',
         password: 'eXpErTuSeR1@!',
       });
+      setUser('expert')
     }
   }, [user]);
 
@@ -107,7 +110,7 @@ const Layout = () => {
                       row
                       aria-labelledby="demo-controlled-radio-buttons-group"
                       name="controlled-radio-buttons-group"
-                      defaultValue={'new'}
+                      defaultValue={user}
                       onChange={handleChange}
                     >
                       <FormControlLabel
