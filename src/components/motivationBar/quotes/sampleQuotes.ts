@@ -42,8 +42,53 @@ export const quotes = [
       'Perseverance is the hard work you do after you get tired of doing the hard work you already did.',
   },
   {
-    author: 'Author Unknown',
+    author: 'Albert Einstein',
     quote:
-      'The road to success is dotted with many tempting parking places. Keep going.',
+      'It’s not that I’m so smart, it’s just that I stay with problems longer.',
+  },
+  {
+    author: 'Steve Jobs',
+    quote:
+      'I’m convinced that about half of what separates successful entrepreneurs from the non-successful ones is pure perseverance.',
+  },
+  {
+    author: 'Babe Ruth',
+    quote:
+      'It’s hard to beat a person who never gives up.',
+  },
+  {
+    author: 'Maya Angelou',
+    quote:
+      'You may encounter many defeats, but you must not be defeated.',
+  },
+  {
+    author: 'Nelson Mandela',
+    quote:
+      'It always seems impossible until it’s done.',
+  },
+  {
+    author: 'Winston Churchill',
+    quote:
+      'If you’re going through hell, keep going.',
+  },
+  {
+    author: 'Henry Ford',
+    quote:
+      'When everything seems to be going against you, remember that the airplane takes off against the wind, not with it.',
+  },
+  {
+    author: 'Helen Keller',
+    quote:
+      'We can do anything we want to if we stick to it long enough.',
+  },
+  {
+    author: 'Lou Holtz',
+    quote:
+      'Winners never quit and quitters never win.',
+  },
+  {
+    author: 'Roy T. Bennett',
+    quote:
+      'Do not fear failure but rather fear not trying.',
   },
 ];
