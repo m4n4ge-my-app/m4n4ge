@@ -25,6 +25,11 @@ const MotivationBar = () => {
   const [displayString, setDisplayString] = useState(
     ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
   );
+  const user = useSelector(
+    (state: RootState) => state.user
+  );
+  const [calendarItems, setCalendarItems] = useState(0)
+  const [todoItems, setTodoItems] = useState(0)
 
   const options = {
     useCustomTime: false,
@@ -69,10 +74,19 @@ const MotivationBar = () => {
   // Call the function once immediately because there is discrepency between how long the animation is taking to complete and the interval time
   updateDisplayString();
 
+  //below is random calandar and todo badge numbers showing for expert user. Todo: replace these with actual parameters when these features are developed
+  if(user.user?.email === 'expert_user@m4n4gemy.app') {
+    setCalendarItems(5)
+    setTodoItems(3)
+  } else {
+    setCalendarItems(0)
+    setTodoItems(0)
+  }
+
   const intervalId = setInterval(updateDisplayString, 5000);
 
   return () => clearInterval(intervalId);
-  }, [applications]);
+  }, [applications, user]);
 
   const quote = quotes[quoteIndex];
 
@@ -197,7 +211,7 @@ const MotivationBar = () => {
           <Grid item>
             <Link to="/calendar">
               <Badge
-                badgeContent={2}
+                badgeContent={calendarItems}
                 color="error"
                 sx={{
                   '.MuiBadge-badge': {
@@ -217,7 +231,7 @@ const MotivationBar = () => {
           <Grid item>
             <Link to="/todos">
               <Badge
-                badgeContent={3}
+                badgeContent={todoItems}
                 color="error"
                 sx={{
                   '.MuiBadge-badge': {
