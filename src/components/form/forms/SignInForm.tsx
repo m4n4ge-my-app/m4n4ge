@@ -21,6 +21,7 @@ import { useSignin } from '../../../hooks/useSignin';
 
 const SignInForm = () => {
   const theme = useTheme();
+  const userPassword = import.meta.env.VITE_DEMO_USER_NEW_PASSWORD as string;
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const { handleSubmit } = useFormContext<SigninSchema>();
   const { signin, isLoading } = useSignin();
@@ -112,7 +113,7 @@ const SignInForm = () => {
                   onClick={() =>
                     signin({
                       email: 'new_user@m4n4gemy.app',
-                      password: 'nEwUser1@!',
+                      password: userPassword,
                     })
                   }
                   sx={{
