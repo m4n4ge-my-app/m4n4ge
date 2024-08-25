@@ -310,7 +310,6 @@ export default function ApplicationsTable({
                         )
                       }
                       if( response instanceof AxiosError) {
-                        console.log("are we here")
                         dispatch(
                           show({
                             message: response?.response?.data.error,
