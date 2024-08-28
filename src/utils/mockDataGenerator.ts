@@ -90,7 +90,6 @@ export interface Application {
   jobPostPostingDate: string;
   jobPostEndingDate: string;
   jobPlatform: string;
-  status: string;
   note: string;
   workModel: string;
   _id: string;
@@ -266,7 +265,7 @@ export function searchApplications(
         application.positionName.toLowerCase().includes(term.toLowerCase()) ||
         application.jobLocation.toLowerCase().includes(term.toLowerCase()) ||
         application.jobPlatform.toLowerCase().includes(term.toLowerCase()) ||
-        application.status.toLowerCase().includes(term.toLowerCase())
+        application.applicationStatus.toLowerCase().includes(term.toLowerCase())
     )
     .sort((a, b) => {
       const aValues = [
@@ -274,7 +273,7 @@ export function searchApplications(
         a.positionName,
         a.jobLocation,
         a.jobPlatform,
-        a.status,
+        a.applicationStatus,
       ]
         .join(' ')
         .toLowerCase();
@@ -283,7 +282,7 @@ export function searchApplications(
         b.positionName,
         b.jobLocation,
         b.jobPlatform,
-        b.status,
+        b.applicationStatus,
       ]
         .join(' ')
         .toLowerCase();
