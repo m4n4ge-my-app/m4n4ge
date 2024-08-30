@@ -121,7 +121,7 @@ const headCells: readonly HeadCell[] = [
     label: 'Platform',
   },
   {
-    id: 'status',
+    id: 'applicationStatus',
     numeric: false,
     disablePadding: false,
     label: 'Status',
