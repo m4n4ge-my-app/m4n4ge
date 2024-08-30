@@ -12,7 +12,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import SearchIcon from '@mui/icons-material/Search';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getColors } from './utils/designUtilities';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -32,6 +32,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../state/store';
 import { setFocusedApplication } from '../../state/application/applicationSlice';
 import { useNavigate } from 'react-router-dom';
+import ConfirmationModal, { ConfirmationModalRef } from '../modals/confirmationModal/ConfirmationModal';
+import { deleteApplication } from '../../services/applications';
+import { AxiosError, AxiosResponse } from 'axios';
+import { show } from '../../state/feeback/feedbackSlice';
+import { useAuthToken } from '../../hooks/useAuthToken';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -222,12 +227,14 @@ const ExpandedView = () => {
   const [searchResult, setSearchResult] = useState<Application[] | null>(null);
   const [clickedRowIndex, setClickedRowIndex] = useState<number | null>(null);
   const [selected, setSelected] = useState<readonly number[]>([]);
+  const modalRef = useRef<ConfirmationModalRef>(null);
   const [keyword, setKeyword] = useState<string>('');
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState<Order>('asc');
   const [page, setPage] = useState(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const token = useAuthToken();
 
   useEffect(() => {
     setSearchResult(searchApplications(applications, keyword));
@@ -252,6 +259,12 @@ const ExpandedView = () => {
   const handleEditClick = (application: Application) => {
     dispatch(setFocusedApplication(application));
     navigate(`/app/edit/${application._id}`);
+  };
+
+  const openModal = () => {
+    if (modalRef.current) {
+      modalRef.current.setOpen(true);
+    }
   };
 
   const handleChangePage = (_event: unknown, newPage: number) => {
@@ -372,7 +385,7 @@ const ExpandedView = () => {
                               size="small"
                               color="secondary"
                               startIcon={<DeleteOutlineOutlinedIcon />}
-                              // onClick={openModal}
+                              onClick={openModal}
                             >
                               Delete
                             </Button>
@@ -436,6 +449,34 @@ const ExpandedView = () => {
                         </TableCell>
                       </>
                     )}
+                    <ConfirmationModal
+                      ref={modalRef}
+                      title="Delete Application"
+                      message={`Are you sure you want to delete the application for ${row?.positionName} at ${row?.employerName}?`}
+                      confirmAction={async () =>
+                        await deleteApplication(token!, row._id!).then(
+                          (response: AxiosResponse) => {
+                            // fetchApplicationsData();
+                            if (response.status === 204) {
+                              dispatch(
+                                show({
+                                  message: 'Application deleted successfully',
+                                  severity: 'success',
+                                })
+                              );
+                            }
+                            if (response instanceof AxiosError) {
+                              dispatch(
+                                show({
+                                  message: response?.response?.data.error,
+                                  severity: 'error',
+                                })
+                              );
+                            }
+                          }
+                        )
+                      }
+                    />
                   </MUIStyledTableRow>
                 );
               })}
