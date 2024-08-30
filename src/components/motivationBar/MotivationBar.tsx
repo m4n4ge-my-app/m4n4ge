@@ -51,7 +51,7 @@ const MotivationBar = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
-    }, 60000);
+    }, 30000);
 
     return () => clearInterval(interval);
   }, []);
@@ -140,6 +140,7 @@ const MotivationBar = () => {
           direction="column"
           justifyContent="center"
           alignItems="center"
+          sx={{ width: '100%' }}
         >
           <AnalogClock {...options} />
         </Grid>
@@ -153,7 +154,7 @@ const MotivationBar = () => {
         spacing={2}
         sx={{ height: '100%' }}
       >
-        <Grid item sx={{width: '100%'}}>
+        <Grid item sx={{width: '100%'}} zIndex={1000}>
           <Typography
             variant="body1"
             align="left"
@@ -169,7 +170,7 @@ const MotivationBar = () => {
         <Box display="flex" justifyContent="center">
           <Divider sx={{ width: '90%' }} />
         </Box>
-        <Grid item>
+        <Grid item zIndex={1000}>
           <Typography
             variant="h6"
             sx={{
