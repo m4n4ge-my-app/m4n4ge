@@ -153,7 +153,7 @@ const MotivationBar = () => {
         spacing={2}
         sx={{ height: '100%' }}
       >
-        <Grid item>
+        <Grid item sx={{width: '100%'}}>
           <Typography
             variant="body1"
             align="left"
@@ -173,7 +173,6 @@ const MotivationBar = () => {
           <Typography
             variant="h6"
             sx={{
-              whiteSpace: 'nowrap',
               fontWeight: 'bold',
               color: 'lightgray',
             }}
