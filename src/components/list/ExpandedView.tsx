@@ -265,7 +265,7 @@ const ExpandedView = () => {
   useEffect(() => {
     setSearchResult(searchApplications(applications, keyword));
     setApplications(_applications);
-  }, [keyword]);
+  }, [keyword, _applications]);
 
   const handleRequestSort = (
     _event: React.MouseEvent<unknown>,
