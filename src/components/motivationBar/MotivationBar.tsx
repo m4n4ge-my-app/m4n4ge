@@ -114,6 +114,7 @@ const MotivationBar = () => {
             alignItems: 'center',
             justifyContent: 'center',
           }}
+          zIndex={1000}
         >
           <Typography
             variant="h5"
