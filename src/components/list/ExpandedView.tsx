@@ -180,13 +180,11 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 }
 
 interface EnhancedTableToolbarProps {
-  selected: number;
-  setSelected: React.Dispatch<React.SetStateAction<readonly number[]>>;
   setKeyword: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { selected, setSelected, setKeyword } = props;
+  const { setKeyword } = props;
 
   return (
     <Toolbar
@@ -196,40 +194,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         backgroundColor: '#f0f5ff',
       }}
     >
-      {selected > 0 ? (
-        <Stack
-          direction="row"
-          gap="10px"
-          justifyContent="flex-end"
-          sx={{ width: '100%' }}
-          paddingRight="20px"
-        >
-          <Button
-            variant="text"
-            size="small"
-            startIcon={<ModeEditOutlineOutlinedIcon />}
-          >
-            Edit
-          </Button>
-          <Button
-            variant="text"
-            size="small"
-            color="secondary"
-            startIcon={<DeleteOutlineOutlinedIcon />}
-          >
-            Delete
-          </Button>
-          <Button
-            variant="text"
-            size="small"
-            startIcon={<CloseOutlinedIcon />}
-            onClick={() => setSelected([])}
-          >
-            Cancel
-          </Button>
-        </Stack>
-      ) : (
-        <TextField
+      <TextField
           sx={{ width: '36%', marginLeft: '10px' }}
           id="input-with-icon-textfield"
           label="Search"
@@ -244,7 +209,6 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           variant="standard"
           onChange={(e) => setKeyword(e.target.value)}
         />
-      )}
     </Toolbar>
   );
 }
@@ -327,8 +291,6 @@ const ExpandedView = () => {
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar
-          selected={selected.length}
-          setSelected={setSelected}
           setKeyword={setKeyword}
         />
         <TableContainer>
