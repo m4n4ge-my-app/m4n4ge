@@ -28,8 +28,10 @@ import {
   searchApplications,
   workModes,
 } from '../../utils/mockDataGenerator';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../state/store';
+import { setFocusedApplication } from '../../state/application/applicationSlice';
+import { useNavigate } from 'react-router-dom';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -224,6 +226,8 @@ const ExpandedView = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState<Order>('asc');
   const [page, setPage] = useState(0);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setSearchResult(searchApplications(applications, keyword));
@@ -243,6 +247,11 @@ const ExpandedView = () => {
     const selectedIndex = selected.indexOf(id);
     setSelected([selectedIndex]);
     setClickedRowIndex(id === clickedRowIndex ? null : id);
+  };
+
+  const handleEditClick = (application: Application) => {
+    dispatch(setFocusedApplication(application));
+    navigate(`/app/edit/${application._id}`);
   };
 
   const handleChangePage = (_event: unknown, newPage: number) => {
@@ -345,7 +354,7 @@ const ExpandedView = () => {
                               variant="text"
                               size="small"
                               startIcon={<ModeEditOutlineOutlinedIcon />}
-                              // onClick={() => handleEditClick(application._id)}
+                              onClick={() => handleEditClick(row)}
                             >
                               Edit
                             </Button>
