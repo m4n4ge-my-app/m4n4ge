@@ -5,7 +5,6 @@ import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
 import { Button, InputAdornment, TextField, Typography } from '@mui/material';
 import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import TablePagination from '@mui/material/TablePagination';
 import MUIStyledTableRow from './utils/MUIStyledTableRow';
@@ -220,6 +219,7 @@ const ExpandedView = () => {
   const [applications, setApplications] = useState<Application[]>([]);
   const [orderBy, setOrderBy] = useState<keyof Application>('applicationDate');
   const [searchResult, setSearchResult] = useState<Application[] | null>(null);
+  const [clickedRowIndex, setClickedRowIndex] = useState<number | null>(null);
   const [selected, setSelected] = useState<readonly number[]>([]);
   const [keyword, setKeyword] = useState<string>('');
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -243,10 +243,12 @@ const ExpandedView = () => {
   const handleClick = (_event: React.MouseEvent<unknown>, id: number) => {
     const selectedIndex = selected.indexOf(id);
     setSelected([selectedIndex]);
+    setClickedRowIndex(id === clickedRowIndex ? null : id);
   };
 
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
+    setClickedRowIndex(null);
   };
 
   const handleChangeRowsPerPage = (
@@ -331,59 +333,101 @@ const ExpandedView = () => {
                     <TableCell align="center">{row.jobLocation}</TableCell>
                     <TableCell align="center">{row.applicationDate}</TableCell>
                     <TableCell align="center">{row.jobPlatform}</TableCell>
-                    <TableCell align="center">
-                      <Box
-                        sx={{
-                          marginLeft: 2,
-                          ...getColors(row.applicationStatus),
-                          borderRadius: '8px',
-                          padding: '2px 5px',
-                          fontWeight: 'bold',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: getColors(row.applicationStatus).color,
-                        }}
-                      >
-                        <Typography>{row.applicationStatus}</Typography>
-                        {row.applicationStatus === 'Accepted' && <SportsScoreIcon />}
-                      </Box>
-                    </TableCell>
-                    <TableCell align="center" style={{ width: '10%' }}>
-                      {row.workModel.replace(/"/g, '') === workModes[0] && (
-                        <Box
-                          display="flex"
-                          alignItems="center"
-                          justifyContent="center"
-                          gap={1}
-                        >
-                          <BusinessOutlinedIcon fontSize="small" />
-                          {workModes[0]}
-                        </Box>
-                      )}
-                      {row.workModel.replace(/"/g, '') === workModes[1] && (
-                        <Box
-                          display="flex"
-                          alignItems="center"
-                          justifyContent="center"
-                          gap={1}
-                        >
-                          <MapsHomeWorkOutlinedIcon fontSize="small" />
-                          {workModes[1]}
-                        </Box>
-                      )}
-                      {row.workModel.replace(/"/g, '') === workModes[2] && (
-                        <Box
-                          display="flex"
-                          alignItems="center"
-                          justifyContent="center"
-                          gap={1}
-                        >
-                          <CottageOutlinedIcon fontSize="small" />
-                          {workModes[2]}
-                        </Box>
-                      )}
-                    </TableCell>
+                    {clickedRowIndex === index ? (
+                      <>
+                        <TableCell align="center" style={{ width: '30%' }}>
+                          <Box
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                            gap={1}
+                          >
+                            <Button
+                              variant="text"
+                              size="small"
+                              startIcon={<ModeEditOutlineOutlinedIcon />}
+                              // onClick={() => handleEditClick(application._id)}
+                            >
+                              Edit
+                            </Button>
+                          </Box>
+                        </TableCell>
+                        <TableCell align="center" style={{ width: '30%' }}>
+                          <Box
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                            gap={1}
+                          >
+                            <Button
+                              variant="text"
+                              size="small"
+                              color="secondary"
+                              startIcon={<DeleteOutlineOutlinedIcon />}
+                              // onClick={openModal}
+                            >
+                              Delete
+                            </Button>
+                          </Box>
+                        </TableCell>
+                      </>
+                    ) : (
+                      <>
+                        <TableCell align="center">
+                          <Box
+                            sx={{
+                              marginLeft: 2,
+                              ...getColors(row.applicationStatus),
+                              borderRadius: '8px',
+                              padding: '2px 5px',
+                              fontWeight: 'bold',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              color: getColors(row.applicationStatus).color,
+                            }}
+                          >
+                            <Typography>{row.applicationStatus}</Typography>
+                            {row.applicationStatus === 'Accepted' && <SportsScoreIcon />}
+                          </Box>
+                        </TableCell>
+                        <TableCell align="center" style={{ width: '10%' }}>
+                          {row.workModel.replace(/"/g, '') === workModes[0] && (
+                            <Box
+                              display="flex"
+                              alignItems="center"
+                              justifyContent="center"
+                              gap={1}
+                            >
+                              <BusinessOutlinedIcon fontSize="small" />
+                              {workModes[0]}
+                            </Box>
+                          )}
+                          {row.workModel.replace(/"/g, '') === workModes[1] && (
+                            <Box
+                              display="flex"
+                              alignItems="center"
+                              justifyContent="center"
+                              gap={1}
+                            >
+                              <MapsHomeWorkOutlinedIcon fontSize="small" />
+                              {workModes[1]}
+                            </Box>
+                          )}
+                          {row.workModel.replace(/"/g, '') === workModes[2] && (
+                            <Box
+                              display="flex"
+                              alignItems="center"
+                              justifyContent="center"
+                              gap={1}
+                            >
+                              <CottageOutlinedIcon fontSize="small" />
+                              {workModes[2]}
+                            </Box>
+                          )}
+                        </TableCell>
+                      </>
+                    )}
                   </MUIStyledTableRow>
                 );
               })}
