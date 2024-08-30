@@ -23,7 +23,6 @@ import { visuallyHidden } from '@mui/utils';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import { Stack } from '@mui/system';
 import {
   Application,
   searchApplications,
