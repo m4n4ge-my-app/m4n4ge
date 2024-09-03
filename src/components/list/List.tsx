@@ -9,13 +9,13 @@ import {
 } from '../../state/application/applicationSlice';
 import { getApplications } from '../../services/applications';
 import ApplicationsTable from './listTable/ApplicationsTable';
-import { groupByDate } from '../../utils/mockDataGenerator';
+import { groupByDate } from '../../utils/applications.util';
 import { useAuthToken } from '../../hooks/useAuthToken';
 import {
   Application,
   groupByWeek,
   groupByMonth,
-} from '../../utils/mockDataGenerator';
+} from '../../utils/applications.util';
 
 interface ListProps {
   viewMode: string;

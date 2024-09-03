@@ -24,7 +24,7 @@ import moment from 'moment';
 
 //local imports
 import { setFocusedApplication } from '../../../state/application/applicationSlice';
-import { Application, workModes } from '../../../utils/mockDataGenerator';
+import { Application, workModes } from '../../../utils/applications.util';
 import { getColors } from '../utils/designUtilities';
 import { useRef } from 'react';
 import ConfirmationModal, {

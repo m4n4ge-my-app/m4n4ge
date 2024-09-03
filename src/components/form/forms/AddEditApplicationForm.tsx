@@ -14,7 +14,7 @@ import {
 import {
   Application,
   statuses as applicationStatuses,
-} from '../../../utils/mockDataGenerator';
+} from '../../../utils/applications.util';
 import { setFocusedApplication } from '../../../state/application/applicationSlice';
 import ConfirmationModal, {
   ConfirmationModalRef,

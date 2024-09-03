@@ -12,7 +12,7 @@ import { Box } from '@mui/system';
 import moment from 'moment';
 
 //local imports
-import { getEarliestApplicationDate } from '../../utils/mockDataGenerator';
+import { getEarliestApplicationDate } from '../../utils/applications.util';
 import { quotes } from './quotes/sampleQuotes';
 import { RootState } from '../../state/store';
 import './mativationbar.scss';

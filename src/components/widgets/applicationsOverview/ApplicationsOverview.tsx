@@ -1,5 +1,5 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { getApplicationSummary } from '../../../utils/mockDataGenerator';
+import { getApplicationSummary } from '../../../utils/applications.util';
 import { Grid, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';

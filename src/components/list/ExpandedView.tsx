@@ -27,7 +27,7 @@ import {
   Application,
   searchApplications,
   workModes,
-} from '../../utils/mockDataGenerator';
+} from '../../utils/applications.util';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../state/store';
 import { setFocusedApplication } from '../../state/application/applicationSlice';
