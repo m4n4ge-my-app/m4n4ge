@@ -14,55 +14,6 @@ const monthNames = [
   'December',
 ];
 
-const companies = [
-  'Google',
-  'Microsoft',
-  'Apple',
-  'Amazon',
-  'Facebook',
-  'Netflix',
-  'Tesla',
-  'IBM',
-];
-
-const positions = [
-  'Software Developer',
-  'Data Scientist',
-  'Product Manager',
-  'System Analyst',
-  'Web Developer',
-  'UX Designer',
-  'Database Administrator',
-  'Network Engineer',
-];
-
-const locations = [
-  'London, ON',
-  'Toronto, ON',
-  'Vancouver, BC',
-  'Seattle, WA',
-  'San Francisco, CA',
-  'New York, NY',
-  'Austin, TX',
-  'Chicago, IL',
-];
-
-const platforms = [
-  'CareerBuilder',
-  'FlexJobs',
-  'WellFound',
-  'Glassdoor',
-  'SimplyHired',
-  'Other',
-  'LinkedIn',
-  'Indeed',
-  'ZipRecruiter',
-  'Monster',
-  'Dice',
-  'Direct Email',
-  'Company Website',
-];
-
 export const statuses = [
   'Applied',
   'Engaged',
@@ -73,7 +24,6 @@ export const statuses = [
 ];
 
 export const workModes = ['On-Site', 'Hybrid', 'Remote'];
-const notes = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 const startDate = new Date('2023-07-12');
 const endDate = new Date();
 const uniqueDates: string[] = [];
@@ -102,18 +52,6 @@ function getRandomDate(start: Date, end: Date): string {
   )
     .toISOString()
     .split('T')[0];
-}
-
-function getRandomNumber(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function getRandomString(words: string): string {
-  return words
-    .split(' ')
-    .sort(() => 0.5 - Math.random())
-    .slice(0, getRandomNumber(1, 10))
-    .join(' ');
 }
 
 function getWeekStart(date: Date): string {
