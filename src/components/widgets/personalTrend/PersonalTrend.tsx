@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { getApplicationTrend } from '../../../utils/mockDataGenerator';
+import { getApplicationTrend } from '../../../utils/applications.util';
 import { RootState } from '../../../state/store';
 import {
   LineChart,

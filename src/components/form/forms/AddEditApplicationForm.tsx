@@ -1,7 +1,7 @@
 //external imports
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 //local imports
 import {
@@ -14,7 +14,7 @@ import {
 import {
   Application,
   statuses as applicationStatuses,
-} from '../../../utils/mockDataGenerator';
+} from '../../../utils/applications.util';
 import { setFocusedApplication } from '../../../state/application/applicationSlice';
 import ConfirmationModal, {
   ConfirmationModalRef,
@@ -33,6 +33,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { RHFSelect } from '../formControllers/RHFSelect';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
+import { AxiosError, AxiosResponse } from 'axios';
 
 interface Response {
   config: {};
@@ -54,6 +55,7 @@ const AddEditApplicationForm = () => {
     (state: RootState) => state.applications.focusedApplication
   );
   const { handleSubmit, reset } = useFormContext<AddAppSchema>();
+  const [isUserPrevillaged, setIsUserPrevillaged] = useState(true);
   const { id } = useParams<{ id: string }>();
   const token = useAuthToken();
   const navigate = useNavigate();
@@ -158,7 +160,7 @@ const AddEditApplicationForm = () => {
             />
           }
           itemTwo={
-            focusedApplication ? (
+            (focusedApplication || id) ? (
               <RHFSelect<AddAppSchema>
                 name="applicationStatus"
                 label="Job Status"
@@ -305,9 +307,9 @@ const AddEditApplicationForm = () => {
           }}
         >
           <Button variant="contained" type="submit" size="small">
-            {focusedApplication ? 'Save Changes' : 'Add Application'}
+            {(focusedApplication || id) ? 'Save Changes' : 'Add Application'}
           </Button>
-          {focusedApplication && (
+          {(focusedApplication || id) && (
             <>
               <Button
                 variant="contained"
@@ -336,8 +338,31 @@ const AddEditApplicationForm = () => {
           ref={modalRef}
           title="Delete Application"
           message={`Are you sure you want to delete the application for ${focusedApplication?.positionName} at ${focusedApplication?.employerName}?`}
-          confirmAction={() => deleteApplication(token!, id!)}
-          subsquentPath="/dashboard"
+          confirmAction={async () =>
+            await deleteApplication(token!, id!).then(
+              (response: AxiosResponse) => {
+                if (response.status === 204) {
+                  dispatch(
+                    show({
+                      message: 'Application deleted successfully',
+                      severity: 'success',
+                    })
+                  );
+                }
+                if (response instanceof AxiosError) {
+                  setIsUserPrevillaged(false);
+                  dispatch(
+                    show({
+                      message: response?.response?.data.error,
+                      severity: 'error',
+                    })
+                  );
+                }
+              }
+            )
+          }
+          //TODO: theres a race condition here, isUserPrevillaged is not getting the latest value when user is a demo account.
+          subsquentPath={isUserPrevillaged ? '/dashboard' : null}
         />
       </Grid>
     </form>

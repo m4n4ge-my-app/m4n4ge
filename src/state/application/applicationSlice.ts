@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Application } from '../../utils/mockDataGenerator';
+import { Application } from '../../utils/applications.util';
 
 interface ApplicationState {
   applications: Application[] | [];

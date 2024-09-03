@@ -1,24 +1,37 @@
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+//external imports
 import PlaylistAddCheckOutlinedIcon from '@mui/icons-material/PlaylistAddCheckOutlined';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import { Badge, Divider, Grid, Typography } from '@mui/material';
-// import { earliestDate } from '../../utils/mockDataGenerator';
-import { quotes } from './quotes/sampleQuotes';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import AnalogClock from 'analog-clock-react'; //there is tpescript types for this package from the package maintainer, so this error cant be fixed
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/system';
-import './mativationbar.scss';
 import moment from 'moment';
+
+//local imports
+import { getEarliestApplicationDate } from '../../utils/applications.util';
+import { quotes } from './quotes/sampleQuotes';
+import { RootState } from '../../state/store';
+import './mativationbar.scss';
 
 const MotivationBar = () => {
   const today = moment().format('ddd, MMM D, YY');
   const [day, ...rest] = today.split(' ');
   const [quoteIndex, setQuoteIndex] = useState(0);
-  // const [displayString, setDisplayString] = useState(
-  //   ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
-  // );
+  const applications = useSelector(
+    (state: RootState) => state.applications.applications
+  );
+  const earliestDate = getEarliestApplicationDate(applications);
+  const newUser = earliestDate.elapsedDays === 0 ? true : false;
+  const [displayString, setDisplayString] = useState(
+    ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
+  );
+  const user = useSelector((state: RootState) => state.user);
+  const [calendarItems, setCalendarItems] = useState(0);
+  const [todoItems, setTodoItems] = useState(0);
 
   const options = {
     useCustomTime: false,
@@ -38,34 +51,46 @@ const MotivationBar = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
-    }, 60000);
+    }, 30000);
 
     return () => clearInterval(interval);
   }, []);
 
-  // useEffect(() => {
-  // const updateDisplayString = () => {
-  //   setDisplayString((prevString) =>
-  //     prevString.includes('on')
-  //       ? ` ${earliestDate.elapsedDays} days ago`
-  //       : ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
-  //   );
-  //   const animatedDateElements = document.querySelectorAll('.animatedDate');
-  //   animatedDateElements.forEach((element: Element) => {
-  //     (element as HTMLElement).style.setProperty(
-  //       '--animation-duration',
-  //       '5s'
-  //     );
-  //   });
-  // };
+  useEffect(() => {
+    const updateDisplayString = () => {
+      setDisplayString((prevString) => {
+        const elapsedDays = newUser
+          ? ' today'
+          : ` ${earliestDate.elapsedDays} days ago`;
+        return prevString.includes('on')
+          ? elapsedDays
+          : ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`;
+      });
+      const animatedDateElements = document.querySelectorAll('.animatedDate');
+      animatedDateElements.forEach((element: Element) => {
+        (element as HTMLElement).style.setProperty(
+          '--animation-duration',
+          '5s'
+        );
+      });
+    };
 
-  // // Call the function once immediately because there is discrepency between how long the animation is taking to complete and the interval time
-  // updateDisplayString();
+    // Call the function once immediately because there is discrepency between how long the animation is taking to complete and the interval time
+    updateDisplayString();
 
-  // const intervalId = setInterval(updateDisplayString, 5000);
+    //below is random calandar and todo badge numbers showing for expert user. Todo: replace these with actual parameters when these features are developed
+    if (user.user?.email === 'expert_user@m4n4gemy.app') {
+      setCalendarItems(5);
+      setTodoItems(3);
+    } else {
+      setCalendarItems(0);
+      setTodoItems(0);
+    }
 
-  // return () => clearInterval(intervalId);
-  // }, []);
+    const intervalId = setInterval(updateDisplayString, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [applications, user]);
 
   const quote = quotes[quoteIndex];
 
@@ -89,6 +114,7 @@ const MotivationBar = () => {
             alignItems: 'center',
             justifyContent: 'center',
           }}
+          zIndex={1000}
         >
           <Typography
             variant="h5"
@@ -115,6 +141,7 @@ const MotivationBar = () => {
           direction="column"
           justifyContent="center"
           alignItems="center"
+          sx={{ width: '100%' }}
         >
           <AnalogClock {...options} />
         </Grid>
@@ -128,7 +155,7 @@ const MotivationBar = () => {
         spacing={2}
         sx={{ height: '100%' }}
       >
-        <Grid item>
+        <Grid item sx={{width: '100%'}} zIndex={1000}>
           <Typography
             variant="body1"
             align="left"
@@ -144,17 +171,17 @@ const MotivationBar = () => {
         <Box display="flex" justifyContent="center">
           <Divider sx={{ width: '90%' }} />
         </Box>
-        <Grid item>
+        <Grid item zIndex={1000}>
           <Typography
             variant="h6"
             sx={{
-              whiteSpace: 'nowrap',
               fontWeight: 'bold',
               color: 'lightgray',
             }}
           >
             Your journey started
-            {/* <span className="animatedDate">{displayString}</span>, persist! */}
+            <span className="animatedDate">{displayString}</span>,{' '}
+            {newUser ? "let's get going" : 'keep pushing'}!
           </Typography>
         </Grid>
       </Grid>
@@ -190,7 +217,7 @@ const MotivationBar = () => {
           <Grid item>
             <Link to="/calendar">
               <Badge
-                badgeContent={2}
+                badgeContent={calendarItems}
                 color="error"
                 sx={{
                   '.MuiBadge-badge': {
@@ -210,7 +237,7 @@ const MotivationBar = () => {
           <Grid item>
             <Link to="/todos">
               <Badge
-                badgeContent={3}
+                badgeContent={todoItems}
                 color="error"
                 sx={{
                   '.MuiBadge-badge': {

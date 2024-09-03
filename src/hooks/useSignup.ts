@@ -33,7 +33,7 @@ export const useSignup = () => {
         dispatch(setUser(json));
         dispatch(
           show({
-            message: 'Welcome aboard! Signup successful.',
+            message: `Welcome aboard ${json.firstName}! Signup successful.`,
             severity: 'success',
           })
         );

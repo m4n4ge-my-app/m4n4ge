@@ -14,55 +14,6 @@ const monthNames = [
   'December',
 ];
 
-const companies = [
-  'Google',
-  'Microsoft',
-  'Apple',
-  'Amazon',
-  'Facebook',
-  'Netflix',
-  'Tesla',
-  'IBM',
-];
-
-const positions = [
-  'Software Developer',
-  'Data Scientist',
-  'Product Manager',
-  'System Analyst',
-  'Web Developer',
-  'UX Designer',
-  'Database Administrator',
-  'Network Engineer',
-];
-
-const locations = [
-  'London, ON',
-  'Toronto, ON',
-  'Vancouver, BC',
-  'Seattle, WA',
-  'San Francisco, CA',
-  'New York, NY',
-  'Austin, TX',
-  'Chicago, IL',
-];
-
-const platforms = [
-  'CareerBuilder',
-  'FlexJobs',
-  'WellFound',
-  'Glassdoor',
-  'SimplyHired',
-  'Other',
-  'LinkedIn',
-  'Indeed',
-  'ZipRecruiter',
-  'Monster',
-  'Dice',
-  'Direct Email',
-  'Company Website',
-];
-
 export const statuses = [
   'Applied',
   'Engaged',
@@ -73,7 +24,6 @@ export const statuses = [
 ];
 
 export const workModes = ['On-Site', 'Hybrid', 'Remote'];
-const notes = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 const startDate = new Date('2023-07-12');
 const endDate = new Date();
 const uniqueDates: string[] = [];
@@ -90,7 +40,6 @@ export interface Application {
   jobPostPostingDate: string;
   jobPostEndingDate: string;
   jobPlatform: string;
-  status: string;
   note: string;
   workModel: string;
   _id: string;
@@ -103,18 +52,6 @@ function getRandomDate(start: Date, end: Date): string {
   )
     .toISOString()
     .split('T')[0];
-}
-
-function getRandomNumber(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function getRandomString(words: string): string {
-  return words
-    .split(' ')
-    .sort(() => 0.5 - Math.random())
-    .slice(0, getRandomNumber(1, 10))
-    .join(' ');
 }
 
 function getWeekStart(date: Date): string {
@@ -266,7 +203,7 @@ export function searchApplications(
         application.positionName.toLowerCase().includes(term.toLowerCase()) ||
         application.jobLocation.toLowerCase().includes(term.toLowerCase()) ||
         application.jobPlatform.toLowerCase().includes(term.toLowerCase()) ||
-        application.status.toLowerCase().includes(term.toLowerCase())
+        application.applicationStatus.toLowerCase().includes(term.toLowerCase())
     )
     .sort((a, b) => {
       const aValues = [
@@ -274,7 +211,7 @@ export function searchApplications(
         a.positionName,
         a.jobLocation,
         a.jobPlatform,
-        a.status,
+        a.applicationStatus,
       ]
         .join(' ')
         .toLowerCase();
@@ -283,7 +220,7 @@ export function searchApplications(
         b.positionName,
         b.jobLocation,
         b.jobPlatform,
-        b.status,
+        b.applicationStatus,
       ]
         .join(' ')
         .toLowerCase();
@@ -311,24 +248,27 @@ function getDaysElapsed(earliestDate: string): number {
   return Math.floor(differenceInDays);
 }
 
-// function getEarliestApplicationDate(applications: Application[]): {
-//   earliestDate: string;
-//   elapsedDays: number;
-// } {
-//   let earliestDate = new Date(applications[0].applicationDate);
+export function getEarliestApplicationDate(applications: Application[]): {
+  earliestDate: string;
+  elapsedDays: number;
+} {
+  let earliestDate =
+    applications.length !== 0
+      ? new Date(applications[0].applicationDate)
+      : new Date();
 
-//   for (let i = 1; i < applications.length; i++) {
-//     const applicationDate = new Date(applications[i].applicationDate);
-//     if (applicationDate < earliestDate) {
-//       earliestDate = applicationDate;
-//     }
-//   }
+  for (let i = 1; i < applications.length; i++) {
+    const applicationDate = new Date(applications[i].applicationDate);
+    if (applicationDate < earliestDate) {
+      earliestDate = applicationDate;
+    }
+  }
 
-//   const earliestDateString = earliestDate.toISOString().split('T')[0];
-//   const elapsedDays = getDaysElapsed(earliestDateString);
+  const earliestDateString = earliestDate.toISOString().split('T')[0];
+  const elapsedDays = getDaysElapsed(earliestDateString);
 
-//   return { earliestDate: earliestDateString, elapsedDays };
-// }
+  return { earliestDate: earliestDateString, elapsedDays };
+}
 
 export function getApplicationSummary(
   applications: Application[]
@@ -344,8 +284,8 @@ export function getApplicationSummary(
   };
 
   applications.forEach((application) => {
-    if (application.status in summary) {
-      summary[application.status]++;
+    if (application.applicationStatus in summary) {
+      summary[application.applicationStatus]++;
     }
   });
 
@@ -372,11 +312,11 @@ export function getApplicationTrend(
     }
 
     // Ensure the status exists in the trend[monthYear] object
-    if (!trend[monthYear][application.status]) {
-      trend[monthYear][application.status] = 0;
+    if (!trend[monthYear][application.applicationStatus]) {
+      trend[monthYear][application.applicationStatus] = 0;
     }
 
-    trend[monthYear][application.status]++;
+    trend[monthYear][application.applicationStatus]++;
   });
 
   return Object.entries(trend)

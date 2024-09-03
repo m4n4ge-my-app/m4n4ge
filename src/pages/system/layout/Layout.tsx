@@ -1,12 +1,12 @@
-import Box from '@mui/material/Box';
+//external imports
 import CssBaseline from '@mui/material/CssBaseline';
+import CloseIcon from '@mui/icons-material/Close';
+import InfoIcon from '@mui/icons-material/Info';
 import Toolbar from '@mui/material/Toolbar';
 import { Outlet } from 'react-router-dom';
-import SideBar from '../../../components/navigation/sideBar/SideBar';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../state/store';
-import Navbar from '../../../components/navigation/navbar/Navbar';
 import React, { useEffect } from 'react';
+import Box from '@mui/material/Box';
 import {
   Button,
   Divider,
@@ -15,37 +15,46 @@ import {
   RadioGroup,
   Typography,
 } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import InfoIcon from '@mui/icons-material/Info';
+
+//local imports
+import SideBar from '../../../components/navigation/sideBar/SideBar';
+import Navbar from '../../../components/navigation/navbar/Navbar';
 import { useSignin } from '../../../hooks/useSignin';
+import { RootState } from '../../../state/store';
 
 const Layout = () => {
-  const [user, setUser] = React.useState('');
+  const expertUserPassword = import.meta.env
+    .VITE_DEMO_USER_EXPERT_PASSWORD as string;
+  const newUserPassword = import.meta.env.VITE_DEMO_USER_NEW_PASSWORD as string;
   const [isBannerVisible, setIsBannerVisible] = React.useState(true);
-  const { signin } = useSignin();
-
   const sidebarWidth = useSelector(
     (state: RootState) => state.sidebar.sidebarWidth
   );
-
   const signedInUser = useSelector((state: RootState) => state.user.user);
+  const [userOption, setUserOption] = React.useState(
+    signedInUser?.email.split('_')[0] || ''
+  );
+  const { signin } = useSignin();
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUser((event.target as HTMLInputElement).value);
+    setUserOption((event.target as HTMLInputElement).value);
   };
 
   useEffect(() => {
-    if (user === 'new') {
+    if (userOption === 'new') {
       signin({
         email: 'new_user@m4n4gemy.app',
-        password: 'nEwUser1@!',
+        password: newUserPassword,
       });
-    } else if (user === 'expert') {
+      setUserOption('new');
+    } else if (userOption === 'expert') {
       signin({
         email: 'expert_user@m4n4gemy.app',
-        password: 'eXpErTuSeR1@!',
+        password: expertUserPassword,
       });
+      setUserOption('expert');
     }
-  }, [user]);
+  }, [userOption]);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -66,7 +75,7 @@ const Layout = () => {
           <Box
             sx={{
               p: 3,
-              backgroundColor: isBannerVisible ? '#cce5ff' : 'none',
+              backgroundColor: isBannerVisible ? '#c2d6ff' : 'none',
               display: 'flex',
               alignItems: 'center',
               position: 'fixed',
@@ -107,18 +116,18 @@ const Layout = () => {
                       row
                       aria-labelledby="demo-controlled-radio-buttons-group"
                       name="controlled-radio-buttons-group"
-                      defaultValue={'new'}
+                      defaultValue={userOption}
                       onChange={handleChange}
                     >
                       <FormControlLabel
                         value="new"
                         control={<Radio />}
-                        label="New User"
+                        label="Adam Smith (New User)"
                       />
                       <FormControlLabel
                         value="expert"
                         control={<Radio />}
-                        label="Expert User"
+                        label="John Doe (Expert User)"
                       />
                     </RadioGroup>
                   </Box>

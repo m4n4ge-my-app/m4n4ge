@@ -13,15 +13,8 @@ import PersonalTrend from '../widgets/personalTrend/PersonalTrend';
 //@ts-ignore
 import greetingTime from 'greeting-time'; //there is tpescript types for this package from the package maintainer, so this error cant be fixed
 
-//will be replace with proper model from server later
-// interface Application {
-//   id: number;
-//   employerName: string;
-//   positionName: string;
-// }
 interface Props {
   username: string;
-  // applications: Application[];
 }
 
 const DashboardGrid = ({ username }: Props) => {

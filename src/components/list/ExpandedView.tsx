@@ -5,7 +5,6 @@ import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
 import { Button, InputAdornment, TextField, Typography } from '@mui/material';
 import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import TablePagination from '@mui/material/TablePagination';
 import MUIStyledTableRow from './utils/MUIStyledTableRow';
@@ -13,7 +12,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import SearchIcon from '@mui/icons-material/Search';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getColors } from './utils/designUtilities';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -24,14 +23,20 @@ import { visuallyHidden } from '@mui/utils';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import { Stack } from '@mui/system';
 import {
   Application,
   searchApplications,
   workModes,
-} from '../../utils/mockDataGenerator';
-import { useSelector } from 'react-redux';
+} from '../../utils/applications.util';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../state/store';
+import { setFocusedApplication } from '../../state/application/applicationSlice';
+import { useNavigate } from 'react-router-dom';
+import ConfirmationModal, { ConfirmationModalRef } from '../modals/confirmationModal/ConfirmationModal';
+import { deleteApplication } from '../../services/applications';
+import { AxiosError, AxiosResponse } from 'axios';
+import { show } from '../../state/feeback/feedbackSlice';
+import { useAuthToken } from '../../hooks/useAuthToken';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -121,7 +126,7 @@ const headCells: readonly HeadCell[] = [
     label: 'Platform',
   },
   {
-    id: 'status',
+    id: 'applicationStatus',
     numeric: false,
     disablePadding: false,
     label: 'Status',
@@ -180,13 +185,11 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 }
 
 interface EnhancedTableToolbarProps {
-  selected: number;
-  setSelected: React.Dispatch<React.SetStateAction<readonly number[]>>;
   setKeyword: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { selected, setSelected, setKeyword } = props;
+  const { setKeyword } = props;
 
   return (
     <Toolbar
@@ -196,40 +199,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         backgroundColor: '#f0f5ff',
       }}
     >
-      {selected > 0 ? (
-        <Stack
-          direction="row"
-          gap="10px"
-          justifyContent="flex-end"
-          sx={{ width: '100%' }}
-          paddingRight="20px"
-        >
-          <Button
-            variant="text"
-            size="small"
-            startIcon={<ModeEditOutlineOutlinedIcon />}
-          >
-            Edit
-          </Button>
-          <Button
-            variant="text"
-            size="small"
-            startIcon={<CloseOutlinedIcon />}
-            onClick={() => setSelected([])}
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="text"
-            size="small"
-            color="secondary"
-            startIcon={<DeleteOutlineOutlinedIcon />}
-          >
-            Delete
-          </Button>
-        </Stack>
-      ) : (
-        <TextField
+      <TextField
           sx={{ width: '36%', marginLeft: '10px' }}
           id="input-with-icon-textfield"
           label="Search"
@@ -244,7 +214,6 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           variant="standard"
           onChange={(e) => setKeyword(e.target.value)}
         />
-      )}
     </Toolbar>
   );
 }
@@ -253,19 +222,27 @@ const ExpandedView = () => {
   const _applications = useSelector(
     (state: RootState) => state.applications.applications
   );
+  const focusedApplication = useSelector(
+    (state: RootState) => state.applications.focusedApplication
+  );
   const [applications, setApplications] = useState<Application[]>([]);
   const [orderBy, setOrderBy] = useState<keyof Application>('applicationDate');
   const [searchResult, setSearchResult] = useState<Application[] | null>(null);
+  const [clickedRowIndex, setClickedRowIndex] = useState<number | null>(null);
   const [selected, setSelected] = useState<readonly number[]>([]);
+  const modalRef = useRef<ConfirmationModalRef>(null);
   const [keyword, setKeyword] = useState<string>('');
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState<Order>('asc');
   const [page, setPage] = useState(0);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const token = useAuthToken();
 
   useEffect(() => {
     setSearchResult(searchApplications(applications, keyword));
     setApplications(_applications);
-  }, [keyword]);
+  }, [keyword, _applications]);
 
   const handleRequestSort = (
     _event: React.MouseEvent<unknown>,
@@ -276,13 +253,27 @@ const ExpandedView = () => {
     setOrderBy(property);
   };
 
-  const handleClick = (_event: React.MouseEvent<unknown>, id: number) => {
+  const handleClick = (_event: React.MouseEvent<unknown>, id: number, application: Application) => {
     const selectedIndex = selected.indexOf(id);
     setSelected([selectedIndex]);
+    setClickedRowIndex(id === clickedRowIndex ? null : id);
+    dispatch(setFocusedApplication(application));
+  };
+
+  const handleEditClick = (application: Application) => {
+    dispatch(setFocusedApplication(application));
+    navigate(`/app/edit/${application._id}`);
+  };
+
+  const openModal = () => {
+    if (modalRef.current) {
+      modalRef.current.setOpen(true);
+    }
   };
 
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
+    setClickedRowIndex(null);
   };
 
   const handleChangeRowsPerPage = (
@@ -327,8 +318,6 @@ const ExpandedView = () => {
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar
-          selected={selected.length}
-          setSelected={setSelected}
           setKeyword={setKeyword}
         />
         <TableContainer>
@@ -346,7 +335,7 @@ const ExpandedView = () => {
                 return (
                   <MUIStyledTableRow
                     hover
-                    onClick={(event) => handleClick(event, index)}
+                    onClick={(event) => handleClick(event, index, row)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
@@ -369,59 +358,129 @@ const ExpandedView = () => {
                     <TableCell align="center">{row.jobLocation}</TableCell>
                     <TableCell align="center">{row.applicationDate}</TableCell>
                     <TableCell align="center">{row.jobPlatform}</TableCell>
-                    <TableCell align="center">
-                      <Box
-                        sx={{
-                          marginLeft: 2,
-                          ...getColors(row.status),
-                          borderRadius: '8px',
-                          padding: '2px 5px',
-                          fontWeight: 'bold',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: getColors(row.status).color,
-                        }}
-                      >
-                        <Typography>{row.status}</Typography>
-                        {row.status === 'Accepted' && <SportsScoreIcon />}
-                      </Box>
-                    </TableCell>
-                    <TableCell align="center" style={{ width: '10%' }}>
-                      {row.workModel.replace(/"/g, '') === workModes[0] && (
-                        <Box
-                          display="flex"
-                          alignItems="center"
-                          justifyContent="center"
-                          gap={1}
-                        >
-                          <BusinessOutlinedIcon fontSize="small" />
-                          {workModes[0]}
-                        </Box>
-                      )}
-                      {row.workModel.replace(/"/g, '') === workModes[1] && (
-                        <Box
-                          display="flex"
-                          alignItems="center"
-                          justifyContent="center"
-                          gap={1}
-                        >
-                          <MapsHomeWorkOutlinedIcon fontSize="small" />
-                          {workModes[1]}
-                        </Box>
-                      )}
-                      {row.workModel.replace(/"/g, '') === workModes[2] && (
-                        <Box
-                          display="flex"
-                          alignItems="center"
-                          justifyContent="center"
-                          gap={1}
-                        >
-                          <CottageOutlinedIcon fontSize="small" />
-                          {workModes[2]}
-                        </Box>
-                      )}
-                    </TableCell>
+                    {clickedRowIndex === index ? (
+                      <>
+                        <TableCell align="center" style={{ width: '30%' }}>
+                          <Box
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                            gap={1}
+                          >
+                            <Button
+                              variant="text"
+                              size="small"
+                              startIcon={<ModeEditOutlineOutlinedIcon />}
+                              onClick={() => handleEditClick(row)}
+                            >
+                              Edit
+                            </Button>
+                          </Box>
+                        </TableCell>
+                        <TableCell align="center" style={{ width: '30%' }}>
+                          <Box
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                            gap={1}
+                          >
+                            <Button
+                              variant="text"
+                              size="small"
+                              color="secondary"
+                              startIcon={<DeleteOutlineOutlinedIcon />}
+                              onClick={openModal}
+                            >
+                              Delete
+                            </Button>
+                          </Box>
+                        </TableCell>
+                      </>
+                    ) : (
+                      <>
+                        <TableCell align="center">
+                          <Box
+                            sx={{
+                              marginLeft: 2,
+                              ...getColors(row.applicationStatus),
+                              borderRadius: '8px',
+                              padding: '2px 5px',
+                              fontWeight: 'bold',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              color: getColors(row.applicationStatus).color,
+                            }}
+                          >
+                            <Typography>{row.applicationStatus}</Typography>
+                            {row.applicationStatus === 'Accepted' && <SportsScoreIcon />}
+                          </Box>
+                        </TableCell>
+                        <TableCell align="center" style={{ width: '10%' }}>
+                          {row.workModel.replace(/"/g, '') === workModes[0] && (
+                            <Box
+                              display="flex"
+                              alignItems="center"
+                              justifyContent="center"
+                              gap={1}
+                            >
+                              <BusinessOutlinedIcon fontSize="small" />
+                              {workModes[0]}
+                            </Box>
+                          )}
+                          {row.workModel.replace(/"/g, '') === workModes[1] && (
+                            <Box
+                              display="flex"
+                              alignItems="center"
+                              justifyContent="center"
+                              gap={1}
+                            >
+                              <MapsHomeWorkOutlinedIcon fontSize="small" />
+                              {workModes[1]}
+                            </Box>
+                          )}
+                          {row.workModel.replace(/"/g, '') === workModes[2] && (
+                            <Box
+                              display="flex"
+                              alignItems="center"
+                              justifyContent="center"
+                              gap={1}
+                            >
+                              <CottageOutlinedIcon fontSize="small" />
+                              {workModes[2]}
+                            </Box>
+                          )}
+                        </TableCell>
+                      </>
+                    )}
+                    <ConfirmationModal
+                      ref={modalRef}
+                      title="Delete Application"
+                      message={`Are you sure you want to delete the application for ${focusedApplication?.positionName} at ${focusedApplication?.employerName}?`}
+                      confirmAction={async () =>
+                        await deleteApplication(token!, row._id!).then(
+                          (response: AxiosResponse) => {
+                            // fetchApplicationsData();
+                            if (response.status === 204) {
+                              dispatch(
+                                show({
+                                  message: 'Application deleted successfully',
+                                  severity: 'success',
+                                })
+                              );
+                            }
+                            if (response instanceof AxiosError) {
+                              dispatch(
+                                show({
+                                  message: response?.response?.data.error,
+                                  severity: 'error',
+                                })
+                              );
+                            }
+                          }
+                        )
+                      }
+                    />
                   </MUIStyledTableRow>
                 );
               })}

@@ -31,7 +31,7 @@ export const useSignin = () => {
         dispatch(setUser(json));
         dispatch(
           show({
-            message: "Welcome back! let's continue your journey.",
+            message: `Welcome back ${json.firstName}! let's continue your journey.`,
             severity: 'success',
           })
         );

@@ -17,14 +17,14 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import { useNavigate } from 'react-router-dom';
 import TableRow from '@mui/material/TableRow';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
 import moment from 'moment';
 
 //local imports
 import { setFocusedApplication } from '../../../state/application/applicationSlice';
-import { Application, workModes } from '../../../utils/mockDataGenerator';
+import { Application, workModes } from '../../../utils/applications.util';
 import { getColors } from '../utils/designUtilities';
 import { useRef } from 'react';
 import ConfirmationModal, {
@@ -32,6 +32,9 @@ import ConfirmationModal, {
 } from '../../modals/confirmationModal/ConfirmationModal';
 import { deleteApplication } from '../../../services/applications';
 import { useAuthToken } from '../../../hooks/useAuthToken';
+import { show } from '../../../state/feeback/feedbackSlice';
+import { AxiosError, AxiosResponse } from 'axios';
+import { RootState } from '../../../state/store';
 
 interface DayCardProps {
   viewMode: string;
@@ -52,6 +55,9 @@ export default function ApplicationsTable({
   setFocusedRow,
   tableIndex,
 }: DayCardProps) {
+  const focusedApplication = useSelector(
+    (state: RootState) => state.applications.focusedApplication
+  );
   const modalRef = useRef<ConfirmationModalRef>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -295,10 +301,28 @@ export default function ApplicationsTable({
                 <ConfirmationModal
                   ref={modalRef}
                   title="Delete Application"
-                  message={`Are you sure you want to delete the application for ${application?.positionName} at ${application?.employerName}?`}
-                  confirmAction={() =>
-                    deleteApplication(token!, application._id!).then(() =>
-                      fetchApplicationsData()
+                  message={`Are you sure you want to delete the application for ${focusedApplication?.positionName} at ${focusedApplication?.employerName}?`}
+                  confirmAction={async () =>
+                    await deleteApplication(token!, application._id!).then(
+                      (response: AxiosResponse) => {
+                        fetchApplicationsData();
+                        if (response.status === 204) {
+                          dispatch(
+                            show({
+                              message: 'Application deleted successfully',
+                              severity: 'success',
+                            })
+                          );
+                        }
+                        if (response instanceof AxiosError) {
+                          dispatch(
+                            show({
+                              message: response?.response?.data.error,
+                              severity: 'error',
+                            })
+                          );
+                        }
+                      }
                     )
                   }
                 />
