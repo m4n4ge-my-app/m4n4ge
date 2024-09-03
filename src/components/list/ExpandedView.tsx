@@ -222,6 +222,9 @@ const ExpandedView = () => {
   const _applications = useSelector(
     (state: RootState) => state.applications.applications
   );
+  const focusedApplication = useSelector(
+    (state: RootState) => state.applications.focusedApplication
+  );
   const [applications, setApplications] = useState<Application[]>([]);
   const [orderBy, setOrderBy] = useState<keyof Application>('applicationDate');
   const [searchResult, setSearchResult] = useState<Application[] | null>(null);
@@ -250,10 +253,11 @@ const ExpandedView = () => {
     setOrderBy(property);
   };
 
-  const handleClick = (_event: React.MouseEvent<unknown>, id: number) => {
+  const handleClick = (_event: React.MouseEvent<unknown>, id: number, application: Application) => {
     const selectedIndex = selected.indexOf(id);
     setSelected([selectedIndex]);
     setClickedRowIndex(id === clickedRowIndex ? null : id);
+    dispatch(setFocusedApplication(application));
   };
 
   const handleEditClick = (application: Application) => {
@@ -331,7 +335,7 @@ const ExpandedView = () => {
                 return (
                   <MUIStyledTableRow
                     hover
-                    onClick={(event) => handleClick(event, index)}
+                    onClick={(event) => handleClick(event, index, row)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
@@ -452,7 +456,7 @@ const ExpandedView = () => {
                     <ConfirmationModal
                       ref={modalRef}
                       title="Delete Application"
-                      message={`Are you sure you want to delete the application for ${row?.positionName} at ${row?.employerName}?`}
+                      message={`Are you sure you want to delete the application for ${focusedApplication?.positionName} at ${focusedApplication?.employerName}?`}
                       confirmAction={async () =>
                         await deleteApplication(token!, row._id!).then(
                           (response: AxiosResponse) => {
