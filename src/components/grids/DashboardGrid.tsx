@@ -140,6 +140,7 @@ const DashboardGrid = ({ username }: Props) => {
                       setViewMode('days');
                     }
                   }}
+                  id="expandCollapseButton"
                 >
                   {expanded ? (
                     <OpenInFullIcon sx={{ fontSize: '20px' }} />
