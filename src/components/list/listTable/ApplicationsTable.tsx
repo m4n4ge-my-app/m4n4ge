@@ -74,7 +74,7 @@ export default function ApplicationsTable({
   };
 
   return (
-    <Paper sx={{ width: '100%', marginBottom: '20px' }}>
+    <Paper sx={{ width: '100%', marginBottom: '20px' }} className="applications-table">
       <Stack
         direction="row"
         alignItems="center"
@@ -105,13 +105,13 @@ export default function ApplicationsTable({
             color: 'GrayText',
           }}
         >
-          <Typography>{`${applications.length} applications`}</Typography>
+          <Typography className="applications-count">{`${applications.length} applications`}</Typography>
         </Box>
       </Stack>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
-            <TableRow sx={{ backgroundColor: '#fbfcff' }}>
+            <TableRow sx={{ backgroundColor: '#fbfcff' }} id="applications-table-head" >
               <TableCell
                 align="center"
                 sx={{ fontWeight: 'bold', color: 'GrayText' }}
@@ -173,6 +173,7 @@ export default function ApplicationsTable({
           <TableBody>
             {applications.map((application, rowIndex) => (
               <TableRow
+                className="applications-table-row"
                 key={rowIndex}
                 sx={{
                   '&:last-child td, &:last-child th': { border: 0 },

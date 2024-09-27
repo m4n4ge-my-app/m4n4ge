@@ -316,7 +316,7 @@ const ExpandedView = () => {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+      <Paper sx={{ width: '100%', mb: 2 }} className="applications-table">
         <EnhancedTableToolbar
           setKeyword={setKeyword}
         />
@@ -334,6 +334,7 @@ const ExpandedView = () => {
 
                 return (
                   <MUIStyledTableRow
+                    className="applications-table-row"
                     hover
                     onClick={(event) => handleClick(event, index, row)}
                     role="checkbox"
@@ -353,10 +354,10 @@ const ExpandedView = () => {
                         <FavoriteBorderOutlinedIcon fontSize="small" />
                       )}
                     </TableCell>
-                    <TableCell align="center">{row.employerName}</TableCell>
-                    <TableCell align="center">{row.positionName}</TableCell>
-                    <TableCell align="center">{row.jobLocation}</TableCell>
-                    <TableCell align="center">{row.applicationDate}</TableCell>
+                    <TableCell align="center" className="employerName">{row.employerName}</TableCell>
+                    <TableCell align="center" className="roleName">{row.positionName}</TableCell>
+                    <TableCell align="center" className="location">{row.jobLocation}</TableCell>
+                    <TableCell align="center" className="applicationDate">{row.applicationDate}</TableCell>
                     <TableCell align="center">{row.jobPlatform}</TableCell>
                     {clickedRowIndex === index ? (
                       <>
