@@ -12,6 +12,8 @@ import { Link } from 'react-router-dom';
 
 //local imports
 import { setFocusedApplication } from '../../state/application/applicationSlice';
+import { notifications as _notification } from '../notification/notifications'
+import NotificationMenu from '../notification/NotificationMenu';
 import coverLetter from './baseLayerImages/coverletter.png';
 import description from './baseLayerImages/description.png';
 import dashboard from './baseLayerImages/dashboard.png';
@@ -36,8 +38,18 @@ interface Props {
 const BaseLayer = ({ type, children }: Props) => {
   const user = useSelector((state: RootState) => state.user);
   const [lightMode, setLightMode] = React.useState(false);
-  const [notifications, setNotifications] = useState<null | number>(null);
+  const [notifications, setNotifications] = useState<null | any>(null);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
   const dispatch = useDispatch();
+
+  const handleNotificationClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleNotificationClose = () => {
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     // Dynamically set the CSS variable
@@ -126,7 +138,7 @@ const BaseLayer = ({ type, children }: Props) => {
   useEffect(() => {
     //below is random notifications numbers showing for expert user. TODO: replace these with actual parameters when these features are developed
     if (user.user?.email === 'expert_user@m4n4gemy.app') {
-      setNotifications(2);
+      setNotifications(_notification);
     } else {
       setNotifications(null);
     }
@@ -153,9 +165,15 @@ const BaseLayer = ({ type, children }: Props) => {
               </Fab>
             </Tooltip>
           </Link>
-          <Badge badgeContent={notifications} color="primary" overlap="circular" >
+          <Badge badgeContent={notifications ? notifications.length : null } color="primary" overlap="circular"  onClick={handleNotificationClick}>
             <NotificationsNoneIcon  sx={{ fontSize: '25px', color: theme.palette.primary.main }} />
           </Badge>
+          <NotificationMenu
+            open={open}
+            handleClose={handleNotificationClose}
+            anchorEl={anchorEl}
+            notfications={notifications}
+          />
           <Link to="/automated">
             <SmartToyOutlinedIcon
               sx={{ fontSize: '25px', color: theme.palette.primary.main }}
