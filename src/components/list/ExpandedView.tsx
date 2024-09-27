@@ -334,6 +334,7 @@ const ExpandedView = () => {
 
                 return (
                   <MUIStyledTableRow
+                    className="applications-table-row"
                     hover
                     onClick={(event) => handleClick(event, index, row)}
                     role="checkbox"
