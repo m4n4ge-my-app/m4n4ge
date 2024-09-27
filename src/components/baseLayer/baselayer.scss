@@ -60,7 +60,7 @@ $box-shodow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
     }
 
     .mativationBox {
-      height: 250px;
+      min-height: 250px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
