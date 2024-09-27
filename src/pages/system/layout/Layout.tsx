@@ -9,10 +9,12 @@ import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import {
   Button,
+  Divider,
   FormControlLabel,
   Grid,
   Radio,
   RadioGroup,
+  Stack,
   Typography,
   useMediaQuery,
   useTheme,
@@ -92,25 +94,29 @@ const Layout = () => {
               {isBannerVisible ? (
                 <Grid container spacing={2} alignItems="center">
                   <Grid item xs>
+                    <Stack direction="row" spacing={2}>
                     <Button
                       onClick={() => {
                         setIsBannerVisible(false);
                       }}
                       sx={{
                         position: isMobile ? 'absolute' : 'relative',
-                        bottom: isMobile ? '10px' : '10px',
+                        bottom: isMobile ? '10px' : '0px',
                         right: isMobile ? '10px' : 'auto',
-                        marginLeft: isMobile ? '0' : '-20px',
+                        color: 'grey',
                       }}
                     >
                       <CloseIcon />
                     </Button>
+                    {!isMobile && (
+                      <Divider orientation="vertical" flexItem sx={{ marginRight: '20px', marginLeft: '20px' }} />
+                    )}
                     <Box sx={{ flexGrow: 1 }}>
-                      <Typography variant="subtitle1" component="div" sx={{ mb: 1, marginTop: isMobile ? '25px' : 'auto', }}>
+                      <Typography variant="subtitle1" component="div" sx={{ mb: 1, marginTop: isMobile ? '30px' : 'auto', }}>
                         You are signed in as a guest with limited access.
                       </Typography>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                        <span style={{ fontSize: '0.875rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        <span style={{ fontSize: '0.875rem', whiteSpace: 'wrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           Explore different user perspectives. Create a personal account for full access.
                         </span>
                         <RadioGroup
@@ -119,18 +125,27 @@ const Layout = () => {
                           name="controlled-radio-buttons-group"
                           defaultValue={userOption}
                           onChange={handleChange}
+                          sx={{marginBottom: isMobile ? '10px' : '0px'}}
                         >
                           <FormControlLabel value="new" control={<Radio />} label="Adam Smith (New User)" />
                           <FormControlLabel value="expert" control={<Radio />} label="John Doe (Expert User)" />
                         </RadioGroup>
                       </Box>
                     </Box>
+                    </Stack>
                   </Grid>      
                 </Grid>
               ) : (
                 <Button
                   onClick={() => {
                     setIsBannerVisible(true);
+                  }}
+                  sx={{
+                    position: isMobile ? 'absolute' : 'relative',
+                    top: isMobile ? '70px' : '20px',
+                    left: isMobile ? '10px' : 'auto',
+                    bottom: isMobile ? 'auto' : 'auto',
+                    right: isMobile ? 'auto' : 'auto',
                   }}
                 >
                   <InfoIcon fontSize="large" color="primary" />
