@@ -173,6 +173,7 @@ const BaseLayer = ({ type, children }: Props) => {
             handleClose={handleNotificationClose}
             anchorEl={anchorEl}
             notfications={notifications}
+            user={user}
           />
           <Link to="/automated">
             <SmartToyOutlinedIcon

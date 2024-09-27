@@ -1,5 +1,7 @@
 import { Divider, Menu, MenuItem, Typography } from '@mui/material';
+import { show } from '../../state/feeback/feedbackSlice';
 import CloseIcon from '@mui/icons-material/Close';
+import { useDispatch } from 'react-redux';
 import { Box } from '@mui/system';
 
 interface Prop {
@@ -7,9 +9,25 @@ interface Prop {
   handleClose: () => void;
   anchorEl: null | HTMLElement;
   notfications: any;
+  user: any;
 }
 
 const NotificationMenu = (props: Prop) => {
+  const dispatch = useDispatch();
+
+  const handleDeleteNotification = () => {
+    if (props.user.user?.email === 'expert_user@m4n4gemy.app') {
+      dispatch(
+        show({
+          message:
+            'Access Denied: Demonstration accounts do not have the privileges to delete notification. Please create a personal account for full access.',
+          severity: 'error',
+        })
+      );
+    }
+    // TODO: Add delete notification logic here when server side is ready
+  };
+
   return (
     <Menu
       anchorEl={props.anchorEl}
@@ -60,6 +78,7 @@ const NotificationMenu = (props: Prop) => {
               </Typography>
               <CloseIcon
                 fontSize="small"
+                onClick={handleDeleteNotification}
                 sx={{
                   position: 'absolute',
                   top: 0,
