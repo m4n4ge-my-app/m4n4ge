@@ -9,11 +9,13 @@ import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import {
   Button,
-  Divider,
   FormControlLabel,
+  Grid,
   Radio,
   RadioGroup,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 
 //local imports
@@ -35,6 +37,8 @@ const Layout = () => {
     signedInUser?.email.split('_')[0] || ''
   );
   const { signin } = useSignin();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserOption((event.target as HTMLInputElement).value);
@@ -70,80 +74,70 @@ const Layout = () => {
         }}
       >
         <Toolbar />
-        {(signedInUser?.email === 'new_user@m4n4gemy.app' ||
-          signedInUser?.email === 'expert_user@m4n4gemy.app') && (
-          <Box
-            sx={{
-              p: 3,
-              backgroundColor: isBannerVisible ? '#c2d6ff' : 'none',
-              display: 'flex',
-              alignItems: 'center',
-              position: 'fixed',
-              top: '0px',
-              width: '100%',
-              height: '150px',
-              zIndex: 1000,
-            }}
-          >
-            {isBannerVisible ? (
-              <>
+        {(signedInUser?.email === 'new_user@m4n4gemy.app' || signedInUser?.email === 'expert_user@m4n4gemy.app') && (
+            <Box
+              sx={{
+                p: 3,
+                backgroundColor: isBannerVisible ? '#c2d6ff' : 'none',
+                display: 'flex',
+                alignItems: 'center',
+                position: 'fixed',
+                top: '0px',
+                width: '100%',
+                height: 'auto',
+                zIndex: 1000,
+                flexDirection: isMobile ? 'column' : 'row',
+              }}
+            >
+              {isBannerVisible ? (
+                <Grid container spacing={2} alignItems="center">
+                  <Grid item xs>
+                    <Button
+                      onClick={() => {
+                        setIsBannerVisible(false);
+                      }}
+                      sx={{
+                        position: isMobile ? 'absolute' : 'relative',
+                        bottom: isMobile ? '10px' : '10px',
+                        right: isMobile ? '10px' : 'auto',
+                        marginLeft: isMobile ? '0' : '-20px',
+                      }}
+                    >
+                      <CloseIcon />
+                    </Button>
+                    <Box sx={{ flexGrow: 1 }}>
+                      <Typography variant="subtitle1" component="div" sx={{ mb: 1, marginTop: isMobile ? '25px' : 'auto', }}>
+                        You are signed in as a guest with limited access.
+                      </Typography>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        <span style={{ fontSize: '0.875rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          Explore different user perspectives. Create a personal account for full access.
+                        </span>
+                        <RadioGroup
+                          row
+                          aria-labelledby="demo-controlled-radio-buttons-group"
+                          name="controlled-radio-buttons-group"
+                          defaultValue={userOption}
+                          onChange={handleChange}
+                        >
+                          <FormControlLabel value="new" control={<Radio />} label="Adam Smith (New User)" />
+                          <FormControlLabel value="expert" control={<Radio />} label="John Doe (Expert User)" />
+                        </RadioGroup>
+                      </Box>
+                    </Box>
+                  </Grid>      
+                </Grid>
+              ) : (
                 <Button
                   onClick={() => {
-                    setIsBannerVisible(false);
+                    setIsBannerVisible(true);
                   }}
                 >
-                  <CloseIcon />
+                  <InfoIcon fontSize="large" color="primary" />
                 </Button>
-                <Divider
-                  orientation="vertical"
-                  flexItem
-                  sx={{ marginRight: '20px', marginLeft: '20px' }}
-                />
-                <Box sx={{ flexGrow: 1 }}>
-                  <Typography
-                    variant="subtitle1"
-                    component="div"
-                    sx={{ mb: 1 }}
-                  >
-                    You are signed in as a guest with limited access.
-                  </Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                    <span style={{ fontSize: '0.875rem' }}>
-                      Explore different user perspectives. Create a personal
-                      account for full access.
-                    </span>
-                    <RadioGroup
-                      row
-                      aria-labelledby="demo-controlled-radio-buttons-group"
-                      name="controlled-radio-buttons-group"
-                      defaultValue={userOption}
-                      onChange={handleChange}
-                    >
-                      <FormControlLabel
-                        value="new"
-                        control={<Radio />}
-                        label="Adam Smith (New User)"
-                      />
-                      <FormControlLabel
-                        value="expert"
-                        control={<Radio />}
-                        label="John Doe (Expert User)"
-                      />
-                    </RadioGroup>
-                  </Box>
-                </Box>
-              </>
-            ) : (
-              <Button
-                onClick={() => {
-                  setIsBannerVisible(true);
-                }}
-              >
-                <InfoIcon fontSize="large" color="primary" />
-              </Button>
-            )}
-          </Box>
-        )}
+              )}
+            </Box>
+          )}
         <Outlet />
       </Box>
     </Box>
