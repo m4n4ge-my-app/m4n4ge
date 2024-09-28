@@ -10,8 +10,8 @@ import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import TableContainer from '@mui/material/TableContainer';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Button, Typography } from '@mui/material';
-import { Box, Stack, lighten } from '@mui/system';
+import { Button, Typography, useTheme } from '@mui/material';
+import { Box, Stack, lighten, useMediaQuery } from '@mui/system';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
@@ -64,6 +64,8 @@ export default function ApplicationsTable({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useAuthToken();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const openModal = () => {
     if (modalRef.current) {
@@ -80,6 +82,7 @@ export default function ApplicationsTable({
       <Stack
         direction="row"
         alignItems="center"
+        justifyContent={isMobile ? 'space-between' : 'initial'}
         padding="10px"
         bgcolor={'#f0f5ff'}
       >
@@ -107,7 +110,7 @@ export default function ApplicationsTable({
             color: 'GrayText',
           }}
         >
-          <Typography className="applications-count">{`${applications.length} applications`}</Typography>
+          <Typography className="applications-count">{`${applications.length} ${isMobile? '' : 'applications'}`}</Typography>
         </Box>
       </Stack>
       <TableContainer component={Paper}>
