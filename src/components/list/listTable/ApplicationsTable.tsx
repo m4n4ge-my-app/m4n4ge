@@ -90,9 +90,9 @@ export default function ApplicationsTable({
         bgcolor={'#f0f5ff'}
       >
         <Typography
-          variant="body1"
+          variant="body2"
           align="left"
-          sx={{ marginLeft: 2, fontWeight: 'bold', color: 'GrayText' }}
+          sx={{ marginLeft: 2, fontWeight: 'bold', color: 'gray' }}
         >
           {viewMode === 'days'
             ? moment(applicationDate).format('dddd, MMMM D, YYYY')
@@ -113,7 +113,7 @@ export default function ApplicationsTable({
             color: 'GrayText',
           }}
         >
-          <Typography className="applications-count">{`${applications.length} ${isMobile ? '' : 'applications'}`}</Typography>
+          <Typography className="applications-count" variant='caption'>{`${applications.length} ${isMobile ? '' : 'applications'}`}</Typography>
         </Box>
       </Stack>
       <TableContainer component={Paper}>
