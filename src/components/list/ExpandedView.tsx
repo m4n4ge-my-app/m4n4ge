@@ -1,3 +1,4 @@
+//external imports
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -7,12 +8,12 @@ import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import TablePagination from '@mui/material/TablePagination';
+import React, { useEffect, useRef, useState } from 'react';
 import MUIStyledTableRow from './utils/MUIStyledTableRow';
 import TableContainer from '@mui/material/TableContainer';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import SearchIcon from '@mui/icons-material/Search';
-import React, { useEffect, useRef, useState } from 'react';
 import { getColors } from './utils/designUtilities';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -23,20 +24,24 @@ import { visuallyHidden } from '@mui/utils';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+
+//local imports
+import { setFocusedApplication } from '../../state/application/applicationSlice';
+import { deleteApplication } from '../../services/applications';
+import { show } from '../../state/feeback/feedbackSlice';
+import { useAuthToken } from '../../hooks/useAuthToken';
+import { useDispatch, useSelector } from 'react-redux';
+import { AxiosError, AxiosResponse } from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { RootState } from '../../state/store';
+import ConfirmationModal, {
+  ConfirmationModalRef,
+} from '../modals/confirmationModal/ConfirmationModal';
 import {
   Application,
   searchApplications,
   workModes,
 } from '../../utils/applications.util';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../state/store';
-import { setFocusedApplication } from '../../state/application/applicationSlice';
-import { useNavigate } from 'react-router-dom';
-import ConfirmationModal, { ConfirmationModalRef } from '../modals/confirmationModal/ConfirmationModal';
-import { deleteApplication } from '../../services/applications';
-import { AxiosError, AxiosResponse } from 'axios';
-import { show } from '../../state/feeback/feedbackSlice';
-import { useAuthToken } from '../../hooks/useAuthToken';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -200,25 +205,29 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
       }}
     >
       <TextField
-          sx={{ width: '36%', marginLeft: '10px' }}
-          id="input-with-icon-textfield"
-          label="Search"
-          placeholder="Search by employer, role, etc."
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-          variant="standard"
-          onChange={(e) => setKeyword(e.target.value)}
-        />
+        sx={{ width: '36%', marginLeft: '10px' }}
+        id="input-with-icon-textfield"
+        label="Search"
+        placeholder="Search by employer, role, etc."
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+        variant="standard"
+        onChange={(e) => setKeyword(e.target.value)}
+      />
     </Toolbar>
   );
 }
 
-const ExpandedView = () => {
+interface ExpandedViewProps {
+  gridWidth: number;
+}
+
+const ExpandedView = ({ gridWidth }: ExpandedViewProps) => {
   const _applications = useSelector(
     (state: RootState) => state.applications.applications
   );
@@ -253,7 +262,11 @@ const ExpandedView = () => {
     setOrderBy(property);
   };
 
-  const handleClick = (_event: React.MouseEvent<unknown>, id: number, application: Application) => {
+  const handleClick = (
+    _event: React.MouseEvent<unknown>,
+    id: number,
+    application: Application
+  ) => {
     const selectedIndex = selected.indexOf(id);
     setSelected([selectedIndex]);
     setClickedRowIndex(id === clickedRowIndex ? null : id);
@@ -315,199 +328,212 @@ const ExpandedView = () => {
   }, [keyword, searchResult, order, orderBy, page, rowsPerPage]);
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }} className="applications-table">
-        <EnhancedTableToolbar
-          setKeyword={setKeyword}
-        />
-        <TableContainer>
-          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
-            <EnhancedTableHead
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-            />
-            <TableBody>
-              {visibleRows.map((row, index) => {
-                const isItemSelected = isSelected(index);
-                const labelId = `enhanced-table-checkbox-${index}`;
+    <Box sx={{ maxWidth: gridWidth }}>
+      {applications.length !== 0 && (
+        <Paper sx={{ width: '100%', mb: 2 }} className="applications-table">
+          <EnhancedTableToolbar setKeyword={setKeyword} />
+          <TableContainer>
+            <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+              <EnhancedTableHead
+                order={order}
+                orderBy={orderBy}
+                onRequestSort={handleRequestSort}
+              />
+              <TableBody>
+                {visibleRows.map((row, index) => {
+                  const isItemSelected = isSelected(index);
+                  const labelId = `enhanced-table-checkbox-${index}`;
 
-                return (
-                  <MUIStyledTableRow
-                    className="applications-table-row"
-                    hover
-                    onClick={(event) => handleClick(event, index, row)}
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={index}
-                    selected={isItemSelected}
-                    sx={{ cursor: 'pointer' }}
-                  >
-                    <TableCell align="center" id={labelId}>
-                      {row.isFavorite === true ? (
-                        <FavoriteIcon
-                          style={{ color: '#ff40da' }}
-                          fontSize="small"
-                        />
+                  return (
+                    <MUIStyledTableRow
+                      className="applications-table-row"
+                      hover
+                      onClick={(event) => handleClick(event, index, row)}
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={index}
+                      selected={isItemSelected}
+                      sx={{ cursor: 'pointer' }}
+                    >
+                      <TableCell align="center" id={labelId}>
+                        {row.isFavorite === true ? (
+                          <FavoriteIcon
+                            style={{ color: '#ff40da' }}
+                            fontSize="small"
+                          />
+                        ) : (
+                          <FavoriteBorderOutlinedIcon fontSize="small" />
+                        )}
+                      </TableCell>
+                      <TableCell align="center" className="employerName">
+                        {row.employerName}
+                      </TableCell>
+                      <TableCell align="center" className="roleName">
+                        {row.positionName}
+                      </TableCell>
+                      <TableCell align="center" className="location">
+                        {row.jobLocation}
+                      </TableCell>
+                      <TableCell align="center" className="applicationDate">
+                        {row.applicationDate}
+                      </TableCell>
+                      <TableCell align="center">{row.jobPlatform}</TableCell>
+                      {clickedRowIndex === index ? (
+                        <>
+                          <TableCell align="center" style={{ width: '30%' }}>
+                            <Box
+                              display="flex"
+                              alignItems="center"
+                              justifyContent="center"
+                              gap={1}
+                            >
+                              <Button
+                                variant="text"
+                                size="small"
+                                startIcon={<ModeEditOutlineOutlinedIcon />}
+                                onClick={() => handleEditClick(row)}
+                              >
+                                Edit
+                              </Button>
+                            </Box>
+                          </TableCell>
+                          <TableCell align="center" style={{ width: '30%' }}>
+                            <Box
+                              display="flex"
+                              alignItems="center"
+                              justifyContent="center"
+                              gap={1}
+                            >
+                              <Button
+                                variant="text"
+                                size="small"
+                                color="secondary"
+                                startIcon={<DeleteOutlineOutlinedIcon />}
+                                onClick={openModal}
+                              >
+                                Delete
+                              </Button>
+                            </Box>
+                          </TableCell>
+                        </>
                       ) : (
-                        <FavoriteBorderOutlinedIcon fontSize="small" />
+                        <>
+                          <TableCell align="center">
+                            <Box
+                              sx={{
+                                marginLeft: 2,
+                                ...getColors(row.applicationStatus),
+                                borderRadius: '8px',
+                                padding: '2px 5px',
+                                fontWeight: 'bold',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: getColors(row.applicationStatus).color,
+                              }}
+                            >
+                              <Typography>{row.applicationStatus}</Typography>
+                              {row.applicationStatus === 'Accepted' && (
+                                <SportsScoreIcon />
+                              )}
+                            </Box>
+                          </TableCell>
+                          <TableCell align="center" style={{ width: '10%' }}>
+                            {row.workModel.replace(/"/g, '') ===
+                              workModes[0] && (
+                              <Box
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="center"
+                                gap={1}
+                              >
+                                <BusinessOutlinedIcon fontSize="small" />
+                                {workModes[0]}
+                              </Box>
+                            )}
+                            {row.workModel.replace(/"/g, '') ===
+                              workModes[1] && (
+                              <Box
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="center"
+                                gap={1}
+                              >
+                                <MapsHomeWorkOutlinedIcon fontSize="small" />
+                                {workModes[1]}
+                              </Box>
+                            )}
+                            {row.workModel.replace(/"/g, '') ===
+                              workModes[2] && (
+                              <Box
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="center"
+                                gap={1}
+                              >
+                                <CottageOutlinedIcon fontSize="small" />
+                                {workModes[2]}
+                              </Box>
+                            )}
+                          </TableCell>
+                        </>
                       )}
-                    </TableCell>
-                    <TableCell align="center" className="employerName">{row.employerName}</TableCell>
-                    <TableCell align="center" className="roleName">{row.positionName}</TableCell>
-                    <TableCell align="center" className="location">{row.jobLocation}</TableCell>
-                    <TableCell align="center" className="applicationDate">{row.applicationDate}</TableCell>
-                    <TableCell align="center">{row.jobPlatform}</TableCell>
-                    {clickedRowIndex === index ? (
-                      <>
-                        <TableCell align="center" style={{ width: '30%' }}>
-                          <Box
-                            display="flex"
-                            alignItems="center"
-                            justifyContent="center"
-                            gap={1}
-                          >
-                            <Button
-                              variant="text"
-                              size="small"
-                              startIcon={<ModeEditOutlineOutlinedIcon />}
-                              onClick={() => handleEditClick(row)}
-                            >
-                              Edit
-                            </Button>
-                          </Box>
-                        </TableCell>
-                        <TableCell align="center" style={{ width: '30%' }}>
-                          <Box
-                            display="flex"
-                            alignItems="center"
-                            justifyContent="center"
-                            gap={1}
-                          >
-                            <Button
-                              variant="text"
-                              size="small"
-                              color="secondary"
-                              startIcon={<DeleteOutlineOutlinedIcon />}
-                              onClick={openModal}
-                            >
-                              Delete
-                            </Button>
-                          </Box>
-                        </TableCell>
-                      </>
-                    ) : (
-                      <>
-                        <TableCell align="center">
-                          <Box
-                            sx={{
-                              marginLeft: 2,
-                              ...getColors(row.applicationStatus),
-                              borderRadius: '8px',
-                              padding: '2px 5px',
-                              fontWeight: 'bold',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              color: getColors(row.applicationStatus).color,
-                            }}
-                          >
-                            <Typography>{row.applicationStatus}</Typography>
-                            {row.applicationStatus === 'Accepted' && <SportsScoreIcon />}
-                          </Box>
-                        </TableCell>
-                        <TableCell align="center" style={{ width: '10%' }}>
-                          {row.workModel.replace(/"/g, '') === workModes[0] && (
-                            <Box
-                              display="flex"
-                              alignItems="center"
-                              justifyContent="center"
-                              gap={1}
-                            >
-                              <BusinessOutlinedIcon fontSize="small" />
-                              {workModes[0]}
-                            </Box>
-                          )}
-                          {row.workModel.replace(/"/g, '') === workModes[1] && (
-                            <Box
-                              display="flex"
-                              alignItems="center"
-                              justifyContent="center"
-                              gap={1}
-                            >
-                              <MapsHomeWorkOutlinedIcon fontSize="small" />
-                              {workModes[1]}
-                            </Box>
-                          )}
-                          {row.workModel.replace(/"/g, '') === workModes[2] && (
-                            <Box
-                              display="flex"
-                              alignItems="center"
-                              justifyContent="center"
-                              gap={1}
-                            >
-                              <CottageOutlinedIcon fontSize="small" />
-                              {workModes[2]}
-                            </Box>
-                          )}
-                        </TableCell>
-                      </>
-                    )}
-                    <ConfirmationModal
-                      ref={modalRef}
-                      title="Delete Application"
-                      message={`Are you sure you want to delete the application for ${focusedApplication?.positionName} at ${focusedApplication?.employerName}?`}
-                      confirmAction={async () =>
-                        await deleteApplication(token!, row._id!).then(
-                          (response: AxiosResponse) => {
-                            // fetchApplicationsData();
-                            if (response.status === 204) {
-                              dispatch(
-                                show({
-                                  message: 'Application deleted successfully',
-                                  severity: 'success',
-                                })
-                              );
+                      <ConfirmationModal
+                        ref={modalRef}
+                        title="Delete Application"
+                        message={`Are you sure you want to delete the application for ${focusedApplication?.positionName} at ${focusedApplication?.employerName}?`}
+                        confirmAction={async () =>
+                          await deleteApplication(token!, row._id!).then(
+                            (response: AxiosResponse) => {
+                              // fetchApplicationsData();
+                              if (response.status === 204) {
+                                dispatch(
+                                  show({
+                                    message: 'Application deleted successfully',
+                                    severity: 'success',
+                                  })
+                                );
+                              }
+                              if (response instanceof AxiosError) {
+                                dispatch(
+                                  show({
+                                    message: response?.response?.data.error,
+                                    severity: 'error',
+                                  })
+                                );
+                              }
                             }
-                            if (response instanceof AxiosError) {
-                              dispatch(
-                                show({
-                                  message: response?.response?.data.error,
-                                  severity: 'error',
-                                })
-                              );
-                            }
-                          }
-                        )
-                      }
-                    />
-                  </MUIStyledTableRow>
-                );
-              })}
-              {emptyRows > 0 && (
-                <TableRow>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[
-            5,
-            10,
-            25,
-            { label: 'All', value: applications.length },
-          ]}
-          component="div"
-          count={(searchResult ?? applications).length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
+                          )
+                        }
+                      />
+                    </MUIStyledTableRow>
+                  );
+                })}
+                {emptyRows > 0 && (
+                  <TableRow>
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[
+              5,
+              10,
+              25,
+              { label: 'All', value: applications.length },
+            ]}
+            component="div"
+            count={(searchResult ?? applications).length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      )}
     </Box>
   );
 };

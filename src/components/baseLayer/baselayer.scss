@@ -1,6 +1,6 @@
 $border-radius: 10px;
 $webkit-box-shadow: 5px 4px 10px 1px rgba(0, 0, 0, 0.47);
-$box-shodow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+$box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
 
 // there is default padding in MuiBox-root, so we need to remove it
 .MuiBox-root.css-1qryw0r {
@@ -59,14 +59,14 @@ $box-shodow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
       margin-top: 5px;
     }
 
-    .mativationBox {
-      height: 250px;
+    .motivationBox {
+      min-height: 250px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
       -webkit-box-shadow: $webkit-box-shadow;
-      box-shadow: $box-shodow;
+      box-shadow: $box-shadow;
       border-radius: $border-radius;
       transition: transform 0.3s ease-in-out;
 
@@ -78,7 +78,7 @@ $box-shodow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
     .jobOutlookBox {
       height: 250px;
       -webkit-box-shadow: $webkit-box-shadow;
-      box-shadow: $box-shodow;
+      box-shadow: $box-shadow;
       border-radius: $border-radius;
       transition: transform 0.3s ease-in-out;
 
@@ -90,7 +90,7 @@ $box-shodow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
     .stats {
       height: 150px;
       -webkit-box-shadow: $webkit-box-shadow;
-      box-shadow: $box-shodow;
+      box-shadow: $box-shadow;
       border-radius: $border-radius;
       transition: transform 0.3s ease-in-out;
 
@@ -102,7 +102,7 @@ $box-shodow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
     .lists {
       min-height: 500px;
       -webkit-box-shadow: $webkit-box-shadow;
-      box-shadow: $box-shodow;
+      box-shadow: $box-shadow;
       border-radius: $border-radius;
       transition: transform 0.3s ease-in-out;
 
@@ -114,14 +114,14 @@ $box-shodow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
     .addBox {
       min-height: 350px;
       -webkit-box-shadow: $webkit-box-shadow;
-      box-shadow: $box-shodow;
+      box-shadow: $box-shadow;
       border-radius: $border-radius;
     }
 
     .listBox {
       min-height: 700px;
       -webkit-box-shadow: $webkit-box-shadow;
-      box-shadow: $box-shodow;
+      box-shadow: $box-shadow;
       border-radius: $border-radius;
     }
 
@@ -129,7 +129,7 @@ $box-shodow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
       height: 100%;
       min-height: 1000px;
       -webkit-box-shadow: $webkit-box-shadow;
-      box-shadow: $box-shodow;
+      box-shadow: $box-shadow;
       border-radius: $border-radius;
     }
   }

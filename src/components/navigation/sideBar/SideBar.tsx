@@ -1,15 +1,16 @@
 //external imports
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import { Link, Link as RouterLink } from 'react-router-dom';
-import { ListItemButton, Typography } from '@mui/material';
+import { Chip, ListItemButton, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Drawer from '@mui/material/Drawer';
-import React, { useState } from 'react';
 import List from '@mui/material/List';
 import Box from '@mui/material/Box';
+
 //local imports
 import { RootState } from '../../../state/store';
 import {
@@ -23,6 +24,9 @@ import theme from '../../../theme';
 const SideBar = () => {
   const [selectedItem, setSelectedItem] = useState<string | null>('');
   const [selected, setSelected] = useState<boolean>(false);
+  const [calendarItems, setCalendarItems] = useState(0);
+  const [todoItems, setTodoItems] = useState(0);
+  const user = useSelector((state: RootState) => state.user);
   const { sidebarWidth, mobileOpen } = useSelector(
     (state: RootState) => state.sidebar
   );
@@ -36,6 +40,17 @@ const SideBar = () => {
   const handleDrawerTransitionEnd = () => {
     dispatch(endDrawerTransition());
   };
+
+  useEffect(() => {
+    //below is random calandar and todo badge numbers showing for expert user. TODO: replace these with actual parameters when these features are developed
+    if (user.user?.email === 'expert_user@m4n4gemy.app') {
+      setCalendarItems(5);
+      setTodoItems(3);
+    } else {
+      setCalendarItems(0);
+      setTodoItems(0);
+    }
+  }, [user]);
 
   // Sidebar contents
   const drawer = (
@@ -110,6 +125,43 @@ const SideBar = () => {
                       <Typography variant="h6" sx={{ fontSize: '14px' }}>
                         {child.name}
                       </Typography>
+                      {/* TODO: drive these numbers dynamically when calendar and todos features are developed */}
+                      {/* display MUI Chip component if there is calendar event */}
+                      {user.user?.email === 'expert_user@m4n4gemy.app' &&
+                        child.name === 'Calendar' && (
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              justifyContent: 'flex-end',
+                              marginLeft: '20px',
+                            }}
+                          >
+                            <Chip
+                              label={calendarItems}
+                              color="default"
+                              variant="filled"
+                              size="small"
+                            />
+                          </Box>
+                        )}
+                      {/* display MUI Chip component if there is todo items */}
+                      {user.user?.email === 'expert_user@m4n4gemy.app' &&
+                        child.name === 'Todos' && (
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              justifyContent: 'flex-end',
+                              marginLeft: '20px',
+                            }}
+                          >
+                            <Chip
+                              label={todoItems}
+                              color="default"
+                              variant="filled"
+                              size="small"
+                            />
+                          </Box>
+                        )}
                     </ListItemButton>
                   </Link>
                 ))}

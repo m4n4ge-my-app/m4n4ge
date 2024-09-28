@@ -1,17 +1,24 @@
-import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
-import { Button, ButtonGroup, IconButton, Typography } from '@mui/material';
-import OpenInFullIcon from '@mui/icons-material/OpenInFull';
-import { Item } from './utils/MuiItem';
-import Grid from '@mui/material/Grid';
-import { useState } from 'react';
-import List from '../list/List';
-import ExpandedView from '../list/ExpandedView';
-import MotivationBar from '../motivationBar/MotivationBar';
 import ApplicationsOverview from '../widgets/applicationsOverview/ApplicationsOverview';
+import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 import PersonalTrend from '../widgets/personalTrend/PersonalTrend';
+import OpenInFullIcon from '@mui/icons-material/OpenInFull';
+import MotivationBar from '../motivationBar/MotivationBar';
+import { useEffect, useRef, useState } from 'react';
+import ExpandedView from '../list/ExpandedView';
+import {
+  Button,
+  ButtonGroup,
+  IconButton,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import greetingTime from 'greeting-time'; //there is tpescript types for this package from the package maintainer, so this error cant be fixed
+import { Item } from './utils/MuiItem';
+import Grid from '@mui/material/Grid';
+import List from '../list/List';
 
 interface Props {
   username: string;
@@ -20,12 +27,28 @@ interface Props {
 const DashboardGrid = ({ username }: Props) => {
   const [expanded, setExpanded] = useState(true);
   const [viewMode, setViewMode] = useState('days');
+  const [gridWidth, setGridWidth] = useState(0);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  useEffect(() => {
+    if (gridRef.current) {
+      setGridWidth(gridRef.current.offsetWidth);
+    }
+  }, [gridRef?.current?.offsetWidth]);
+
   return (
     //Main Grid Container
     <Grid
       container
+      ref={gridRef}
       spacing={0}
-      sx={{ padding: '25px', marginTop: '100px' }}
+      sx={{
+        padding: '25px',
+        marginTop: '100px',
+        width: isMobile ? '85vw' : '100%',
+      }}
       className="row1"
     >
       {/* Sub Grid Container/Row #1 - Label */}
@@ -40,7 +63,7 @@ const DashboardGrid = ({ username }: Props) => {
       <Grid container item spacing={2.5} className="row2">
         {/* Motivation Box */}
         <Grid item xs={12} sm={12} md={8}>
-          <Item className="mativationBox" sx={{ border: 'none' }}>
+          <Item className="motivationBox" sx={{ border: 'none' }}>
             <MotivationBar />
           </Item>
         </Grid>
@@ -150,8 +173,8 @@ const DashboardGrid = ({ username }: Props) => {
                 </IconButton>
               </ButtonGroup>
             </div>
-            <List viewMode={viewMode} />
-            {viewMode === 'expanded' && <ExpandedView />}
+            <List viewMode={viewMode} gridWidth={gridWidth} />
+            {viewMode === 'expanded' && <ExpandedView gridWidth={gridWidth} />}
           </Item>
         </Grid>
       </Grid>

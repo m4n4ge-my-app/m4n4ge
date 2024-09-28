@@ -7,17 +7,17 @@ import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
 import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
 import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
+import { Box, Stack, lighten, useMediaQuery } from '@mui/system';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
+import { Button, Typography, useTheme } from '@mui/material';
 import TableContainer from '@mui/material/TableContainer';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Button, Typography } from '@mui/material';
-import { Box, Stack, lighten } from '@mui/system';
+import { useDispatch, useSelector } from 'react-redux';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import { useNavigate } from 'react-router-dom';
 import TableRow from '@mui/material/TableRow';
-import { useDispatch, useSelector } from 'react-redux';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
 import moment from 'moment';
@@ -25,16 +25,16 @@ import moment from 'moment';
 //local imports
 import { setFocusedApplication } from '../../../state/application/applicationSlice';
 import { Application, workModes } from '../../../utils/applications.util';
-import { getColors } from '../utils/designUtilities';
-import { useRef } from 'react';
+import { deleteApplication } from '../../../services/applications';
 import ConfirmationModal, {
   ConfirmationModalRef,
 } from '../../modals/confirmationModal/ConfirmationModal';
-import { deleteApplication } from '../../../services/applications';
 import { useAuthToken } from '../../../hooks/useAuthToken';
 import { show } from '../../../state/feeback/feedbackSlice';
+import { getColors } from '../utils/designUtilities';
 import { AxiosError, AxiosResponse } from 'axios';
 import { RootState } from '../../../state/store';
+import { useRef } from 'react';
 
 interface DayCardProps {
   viewMode: string;
@@ -44,6 +44,7 @@ interface DayCardProps {
   focusedRow: { tableIndex: number; rowIndex: number } | null;
   setFocusedRow: (rowIndex: number) => void;
   tableIndex: number;
+  gridWidth: number;
 }
 
 export default function ApplicationsTable({
@@ -54,6 +55,7 @@ export default function ApplicationsTable({
   focusedRow,
   setFocusedRow,
   tableIndex,
+  gridWidth,
 }: DayCardProps) {
   const focusedApplication = useSelector(
     (state: RootState) => state.applications.focusedApplication
@@ -62,6 +64,8 @@ export default function ApplicationsTable({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useAuthToken();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const openModal = () => {
     if (modalRef.current) {
@@ -74,17 +78,21 @@ export default function ApplicationsTable({
   };
 
   return (
-    <Paper sx={{ width: '100%', marginBottom: '20px' }} className="applications-table">
+    <Paper
+      sx={{ maxWidth: gridWidth, marginBottom: '20px' }}
+      className="applications-table"
+    >
       <Stack
         direction="row"
         alignItems="center"
+        justifyContent={isMobile ? 'space-between' : 'initial'}
         padding="10px"
         bgcolor={'#f0f5ff'}
       >
         <Typography
-          variant="body1"
+          variant="body2"
           align="left"
-          sx={{ marginLeft: 2, fontWeight: 'bold', color: 'GrayText' }}
+          sx={{ marginLeft: 2, fontWeight: 'bold', color: 'gray' }}
         >
           {viewMode === 'days'
             ? moment(applicationDate).format('dddd, MMMM D, YYYY')
@@ -105,13 +113,16 @@ export default function ApplicationsTable({
             color: 'GrayText',
           }}
         >
-          <Typography className="applications-count">{`${applications.length} applications`}</Typography>
+          <Typography className="applications-count" variant='caption'>{`${applications.length} ${isMobile ? '' : 'applications'}`}</Typography>
         </Box>
       </Stack>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
-            <TableRow sx={{ backgroundColor: '#fbfcff' }} id="applications-table-head" >
+            <TableRow
+              sx={{ backgroundColor: '#fbfcff' }}
+              id="applications-table-head"
+            >
               <TableCell
                 align="center"
                 sx={{ fontWeight: 'bold', color: 'GrayText' }}
