@@ -1,3 +1,4 @@
+//external imports
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -7,12 +8,12 @@ import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import TablePagination from '@mui/material/TablePagination';
+import React, { useEffect, useRef, useState } from 'react';
 import MUIStyledTableRow from './utils/MUIStyledTableRow';
 import TableContainer from '@mui/material/TableContainer';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import SearchIcon from '@mui/icons-material/Search';
-import React, { useEffect, useRef, useState } from 'react';
 import { getColors } from './utils/designUtilities';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -23,20 +24,22 @@ import { visuallyHidden } from '@mui/utils';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+
+//local imports
+import ConfirmationModal, { ConfirmationModalRef } from '../modals/confirmationModal/ConfirmationModal';
+import { setFocusedApplication } from '../../state/application/applicationSlice';
+import { deleteApplication } from '../../services/applications';
+import { show } from '../../state/feeback/feedbackSlice';
+import { useAuthToken } from '../../hooks/useAuthToken';
+import { useDispatch, useSelector } from 'react-redux';
+import { AxiosError, AxiosResponse } from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { RootState } from '../../state/store';
 import {
   Application,
   searchApplications,
   workModes,
 } from '../../utils/applications.util';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../state/store';
-import { setFocusedApplication } from '../../state/application/applicationSlice';
-import { useNavigate } from 'react-router-dom';
-import ConfirmationModal, { ConfirmationModalRef } from '../modals/confirmationModal/ConfirmationModal';
-import { deleteApplication } from '../../services/applications';
-import { AxiosError, AxiosResponse } from 'axios';
-import { show } from '../../state/feeback/feedbackSlice';
-import { useAuthToken } from '../../hooks/useAuthToken';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {

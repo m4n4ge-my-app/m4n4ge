@@ -6,14 +6,14 @@ import { Link } from 'react-router-dom';
 import { Box } from '@mui/system';
 
 //local imports
-import {
-  setApplications,
-  setFocusedApplication,
-} from '../../state/application/applicationSlice';
 import { getApplications } from '../../services/applications';
 import ApplicationsTable from './listTable/ApplicationsTable';
 import { groupByDate } from '../../utils/applications.util';
 import { useAuthToken } from '../../hooks/useAuthToken';
+import {
+  setApplications,
+  setFocusedApplication,
+} from '../../state/application/applicationSlice';
 import {
   Application,
   groupByWeek,
