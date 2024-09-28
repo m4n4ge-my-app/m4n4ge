@@ -83,97 +83,97 @@ const MotivationBar = () => {
 
   return (
     <Grid
-    container
-    sx={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '1rem',
-      height: '100%',
-    }}
-  >
-    <Grid item md={12} lg={3} container>
-      <Grid
-        item
-        xs={1}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-        zIndex={1000}
-      >
-        <Typography
-          variant="h5"
+      container
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '1rem',
+        height: '100%',
+      }}
+    >
+      <Grid item md={12} lg={3} container>
+        <Grid
+          item
+          xs={1}
           sx={{
-            transform: 'rotate(-90deg)',
-            transformOrigin: 'center',
-            whiteSpace: 'nowrap',
-            fontWeight: 'bold',
-            color: 'lightgray',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
+          zIndex={1000}
         >
-          <Link to="/calendar">
-            <span style={{ color: '#ffc440', textDecoration: 'underline' }}>
-              {day}
-            </span>
-          </Link>{' '}
-          {rest.join(' ')}
-        </Typography>
+          <Typography
+            variant="h5"
+            sx={{
+              transform: 'rotate(-90deg)',
+              transformOrigin: 'center',
+              whiteSpace: 'nowrap',
+              fontWeight: 'bold',
+              color: 'lightgray',
+            }}
+          >
+            <Link to="/calendar">
+              <span style={{ color: '#ffc440', textDecoration: 'underline' }}>
+                {day}
+              </span>
+            </Link>{' '}
+            {rest.join(' ')}
+          </Typography>
+        </Grid>
+        <Grid
+          item
+          xs={10}
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          sx={{ width: '100%' }}
+        >
+          <AnalogClock {...options} />
+        </Grid>
       </Grid>
       <Grid
         item
-        xs={10}
+        md={12}
+        lg={8}
         container
         direction="column"
-        justifyContent="center"
-        alignItems="center"
-        sx={{ width: '100%' }}
+        justifyContent="space-between"
+        spacing={2}
+        sx={{ height: '100%' }}
       >
-        <AnalogClock {...options} />
+        <Grid item sx={{ width: '100%' }} zIndex={1000}>
+          <Typography
+            variant="body1"
+            align="left"
+            mb={2}
+            sx={{ fontStyle: 'italic', color: 'GrayText', marginTop: '10px' }}
+          >
+            {quote.quote}
+          </Typography>
+          <Typography variant="body1" align="right" mr={1}>
+            {quote.author}
+          </Typography>
+        </Grid>
+        <Box display="flex" justifyContent="center">
+          <Divider sx={{ width: '90%', marginTop: '30px' }} />
+        </Box>
+        <Grid item zIndex={1000}>
+          <Typography
+            variant="h6"
+            sx={{
+              fontWeight: 'bold',
+              color: 'lightgray',
+            }}
+          >
+            Your journey started
+            <span className="animatedDate">{displayString}</span>,{' '}
+            {newUser ? "let's get going" : 'keep pushing'}!
+          </Typography>
+        </Grid>
       </Grid>
     </Grid>
-    <Grid
-      item
-      md={12}
-      lg={8}
-      container
-      direction="column"
-      justifyContent="space-between"
-      spacing={2}
-      sx={{ height: '100%' }}
-    >
-      <Grid item sx={{ width: '100%' }} zIndex={1000}>
-        <Typography
-          variant="body1"
-          align="left"
-          mb={2}
-          sx={{ fontStyle: 'italic', color: 'GrayText', marginTop: '10px' }}
-        >
-          {quote.quote}
-        </Typography>
-        <Typography variant="body1" align="right" mr={1}>
-          {quote.author}
-        </Typography>
-      </Grid>
-      <Box display="flex" justifyContent="center">
-        <Divider sx={{ width: '90%', marginTop: '30px' }} />
-      </Box>
-      <Grid item zIndex={1000}>
-        <Typography
-          variant="h6"
-          sx={{
-            fontWeight: 'bold',
-            color: 'lightgray',
-          }}
-        >
-          Your journey started
-          <span className="animatedDate">{displayString}</span>,{' '}
-          {newUser ? "let's get going" : 'keep pushing'}!
-        </Typography>
-      </Grid>
-    </Grid>
-  </Grid>
   );
 };
 

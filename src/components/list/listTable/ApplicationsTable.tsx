@@ -78,7 +78,10 @@ export default function ApplicationsTable({
   };
 
   return (
-    <Paper sx={{ maxWidth: gridWidth, marginBottom: '20px' }} className="applications-table">
+    <Paper
+      sx={{ maxWidth: gridWidth, marginBottom: '20px' }}
+      className="applications-table"
+    >
       <Stack
         direction="row"
         alignItems="center"
@@ -110,13 +113,16 @@ export default function ApplicationsTable({
             color: 'GrayText',
           }}
         >
-          <Typography className="applications-count">{`${applications.length} ${isMobile? '' : 'applications'}`}</Typography>
+          <Typography className="applications-count">{`${applications.length} ${isMobile ? '' : 'applications'}`}</Typography>
         </Box>
       </Stack>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
-            <TableRow sx={{ backgroundColor: '#fbfcff' }} id="applications-table-head" >
+            <TableRow
+              sx={{ backgroundColor: '#fbfcff' }}
+              id="applications-table-head"
+            >
               <TableCell
                 align="center"
                 sx={{ fontWeight: 'bold', color: 'GrayText' }}

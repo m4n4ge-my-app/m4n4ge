@@ -76,25 +76,26 @@ const Layout = () => {
         }}
       >
         <Toolbar />
-        {(signedInUser?.email === 'new_user@m4n4gemy.app' || signedInUser?.email === 'expert_user@m4n4gemy.app') && (
-            <Box
-              sx={{
-                p: 3,
-                backgroundColor: isBannerVisible ? '#c2d6ff' : 'none',
-                display: 'flex',
-                alignItems: 'center',
-                position: 'fixed',
-                top: '0px',
-                width: '100%',
-                height: 'auto',
-                zIndex: 1000,
-                flexDirection: isMobile ? 'column' : 'row',
-              }}
-            >
-              {isBannerVisible ? (
-                <Grid container spacing={2} alignItems="center">
-                  <Grid item xs>
-                    <Stack direction="row" spacing={2}>
+        {(signedInUser?.email === 'new_user@m4n4gemy.app' ||
+          signedInUser?.email === 'expert_user@m4n4gemy.app') && (
+          <Box
+            sx={{
+              p: 3,
+              backgroundColor: isBannerVisible ? '#c2d6ff' : 'none',
+              display: 'flex',
+              alignItems: 'center',
+              position: 'fixed',
+              top: '0px',
+              width: '100%',
+              height: 'auto',
+              zIndex: 1000,
+              flexDirection: isMobile ? 'column' : 'row',
+            }}
+          >
+            {isBannerVisible ? (
+              <Grid container spacing={2} alignItems="center">
+                <Grid item xs>
+                  <Stack direction="row" spacing={2}>
                     <Button
                       onClick={() => {
                         setIsBannerVisible(false);
@@ -109,15 +110,40 @@ const Layout = () => {
                       <CloseIcon />
                     </Button>
                     {!isMobile && (
-                      <Divider orientation="vertical" flexItem sx={{ marginRight: '20px', marginLeft: '20px' }} />
+                      <Divider
+                        orientation="vertical"
+                        flexItem
+                        sx={{ marginRight: '20px', marginLeft: '20px' }}
+                      />
                     )}
                     <Box sx={{ flexGrow: 1 }}>
-                      <Typography variant="subtitle1" component="div" sx={{ mb: 1, marginTop: isMobile ? '30px' : 'auto', }}>
+                      <Typography
+                        variant="subtitle1"
+                        component="div"
+                        sx={{ mb: 1, marginTop: isMobile ? '30px' : 'auto' }}
+                      >
                         You are signed in as a guest with limited access.
                       </Typography>
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                        <span style={{ fontSize: '0.875rem', whiteSpace: 'wrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                          Explore different user perspectives. Create a personal account for full access.
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 2,
+                          flexWrap: 'wrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '0.875rem',
+                            whiteSpace: 'wrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          }}
+                        >
+                          Explore different user perspectives. Create a personal
+                          account for full access.
                         </span>
                         <RadioGroup
                           row
@@ -125,34 +151,42 @@ const Layout = () => {
                           name="controlled-radio-buttons-group"
                           defaultValue={userOption}
                           onChange={handleChange}
-                          sx={{marginBottom: isMobile ? '10px' : '0px'}}
+                          sx={{ marginBottom: isMobile ? '10px' : '0px' }}
                         >
-                          <FormControlLabel value="new" control={<Radio />} label="Adam Smith (New User)" />
-                          <FormControlLabel value="expert" control={<Radio />} label="John Doe (Expert User)" />
+                          <FormControlLabel
+                            value="new"
+                            control={<Radio />}
+                            label="Adam Smith (New User)"
+                          />
+                          <FormControlLabel
+                            value="expert"
+                            control={<Radio />}
+                            label="John Doe (Expert User)"
+                          />
                         </RadioGroup>
                       </Box>
                     </Box>
-                    </Stack>
-                  </Grid>      
+                  </Stack>
                 </Grid>
-              ) : (
-                <Button
-                  onClick={() => {
-                    setIsBannerVisible(true);
-                  }}
-                  sx={{
-                    position: isMobile ? 'absolute' : 'relative',
-                    top: isMobile ? '70px' : '20px',
-                    left: isMobile ? '10px' : 'auto',
-                    bottom: isMobile ? 'auto' : 'auto',
-                    right: isMobile ? 'auto' : 'auto',
-                  }}
-                >
-                  <InfoIcon fontSize="large" color="primary" />
-                </Button>
-              )}
-            </Box>
-          )}
+              </Grid>
+            ) : (
+              <Button
+                onClick={() => {
+                  setIsBannerVisible(true);
+                }}
+                sx={{
+                  position: isMobile ? 'absolute' : 'relative',
+                  top: isMobile ? '70px' : '20px',
+                  left: isMobile ? '10px' : 'auto',
+                  bottom: isMobile ? 'auto' : 'auto',
+                  right: isMobile ? 'auto' : 'auto',
+                }}
+              >
+                <InfoIcon fontSize="large" color="primary" />
+              </Button>
+            )}
+          </Box>
+        )}
         <Outlet />
       </Box>
     </Box>

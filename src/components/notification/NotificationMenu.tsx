@@ -72,7 +72,11 @@ const NotificationMenu = (props: Prop) => {
               <Typography
                 variant="body1"
                 color="textPrimary"
-                sx={{ whiteSpace: 'normal', padding: '5px', paddingRight: '20px' }}
+                sx={{
+                  whiteSpace: 'normal',
+                  padding: '5px',
+                  paddingRight: '20px',
+                }}
               >
                 {notification.message}
               </Typography>

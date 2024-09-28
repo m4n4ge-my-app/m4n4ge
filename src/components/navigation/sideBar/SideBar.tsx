@@ -121,23 +121,47 @@ const SideBar = () => {
                         <child.icon
                           sx={{ marginRight: '10px', marginLeft: '20px' }}
                         />
-                      )}                   
+                      )}
                       <Typography variant="h6" sx={{ fontSize: '14px' }}>
                         {child.name}
                       </Typography>
                       {/* TODO: drive these numbers dynamically when calendar and todos features are developed */}
                       {/* display MUI Chip component if there is calendar event */}
-                      {(user.user?.email === 'expert_user@m4n4gemy.app' && child.name === 'Calendar') && (
-                        <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginLeft: '20px' }}>
-                          <Chip label={calendarItems}  color="default"  variant="filled"  size="small" />
-                        </Box>
-                      )}
+                      {user.user?.email === 'expert_user@m4n4gemy.app' &&
+                        child.name === 'Calendar' && (
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              justifyContent: 'flex-end',
+                              marginLeft: '20px',
+                            }}
+                          >
+                            <Chip
+                              label={calendarItems}
+                              color="default"
+                              variant="filled"
+                              size="small"
+                            />
+                          </Box>
+                        )}
                       {/* display MUI Chip component if there is todo items */}
-                      {(user.user?.email === 'expert_user@m4n4gemy.app' && child.name === 'Todos') && (
-                        <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginLeft: '20px' }}>
-                          <Chip label={todoItems}  color="default"  variant="filled"  size="small" />
-                        </Box>
-                      )}
+                      {user.user?.email === 'expert_user@m4n4gemy.app' &&
+                        child.name === 'Todos' && (
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              justifyContent: 'flex-end',
+                              marginLeft: '20px',
+                            }}
+                          >
+                            <Chip
+                              label={todoItems}
+                              color="default"
+                              variant="filled"
+                              size="small"
+                            />
+                          </Box>
+                        )}
                     </ListItemButton>
                   </Link>
                 ))}

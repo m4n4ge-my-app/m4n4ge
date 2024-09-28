@@ -111,7 +111,8 @@ export default function List({ viewMode, gridWidth }: ListProps) {
           }}
         >
           <Typography variant="body1" align="center" gutterBottom>
-            You haven't added any applications yet. Please add one to get started.
+            You haven't added any applications yet. Please add one to get
+            started.
           </Typography>
           <Link to="/add" style={{ textDecoration: 'none' }}>
             <Button

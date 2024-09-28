@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 //local imports
 import { setFocusedApplication } from '../../state/application/applicationSlice';
-import { notifications as _notification } from '../notification/notifications'
+import { notifications as _notification } from '../notification/notifications';
 import NotificationMenu from '../notification/NotificationMenu';
 import coverLetter from './baseLayerImages/coverletter.png';
 import description from './baseLayerImages/description.png';
@@ -165,8 +165,15 @@ const BaseLayer = ({ type, children }: Props) => {
               </Fab>
             </Tooltip>
           </Link>
-          <Badge badgeContent={notifications ? notifications.length : null } color="primary" overlap="circular"  onClick={handleNotificationClick}>
-            <NotificationsNoneIcon  sx={{ fontSize: '25px', color: theme.palette.primary.main }} />
+          <Badge
+            badgeContent={notifications ? notifications.length : null}
+            color="primary"
+            overlap="circular"
+            onClick={handleNotificationClick}
+          >
+            <NotificationsNoneIcon
+              sx={{ fontSize: '25px', color: theme.palette.primary.main }}
+            />
           </Badge>
           <NotificationMenu
             open={open}

@@ -1,4 +1,3 @@
-import { Button, ButtonGroup, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
 import ApplicationsOverview from '../widgets/applicationsOverview/ApplicationsOverview';
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 import PersonalTrend from '../widgets/personalTrend/PersonalTrend';
@@ -6,6 +5,14 @@ import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import MotivationBar from '../motivationBar/MotivationBar';
 import { useEffect, useRef, useState } from 'react';
 import ExpandedView from '../list/ExpandedView';
+import {
+  Button,
+  ButtonGroup,
+  IconButton,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import greetingTime from 'greeting-time'; //there is tpescript types for this package from the package maintainer, so this error cant be fixed
@@ -37,7 +44,11 @@ const DashboardGrid = ({ username }: Props) => {
       container
       ref={gridRef}
       spacing={0}
-      sx={{ padding: '25px', marginTop: '100px', width: isMobile ? '85vw' : '100%' }}
+      sx={{
+        padding: '25px',
+        marginTop: '100px',
+        width: isMobile ? '85vw' : '100%',
+      }}
       className="row1"
     >
       {/* Sub Grid Container/Row #1 - Label */}
@@ -163,7 +174,7 @@ const DashboardGrid = ({ username }: Props) => {
               </ButtonGroup>
             </div>
             <List viewMode={viewMode} gridWidth={gridWidth} />
-            {viewMode === 'expanded' && <ExpandedView gridWidth={gridWidth}/>}
+            {viewMode === 'expanded' && <ExpandedView gridWidth={gridWidth} />}
           </Item>
         </Grid>
       </Grid>
