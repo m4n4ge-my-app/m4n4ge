@@ -40,7 +40,7 @@ const DashboardGrid = ({ username }: Props) => {
       <Grid container item spacing={2.5} className="row2">
         {/* Motivation Box */}
         <Grid item xs={12} sm={12} md={8}>
-          <Item className="mativationBox" sx={{ border: 'none' }}>
+          <Item className="motivationBox" sx={{ border: 'none' }}>
             <MotivationBar />
           </Item>
         </Grid>
