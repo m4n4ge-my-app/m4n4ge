@@ -76,7 +76,7 @@ export default function ApplicationsTable({
   };
 
   return (
-    <Paper sx={{ maxWidth: gridWidth, backgroundColor:'red', marginBottom: '20px' }} className="applications-table">
+    <Paper sx={{ maxWidth: gridWidth, marginBottom: '20px' }} className="applications-table">
       <Stack
         direction="row"
         alignItems="center"
