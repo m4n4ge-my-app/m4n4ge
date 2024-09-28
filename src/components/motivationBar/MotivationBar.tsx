@@ -145,7 +145,7 @@ const MotivationBar = () => {
       >
         <Grid item sx={{ width: '100%' }} zIndex={1000}>
           <Typography
-            variant="body1"
+            variant="h6"
             align="left"
             mb={2}
             sx={{ fontStyle: 'italic', color: 'GrayText', marginTop: '10px' }}
