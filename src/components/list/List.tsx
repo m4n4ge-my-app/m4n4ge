@@ -103,7 +103,7 @@ export default function List({ viewMode }: ListProps) {
             minHeight: '500px',
           }}
         >
-          <Typography variant="h6" align="center" gutterBottom>
+          <Typography variant="body1" align="center" gutterBottom>
             You haven't added any applications yet. Please add one to get started.
           </Typography>
           <Link to="/add" style={{ textDecoration: 'none' }}>
