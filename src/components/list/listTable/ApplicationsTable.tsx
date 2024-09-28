@@ -44,6 +44,7 @@ interface DayCardProps {
   focusedRow: { tableIndex: number; rowIndex: number } | null;
   setFocusedRow: (rowIndex: number) => void;
   tableIndex: number;
+  gridWidth: number;
 }
 
 export default function ApplicationsTable({
@@ -54,6 +55,7 @@ export default function ApplicationsTable({
   focusedRow,
   setFocusedRow,
   tableIndex,
+  gridWidth,
 }: DayCardProps) {
   const focusedApplication = useSelector(
     (state: RootState) => state.applications.focusedApplication
@@ -74,7 +76,7 @@ export default function ApplicationsTable({
   };
 
   return (
-    <Paper sx={{ width: '100%', marginBottom: '20px' }} className="applications-table">
+    <Paper sx={{ maxWidth: gridWidth, backgroundColor:'red', marginBottom: '20px' }} className="applications-table">
       <Stack
         direction="row"
         alignItems="center"

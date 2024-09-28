@@ -218,7 +218,11 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   );
 }
 
-const ExpandedView = () => {
+interface ExpandedViewProps {
+  gridWidth: number;
+}
+
+const ExpandedView = ({ gridWidth }: ExpandedViewProps) => {
   const _applications = useSelector(
     (state: RootState) => state.applications.applications
   );
@@ -241,7 +245,7 @@ const ExpandedView = () => {
 
   useEffect(() => {
     setSearchResult(searchApplications(applications, keyword));
-    setApplications(_applications);
+    setApplications(_applications); 
   }, [keyword, _applications]);
 
   const handleRequestSort = (
@@ -315,7 +319,7 @@ const ExpandedView = () => {
   }, [keyword, searchResult, order, orderBy, page, rowsPerPage]);
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ maxWidth: gridWidth }}>
       {applications.length !== 0 && (
          <Paper sx={{ width: '100%', mb: 2 }} className="applications-table">
          <EnhancedTableToolbar

@@ -22,9 +22,10 @@ import {
 
 interface ListProps {
   viewMode: string;
+  gridWidth: number;
 }
 
-export default function List({ viewMode }: ListProps) {
+export default function List({ viewMode, gridWidth }: ListProps) {
   const [applications, set_Applications] = useState<Application[]>([]);
   const [focusedRow, setFocusedRow] = useState<{
     tableIndex: number;
@@ -91,6 +92,7 @@ export default function List({ viewMode }: ListProps) {
               setFocusedRow({ tableIndex, rowIndex })
             }
             tableIndex={tableIndex}
+            gridWidth={gridWidth}
           />
         );
       })}
