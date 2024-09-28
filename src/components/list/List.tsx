@@ -1,6 +1,9 @@
 //external imports
+import { Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { Box } from '@mui/system';
 
 //local imports
 import {
@@ -86,6 +89,35 @@ export default function List({ viewMode }: ListProps) {
           />
         );
       })}
+      {applicationsGroup.length === 0 && (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px',
+            border: '1px dashed grey',
+            borderRadius: '8px',
+            backgroundColor: '#f7f9ff',
+            minHeight: '500px',
+          }}
+        >
+          <Typography variant="h6" align="center" gutterBottom>
+            You haven't added any applications yet. Please add one to get started.
+          </Typography>
+          <Link to="/add" style={{ textDecoration: 'none' }}>
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
+              sx={{ marginTop: '10px' }}
+            >
+              Add Application
+            </Button>
+          </Link>
+        </Box>
+      )}
     </div>
   );
 }
