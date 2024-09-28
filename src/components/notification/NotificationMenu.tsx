@@ -72,7 +72,7 @@ const NotificationMenu = (props: Prop) => {
               <Typography
                 variant="body1"
                 color="textPrimary"
-                sx={{ whiteSpace: 'normal', padding: '5px' }}
+                sx={{ whiteSpace: 'normal', padding: '5px', paddingRight: '20px' }}
               >
                 {notification.message}
               </Typography>
@@ -81,7 +81,7 @@ const NotificationMenu = (props: Prop) => {
                 onClick={handleDeleteNotification}
                 sx={{
                   position: 'absolute',
-                  top: 0,
+                  top: 2,
                   right: 0,
                   cursor: 'pointer',
                 }}
