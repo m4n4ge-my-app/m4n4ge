@@ -68,6 +68,11 @@ export default function List({ viewMode }: ListProps) {
       applicationsGroup = [];
   }
 
+  // Do not render anything if viewMode is 'expanded'
+  if (viewMode === 'expanded') {
+    return null;
+  }
+
   return (
     <div>
       {applicationsGroup.map((appGroup, tableIndex) => {
