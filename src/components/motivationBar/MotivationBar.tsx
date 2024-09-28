@@ -92,7 +92,7 @@ const MotivationBar = () => {
         height: '100%',
       }}
     >
-      <Grid item md={12} lg={3} container>
+      <Grid item md={12} lg={4} container>
         <Grid
           item
           xs={1}
