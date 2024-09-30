@@ -33,6 +33,11 @@ const TextEditor = () => {
           </Button>
         </Grid>
         <Grid item>
+          <Button variant="outlined" color="primary" size="small">
+            Save as Draft
+          </Button>
+        </Grid>
+        <Grid item>
           <Button variant="contained" color="primary" size="small">
             Create
           </Button>
