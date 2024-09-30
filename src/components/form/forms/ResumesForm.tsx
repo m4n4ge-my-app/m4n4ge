@@ -8,6 +8,7 @@ import {
 import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import { useState } from 'react';
+import TextEditor from '../../textEditor/TextEditor';
 
 const ResumesForm = () => {
   const [mode, setMode] = useState('upload');
@@ -48,7 +49,7 @@ const ResumesForm = () => {
       </Grid>
       <Grid container item>
         {mode === 'upload' && <div>Upload</div>}
-        {mode === 'create' && <div>Create</div>}
+        {mode === 'create' && <TextEditor/>}
       </Grid>
     </Grid>
   );
