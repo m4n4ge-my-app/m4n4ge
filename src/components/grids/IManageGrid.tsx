@@ -1,4 +1,5 @@
 import { Grid, Typography } from '@mui/material';
+import ResumesForm from '../form/forms/ResumesForm';
 import { Item } from './utils/MuiItem';
 
 interface Props {
@@ -17,7 +18,7 @@ const IManageGrid = ({ formLabel, listLabel }: Props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={12}>
           <Item className="addBox" sx={{ border: 'none' }}>
-            This is a form container
+            <ResumesForm />
           </Item>
         </Grid>
 
