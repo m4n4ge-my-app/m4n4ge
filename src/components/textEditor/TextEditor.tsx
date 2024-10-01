@@ -41,7 +41,7 @@ const TextEditor = () => {
           style={{ width: '100%', height: '1000px' }}
         />
       </Grid>
-      <Grid item xs={12} container justifyContent="flex-end" spacing={2}>
+      <Grid item xs={12} container justifyContent="flex-end" spacing={2} sx={{marginTop: '30px'}}>
         <Grid item>
           <Button variant="outlined" color="primary" size="small">
             Cancel

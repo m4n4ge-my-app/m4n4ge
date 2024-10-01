@@ -59,6 +59,7 @@ const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelect }) => {
         variant="outlined"
         ref={anchorRef}
         aria-label="Button group with a nested menu"
+        size='small'
       >
         <Button onClick={handleClick}>{options[selectedIndex]}</Button>
         <Button
