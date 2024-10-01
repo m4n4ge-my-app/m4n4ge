@@ -42,6 +42,7 @@ const FileUpload = () => {
     // Handle the cancel logic here
     setSelectedFile(null);
     setSelectedApplication('');
+    setTags([]);
   };
 
   const handleTagsChange = (_event: any, newValue: string[]) => {
@@ -161,7 +162,7 @@ const FileUpload = () => {
             color="primary"
             size="small"
             onClick={handleUploadClick}
-            disabled={!selectedFile || !selectedApplication}
+            disabled={!selectedFile}
           >
             Upload
           </Button>
