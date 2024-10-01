@@ -6,13 +6,19 @@ import {
   Grid,
   Autocomplete,
   TextField,
+  Chip,
 } from '@mui/material';
 import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 
 const FileUpload = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedApplication, setSelectedApplication] = useState<string>('');
-  const applicationOptions = ['Application 1', 'Application 2', 'Application 3'];
+  const applicationOptions = [
+    'Application 1',
+    'Application 2',
+    'Application 3',
+  ];
+  const [tags, setTags] = useState<string[]>([]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -32,6 +38,10 @@ const FileUpload = () => {
     // Handle the cancel logic here
     setSelectedFile(null);
     setSelectedApplication('');
+  };
+
+  const handleTagsChange = (_event: any, newValue: string[]) => {
+    setTags(newValue);
   };
 
   return (
@@ -87,6 +97,31 @@ const FileUpload = () => {
                 fullWidth
                 label="Optional: select an application"
                 variant="standard"
+                style={{ marginTop: '20px', width: '400px' }}
+              />
+            )}
+          />
+          <Autocomplete
+            multiple
+            freeSolo
+            options={[]}
+            value={tags}
+            onChange={handleTagsChange}
+            renderTags={(value: string[], getTagProps) =>
+              value.map((option: string, index: number) => (
+                <Chip
+                  variant="outlined"
+                  label={option}
+                  {...getTagProps({ index })}
+                />
+              ))
+            }
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="standard"
+                label="Tags"
+                placeholder="Optional: add a tag"
                 style={{ marginTop: '20px', width: '400px' }}
               />
             )}
