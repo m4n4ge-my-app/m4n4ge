@@ -13,10 +13,10 @@ import {
 import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 
 interface FileUploadProps {
-    uploadType: string;
+  uploadType: string;
 }
 
-const FileUpload = ({uploadType}: FileUploadProps) => {
+const FileUpload = ({ uploadType }: FileUploadProps) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedApplication, setSelectedApplication] = useState<string>('');
   const applicationOptions = [
@@ -37,13 +37,11 @@ const FileUpload = ({uploadType}: FileUploadProps) => {
   };
 
   const handleUploadClick = () => {
-    // Handle the file upload logic here
     console.log('File uploaded:', selectedFile);
     console.log('Selected application:', selectedApplication);
   };
 
   const handleCancelClick = () => {
-    // Handle the cancel logic here
     setSelectedFile(null);
     setSelectedApplication('');
     setTags([]);
@@ -71,10 +69,13 @@ const FileUpload = ({uploadType}: FileUploadProps) => {
           padding="20px"
           textAlign="center"
           width="100%"
-          height="250px"
+          height="200px"
         >
-          <FilterDramaIcon fontSize="large" color="action" />
-          <Typography variant="h6" gutterBottom>
+          <FilterDramaIcon
+            fontSize={isMobile ? 'medium' : 'large'}
+            color="action"
+          />
+          <Typography variant={isMobile ? 'body1' : 'h6'} gutterBottom>
             Drag and drop a file here, or click to select a file
           </Typography>
           <input
@@ -98,48 +99,59 @@ const FileUpload = ({uploadType}: FileUploadProps) => {
               Selected file: {selectedFile.name}
             </Typography>
           )}
-          <Autocomplete
-            fullWidth
-            options={applicationOptions}
-            getOptionLabel={(option) => option.toString()}
-            value={selectedApplication}
-            onChange={(_event, newValue) => setSelectedApplication(newValue!)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                fullWidth
-                label="Optional: select an application"
-                variant="standard"
-                style={{ width: isMobile ? '80%' : '60%' }}
-              />
-            )}
-          />
-          <Autocomplete
-            fullWidth
-            multiple
-            freeSolo
-            options={[]}
-            value={tags}
-            onChange={handleTagsChange}
-            renderTags={(value: string[], getTagProps) =>
-              value.map((option: string, index: number) => (
-                <Chip
-                  variant="outlined"
-                  label={option}
-                  {...getTagProps({ index })}
+          <Box
+            display="flex"
+            flexDirection={isMobile ? 'column' : 'row'}
+            alignItems="center"
+            justifyContent="space-between"
+            padding="20px"
+            textAlign="center"
+            width="100%"
+            height="250px"
+          >
+            <Autocomplete
+              fullWidth
+              options={applicationOptions}
+              getOptionLabel={(option) => option.toString()}
+              value={selectedApplication}
+              onChange={(_event, newValue) => setSelectedApplication(newValue!)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  fullWidth
+                  label="Optional: select an application"
+                  variant="standard"
+                  style={{ width: '90%' }}
                 />
-              ))
-            }
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                variant="standard"
-                label="Tags"
-                placeholder="Optional: add a tag"
-                style={{ width: isMobile ? '80%' : '60%' }}
-              />
-            )}
-          />
+              )}
+            />
+            <Autocomplete
+              fullWidth
+              multiple
+              freeSolo
+              options={[]}
+              value={tags}
+              onChange={handleTagsChange}
+              renderTags={(value: string[], getTagProps) =>
+                value.map((option: string, index: number) => (
+                  <Chip
+                    variant="outlined"
+                    label={option}
+                    {...getTagProps({ index })}
+                  />
+                ))
+              }
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="standard"
+                  label="Tags"
+                  placeholder="Optional: add a tag"
+                  style={{ width: '90%' }}
+                />
+              )}
+            />
+          </Box>
         </Box>
       </Grid>
       <Grid
