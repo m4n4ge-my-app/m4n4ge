@@ -13,9 +13,14 @@ const options = [
   'Blank Page',
   'Template 1',
   'Template 2',
+  'Template 3',
 ];
 
-const TemplateSelector = () => {
+interface TemplateSelectorProps {
+  onSelect: (selectedOption: string) => void;
+}
+
+const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelect }) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -28,6 +33,7 @@ const TemplateSelector = () => {
     _event: React.MouseEvent<HTMLLIElement, MouseEvent>,
     index: number
   ) => {
+    onSelect(options[index]);
     setSelectedIndex(index);
     setOpen(false);
   };
@@ -88,7 +94,6 @@ const TemplateSelector = () => {
                   {options.map((option, index) => (
                     <MenuItem
                       key={option}
-                      disabled={index === 2}
                       selected={index === selectedIndex}
                       onClick={(event) => handleMenuItemClick(event, index)}
                     >

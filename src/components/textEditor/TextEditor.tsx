@@ -3,9 +3,24 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import TemplateSelector from './templates/TemplateSelector';
 import { Button, Grid, TextField } from '@mui/material';
+import { blankResumeTemplate } from './templates/blankResumeTemplate';
+import { resumeTemplateA } from './templates/resumeTemplateA';
+import { resumeTemplateB } from './templates/resumeTemplateB';
+import { resumeTemplateC } from './templates/resumeTemplateC';
+
+const templateMapping: { [key: string]: string } = {
+    'Blank Page': blankResumeTemplate,
+    'Template 1': resumeTemplateA,
+    'Template 2': resumeTemplateB,
+    'Template 3': resumeTemplateC,
+  };
 
 const TextEditor = () => {
   const [value, setValue] = useState('');
+
+  const handleTemplateSelect = (selectedOption: string) => {
+    setValue(templateMapping[selectedOption]);
+  };
 
   return (
     <Grid container spacing={2} style={{ width: '100%', paddingTop: '20px' }}>
@@ -16,7 +31,7 @@ const TextEditor = () => {
           label="Name"
           size="small"
         />
-        <TemplateSelector />
+        <TemplateSelector onSelect={handleTemplateSelect} />
       </Grid>
       <Grid item xs={12}>
         <ReactQuill
