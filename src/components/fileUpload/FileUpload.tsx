@@ -119,7 +119,8 @@ const FileUpload = ({ uploadType }: FileUploadProps) => {
                 <TextField
                   {...params}
                   fullWidth
-                  label="Optional: select an application"
+                  label="Applications"
+                  placeholder='Optional: select an application'
                   variant="standard"
                   style={{ width: '90%' }}
                 />
