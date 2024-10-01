@@ -3,17 +3,16 @@ import {
   Button,
   Typography,
   Box,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
   Grid,
+  Autocomplete,
+  TextField,
 } from '@mui/material';
 import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 
 const FileUpload = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedApplication, setSelectedApplication] = useState<string>('');
+  const applicationOptions = ['Application 1', 'Application 2', 'Application 3'];
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -27,12 +26,6 @@ const FileUpload = () => {
     // Handle the file upload logic here
     console.log('File uploaded:', selectedFile);
     console.log('Selected application:', selectedApplication);
-  };
-
-  const handleApplicationChange = (
-    event: React.ChangeEvent<{ value: unknown }>
-  ) => {
-    setSelectedApplication(event.target.value as string);
   };
 
   const handleCancelClick = () => {
@@ -82,24 +75,22 @@ const FileUpload = () => {
               Selected file: {selectedFile.name}
             </Typography>
           )}
-          <FormControl
-            variant="outlined"
-            style={{ marginTop: '20px', width: '200px' }}
-          >
-            <InputLabel id="application-select-label">Application</InputLabel>
-            <Select
-              labelId="application-select-label"
-              id="application-select"
-              value={selectedApplication}
-              onChange={handleApplicationChange}
-              label="Application"
-            >
-              <MenuItem value={1}>1</MenuItem>
-              <MenuItem value={2}>2</MenuItem>
-              <MenuItem value={3}>3</MenuItem>
-              <MenuItem value={4}>4</MenuItem>
-            </Select>
-          </FormControl>
+          <Autocomplete
+            fullWidth
+            options={applicationOptions}
+            getOptionLabel={(option) => option.toString()}
+            value={selectedApplication}
+            onChange={(_event, newValue) => setSelectedApplication(newValue!)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                fullWidth
+                label="Optional: select an application"
+                variant="standard"
+                style={{ marginTop: '20px', width: '400px' }}
+              />
+            )}
+          />
         </Box>
       </Grid>
       <Grid item xs={12} container justifyContent="flex-end" spacing={2}>
