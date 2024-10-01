@@ -12,7 +12,11 @@ import {
 } from '@mui/material';
 import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 
-const FileUpload = () => {
+interface FileUploadProps {
+    uploadType: string;
+}
+
+const FileUpload = ({uploadType}: FileUploadProps) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedApplication, setSelectedApplication] = useState<string>('');
   const applicationOptions = [
@@ -86,7 +90,7 @@ const FileUpload = () => {
               component="span"
               size="small"
             >
-              Select File
+              Select {uploadType}
             </Button>
           </label>
           {selectedFile && (

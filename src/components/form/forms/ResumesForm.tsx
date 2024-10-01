@@ -49,7 +49,7 @@ const ResumesForm = () => {
         </ToggleButtonGroup>
       </Grid>
       <Grid container item>
-        {mode === 'upload' && <FileUpload />}
+        {mode === 'upload' && <FileUpload uploadType='Resume'/>}
         {mode === 'create' && <TextEditor/>}
       </Grid>
     </Grid>
