@@ -7,13 +7,17 @@ import { blankResumeTemplate } from './templates/blankResumeTemplate';
 import { resumeTemplateA } from './templates/resumeTemplateA';
 import { resumeTemplateB } from './templates/resumeTemplateB';
 import { resumeTemplateC } from './templates/resumeTemplateC';
+import EditorToolbar, {
+  modules,
+  formats,
+} from './quillToolbar/EditorToolbar.js';
 
 const templateMapping: { [key: string]: string } = {
-    'Blank Page': blankResumeTemplate,
-    'Template 1': resumeTemplateA,
-    'Template 2': resumeTemplateB,
-    'Template 3': resumeTemplateC,
-  };
+  'Blank Page': blankResumeTemplate,
+  'Template 1': resumeTemplateA,
+  'Template 2': resumeTemplateB,
+  'Template 3': resumeTemplateC,
+};
 
 const TextEditor = () => {
   const [value, setValue] = useState('');
@@ -34,14 +38,27 @@ const TextEditor = () => {
         <TemplateSelector onSelect={handleTemplateSelect} />
       </Grid>
       <Grid item xs={12}>
-        <ReactQuill
-          theme="snow"
-          value={value}
-          onChange={setValue}
-          style={{ width: '100%', height: '1000px' }}
-        />
+        <div className="text-editor">
+          <EditorToolbar />
+          <ReactQuill
+            theme="snow"
+            value={value}
+            onChange={setValue}
+            placeholder={'Start crafting your resume here...'}
+            modules={modules}
+            formats={formats}
+            style={{ width: '100%', height: '1000px' }}
+          />
+        </div>
       </Grid>
-      <Grid item xs={12} container justifyContent="flex-end" spacing={2} sx={{marginTop: '30px'}}>
+      <Grid
+        item
+        xs={12}
+        container
+        justifyContent="flex-end"
+        spacing={2}
+        sx={{ marginTop: '30px' }}
+      >
         <Grid item>
           <Button variant="outlined" color="primary" size="small">
             Cancel
