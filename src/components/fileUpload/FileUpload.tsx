@@ -7,6 +7,8 @@ import {
   Autocomplete,
   TextField,
   Chip,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 
@@ -19,6 +21,8 @@ const FileUpload = () => {
     'Application 3',
   ];
   const [tags, setTags] = useState<string[]>([]);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -54,16 +58,15 @@ const FileUpload = () => {
     >
       <Grid item xs={12}>
         <Box
+          gap={1}
           display="flex"
           flexDirection="column"
           alignItems="center"
           justifyContent="center"
-          border="1px dashed grey"
-          borderRadius="8px"
           padding="20px"
           textAlign="center"
           width="100%"
-          height="300px"
+          height="250px"
         >
           <FilterDramaIcon fontSize="large" color="action" />
           <Typography variant="h6" gutterBottom>
@@ -76,7 +79,12 @@ const FileUpload = () => {
             onChange={handleFileChange}
           />
           <label htmlFor="file-upload">
-            <Button variant="contained" color="primary" component="span">
+            <Button
+              variant="contained"
+              color="primary"
+              component="span"
+              size="small"
+            >
               Select File
             </Button>
           </label>
@@ -97,11 +105,12 @@ const FileUpload = () => {
                 fullWidth
                 label="Optional: select an application"
                 variant="standard"
-                style={{ marginTop: '20px', width: '400px' }}
+                style={{ width: isMobile ? '80%' : '60%' }}
               />
             )}
           />
           <Autocomplete
+            fullWidth
             multiple
             freeSolo
             options={[]}
@@ -122,13 +131,20 @@ const FileUpload = () => {
                 variant="standard"
                 label="Tags"
                 placeholder="Optional: add a tag"
-                style={{ marginTop: '20px', width: '400px' }}
+                style={{ width: isMobile ? '80%' : '60%' }}
               />
             )}
           />
         </Box>
       </Grid>
-      <Grid item xs={12} container justifyContent="flex-end" spacing={2}>
+      <Grid
+        item
+        xs={12}
+        container
+        justifyContent="flex-end"
+        spacing={2}
+        sx={{ marginTop: '10px' }}
+      >
         <Grid item>
           <Button
             variant="outlined"
