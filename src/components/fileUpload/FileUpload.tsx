@@ -18,8 +18,9 @@ interface FileUploadProps {
 
 const FileUpload = ({ uploadType }: FileUploadProps) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [selectedApplication, setSelectedApplication] = useState<string>('');
+  const [selectedApplication, setSelectedApplication] = useState<string[]>([]);
   const applicationOptions = [
+    'All Applications',
     'Application 1',
     'Application 2',
     'Application 3',
@@ -43,7 +44,7 @@ const FileUpload = ({ uploadType }: FileUploadProps) => {
 
   const handleCancelClick = () => {
     setSelectedFile(null);
-    setSelectedApplication('');
+    setSelectedApplication([]);
     setTags([]);
   };
 
@@ -110,17 +111,18 @@ const FileUpload = ({ uploadType }: FileUploadProps) => {
             height="250px"
           >
             <Autocomplete
+              multiple
               fullWidth
               options={applicationOptions}
               getOptionLabel={(option) => option.toString()}
               value={selectedApplication}
-              onChange={(_event, newValue) => setSelectedApplication(newValue!)}
+              onChange={(_event, newValue) => setSelectedApplication(newValue)}
               renderInput={(params) => (
                 <TextField
                   {...params}
                   fullWidth
                   label="Applications"
-                  placeholder='Optional: select an application'
+                  placeholder="Optional: select applications"
                   variant="standard"
                   style={{ width: '90%' }}
                 />
