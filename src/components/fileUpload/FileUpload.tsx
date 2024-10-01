@@ -116,7 +116,13 @@ const FileUpload = ({ uploadType }: FileUploadProps) => {
               options={applicationOptions}
               getOptionLabel={(option) => option.toString()}
               value={selectedApplication}
-              onChange={(_event, newValue) => setSelectedApplication(newValue)}
+              onChange={(_event, newValue) => {
+                if (newValue.includes('All Applications')) {
+                  setSelectedApplication(['All Applications']);
+                } else {
+                  setSelectedApplication(newValue);
+                }
+              }}
               renderInput={(params) => (
                 <TextField
                   {...params}
