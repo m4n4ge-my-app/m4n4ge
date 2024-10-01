@@ -9,6 +9,7 @@ import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import { useState } from 'react';
 import TextEditor from '../../textEditor/TextEditor';
+import FileUpload from '../../fileUpload/FileUpload';
 
 const ResumesForm = () => {
   const [mode, setMode] = useState('upload');
@@ -48,7 +49,7 @@ const ResumesForm = () => {
         </ToggleButtonGroup>
       </Grid>
       <Grid container item>
-        {mode === 'upload' && <div>Upload</div>}
+        {mode === 'upload' && <FileUpload />}
         {mode === 'create' && <TextEditor/>}
       </Grid>
     </Grid>
