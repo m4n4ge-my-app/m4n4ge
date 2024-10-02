@@ -43,13 +43,13 @@ const UploadForm = ({ uploadType } : UploadFormProps) => {
             />
             {isMobile ? '' : 'Upload'}
           </ToggleButton>
-          <ToggleButton value="create" aria-label="create mode">
+          {uploadType !== 'Description' && <ToggleButton value="create" aria-label="create mode">
             <EditNoteIcon
               fontSize="small"
               sx={{ marginRight: isMobile ? '0px' : '10px' }}
             />{' '}
             {isMobile ? '' : 'Create'}
-          </ToggleButton>
+          </ToggleButton>}
         </ToggleButtonGroup>
       </Grid>
       <Grid container item>
