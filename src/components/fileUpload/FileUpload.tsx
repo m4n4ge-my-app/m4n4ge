@@ -189,7 +189,7 @@ const FileUpload = ({ uploadType }: FileUploadProps) => {
             onClick={handleUploadClick}
             disabled={!selectedFile}
           >
-            Upload
+            Add {uploadType}
           </Button>
         </Grid>
       </Grid>

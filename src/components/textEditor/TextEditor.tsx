@@ -229,7 +229,7 @@ const TextEditor = ({ uploadType }: TextEditorProps) => {
         </Grid>
         <Grid item>
           <Button variant="contained" color="primary" size="small">
-            Create
+            Add {uploadType}
           </Button>
         </Grid>
       </Grid>
