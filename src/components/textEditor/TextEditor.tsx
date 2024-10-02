@@ -72,8 +72,8 @@ const TextEditor = () => {
   };
 
   return (
-    <Grid container spacing={2} style={{ width: '100%', paddingTop: '20px' }}>
-      <Grid item xs={12} container justifyContent="space-between">
+    <Grid container style={{ width: '100%', paddingTop: '20px' }}>
+      <Grid item xs={12} container justifyContent="space-between" sx={{marginBottom: '10px'}}>
         <TextField
           id="resume-name"
           variant="outlined"
@@ -81,13 +81,14 @@ const TextEditor = () => {
           size="small"
           value={resumeName}
           onChange={handleInputChange}
+          sx={{marginBottom: isMobile? '10px' : '0px'}}
         />
         <TemplateSelector
           isCancelled={isCancelled}
           onSelect={handleTemplateSelect}
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} sx={{marginBottom: '10px'}}>
         <div className="text-editor">
           <EditorToolbar />
           <ReactQuill
@@ -164,8 +165,8 @@ const TextEditor = () => {
           justifyContent="flex-end"
           alignContent="flex-start"
         >
-          <Typography sx={{ marginRight: isMobile? '0px' : '20px', marginBottom: isMobile? '5px' : '0px' }} variant='body2'>
-            Choose file format type
+          <Typography sx={{ marginRight: isMobile? '5px' : '10px', marginBottom: isMobile? '5px' : '0px' }} variant='body2'>
+            Choose file type
           </Typography>
           <ToggleButtonGroup
             color="primary"

@@ -23,7 +23,7 @@ const ResumesForm = () => {
   };
 
   return (
-    <Grid padding={1}>
+    <Grid padding={isMobile? 1 : 2}>
       <Grid container item sx={{ justifyContent: 'flex-end' }}>
         <ToggleButtonGroup
           value={mode}
