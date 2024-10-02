@@ -1,58 +1,31 @@
 export const resumeTemplateB = `
-<style>
-  .resume-header {
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-  }
-  .resume-container {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-  }
-  .left-column {
-    width: 30%;
-    background-color: #f0f0f0;
-    padding: 20px;
-  }
-  .right-column {
-    width: 65%;
-    padding: 20px;
-  }
-  .section-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-</style>
+<h1 style="text-align: center; font-size: 24px; font-weight: bold;">Full Name</h1>
+<p style="text-align: center; font-size: 24px; font-weight: bold;">Phone | Email | LinkedIn</p>
 
-<h1 class="resume-header">Full Name</h1>
-<p class="resume-header">Phone | Email | LinkedIn</p>
-
-<div class="resume-container">
-  <div class="left-column">
-    <div class="section-title">Skills</div>
+<div style="display: flex; justify-content: space-between; padding: 20px;">
+  <div style="width: 30%; background-color: #f0f0f0; padding: 20px;">
+    <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Skills</div>
     <ul>
       <li>JavaScript</li>
       <li>React</li>
       <li>Node.js</li>
       <li>CI/CD</li>
     </ul>
-    <div class="section-title">Certifications</div>
+    <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Certifications</div>
     <ul>
       <li>Google Cloud Professional</li>
       <li>AWS Solutions Architect</li>
     </ul>
-    <div class="section-title">Contact Info</div>
+    <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Contact Info</div>
     <p>Phone: (123) 456-7890</p>
     <p>Email: example@example.com</p>
   </div>
 
-  <div class="right-column">
-    <div class="section-title">Professional Summary</div>
+  <div style="width: 65%; padding: 20px;">
+    <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Professional Summary</div>
     <p>An enthusiastic developer with experience in full-stack web development, specializing in modern JavaScript frameworks.</p>
 
-    <div class="section-title">Work Experience</div>
+    <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Work Experience</div>
     <ul>
       <li><strong>Company Name</strong> - Software Engineer
       <br/>Location | <em>2019 - Present</em>
@@ -68,7 +41,7 @@ export const resumeTemplateB = `
       </ul></li>
     </ul>
 
-    <div class="section-title">Projects</div>
+    <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Projects</div>
     <ul>
       <li><strong>Project Management Tool</strong>
       <p>Built a project management application with team collaboration features.</p></li>
