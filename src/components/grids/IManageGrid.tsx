@@ -19,7 +19,8 @@ const IManageGrid = ({ formLabel, listLabel }: Props) => {
         <Grid item xs={12} sm={12} md={12}>
           <Item className="addBox" sx={{ border: 'none' }}>
             {formLabel === 'Resume' && (<UploadForm uploadType='Resume' />)}
-             
+            {formLabel === 'Cover Letter' && (<UploadForm uploadType='Cover Letter' />)}
+            {formLabel === 'Description' && (<UploadForm uploadType='Description' />)}
           </Item>
         </Grid>
 
