@@ -31,7 +31,7 @@ const templateMapping: { [key: string]: string } = {
 };
 
 const TextEditor = () => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(templateMapping['Blank Page']);
   const [resumeName, setResumeName] = useState('');
   const [selectedApplication, setSelectedApplication] = useState<string[]>([]);
   const applicationOptions = [
@@ -42,6 +42,7 @@ const TextEditor = () => {
   ];
   const [tags, setTags] = useState<string[]>([]);
   const [fileType, setFileType] = useState<string>('pdf');
+  const [isCancelled, setIsCancelled] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -62,6 +63,7 @@ const TextEditor = () => {
   }
 
   const handleCancelClick = () => {
+    setIsCancelled(true);
     setResumeName('');
     setValue(templateMapping['Blank Page']);
     setSelectedApplication([]);
@@ -80,7 +82,10 @@ const TextEditor = () => {
           value={resumeName}
           onChange={handleInputChange}
         />
-        <TemplateSelector onSelect={handleTemplateSelect} />
+        <TemplateSelector
+          isCancelled={isCancelled}
+          onSelect={handleTemplateSelect}
+        />
       </Grid>
       <Grid item xs={12}>
         <div className="text-editor">

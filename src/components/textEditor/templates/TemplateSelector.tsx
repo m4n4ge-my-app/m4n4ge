@@ -18,12 +18,23 @@ const options = [
 
 interface TemplateSelectorProps {
   onSelect: (selectedOption: string) => void;
+  isCancelled: boolean;
 }
 
-const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelect }) => {
+const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelect, isCancelled }) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const prevIsCancelledRef = React.useRef(isCancelled);
+
+  React.useEffect(() => {
+    console.log('isCancelled:', isCancelled);
+    console.log('prevIsCancelledRef.current:', prevIsCancelledRef.current);
+    if (isCancelled || prevIsCancelledRef.current) {
+      setSelectedIndex(0);
+    }
+    
+  }, [isCancelled, prevIsCancelledRef]);
 
   const handleClick = () => {
     console.info(`You clicked ${options[selectedIndex]}`);
