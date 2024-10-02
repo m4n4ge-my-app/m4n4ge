@@ -135,7 +135,7 @@ const FileUpload = ({ uploadType }: FileUploadProps) => {
             <Autocomplete
               multiple
               fullWidth
-              options={['All Applications', ...applications]}
+              options={applications.length > 0 ? ['All Applications', ...applications] : applications}
               getOptionLabel={(option) => typeof option === 'string' ? option : `${option.employerName} - ${option.positionName}`}
               value={selectedApplication}
               onChange={handleApplicationChange}
