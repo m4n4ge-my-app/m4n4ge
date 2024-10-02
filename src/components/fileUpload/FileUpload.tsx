@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Button,
   Typography,
@@ -11,6 +11,9 @@ import {
   useTheme,
 } from '@mui/material';
 import FilterDramaIcon from '@mui/icons-material/FilterDrama';
+import { Application } from '../../utils/applications.util';
+import { useAuthToken } from '../../hooks/useAuthToken';
+import { getApplications } from '../../services/applications';
 
 interface FileUploadProps {
   uploadType: string;
@@ -18,16 +21,27 @@ interface FileUploadProps {
 
 const FileUpload = ({ uploadType }: FileUploadProps) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [selectedApplication, setSelectedApplication] = useState<string[]>([]);
-  const applicationOptions = [
-    'All Applications',
-    'Application 1',
-    'Application 2',
-    'Application 3',
-  ];
+  const [selectedApplication, setSelectedApplication] = useState<(Application | string)[]>([]);
+  const [applications, setApplications] = useState<Application[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const token = useAuthToken();
+
+  const fetchApplicationsData = async () => {
+    if (token) {
+      try {
+        const data = await getApplications(token);
+        setApplications(data);
+      } catch (error) {
+        console.log('error fetching user application records: ', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchApplicationsData();
+  }, [token]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -50,6 +64,14 @@ const FileUpload = ({ uploadType }: FileUploadProps) => {
 
   const handleTagsChange = (_event: any, newValue: string[]) => {
     setTags(newValue);
+  };
+
+  const handleApplicationChange = (_event: any, newValue: (Application | string)[]) => {
+    if (newValue.includes('All Applications')) {
+      setSelectedApplication(['All Applications']);
+    } else {
+      setSelectedApplication(newValue);
+    }
   };
 
   return (
@@ -113,16 +135,15 @@ const FileUpload = ({ uploadType }: FileUploadProps) => {
             <Autocomplete
               multiple
               fullWidth
-              options={applicationOptions}
-              getOptionLabel={(option) => option.toString()}
+              options={['All Applications', ...applications]}
+              getOptionLabel={(option) => typeof option === 'string' ? option : `${option.employerName} - ${option.positionName}`}
               value={selectedApplication}
-              onChange={(_event, newValue) => {
-                if (newValue.includes('All Applications')) {
-                  setSelectedApplication(['All Applications']);
-                } else {
-                  setSelectedApplication(newValue);
-                }
-              }}
+              onChange={handleApplicationChange}
+              renderOption={(props, option) => (
+                <li {...props} key={typeof option === 'string' ? option : option._id}>
+                  {typeof option === 'string' ? option : `${option.employerName} - ${option.positionName}`}
+                </li>
+              )}
               renderInput={(params) => (
                 <TextField
                   {...params}
