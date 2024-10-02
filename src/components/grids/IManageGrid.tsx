@@ -31,17 +31,9 @@ const IManageGrid = ({ formLabel, listLabel }: Props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={12}>
           <Item className="listBox" sx={{ border: 'none' }}>
-            {listLabel === 'Resumes' ? (
-              <Typography>
-                This section should display two lists: one for draft/incomplete resumes and another for complete resumes, each showing their corresponding applications.
-                Additionally, consider using FlatIcon icons to represent different file types, as MUI does not have a built-in icon for .doc file types.
-              </Typography>
-            ) : (
-              <Typography>
-                This is a list container
-              </Typography>
-            )}
-            
+            <Typography>
+              This is a list container
+            </Typography>
           </Item>
         </Grid>
       </Grid>
