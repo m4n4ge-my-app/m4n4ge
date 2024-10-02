@@ -113,7 +113,10 @@ export default function ApplicationsTable({
             color: 'GrayText',
           }}
         >
-          <Typography className="applications-count" variant='caption'>{`${applications.length} ${isMobile ? '' : 'applications'}`}</Typography>
+          <Typography
+            className="applications-count"
+            variant="caption"
+          >{`${applications.length} ${isMobile ? '' : 'applications'}`}</Typography>
         </Box>
       </Stack>
       <TableContainer component={Paper}>
