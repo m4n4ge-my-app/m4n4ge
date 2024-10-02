@@ -4,7 +4,7 @@ import IManageGrid from '../../../components/grids/IManageGrid';
 const CoverLetters = () => {
   return (
     <BaseLayer type="coverLetter">
-      <IManageGrid formLabel="Add Cover Letter" listLabel="Cover Letters" />
+      <IManageGrid formLabel="Cover Letter" listLabel="Cover Letters" />
     </BaseLayer>
   );
 };

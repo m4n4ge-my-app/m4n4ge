@@ -4,7 +4,7 @@ import IManageGrid from '../../../components/grids/IManageGrid';
 const Todos = () => {
   return (
     <BaseLayer type="todos">
-      <IManageGrid formLabel="Add a Todo" listLabel="Todos" />
+      <IManageGrid formLabel="Todo" listLabel="Todos" />
     </BaseLayer>
   );
 };

@@ -5,7 +5,7 @@ const JobDescriptions = () => {
   return (
     <BaseLayer type="jobDescriptions">
       <IManageGrid
-        formLabel="Add a Job Descriptions"
+        formLabel="Description"
         listLabel="Job Descriptions"
       />
     </BaseLayer>

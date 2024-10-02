@@ -11,8 +11,11 @@ import { useState } from 'react';
 import TextEditor from '../../textEditor/TextEditor';
 import FileUpload from '../../fileUpload/FileUpload';
 
+interface UploadFormProps {
+  uploadType: string;
+}
 
-const UploadForm = () => {
+const UploadForm = ({ uploadType } : UploadFormProps) => {
   const [mode, setMode] = useState('upload');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -50,7 +53,7 @@ const UploadForm = () => {
         </ToggleButtonGroup>
       </Grid>
       <Grid container item>
-        {mode === 'upload' && <FileUpload uploadType='Resume'/>}
+        {mode === 'upload' && <FileUpload uploadType={uploadType}/>}
         {mode === 'create' && <TextEditor/>}
       </Grid>
     </Grid>

@@ -4,7 +4,7 @@ import IManageGrid from '../../../components/grids/IManageGrid';
 const Calendar = () => {
   return (
     <BaseLayer type="calendar">
-      <IManageGrid formLabel="Add Event" listLabel="Calendar" />
+      <IManageGrid formLabel="Event" listLabel="Calendar" />
     </BaseLayer>
   );
 };
