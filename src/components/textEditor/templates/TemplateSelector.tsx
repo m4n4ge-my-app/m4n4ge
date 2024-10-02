@@ -28,8 +28,8 @@ const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelect, isCancell
   const prevIsCancelledRef = React.useRef(isCancelled);
 
   React.useEffect(() => {
-    console.log('isCancelled:', isCancelled);
-    console.log('prevIsCancelledRef.current:', prevIsCancelledRef.current);
+    // console.log('isCancelled:', isCancelled);
+    // console.log('prevIsCancelledRef.current:', prevIsCancelledRef.current);
     if (isCancelled || prevIsCancelledRef.current) {
       setSelectedIndex(0);
     }
