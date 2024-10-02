@@ -12,7 +12,7 @@ import {
   ToggleButtonGroup,
   Typography,
   useMediaQuery,
-  useTheme
+  useTheme,
 } from '@mui/material';
 import { blankResumeTemplate } from './templates/resume/blankResumeTemplate.js';
 import { resumeTemplateA } from './templates/resume/resumeTemplateA.js';
@@ -51,9 +51,15 @@ interface TextEditorProps {
 }
 
 const TextEditor = ({ uploadType, applications }: TextEditorProps) => {
-  const [value, setValue] = useState(uploadType === 'Resume' ? resumeTemplateMapping['Blank Page']: coverLetterTemplateMapping['Blank Page']);
+  const [value, setValue] = useState(
+    uploadType === 'Resume'
+      ? resumeTemplateMapping['Blank Page']
+      : coverLetterTemplateMapping['Blank Page']
+  );
   const [fileName, setFileName] = useState('');
-  const [selectedApplication, setSelectedApplication] = useState<(Application | string)[]>([]);
+  const [selectedApplication, setSelectedApplication] = useState<
+    (Application | string)[]
+  >([]);
 
   const [tags, setTags] = useState<string[]>([]);
   const [fileType, setFileType] = useState<string>('pdf');
@@ -66,17 +72,19 @@ const TextEditor = ({ uploadType, applications }: TextEditorProps) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFileName(event.target.value);
   };
-  
+
   const handleTemplateSelect = (selectedOption: string) => {
-    if(uploadType === 'Resume') {
+    if (uploadType === 'Resume') {
       setValue(resumeTemplateMapping[selectedOption]);
     } else {
       setValue(coverLetterTemplateMapping[selectedOption]);
     }
-    
   };
 
-  const handleApplicationChange = (_event: any, newValue: (Application | string)[]) => {
+  const handleApplicationChange = (
+    _event: any,
+    newValue: (Application | string)[]
+  ) => {
     if (newValue.includes('All Applications')) {
       setSelectedApplication(['All Applications']);
     } else {
@@ -84,20 +92,19 @@ const TextEditor = ({ uploadType, applications }: TextEditorProps) => {
     }
   };
 
-
   const handleTagsChange = (_event: any, newValue: string[]) => {
     setTags(newValue);
   };
 
   const handleFileTypeChange = (_event: any, newFileType: string) => {
     setFileType(newFileType);
-  }
+  };
 
   const handleCancelClick = () => {
     setIsCancelled(true);
     setFileName('');
-    if(uploadType === 'Resume') {
-    setValue(resumeTemplateMapping['Blank Page']);
+    if (uploadType === 'Resume') {
+      setValue(resumeTemplateMapping['Blank Page']);
     } else {
       setValue(coverLetterTemplateMapping['Blank Page']);
     }
@@ -124,7 +131,13 @@ const TextEditor = ({ uploadType, applications }: TextEditorProps) => {
 
   return (
     <Grid container style={{ width: '100%', paddingTop: '20px' }}>
-      <Grid item xs={12} container justifyContent="space-between" sx={{marginBottom: '10px'}}>
+      <Grid
+        item
+        xs={12}
+        container
+        justifyContent="space-between"
+        sx={{ marginBottom: '10px' }}
+      >
         <TextField
           id="resume-name"
           variant="outlined"
@@ -132,21 +145,25 @@ const TextEditor = ({ uploadType, applications }: TextEditorProps) => {
           size="small"
           value={fileName}
           onChange={handleInputChange}
-          sx={{marginBottom: isMobile? '10px' : '0px'}}
+          sx={{ marginBottom: isMobile ? '10px' : '0px' }}
         />
         <TemplateSelector
           isCancelled={isCancelled}
           onSelect={handleTemplateSelect}
         />
       </Grid>
-      <Grid item xs={12} sx={{marginBottom: '10px'}}>
+      <Grid item xs={12} sx={{ marginBottom: '10px' }}>
         <div className="text-editor">
           <EditorToolbar />
           <ReactQuill
             theme="snow"
             value={value}
             onChange={setValue}
-            placeholder={uploadType === 'Resume' ? 'Start crafting your resume here...' : 'Start crafting your cover letter here...'}
+            placeholder={
+              uploadType === 'Resume'
+                ? 'Start crafting your resume here...'
+                : 'Start crafting your cover letter here...'
+            }
             modules={modules}
             formats={formats}
             style={{ width: '100%', height: '1000px' }}
@@ -155,30 +172,43 @@ const TextEditor = ({ uploadType, applications }: TextEditorProps) => {
       </Grid>
       <Grid item container xs={12}>
         <Grid item xs={12} sm={6}>
-        <Autocomplete
-              multiple
-              fullWidth
-              options={applications.length > 0 ? ['All Applications', ...applications] : applications}
-              getOptionLabel={(option) => typeof option === 'string' ? option : `${option.employerName} - ${option.positionName}`}
-              value={selectedApplication}
-              onChange={handleApplicationChange}
-              renderOption={(props, option) => (
-                <li {...props} key={typeof option === 'string' ? option : option._id}>
-                  {typeof option === 'string' ? option : `${option.employerName} - ${option.positionName}`}
-                </li>
-              )}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  fullWidth
-                  label="Applications"
-                  placeholder="Optional: select applications"
-                  variant="outlined"
-                  size="small"
-                />
-              )}
+          <Autocomplete
+            multiple
+            fullWidth
+            options={
+              applications.length > 0
+                ? ['All Applications', ...applications]
+                : applications
+            }
+            getOptionLabel={(option) =>
+              typeof option === 'string'
+                ? option
+                : `${option.employerName} - ${option.positionName}`
+            }
+            value={selectedApplication}
+            onChange={handleApplicationChange}
+            renderOption={(props, option) => (
+              <li
+                {...props}
+                key={typeof option === 'string' ? option : option._id}
+              >
+                {typeof option === 'string'
+                  ? option
+                  : `${option.employerName} - ${option.positionName}`}
+              </li>
+            )}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                fullWidth
+                label="Applications"
+                placeholder="Optional: select applications"
+                variant="outlined"
+                size="small"
+              />
+            )}
             sx={{ marginBottom: '10px' }}
-            />
+          />
           <Autocomplete
             fullWidth
             multiple
@@ -215,7 +245,13 @@ const TextEditor = ({ uploadType, applications }: TextEditorProps) => {
           justifyContent="flex-end"
           alignContent="flex-start"
         >
-          <Typography sx={{ marginRight: isMobile? '5px' : '10px', marginBottom: isMobile? '5px' : '0px' }} variant='body2'>
+          <Typography
+            sx={{
+              marginRight: isMobile ? '5px' : '10px',
+              marginBottom: isMobile ? '5px' : '0px',
+            }}
+            variant="body2"
+          >
             Choose file type
           </Typography>
           <ToggleButtonGroup
@@ -244,7 +280,12 @@ const TextEditor = ({ uploadType, applications }: TextEditorProps) => {
         sx={{ marginTop: '30px' }}
       >
         <Grid item>
-          <Button variant="outlined" color="primary" size="small" onClick={handleCancelClick}>
+          <Button
+            variant="outlined"
+            color="primary"
+            size="small"
+            onClick={handleCancelClick}
+          >
             Cancel
           </Button>
         </Grid>
@@ -255,7 +296,13 @@ const TextEditor = ({ uploadType, applications }: TextEditorProps) => {
         </Grid>
         <Grid item>
           {/* TODO: button disabling not working correctly when editor area is cleared, fix it */}
-          <Button variant="contained" color="primary" size="small" onClick={handleUploadClick} disabled={!value || !fileName}>
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            onClick={handleUploadClick}
+            disabled={!value || !fileName}
+          >
             Add {uploadType}
           </Button>
         </Grid>

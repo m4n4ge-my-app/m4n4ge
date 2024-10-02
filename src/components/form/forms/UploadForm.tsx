@@ -18,7 +18,7 @@ interface UploadFormProps {
   uploadType: string;
 }
 
-const UploadForm = ({ uploadType } : UploadFormProps) => {
+const UploadForm = ({ uploadType }: UploadFormProps) => {
   const [applications, setApplications] = useState<Application[]>([]);
   const [mode, setMode] = useState('upload');
   const theme = useTheme();
@@ -40,14 +40,17 @@ const UploadForm = ({ uploadType } : UploadFormProps) => {
     fetchApplicationsData();
   }, [token]);
 
-  const handleChange = (_event: React.MouseEvent<HTMLElement>, newMode: string) => {
+  const handleChange = (
+    _event: React.MouseEvent<HTMLElement>,
+    newMode: string
+  ) => {
     if (newMode) {
       setMode(newMode);
     }
   };
 
   return (
-    <Grid padding={isMobile? 1 : 2}>
+    <Grid padding={isMobile ? 1 : 2}>
       <Grid container item sx={{ justifyContent: 'flex-end' }}>
         <ToggleButtonGroup
           value={mode}
@@ -63,18 +66,24 @@ const UploadForm = ({ uploadType } : UploadFormProps) => {
             />
             {isMobile ? '' : 'Upload'}
           </ToggleButton>
-          {uploadType !== 'Description' && <ToggleButton value="create" aria-label="create mode">
-            <EditNoteIcon
-              fontSize="small"
-              sx={{ marginRight: isMobile ? '0px' : '10px' }}
-            />{' '}
-            {isMobile ? '' : 'Create'}
-          </ToggleButton>}
+          {uploadType !== 'Description' && (
+            <ToggleButton value="create" aria-label="create mode">
+              <EditNoteIcon
+                fontSize="small"
+                sx={{ marginRight: isMobile ? '0px' : '10px' }}
+              />{' '}
+              {isMobile ? '' : 'Create'}
+            </ToggleButton>
+          )}
         </ToggleButtonGroup>
       </Grid>
       <Grid container item>
-        {mode === 'upload' && <FileUpload uploadType={uploadType} applications={applications}/>}
-        {mode === 'create' && <TextEditor uploadType={uploadType} applications={applications}/>}
+        {mode === 'upload' && (
+          <FileUpload uploadType={uploadType} applications={applications} />
+        )}
+        {mode === 'create' && (
+          <TextEditor uploadType={uploadType} applications={applications} />
+        )}
       </Grid>
     </Grid>
   );

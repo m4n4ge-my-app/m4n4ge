@@ -4,10 +4,7 @@ import IManageGrid from '../../../components/grids/IManageGrid';
 const JobDescriptions = () => {
   return (
     <BaseLayer type="jobDescriptions">
-      <IManageGrid
-        formLabel="Description"
-        listLabel="Job Descriptions"
-      />
+      <IManageGrid formLabel="Description" listLabel="Job Descriptions" />
     </BaseLayer>
   );
 };

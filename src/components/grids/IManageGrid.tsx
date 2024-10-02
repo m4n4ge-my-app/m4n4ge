@@ -18,9 +18,13 @@ const IManageGrid = ({ formLabel, listLabel }: Props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={12}>
           <Item className="addBox" sx={{ border: 'none' }}>
-            {formLabel === 'Resume' && (<UploadForm uploadType='Resume' />)}
-            {formLabel === 'Cover Letter' && (<UploadForm uploadType='Cover Letter' />)}
-            {formLabel === 'Description' && (<UploadForm uploadType='Description' />)}
+            {formLabel === 'Resume' && <UploadForm uploadType="Resume" />}
+            {formLabel === 'Cover Letter' && (
+              <UploadForm uploadType="Cover Letter" />
+            )}
+            {formLabel === 'Description' && (
+              <UploadForm uploadType="Description" />
+            )}
           </Item>
         </Grid>
 
@@ -31,9 +35,7 @@ const IManageGrid = ({ formLabel, listLabel }: Props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={12}>
           <Item className="listBox" sx={{ border: 'none' }}>
-            <Typography>
-              This is a list container
-            </Typography>
+            <Typography>This is a list container</Typography>
           </Item>
         </Grid>
       </Grid>

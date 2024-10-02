@@ -9,19 +9,17 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 
-const options = [
-  'Blank Page',
-  'Template 1',
-  'Template 2',
-  'Template 3',
-];
+const options = ['Blank Page', 'Template 1', 'Template 2', 'Template 3'];
 
 interface TemplateSelectorProps {
   onSelect: (selectedOption: string) => void;
   isCancelled: boolean;
 }
 
-const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelect, isCancelled }) => {
+const TemplateSelector: React.FC<TemplateSelectorProps> = ({
+  onSelect,
+  isCancelled,
+}) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -33,7 +31,6 @@ const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelect, isCancell
     if (isCancelled || prevIsCancelledRef.current) {
       setSelectedIndex(0);
     }
-    
   }, [isCancelled, prevIsCancelledRef]);
 
   const handleClick = () => {
@@ -70,7 +67,7 @@ const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelect, isCancell
         variant="outlined"
         ref={anchorRef}
         aria-label="Button group with a nested menu"
-        size='small'
+        size="small"
       >
         <Button onClick={handleClick}>{options[selectedIndex]}</Button>
         <Button

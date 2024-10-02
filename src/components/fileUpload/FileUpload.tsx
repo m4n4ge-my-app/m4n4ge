@@ -24,13 +24,14 @@ interface FileUploadProps {
 const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [selectedApplication, setSelectedApplication] = useState<(Application | string)[]>([]);
+  const [selectedApplication, setSelectedApplication] = useState<
+    (Application | string)[]
+  >([]);
   const [tags, setTags] = useState<string[]>([]);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const signedInUser = useSelector((state: RootState) => state.user.user);
   const dispatch = useDispatch();
-
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -42,15 +43,18 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
 
   const handleUploadClick = () => {
     // Temporary access control for demonstration accounts
-    if(signedInUser?.email === 'new_user@m4n4gemy.app' ||
-      signedInUser?.email === 'expert_user@m4n4gemy.app') {
-        dispatch(
-          show({
-            message: 'Access Denied: Demonstration accounts do not have the privileges to add file. Please create a personal account for full access.',
-            severity: 'error',
-          })
-        );
-      }
+    if (
+      signedInUser?.email === 'new_user@m4n4gemy.app' ||
+      signedInUser?.email === 'expert_user@m4n4gemy.app'
+    ) {
+      dispatch(
+        show({
+          message:
+            'Access Denied: Demonstration accounts do not have the privileges to add file. Please create a personal account for full access.',
+          severity: 'error',
+        })
+      );
+    }
   };
 
   const handleCancelClick = () => {
@@ -63,7 +67,10 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
     setTags(newValue);
   };
 
-  const handleApplicationChange = (_event: any, newValue: (Application | string)[]) => {
+  const handleApplicationChange = (
+    _event: any,
+    newValue: (Application | string)[]
+  ) => {
     if (newValue.includes('All Applications')) {
       setSelectedApplication(['All Applications']);
     } else {
@@ -157,13 +164,26 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
             <Autocomplete
               multiple
               fullWidth
-              options={applications.length > 0 ? ['All Applications', ...applications] : applications}
-              getOptionLabel={(option) => typeof option === 'string' ? option : `${option.employerName} - ${option.positionName}`}
+              options={
+                applications.length > 0
+                  ? ['All Applications', ...applications]
+                  : applications
+              }
+              getOptionLabel={(option) =>
+                typeof option === 'string'
+                  ? option
+                  : `${option.employerName} - ${option.positionName}`
+              }
               value={selectedApplication}
               onChange={handleApplicationChange}
               renderOption={(props, option) => (
-                <li {...props} key={typeof option === 'string' ? option : option._id}>
-                  {typeof option === 'string' ? option : `${option.employerName} - ${option.positionName}`}
+                <li
+                  {...props}
+                  key={typeof option === 'string' ? option : option._id}
+                >
+                  {typeof option === 'string'
+                    ? option
+                    : `${option.employerName} - ${option.positionName}`}
                 </li>
               )}
               renderInput={(params) => (
