@@ -52,7 +52,7 @@ interface TextEditorProps {
 
 const TextEditor = ({ uploadType, applications }: TextEditorProps) => {
   const [value, setValue] = useState(uploadType === 'Resume' ? resumeTemplateMapping['Blank Page']: coverLetterTemplateMapping['Blank Page']);
-  const [resumeName, setResumeName] = useState('');
+  const [fileName, setFileName] = useState('');
   const [selectedApplication, setSelectedApplication] = useState<(Application | string)[]>([]);
 
   const [tags, setTags] = useState<string[]>([]);
@@ -64,7 +64,7 @@ const TextEditor = ({ uploadType, applications }: TextEditorProps) => {
   const dispatch = useDispatch();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setResumeName(event.target.value);
+    setFileName(event.target.value);
   };
   
   const handleTemplateSelect = (selectedOption: string) => {
@@ -95,7 +95,7 @@ const TextEditor = ({ uploadType, applications }: TextEditorProps) => {
 
   const handleCancelClick = () => {
     setIsCancelled(true);
-    setResumeName('');
+    setFileName('');
     if(uploadType === 'Resume') {
     setValue(resumeTemplateMapping['Blank Page']);
     } else {
@@ -130,7 +130,7 @@ const TextEditor = ({ uploadType, applications }: TextEditorProps) => {
           variant="outlined"
           label="Name"
           size="small"
-          value={resumeName}
+          value={fileName}
           onChange={handleInputChange}
           sx={{marginBottom: isMobile? '10px' : '0px'}}
         />
@@ -255,7 +255,7 @@ const TextEditor = ({ uploadType, applications }: TextEditorProps) => {
         </Grid>
         <Grid item>
           {/* TODO: button disabling not working correctly when editor area is cleared, fix it */}
-          <Button variant="contained" color="primary" size="small" onClick={handleUploadClick} disabled={!value || !resumeName}>
+          <Button variant="contained" color="primary" size="small" onClick={handleUploadClick} disabled={!value || !fileName}>
             Add {uploadType}
           </Button>
         </Grid>
