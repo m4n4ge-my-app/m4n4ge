@@ -74,7 +74,7 @@ const UploadForm = ({ uploadType } : UploadFormProps) => {
       </Grid>
       <Grid container item>
         {mode === 'upload' && <FileUpload uploadType={uploadType} applications={applications}/>}
-        {mode === 'create' && <TextEditor uploadType={uploadType}/>}
+        {mode === 'create' && <TextEditor uploadType={uploadType} applications={applications}/>}
       </Grid>
     </Grid>
   );

@@ -29,6 +29,7 @@ import EditorToolbar, {
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../state/store.js';
 import { show } from '../../state/feeback/feedbackSlice.js';
+import { Application } from '../../utils/applications.util.js';
 
 const resumeTemplateMapping: { [key: string]: string } = {
   'Blank Page': blankResumeTemplate,
@@ -46,18 +47,14 @@ const coverLetterTemplateMapping: { [key: string]: string } = {
 
 interface TextEditorProps {
   uploadType: string;
+  applications: Application[];
 }
 
-const TextEditor = ({ uploadType }: TextEditorProps) => {
+const TextEditor = ({ uploadType, applications }: TextEditorProps) => {
   const [value, setValue] = useState(uploadType === 'Resume' ? resumeTemplateMapping['Blank Page']: coverLetterTemplateMapping['Blank Page']);
   const [resumeName, setResumeName] = useState('');
-  const [selectedApplication, setSelectedApplication] = useState<string[]>([]);
-  const applicationOptions = [
-    'All Applications',
-    'Application 1',
-    'Application 2',
-    'Application 3',
-  ];
+  const [selectedApplication, setSelectedApplication] = useState<(Application | string)[]>([]);
+
   const [tags, setTags] = useState<string[]>([]);
   const [fileType, setFileType] = useState<string>('pdf');
   const [isCancelled, setIsCancelled] = useState(false);
@@ -78,6 +75,15 @@ const TextEditor = ({ uploadType }: TextEditorProps) => {
     }
     
   };
+
+  const handleApplicationChange = (_event: any, newValue: (Application | string)[]) => {
+    if (newValue.includes('All Applications')) {
+      setSelectedApplication(['All Applications']);
+    } else {
+      setSelectedApplication(newValue);
+    }
+  };
+
 
   const handleTagsChange = (_event: any, newValue: string[]) => {
     setTags(newValue);
@@ -149,31 +155,30 @@ const TextEditor = ({ uploadType }: TextEditorProps) => {
       </Grid>
       <Grid item container xs={12}>
         <Grid item xs={12} sm={6}>
-          <Autocomplete
-            multiple
-            fullWidth
-            options={applicationOptions}
-            getOptionLabel={(option) => option.toString()}
-            value={selectedApplication}
-            onChange={(_event, newValue) => {
-              if (newValue.includes('All Applications')) {
-                setSelectedApplication(['All Applications']);
-              } else {
-                setSelectedApplication(newValue);
-              }
-            }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                fullWidth
-                label="Applications"
-                placeholder="Optional: select applications"
-                variant="outlined"
-                size="small"
-              />
-            )}
+        <Autocomplete
+              multiple
+              fullWidth
+              options={applications.length > 0 ? ['All Applications', ...applications] : applications}
+              getOptionLabel={(option) => typeof option === 'string' ? option : `${option.employerName} - ${option.positionName}`}
+              value={selectedApplication}
+              onChange={handleApplicationChange}
+              renderOption={(props, option) => (
+                <li {...props} key={typeof option === 'string' ? option : option._id}>
+                  {typeof option === 'string' ? option : `${option.employerName} - ${option.positionName}`}
+                </li>
+              )}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  fullWidth
+                  label="Applications"
+                  placeholder="Optional: select applications"
+                  variant="outlined"
+                  size="small"
+                />
+              )}
             sx={{ marginBottom: '10px' }}
-          />
+            />
           <Autocomplete
             fullWidth
             multiple
