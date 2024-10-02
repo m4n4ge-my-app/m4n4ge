@@ -7,18 +7,38 @@ import {
 } from '@mui/material';
 import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 import EditNoteIcon from '@mui/icons-material/EditNote';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TextEditor from '../../textEditor/TextEditor';
 import FileUpload from '../../fileUpload/FileUpload';
+import { useAuthToken } from '../../../hooks/useAuthToken';
+import { getApplications } from '../../../services/applications';
+import { Application } from '../../../utils/applications.util';
 
 interface UploadFormProps {
   uploadType: string;
 }
 
 const UploadForm = ({ uploadType } : UploadFormProps) => {
+  const [applications, setApplications] = useState<Application[]>([]);
   const [mode, setMode] = useState('upload');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const token = useAuthToken();
+
+  const fetchApplicationsData = async () => {
+    if (token) {
+      try {
+        const data = await getApplications(token);
+        setApplications(data);
+      } catch (error) {
+        console.log('error fetching user application records: ', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchApplicationsData();
+  }, [token]);
 
   const handleChange = (_event: React.MouseEvent<HTMLElement>, newMode: string) => {
     if (newMode) {
@@ -53,7 +73,7 @@ const UploadForm = ({ uploadType } : UploadFormProps) => {
         </ToggleButtonGroup>
       </Grid>
       <Grid container item>
-        {mode === 'upload' && <FileUpload uploadType={uploadType}/>}
+        {mode === 'upload' && <FileUpload uploadType={uploadType} applications={applications}/>}
         {mode === 'create' && <TextEditor uploadType={uploadType}/>}
       </Grid>
     </Grid>
