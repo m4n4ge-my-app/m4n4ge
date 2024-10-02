@@ -22,6 +22,7 @@ interface FileUploadProps {
 }
 
 const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
+  const [isDragging, setIsDragging] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedApplication, setSelectedApplication] = useState<(Application | string)[]>([]);
   const [tags, setTags] = useState<string[]>([]);
@@ -70,6 +71,24 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
     }
   };
 
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragging(false);
+    if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
+      setSelectedFile(event.dataTransfer.files[0]);
+      event.dataTransfer.clearData();
+    }
+  };
+
   return (
     <Grid
       container
@@ -89,6 +108,13 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
           textAlign="center"
           width="100%"
           height="200px"
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+          sx={{
+            border: isDragging ? '1px dashed #3f51b5' : '',
+            backgroundColor: isDragging ? '#f7f9ff' : '',
+          }}
         >
           <FilterDramaIcon
             fontSize={isMobile ? 'medium' : 'large'}
