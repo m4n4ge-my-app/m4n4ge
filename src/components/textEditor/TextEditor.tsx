@@ -254,7 +254,8 @@ const TextEditor = ({ uploadType, applications }: TextEditorProps) => {
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" size="small" onClick={handleUploadClick}>
+          {/* TODO: button disabling not working correctly when editor area is cleared, fix it */}
+          <Button variant="contained" color="primary" size="small" onClick={handleUploadClick} disabled={!value || !resumeName}>
             Add {uploadType}
           </Button>
         </Grid>
