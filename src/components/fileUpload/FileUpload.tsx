@@ -14,6 +14,9 @@ import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 import { Application } from '../../utils/applications.util';
 import { useAuthToken } from '../../hooks/useAuthToken';
 import { getApplications } from '../../services/applications';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../state/store';
+import { show } from '../../state/feeback/feedbackSlice';
 
 interface FileUploadProps {
   uploadType: string;
@@ -27,6 +30,8 @@ const FileUpload = ({ uploadType }: FileUploadProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const token = useAuthToken();
+  const signedInUser = useSelector((state: RootState) => state.user.user);
+  const dispatch = useDispatch();
 
   const fetchApplicationsData = async () => {
     if (token) {
@@ -52,8 +57,16 @@ const FileUpload = ({ uploadType }: FileUploadProps) => {
   };
 
   const handleUploadClick = () => {
-    console.log('File uploaded:', selectedFile);
-    console.log('Selected application:', selectedApplication);
+    // Temporary access control for demonstration accounts
+    if(signedInUser?.email === 'new_user@m4n4gemy.app' ||
+      signedInUser?.email === 'expert_user@m4n4gemy.app') {
+        dispatch(
+          show({
+            message: 'Access Denied: Demonstration accounts do not have the privileges to add file. Please create a personal account for full access.',
+            severity: 'error',
+          })
+        );
+      }
   };
 
   const handleCancelClick = () => {

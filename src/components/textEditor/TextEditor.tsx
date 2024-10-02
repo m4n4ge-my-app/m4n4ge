@@ -26,6 +26,9 @@ import EditorToolbar, {
   modules,
   formats,
 } from './quillToolbar/EditorToolbar.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../state/store.js';
+import { show } from '../../state/feeback/feedbackSlice.js';
 
 const resumeTemplateMapping: { [key: string]: string } = {
   'Blank Page': blankResumeTemplate,
@@ -60,6 +63,8 @@ const TextEditor = ({ uploadType }: TextEditorProps) => {
   const [isCancelled, setIsCancelled] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const signedInUser = useSelector((state: RootState) => state.user.user);
+  const dispatch = useDispatch();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setResumeName(event.target.value);
@@ -93,6 +98,22 @@ const TextEditor = ({ uploadType }: TextEditorProps) => {
     setSelectedApplication([]);
     setFileType('pdf');
     setTags([]);
+  };
+
+  const handleUploadClick = () => {
+    // Temporary access control for demonstration accounts
+    if (
+      signedInUser?.email === 'new_user@m4n4gemy.app' ||
+      signedInUser?.email === 'expert_user@m4n4gemy.app'
+    ) {
+      dispatch(
+        show({
+          message:
+            'Access Denied: Demonstration accounts do not have the privileges to add file. Please create a personal account for full access.',
+          severity: 'error',
+        })
+      );
+    }
   };
 
   return (
@@ -228,7 +249,7 @@ const TextEditor = ({ uploadType }: TextEditorProps) => {
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary" size="small">
+          <Button variant="contained" color="primary" size="small" onClick={handleUploadClick}>
             Add {uploadType}
           </Button>
         </Grid>
