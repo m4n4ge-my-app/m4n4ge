@@ -11,7 +11,8 @@ import { useState } from 'react';
 import TextEditor from '../../textEditor/TextEditor';
 import FileUpload from '../../fileUpload/FileUpload';
 
-const ResumesForm = () => {
+
+const UploadForm = () => {
   const [mode, setMode] = useState('upload');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -56,4 +57,4 @@ const ResumesForm = () => {
   );
 };
 
-export default ResumesForm;
+export default UploadForm;
