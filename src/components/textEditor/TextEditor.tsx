@@ -2,7 +2,18 @@ import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import TemplateSelector from './templates/TemplateSelector';
-import { Button, Grid, TextField } from '@mui/material';
+import {
+  Autocomplete,
+  Button,
+  Chip,
+  Grid,
+  TextField,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+  useMediaQuery,
+  useTheme
+} from '@mui/material';
 import { blankResumeTemplate } from './templates/blankResumeTemplate';
 import { resumeTemplateA } from './templates/resumeTemplateA';
 import { resumeTemplateB } from './templates/resumeTemplateB';
@@ -21,9 +32,41 @@ const templateMapping: { [key: string]: string } = {
 
 const TextEditor = () => {
   const [value, setValue] = useState('');
+  const [resumeName, setResumeName] = useState('');
+  const [selectedApplication, setSelectedApplication] = useState<string[]>([]);
+  const applicationOptions = [
+    'All Applications',
+    'Application 1',
+    'Application 2',
+    'Application 3',
+  ];
+  const [tags, setTags] = useState<string[]>([]);
+  const [fileType, setFileType] = useState<string>('pdf');
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setResumeName(event.target.value);
+  };
+  
   const handleTemplateSelect = (selectedOption: string) => {
     setValue(templateMapping[selectedOption]);
+  };
+
+  const handleTagsChange = (_event: any, newValue: string[]) => {
+    setTags(newValue);
+  };
+
+  const handleFileTypeChange = (_event: any, newFileType: string) => {
+    setFileType(newFileType);
+  }
+
+  const handleCancelClick = () => {
+    setResumeName('');
+    setValue(templateMapping['Blank Page']);
+    setSelectedApplication([]);
+    setFileType('pdf');
+    setTags([]);
   };
 
   return (
@@ -34,6 +77,8 @@ const TextEditor = () => {
           variant="outlined"
           label="Name"
           size="small"
+          value={resumeName}
+          onChange={handleInputChange}
         />
         <TemplateSelector onSelect={handleTemplateSelect} />
       </Grid>
@@ -51,6 +96,89 @@ const TextEditor = () => {
           />
         </div>
       </Grid>
+      <Grid item container xs={12}>
+        <Grid item xs={12} sm={6}>
+          <Autocomplete
+            multiple
+            fullWidth
+            options={applicationOptions}
+            getOptionLabel={(option) => option.toString()}
+            value={selectedApplication}
+            onChange={(_event, newValue) => {
+              if (newValue.includes('All Applications')) {
+                setSelectedApplication(['All Applications']);
+              } else {
+                setSelectedApplication(newValue);
+              }
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                fullWidth
+                label="Applications"
+                placeholder="Optional: select applications"
+                variant="outlined"
+                size="small"
+              />
+            )}
+            sx={{ marginBottom: '10px' }}
+          />
+          <Autocomplete
+            fullWidth
+            multiple
+            freeSolo
+            options={[]}
+            value={tags}
+            onChange={handleTagsChange}
+            renderTags={(value: string[], getTagProps) =>
+              value.map((option: string, index: number) => (
+                <Chip
+                  variant="outlined"
+                  label={option}
+                  {...getTagProps({ index })}
+                />
+              ))
+            }
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Tags"
+                placeholder="Optional: add a tag"
+                size="small"
+              />
+            )}
+            sx={{ marginBottom: '10px' }}
+          />
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          container
+          justifyContent="flex-end"
+          alignContent="flex-start"
+        >
+          <Typography sx={{ marginRight: isMobile? '0px' : '20px', marginBottom: isMobile? '5px' : '0px' }} variant='body2'>
+            Choose file format type
+          </Typography>
+          <ToggleButtonGroup
+            color="primary"
+            value={fileType}
+            exclusive
+            onChange={handleFileTypeChange}
+            aria-label="Platform"
+            sx={{ alignSelf: 'center' }}
+          >
+            <ToggleButton value="pdf" size="small">
+              .pdf
+            </ToggleButton>
+            <ToggleButton value="doc" size="small">
+              .doc
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Grid>
+      </Grid>
       <Grid
         item
         xs={12}
@@ -60,7 +188,7 @@ const TextEditor = () => {
         sx={{ marginTop: '30px' }}
       >
         <Grid item>
-          <Button variant="outlined" color="primary" size="small">
+          <Button variant="outlined" color="primary" size="small" onClick={handleCancelClick}>
             Cancel
           </Button>
         </Grid>
