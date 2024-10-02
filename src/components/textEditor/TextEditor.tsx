@@ -18,20 +18,35 @@ import { blankResumeTemplate } from './templates/resume/blankResumeTemplate.js';
 import { resumeTemplateA } from './templates/resume/resumeTemplateA.js';
 import { resumeTemplateB } from './templates/resume/resumeTemplateB.js';
 import { resumeTemplateC } from './templates/resume/resumeTemplateC.js';
+import { blanckCoverLetterTemplate } from './templates/coverLetter/blankCoverLetterTemplate.js';
+import { coverLetterTemplateA } from './templates/coverLetter/coverLetterTemplateA.js';
+import { coverLetterTemplateB } from './templates/coverLetter/coverLetterTemplateB.js';
+import { coverLetterTemplateC } from './templates/coverLetter/coverLetterTemplateC.js';
 import EditorToolbar, {
   modules,
   formats,
 } from './quillToolbar/EditorToolbar.js';
 
-const templateMapping: { [key: string]: string } = {
+const resumeTemplateMapping: { [key: string]: string } = {
   'Blank Page': blankResumeTemplate,
   'Template 1': resumeTemplateA,
   'Template 2': resumeTemplateB,
   'Template 3': resumeTemplateC,
 };
 
-const TextEditor = () => {
-  const [value, setValue] = useState(templateMapping['Blank Page']);
+const coverLetterTemplateMapping: { [key: string]: string } = {
+  'Blank Page': blanckCoverLetterTemplate,
+  'Template 1': coverLetterTemplateA,
+  'Template 2': coverLetterTemplateB,
+  'Template 3': coverLetterTemplateC,
+};
+
+interface TextEditorProps {
+  uploadType: string;
+}
+
+const TextEditor = ({ uploadType }: TextEditorProps) => {
+  const [value, setValue] = useState(uploadType === 'Resume' ? resumeTemplateMapping['Blank Page']: coverLetterTemplateMapping['Blank Page']);
   const [resumeName, setResumeName] = useState('');
   const [selectedApplication, setSelectedApplication] = useState<string[]>([]);
   const applicationOptions = [
@@ -51,7 +66,12 @@ const TextEditor = () => {
   };
   
   const handleTemplateSelect = (selectedOption: string) => {
-    setValue(templateMapping[selectedOption]);
+    if(uploadType === 'Resume') {
+      setValue(resumeTemplateMapping[selectedOption]);
+    } else {
+      setValue(coverLetterTemplateMapping[selectedOption]);
+    }
+    
   };
 
   const handleTagsChange = (_event: any, newValue: string[]) => {
@@ -65,7 +85,11 @@ const TextEditor = () => {
   const handleCancelClick = () => {
     setIsCancelled(true);
     setResumeName('');
-    setValue(templateMapping['Blank Page']);
+    if(uploadType === 'Resume') {
+    setValue(resumeTemplateMapping['Blank Page']);
+    } else {
+      setValue(coverLetterTemplateMapping['Blank Page']);
+    }
     setSelectedApplication([]);
     setFileType('pdf');
     setTags([]);
@@ -95,7 +119,7 @@ const TextEditor = () => {
             theme="snow"
             value={value}
             onChange={setValue}
-            placeholder={'Start crafting your resume here...'}
+            placeholder={uploadType === 'Resume' ? 'Start crafting your resume here...' : 'Start crafting your cover letter here...'}
             modules={modules}
             formats={formats}
             style={{ width: '100%', height: '1000px' }}
