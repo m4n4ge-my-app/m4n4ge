@@ -14,10 +14,10 @@ import {
   useMediaQuery,
   useTheme
 } from '@mui/material';
-import { blankResumeTemplate } from './templates/blankResumeTemplate';
-import { resumeTemplateA } from './templates/resumeTemplateA';
-import { resumeTemplateB } from './templates/resumeTemplateB';
-import { resumeTemplateC } from './templates/resumeTemplateC';
+import { blankResumeTemplate } from './templates/resume/blankResumeTemplate.js';
+import { resumeTemplateA } from './templates/resume/resumeTemplateA.js';
+import { resumeTemplateB } from './templates/resume/resumeTemplateB.js';
+import { resumeTemplateC } from './templates/resume/resumeTemplateC.js';
 import EditorToolbar, {
   modules,
   formats,
