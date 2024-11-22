@@ -15,6 +15,8 @@ import { Application } from '../../utils/applications.util';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../state/store';
 import { show } from '../../state/feeback/feedbackSlice';
+import { useAuthToken } from '../../hooks/useAuthToken';
+import axios from 'axios';
 
 interface FileUploadProps {
   uploadType: string;
@@ -22,6 +24,7 @@ interface FileUploadProps {
 }
 
 const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
+  const baseUrl = import.meta.env.VITE_BASE_URL as string;
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedApplication, setSelectedApplication] = useState<
@@ -32,6 +35,7 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const signedInUser = useSelector((state: RootState) => state.user.user);
   const dispatch = useDispatch();
+  const token = useAuthToken();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -41,7 +45,7 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
     }
   };
 
-  const handleUploadClick = () => {
+  const handleUploadClick = async() => {
     // Temporary access control for demonstration accounts
     if (
       signedInUser?.email === 'new_user@m4n4gemy.app' ||
@@ -54,6 +58,46 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
           severity: 'error',
         })
       );
+      return;
+    }
+
+    const formData = new FormData();
+    if (selectedFile) {
+      formData.append('file', selectedFile);
+      formData.append('fileType', uploadType.toLowerCase());
+
+      try {
+        const response = await axios.post(baseUrl + '/api/documents', formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+  
+        if (response.status !== 201) {
+          throw new Error('Failed to upload file');
+        }
+
+        if (response.status === 201) {
+          setSelectedFile(null);
+          setSelectedApplication([]);
+          setTags([]);
+          dispatch(
+            show({
+              message: 'File uploaded successfully!',
+              severity: 'success',
+            })
+          );
+        }
+      } catch (error) {
+        console.error('Error uploading file:', error);
+        dispatch(
+          show({
+            message: 'Error uploading file. Please try again later.',
+            severity: 'error',
+          })
+        );
+      }
     }
   };
 
