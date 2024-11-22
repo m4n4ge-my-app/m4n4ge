@@ -65,6 +65,20 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
     if (selectedFile) {
       formData.append('file', selectedFile);
       formData.append('fileType', uploadType.toLowerCase());
+      //add optional metadata
+      if (selectedApplication.length > 0) {
+        if (selectedApplication.includes('All Applications')) {
+          formData.append('applications', 'all');
+        } else {
+          selectedApplication.forEach((application) => {
+            if (typeof application !== 'string') {
+              formData.append('applications', application._id);
+            }
+          });
+        }
+      }
+      //here we could add them as separate items in the array but simpilicity we will just add them as a single string with comma separated tags.
+      formData.append('tags', tags.join(','));
 
       try {
         const response = await axios.post(baseUrl + '/api/documents', formData, {
