@@ -1,5 +1,6 @@
 import { Grid, Typography } from '@mui/material';
 import UploadForm from '../form/forms/UploadForm';
+import ResumesList from '../list/ResumesList';
 import { Item } from './utils/MuiItem';
 
 interface Props {
@@ -35,7 +36,7 @@ const IManageGrid = ({ formLabel, listLabel }: Props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={12}>
           <Item className="listBox" sx={{ border: 'none' }}>
-            <Typography>This is a list container</Typography>
+            {formLabel === 'Resume' && <ResumesList />}
           </Item>
         </Grid>
       </Grid>
