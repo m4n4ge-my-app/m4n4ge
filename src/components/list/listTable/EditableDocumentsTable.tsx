@@ -191,7 +191,7 @@ export default function EditableDocumentsTable() {
   return (
     <Box
       sx={{
-        height: 500,
+        height: 640,
         width: '100%',
         '& .actions': {
           color: 'text.secondary',
@@ -199,6 +199,7 @@ export default function EditableDocumentsTable() {
         '& .textPrimary': {
           color: 'text.primary',
         },
+        marginTop: '40px',
       }}
     >
       <DataGrid
