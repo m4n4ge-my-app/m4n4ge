@@ -12,11 +12,9 @@ import {
 } from '@mui/material';
 import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 import { Application } from '../../utils/applications.util';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../state/store';
 import { show } from '../../state/feeback/feedbackSlice';
-import { useAuthToken } from '../../hooks/useAuthToken';
-import axios from 'axios';
+import { useUpload } from '../../hooks/useUpload';
+import { useDispatch } from 'react-redux';
 
 interface FileUploadProps {
   uploadType: string;
@@ -24,7 +22,6 @@ interface FileUploadProps {
 }
 
 const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
-  const baseUrl = import.meta.env.VITE_BASE_URL as string;
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedApplication, setSelectedApplication] = useState<
@@ -33,9 +30,8 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
   const [tags, setTags] = useState<string[]>([]);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const signedInUser = useSelector((state: RootState) => state.user.user);
+  const { upload } = useUpload();
   const dispatch = useDispatch();
-  const token = useAuthToken();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -45,22 +41,7 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
     }
   };
 
-  const handleUploadClick = async() => {
-    // Temporary access control for demonstration accounts
-    if (
-      signedInUser?.email === 'new_user@m4n4gemy.app' ||
-      signedInUser?.email === 'expert_user@m4n4gemy.app'
-    ) {
-      dispatch(
-        show({
-          message:
-            'Access Denied: Demonstration accounts do not have the privileges to add file. Please create a personal account for full access.',
-          severity: 'error',
-        })
-      );
-      return;
-    }
-
+  const handleUploadClick = async () => {
     const formData = new FormData();
     if (selectedFile) {
       formData.append('file', selectedFile);
@@ -80,35 +61,20 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
       //here we could add them as separate items in the array but simpilicity we will just add them as a single string with comma separated tags.
       formData.append('tags', tags.join(','));
 
-      try {
-        const response = await axios.post(baseUrl + '/api/documents', formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-  
-        if (response.status !== 201) {
-          throw new Error('Failed to upload file');
-        }
+      const response = await upload(formData);
 
-        if (response.status === 201) {
-          setSelectedFile(null);
-          setSelectedApplication([]);
-          setTags([]);
-          dispatch(
-            show({
-              message: 'File uploaded successfully!',
-              severity: 'success',
-            })
-          );
-        }
-      } catch (error) {
-        console.error('Error uploading file:', error);
+      if (response && response.status !== 201) {
+        throw new Error('Failed to upload file');
+      }
+
+      if (response && response.status === 201) {
+        setSelectedFile(null);
+        setSelectedApplication([]);
+        setTags([]);
         dispatch(
           show({
-            message: 'Error uploading file. Please try again later.',
-            severity: 'error',
+            message: 'File uploaded successfully!',
+            severity: 'success',
           })
         );
       }
