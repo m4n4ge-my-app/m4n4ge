@@ -1,7 +1,5 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
@@ -12,61 +10,49 @@ import {
   GridRowModes,
   DataGrid,
   GridColDef,
-  GridToolbarContainer,
   GridActionsCellItem,
   GridEventListener,
   GridRowId,
   GridRowModel,
   GridRowEditStopReasons,
-  GridSlotProps,
 } from '@mui/x-data-grid';
-import {
-  randomCreatedDate,
-  randomTraderName,
-  randomId,
-  randomArrayItem,
-} from '@mui/x-data-grid-generator';
-
-const roles = ['Market', 'Finance', 'Development'];
-const randomRole = () => {
-  return randomArrayItem(roles);
-};
 
 const initialRows: GridRowsProp = [
   {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 25,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
+    id: '67448c37e5bb511ef54e8e5e',
+    name: 'my default resume.pdf',
+    s3Url: '',
+    userId: '673cdb9bb5fe58bc59bd0b2c',
+    type: 'application/pdf',
+    size: 80464,
+    fileType: 'resume',
+    applications: ['all'],
+    tags: ['parimary'],
+    uploadedAt: '2024-11-25T14:39:51.025Z',
   },
   {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 36,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
+    id: '67448c4ae5bb511ef54e8e65',
+    name: 'my most recent resume.pdf',
+    s3Url: '',
+    userId: '673cdb9bb5fe58bc59bd0b2c',
+    type: 'application/pdf',
+    size: 80464,
+    fileType: 'cover letter',
+    applications: ['66cb0d644b9e19924a90329e'],
+    tags: ['latest'],
+    uploadedAt: '2024-11-25T14:40:10.351Z',
   },
   {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 19,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 28,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 23,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
+    id: '67448c59e5bb511ef54e8e6c',
+    name: 'resume 2023.pdf',
+    s3Url: '',
+    userId: '673cdb9bb5fe58bc59bd0b2c',
+    type: 'application/pdf',
+    size: 80464,
+    fileType: 'description',
+    applications: ['66cb0d644b9e19924a90329e', '66cb0d644b9e19924a9032a3'],
+    tags: ['2023'],
+    uploadedAt: '2024-11-25T14:40:25.180Z',
   },
 ];
 
@@ -74,40 +60,21 @@ declare module '@mui/x-data-grid' {
   interface ToolbarPropsOverrides {
     setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
     setRowModesModel: (
-      newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
+      newModel: (oldModel: GridRowModesModel) => GridRowModesModel
     ) => void;
   }
 }
 
-function EditToolbar(props: GridSlotProps['toolbar']) {
-  const { setRows, setRowModesModel } = props;
-
-  const handleClick = () => {
-    const id = randomId();
-    setRows((oldRows) => [
-      ...oldRows,
-      { id, name: '', age: '', role: '', isNew: true },
-    ]);
-    setRowModesModel((oldModel) => ({
-      ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
-    }));
-  };
-
-  return (
-    <GridToolbarContainer>
-      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add record
-      </Button>
-    </GridToolbarContainer>
-  );
-}
-
 export default function EditableDocumentsTable() {
   const [rows, setRows] = React.useState(initialRows);
-  const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>({});
+  const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>(
+    {}
+  );
 
-  const handleRowEditStop: GridEventListener<'rowEditStop'> = (params, event) => {
+  const handleRowEditStop: GridEventListener<'rowEditStop'> = (
+    params,
+    event
+  ) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
       event.defaultMuiPrevented = true;
     }
@@ -148,26 +115,26 @@ export default function EditableDocumentsTable() {
   };
 
   const columns: GridColDef[] = [
-    { field: 'name', headerName: 'Name', width: 180, editable: true },
+    { field: 'id', headerName: 'ID', width: 180, editable: true },
     {
-      field: 'age',
-      headerName: 'Age',
-      type: 'number',
+      field: 'name',
+      headerName: 'Name',
+      type: 'string',
       width: 80,
       align: 'left',
       headerAlign: 'left',
       editable: true,
     },
     {
-      field: 'joinDate',
-      headerName: 'Join date',
-      type: 'date',
+      field: 'applcations',
+      headerName: 'Applications',
+      type: 'string',
       width: 180,
       editable: true,
     },
     {
-      field: 'role',
-      headerName: 'Department',
+      field: 'tags',
+      headerName: 'Tages',
       width: 220,
       editable: true,
       type: 'singleSelect',
@@ -242,7 +209,6 @@ export default function EditableDocumentsTable() {
         onRowModesModelChange={handleRowModesModelChange}
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
-        slots={{ toolbar: EditToolbar }}
         slotProps={{
           toolbar: { setRows, setRowModesModel },
         }}

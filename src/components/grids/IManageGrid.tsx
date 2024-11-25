@@ -1,3 +1,4 @@
+import EditableDocumentsTable from '../list/listTable/EditableDocumentsTable';
 import { Grid, Typography } from '@mui/material';
 import UploadForm from '../form/forms/UploadForm';
 import ResumesList from '../list/ResumesList';
@@ -36,7 +37,7 @@ const IManageGrid = ({ formLabel, listLabel }: Props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={12}>
           <Item className="listBox" sx={{ border: 'none' }}>
-            {formLabel === 'Resume' && <ResumesList />}
+            {formLabel === 'Resume' && <EditableDocumentsTable />}
           </Item>
         </Grid>
       </Grid>
