@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import axios from 'axios';
 
-import { show } from '../state/feeback/feedbackSlice';
+import { show } from '../state/feedback/feedbackSlice';
 import { useAuthToken } from './useAuthToken';
 import { RootState } from '../state/store';
 

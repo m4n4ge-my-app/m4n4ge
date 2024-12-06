@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import sidebarReducer from './navigation/sidebarSlice';
 import userReducer from './user/userSlice';
-import feedbackReducer from './feeback/feedbackSlice';
+import feedbackReducer from './feedback/feedbackSlice';
 import applicationReducer from './application/applicationSlice';
 
 export const store = configureStore({

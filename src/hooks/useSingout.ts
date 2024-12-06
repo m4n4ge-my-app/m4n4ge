@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { show } from '../state/feeback/feedbackSlice';
+import { show } from '../state/feedback/feedbackSlice';
 import { resetUser } from '../state/user/userSlice';
 import { useState } from 'react';
 

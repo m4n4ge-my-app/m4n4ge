@@ -28,7 +28,7 @@ import EditorToolbar, {
 } from './quillToolbar/EditorToolbar.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../state/store.js';
-import { show } from '../../state/feeback/feedbackSlice.js';
+import { show } from '../../state/feedback/feedbackSlice.js';
 import { Application } from '../../utils/applications.util.js';
 
 const resumeTemplateMapping: { [key: string]: string } = {

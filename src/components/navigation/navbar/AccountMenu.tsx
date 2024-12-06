@@ -2,7 +2,7 @@ import { Logout, Settings } from '@mui/icons-material';
 import { Avatar, Divider, ListItemIcon, Menu, MenuItem } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { show } from '../../../state/feeback/feedbackSlice';
+import { show } from '../../../state/feedback/feedbackSlice';
 import { useSignout } from '../../../hooks/useSingout';
 
 interface Prop {

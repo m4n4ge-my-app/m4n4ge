@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 import { Application } from '../../utils/applications.util';
-import { show } from '../../state/feeback/feedbackSlice';
+import { show } from '../../state/feedback/feedbackSlice';
 import { useUpload } from '../../hooks/useUpload';
 import { useDispatch } from 'react-redux';
 

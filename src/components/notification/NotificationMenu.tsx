@@ -1,5 +1,5 @@
 import { Divider, Menu, MenuItem, Typography } from '@mui/material';
-import { show } from '../../state/feeback/feedbackSlice';
+import { show } from '../../state/feedback/feedbackSlice';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch } from 'react-redux';
 import { Box } from '@mui/system';

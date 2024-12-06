@@ -30,7 +30,7 @@ import ConfirmationModal, {
   ConfirmationModalRef,
 } from '../../modals/confirmationModal/ConfirmationModal';
 import { useAuthToken } from '../../../hooks/useAuthToken';
-import { show } from '../../../state/feeback/feedbackSlice';
+import { show } from '../../../state/feedback/feedbackSlice';
 import { getColors } from '../utils/designUtilities';
 import { AxiosError, AxiosResponse } from 'axios';
 import { RootState } from '../../../state/store';

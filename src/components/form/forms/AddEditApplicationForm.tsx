@@ -27,7 +27,7 @@ import { RHFDateCalendar } from '../formControllers/RHFDateCalendar';
 import { RHFDatePicker } from '../formControllers/RHFDatePicker';
 import { RHFTextField } from '../formControllers/RHFTextField';
 import { RHFTextArea } from '../formControllers/RHFTextArea';
-import { show } from '../../../state/feeback/feedbackSlice';
+import { show } from '../../../state/feedback/feedbackSlice';
 import { useAuthToken } from '../../../hooks/useAuthToken';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RHFSelect } from '../formControllers/RHFSelect';
