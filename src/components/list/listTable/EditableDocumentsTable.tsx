@@ -115,12 +115,12 @@ export default function EditableDocumentsTable() {
   };
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 180, editable: true },
+    { field: 'id', headerName: 'ID', width: 10, editable: true },
     {
       field: 'name',
       headerName: 'Name',
       type: 'string',
-      width: 80,
+      width: 150,
       align: 'left',
       headerAlign: 'left',
       editable: true,
