@@ -3,7 +3,7 @@ import { Avatar, Divider, ListItemIcon, Menu, MenuItem } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { show } from '../../../state/feedback/feedbackSlice';
-import { useSignout } from '../../../hooks/useSingout';
+import { useSignout } from '../../../hooks/useSignout';
 
 interface Prop {
   open: boolean;
