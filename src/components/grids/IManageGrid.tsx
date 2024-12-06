@@ -1,4 +1,3 @@
-import EditableDocumentsTable from '../list/listTable/EditableDocumentsTable';
 import { Grid, Typography } from '@mui/material';
 import UploadForm from '../form/forms/UploadForm';
 import ResumesList from '../list/ResumesList';
