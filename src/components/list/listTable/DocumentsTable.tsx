@@ -16,23 +16,12 @@ import {
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import LaunchIcon from '@mui/icons-material/Launch';
 
+import { Document } from '../../../state/document/documentSlice';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { Box } from '@mui/system';
 import React from 'react';
 
-interface Document {
-  _id: string;
-  name: string;
-  s3Url: string;
-  userId: string;
-  type: string;
-  size: number;
-  fileType: string;
-  applications: string[];
-  tags: string[];
-  uploadedAt: string;
-}
 
 interface DocumentsTableProps {
   data: Document[];
