@@ -66,7 +66,14 @@ function DocumentsTable({ data, columns }: DocumentsTableProps) {
             </TableRow>
           ) : (
             data.map((row, rowIndex) => (
-              <TableRow key={rowIndex}>
+              <TableRow
+                key={rowIndex}
+                sx={{
+                  '&:hover': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                  },
+                }}
+              >
                 <TableCell>{rowIndex + 1}</TableCell>
 
                 <TableCell>{row.name}</TableCell>
@@ -109,9 +116,16 @@ function DocumentsTable({ data, columns }: DocumentsTableProps) {
                   }
                 </TableCell>
                 <TableCell>
-                    {
-                        row.tags.length > 0 && row.tags[0].split(',').map((tag, index) => <Chip key={index} label={tag}  sx={{marginRight: '5px'}}/> )
-                    }
+                  {row.tags.length > 0 &&
+                    row.tags[0]
+                      .split(',')
+                      .map((tag, index) => (
+                        <Chip
+                          key={index}
+                          label={tag}
+                          sx={{ marginRight: '5px' }}
+                        />
+                      ))}
                 </TableCell>
                 <TableCell>{row.uploadedAt}</TableCell>
                 <TableCell align="center" style={{ width: '30%' }}>
