@@ -3,6 +3,7 @@ import sidebarReducer from './navigation/sidebarSlice';
 import userReducer from './user/userSlice';
 import feedbackReducer from './feedback/feedbackSlice';
 import applicationReducer from './application/applicationSlice';
+import documentReducer from './document/documentSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     sidebar: sidebarReducer,
     feedback: feedbackReducer,
     applications: applicationReducer,
+    documents: documentReducer,
   },
 });
 

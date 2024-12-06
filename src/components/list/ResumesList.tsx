@@ -1,6 +1,11 @@
 import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
 import { TableCell, TableHead, TableRow } from '@mui/material';
+import { useEffect } from 'react';
+
+import { setDocuments } from '../../state/document/documentSlice';
+import { getAllDocuments } from '../../services/documents';
 import DocumentsTable from './listTable/DocumentsTable';
+import { useAuthToken } from '../../hooks/useAuthToken';
 
 const resumesData = [
   {
@@ -82,8 +87,26 @@ const columns = (
   </TableHead>
 );
 
-const ResumesList = () => (
-  <DocumentsTable data={resumesData} columns={columns} />
-);
+const ResumesList = () => {
+  const token = useAuthToken();
+
+  const fetchDocumentsData = async () => {
+    if (token) {
+      try {
+        const data = await getAllDocuments(token);
+        setDocuments(data);
+      } catch (error) {
+        console.log('error fetching user application records: ', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchDocumentsData();
+  }, [token]);
+
+  return <DocumentsTable data={resumesData} columns={columns} />
+}
+;
 
 export default ResumesList;
