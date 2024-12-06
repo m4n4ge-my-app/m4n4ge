@@ -37,7 +37,7 @@ const IManageGrid = ({ formLabel, listLabel }: Props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={12}>
           <Item className="listBox" sx={{ border: 'none' }}>
-            {formLabel === 'Resume' && <EditableDocumentsTable />}
+            {formLabel === 'Resume' && <ResumesList />}
           </Item>
         </Grid>
       </Grid>

@@ -1,3 +1,5 @@
+//NOTE: this component was created to test the editable table feature of the MUI DataGrid component. It is not complete and not used in the application currently and can be brought back if needed.
+
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import EditIcon from '@mui/icons-material/Edit';
