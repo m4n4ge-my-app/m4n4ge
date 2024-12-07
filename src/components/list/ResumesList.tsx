@@ -36,12 +36,6 @@ const columns = (
       >
         Tags
       </TableCell>
-      <TableCell
-        // align="center"
-        sx={{ fontWeight: 'bold', color: 'GrayText' }}
-      >
-        Update Date
-      </TableCell>
       <TableCell align="center" sx={{ fontWeight: 'bold', color: 'GrayText' }}>
         Actions
       </TableCell>

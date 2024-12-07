@@ -116,7 +116,6 @@ function DocumentsTable({ data, columns }: DocumentsTableProps) {
                         />
                       ))}
                 </TableCell>
-                <TableCell>{row.uploadedAt}</TableCell>
                 <TableCell align="center" style={{ width: '30%' }}>
                   <Box
                     display="flex"
