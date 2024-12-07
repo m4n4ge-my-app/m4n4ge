@@ -53,11 +53,8 @@ const ResumesList = () => {
         const data = await getAllDocuments(token);
         setDocuments(data);
 
-        data.forEach((doc: Document) => {
-          if (doc.fileType === 'resume') {
-            setResumes((prev) => [...prev, doc]);
-          }
-        });
+        const filteredResumes = data.filter((doc: Document) => doc.fileType === 'resume');
+        setResumes(filteredResumes);
   
       } catch (error) {
         console.log('error fetching user application records: ', error);
