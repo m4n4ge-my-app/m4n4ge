@@ -1,4 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getAllDocuments } from '../../services/documents';
+import { useAuthToken } from '../../hooks/useAuthToken';
+import { AppThunk } from '../store';
 
 export interface Document {
   name: string;
@@ -13,40 +16,58 @@ export interface Document {
   uploadedAt: string;
 }
 
-//Note: Document below is super set array of resumes, cover letters and job descriptions mixed together.
 interface DocumentState {
-  documents: Document[] | [];
-  resumes: Document[] | [];
-  coverLetters: Document[] | [];
-  jobDescriptions: Document[] | [];
+  documents: Document[];
+  loading: boolean;
+  error: string | null;
 }
 
 const initialState: DocumentState = {
   documents: [],
-  resumes: [],
-  coverLetters: [],
-  jobDescriptions: [],
+  loading: false,
+  error: null,
 };
 
 const documentSlice = createSlice({
   name: 'documents',
   initialState,
   reducers: {
-    setDocuments(state, action: PayloadAction<Document[]>) {
+    fetchDocumentsStart(state) {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchDocumentsSuccess(state, action: PayloadAction<Document[]>) {
       state.documents = action.payload;
+      state.loading = false;
     },
-    setResumes(state, action: PayloadAction<Document[]>) {
-      state.resumes = action.payload;
-    },
-    setCoverLetters(state, action: PayloadAction<Document[]>) {
-      state.coverLetters = action.payload;
-    },
-    setJobDescriptions(state, action: PayloadAction<Document[]>) {
-      state.jobDescriptions = action.payload;
+    fetchDocumentsFailure(state, action: PayloadAction<string>) {
+      state.loading = false;
+      state.error = action.payload;
     },
   },
 });
 
-export const { setDocuments, setResumes, setCoverLetters, setJobDescriptions } = documentSlice.actions;
+export const {
+  fetchDocumentsStart,
+  fetchDocumentsSuccess,
+  fetchDocumentsFailure,
+} = documentSlice.actions;
+
+export const fetchDocuments = (): AppThunk => async (dispatch, getState) => {
+  const token = getState().user.user?.token;
+  if (!token) return;
+
+  dispatch(fetchDocumentsStart());
+  try {
+    const data = await getAllDocuments(token);
+    dispatch(fetchDocumentsSuccess(data));
+  } catch (error) {
+    if (error instanceof Error) {
+      dispatch(fetchDocumentsFailure(error.message));
+    } else {
+      dispatch(fetchDocumentsFailure('An unknown error occurred'));
+    }
+  }
+};
 
 export default documentSlice.reducer;
