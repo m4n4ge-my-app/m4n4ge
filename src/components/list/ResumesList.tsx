@@ -2,10 +2,10 @@ import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
 import { TableCell, TableHead, TableRow } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-import { Document, setDocuments } from '../../state/document/documentSlice';
-import { getAllDocuments } from '../../services/documents';
+import { Document, fetchDocuments } from '../../state/document/documentSlice';
+import { AppDispatch, RootState } from '../../state/store';
 import DocumentsTable from './listTable/DocumentsTable';
-import { useAuthToken } from '../../hooks/useAuthToken';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const columns = (
@@ -44,30 +44,20 @@ const columns = (
 );
 
 const ResumesList = () => {
-  const token = useAuthToken();
+  const dispatch: AppDispatch = useDispatch();
+  const documents = useSelector((state: RootState) => state.documents.documents);
   const [resumes, setResumes] = useState<Document[]>([]);
 
-  const fetchDocumentsData = async () => {
-    if (token) {
-      try {
-        const data = await getAllDocuments(token);
-        setDocuments(data);
-
-        const filteredResumes = data.filter((doc: Document) => doc.fileType === 'resume');
-        setResumes(filteredResumes);
-  
-      } catch (error) {
-        console.log('error fetching user application records: ', error);
-      }
-    }
-  };
+  useEffect(() => {
+    dispatch(fetchDocuments());
+  }, [dispatch]);
 
   useEffect(() => {
-    fetchDocumentsData();
-  }, [token]);
+    const filteredResumes = documents.filter((doc: Document) => doc.fileType === 'resume');
+    setResumes(filteredResumes);
+  }, [documents]);
 
-  return <DocumentsTable data={resumes} columns={columns} />
-}
-;
+  return <DocumentsTable data={resumes} columns={columns} />;
+};
 
 export default ResumesList;

@@ -10,10 +10,12 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { fetchDocuments } from '../../state/document/documentSlice';
 import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 import { Application } from '../../utils/applications.util';
 import { show } from '../../state/feedback/feedbackSlice';
 import { useUpload } from '../../hooks/useUpload';
+import { AppDispatch } from '../../state/store';
 import { useDispatch } from 'react-redux';
 
 interface FileUploadProps {
@@ -31,7 +33,7 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { upload } = useUpload();
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -77,6 +79,7 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
             severity: 'success',
           })
         );
+        dispatch(fetchDocuments());
       }
     }
   };
