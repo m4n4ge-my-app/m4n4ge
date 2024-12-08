@@ -60,7 +60,7 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
           });
         }
       }
-      //here we could add them as separate items in the array but simpilicity we will just add them as a single string with comma separated tags.
+      //here we could add them as separate items in the array but simplicity we will just add them as a single string with comma separated tags.
       formData.append('tags', tags.join(','));
 
       const response = await upload(formData);

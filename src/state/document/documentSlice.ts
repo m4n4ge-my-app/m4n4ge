@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getAllDocuments } from '../../services/documents';
-import { useAuthToken } from '../../hooks/useAuthToken';
 import { AppThunk } from '../store';
 
 export interface Document {
