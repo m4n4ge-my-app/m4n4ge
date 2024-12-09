@@ -3,7 +3,7 @@ import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
 import { TableCell, TableHead, TableRow } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-import { Document, fetchDocuments } from '../../state/document/documentSlice';
+import { Document, fetchDocuments, setFocusedDocument } from '../../state/document/documentSlice';
 import { AppDispatch, RootState } from '../../state/store';
 import DocumentsTable from './listTable/DocumentsTable';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,6 +39,11 @@ const CoverLettersList = () => {
     useEffect(() => {
       dispatch(fetchDocuments());
     }, [dispatch]);
+
+    //this will ensure when going from different document types to resumes, the focused document is cleared which prevents rendering of wrong type of document
+    useEffect(() => {
+        dispatch(setFocusedDocument(null))
+    }, []);
   
     useEffect(() => {
       const filteredCoverLetters = documents.filter(

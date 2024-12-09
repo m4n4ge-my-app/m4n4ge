@@ -2,6 +2,10 @@
 import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
 import { TableCell, TableHead, TableRow } from '@mui/material';
 import DocumentsTable from './listTable/DocumentsTable';
+import { useEffect } from 'react';
+import { setFocusedDocument } from '../../state/document/documentSlice';
+import { AppDispatch } from '../../state/store';
+import { useDispatch } from 'react-redux';
 
 const columns = (
   <TableHead>
@@ -22,6 +26,13 @@ const columns = (
 );
 
 const JobDescriptionsList = () => {
+  const dispatch: AppDispatch = useDispatch();
+
+  //this will ensure when going from different document types to resumes, the focused document is cleared which prevents rendering of wrong type of document
+  useEffect(() => {
+    dispatch(setFocusedDocument(null))
+  }, []);
+
   return <DocumentsTable data={[]} columns={columns} />;
 };
 
