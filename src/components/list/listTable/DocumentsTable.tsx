@@ -20,7 +20,10 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import { Box } from '@mui/system';
 import React from 'react';
 
-import { Document, setFocusedDocument } from '../../../state/document/documentSlice';
+import {
+  Document,
+  setFocusedDocument,
+} from '../../../state/document/documentSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../state/store';
 

@@ -17,4 +17,4 @@ export const getAllDocuments = async (token: string) => {
     console.error(error);
     return null;
   }
-}
+};

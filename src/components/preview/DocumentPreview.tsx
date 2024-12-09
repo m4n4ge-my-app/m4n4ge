@@ -15,7 +15,14 @@ const DocumentPreview = ({ presignedUrl, title }: DocumentPreviewProps) => {
 
   return (
     <div>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '10px',
+        }}
+      >
         <Typography variant="body1">{title}</Typography>
         <Button
           variant="text"

@@ -16,7 +16,9 @@ interface Props {
 }
 
 const IManageGrid = ({ formLabel, listLabel }: Props) => {
-  const focusedDocument = useSelector((state: RootState) => state.documents.focusedDocument);
+  const focusedDocument = useSelector(
+    (state: RootState) => state.documents.focusedDocument
+  );
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -55,22 +57,25 @@ const IManageGrid = ({ formLabel, listLabel }: Props) => {
             {formLabel === 'Resume' && <ResumesList />}
           </Item>
         </Grid>
-        {
-          focusedDocument && (
-            <>
-              <Grid item xs={12} sm={12} md={12} ref={sectionRef}>
-                  <Typography variant="h6" className="label" gutterBottom>
-                    {formLabel} Preview
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} sm={12} md={12}>
-                  <Item className="listBox" sx={{ border: 'none' }}>
-                    {formLabel === 'Resume' && <DocumentPreview presignedUrl="" title={focusedDocument.name} />}
-                  </Item>
-                </Grid>
-            </>
-          )
-        }
+        {focusedDocument && (
+          <>
+            <Grid item xs={12} sm={12} md={12} ref={sectionRef}>
+              <Typography variant="h6" className="label" gutterBottom>
+                {formLabel} Preview
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={12} md={12}>
+              <Item className="listBox" sx={{ border: 'none' }}>
+                {formLabel === 'Resume' && (
+                  <DocumentPreview
+                    presignedUrl=""
+                    title={focusedDocument.name}
+                  />
+                )}
+              </Item>
+            </Grid>
+          </>
+        )}
       </Grid>
     </Grid>
   );
