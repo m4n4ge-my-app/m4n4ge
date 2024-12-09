@@ -22,7 +22,7 @@ import React from 'react';
 
 import {
   Document,
-  setFocusedDocument,
+  updateDocumentWithPresignedUrl,
 } from '../../../state/document/documentSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../state/store';
@@ -47,6 +47,10 @@ function DocumentsTable({ data, columns }: DocumentsTableProps) {
   const handleClose = () => {
     setAnchorEl(null);
     setOpenRowIndex(null);
+  };
+  const handleDocumentLaunch = async (document: Document) => {
+    //note: setFocusedDocument(responsible for rendering the DocumentPreview component) is now abstracted into the function below
+    dispatch(updateDocumentWithPresignedUrl(document));
   };
 
   return (
@@ -132,7 +136,7 @@ function DocumentsTable({ data, columns }: DocumentsTableProps) {
                       variant="text"
                       size="small"
                       startIcon={<LaunchIcon />}
-                      onClick={() => dispatch(setFocusedDocument(row))}
+                      onClick={() => handleDocumentLaunch(row)}
                     ></Button>
                     <Button
                       variant="text"

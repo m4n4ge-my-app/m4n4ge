@@ -18,3 +18,19 @@ export const getAllDocuments = async (token: string) => {
     return null;
   }
 };
+
+export const getPresignedUrl = async (token: string, documentId: string) => {
+  try {
+    const response: AxiosResponse = await axios.get(
+      baseUrl + `/api/documents/${documentId}/presignedUrl`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.presignedUrl;
+  } catch (error) {
+    return null;
+  }
+};

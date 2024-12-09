@@ -68,7 +68,7 @@ const IManageGrid = ({ formLabel, listLabel }: Props) => {
               <Item className="listBox" sx={{ border: 'none' }}>
                 {formLabel === 'Resume' && (
                   <DocumentPreview
-                    presignedUrl=""
+                    presignedUrl={focusedDocument.presignedUrl!}
                     title={focusedDocument.name}
                   />
                 )}

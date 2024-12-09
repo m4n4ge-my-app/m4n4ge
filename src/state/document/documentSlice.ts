@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getAllDocuments } from '../../services/documents';
+import { getAllDocuments, getPresignedUrl } from '../../services/documents';
 import { AppThunk } from '../store';
 
 export interface Document {
+  _id: string;
   name: string;
   s3Url: string;
   s3key: string;
@@ -13,6 +14,7 @@ export interface Document {
   applications: string[];
   tags: string[];
   uploadedAt: string;
+  presignedUrl: string | null;
 }
 
 interface DocumentState {
@@ -74,5 +76,16 @@ export const fetchDocuments = (): AppThunk => async (dispatch, getState) => {
     }
   }
 };
+
+export const updateDocumentWithPresignedUrl = (document: Document): AppThunk => async (
+  dispatch,
+  getState
+) => {
+  const token = getState().user.user?.token;
+  if (!token) return;
+
+  const presignedUrl = await getPresignedUrl(token, document._id);
+  dispatch(setFocusedDocument({ ...document, presignedUrl }));
+}
 
 export default documentSlice.reducer;
