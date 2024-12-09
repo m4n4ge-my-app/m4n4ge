@@ -34,3 +34,19 @@ export const getPresignedUrl = async (token: string, documentId: string) => {
     return null;
   }
 };
+
+export const deleteDocument = async (token: string, documentId: string) => {
+  try {
+    const response: AxiosResponse = await axios.delete(
+      baseUrl + `/api/documents/${documentId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    return null;
+  }
+};

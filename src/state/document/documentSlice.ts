@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getAllDocuments, getPresignedUrl } from '../../services/documents';
+import { deleteDocument, getAllDocuments, getPresignedUrl } from '../../services/documents';
 import { AppThunk } from '../store';
 
 export interface Document {
@@ -86,6 +86,17 @@ export const updateDocumentWithPresignedUrl = (document: Document): AppThunk => 
 
   const presignedUrl = await getPresignedUrl(token, document._id);
   dispatch(setFocusedDocument({ ...document, presignedUrl }));
+}
+
+export const removeDocument = (documentId: string): AppThunk => async (dispatch, getState) => {
+  const token = getState().user.user?.token;
+  if (!token) return;
+
+  const response = await deleteDocument(token, documentId);
+  if (response) {
+    dispatch(fetchDocuments());
+    dispatch(setFocusedDocument(null));
+  }
 }
 
 export default documentSlice.reducer;

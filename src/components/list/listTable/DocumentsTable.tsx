@@ -22,6 +22,7 @@ import React from 'react';
 
 import {
   Document,
+  removeDocument,
   updateDocumentWithPresignedUrl,
 } from '../../../state/document/documentSlice';
 import { useDispatch } from 'react-redux';
@@ -52,6 +53,9 @@ function DocumentsTable({ data, columns }: DocumentsTableProps) {
     //note: setFocusedDocument(responsible for rendering the DocumentPreview component) is now abstracted into the function below
     dispatch(updateDocumentWithPresignedUrl(document));
   };
+  const handleDocumentDelete = (document: Document) => {
+    dispatch(removeDocument(document._id));
+  }
 
   return (
     <TableContainer component={Paper} style={{ marginTop: '20px' }}>
@@ -143,7 +147,7 @@ function DocumentsTable({ data, columns }: DocumentsTableProps) {
                       size="small"
                       color="secondary"
                       startIcon={<DeleteOutlineOutlinedIcon />}
-                      onClick={() => {}}
+                      onClick={() => handleDocumentDelete(row)}
                     ></Button>
                   </Box>
                 </TableCell>
