@@ -5,6 +5,8 @@ import { Grid, Typography } from '@mui/material';
 import DocumentPreview from '../preview/DocumentPreview';
 import UploadForm from '../form/forms/UploadForm';
 import ResumesList from '../list/ResumesList';
+import { RootState } from '../../state/store';
+import { useSelector } from 'react-redux';
 import { Item } from './utils/MuiItem';
 
 interface Props {
@@ -13,6 +15,8 @@ interface Props {
 }
 
 const IManageGrid = ({ formLabel, listLabel }: Props) => {
+  const focusedDocument = useSelector((state: RootState) => state.documents.focusedDocument);
+
   return (
     <Grid container spacing={0} sx={{ padding: '25px', marginTop: '100px' }}>
       <Grid container item spacing={2.5} className="">
@@ -43,17 +47,22 @@ const IManageGrid = ({ formLabel, listLabel }: Props) => {
             {formLabel === 'Resume' && <ResumesList />}
           </Item>
         </Grid>
-
-        <Grid item xs={12} sm={12} md={12}>
-          <Typography variant="h6" className="label" gutterBottom>
-            {formLabel} Preview
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={12} md={12}>
-          <Item className="listBox" sx={{ border: 'none' }}>
-            {formLabel === 'Resume' && <DocumentPreview presignedUrl="" title="" />}
-          </Item>
-        </Grid>
+        {
+          focusedDocument && (
+            <>
+              <Grid item xs={12} sm={12} md={12}>
+                  <Typography variant="h6" className="label" gutterBottom>
+                    {formLabel} Preview
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={12} md={12}>
+                  <Item className="listBox" sx={{ border: 'none' }}>
+                    {formLabel === 'Resume' && <DocumentPreview presignedUrl="" title={focusedDocument.name} />}
+                  </Item>
+                </Grid>
+            </>
+          )
+        }
       </Grid>
     </Grid>
   );

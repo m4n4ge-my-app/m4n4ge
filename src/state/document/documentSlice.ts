@@ -17,12 +17,14 @@ export interface Document {
 
 interface DocumentState {
   documents: Document[];
+  focusedDocument: Document | null;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: DocumentState = {
   documents: [],
+  focusedDocument: null,
   loading: false,
   error: null,
 };
@@ -43,6 +45,9 @@ const documentSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    setFocusedDocument(state, action: PayloadAction<Document | null>) {
+      state.focusedDocument = action.payload;
+    },
   },
 });
 
@@ -50,6 +55,7 @@ export const {
   fetchDocumentsStart,
   fetchDocumentsSuccess,
   fetchDocumentsFailure,
+  setFocusedDocument,
 } = documentSlice.actions;
 
 export const fetchDocuments = (): AppThunk => async (dispatch, getState) => {

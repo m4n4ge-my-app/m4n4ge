@@ -15,13 +15,14 @@ import {
 
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import LaunchIcon from '@mui/icons-material/Launch';
-
-import { Document } from '../../../state/document/documentSlice';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { Box } from '@mui/system';
 import React from 'react';
 
+import { Document, setFocusedDocument } from '../../../state/document/documentSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../../state/store';
 
 interface DocumentsTableProps {
   data: Document[];
@@ -31,6 +32,7 @@ interface DocumentsTableProps {
 function DocumentsTable({ data, columns }: DocumentsTableProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [openRowIndex, setOpenRowIndex] = React.useState<number | null>(null);
+  const dispatch: AppDispatch = useDispatch();
 
   const handleClick = (
     event: React.MouseEvent<HTMLDivElement>,
@@ -127,7 +129,7 @@ function DocumentsTable({ data, columns }: DocumentsTableProps) {
                       variant="text"
                       size="small"
                       startIcon={<LaunchIcon />}
-                      onClick={() => {}}
+                      onClick={() => dispatch(setFocusedDocument(row))}
                     ></Button>
                     <Button
                       variant="text"
