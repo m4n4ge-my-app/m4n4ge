@@ -1,7 +1,12 @@
 //external imports
 import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
 import { TableCell, TableHead, TableRow } from '@mui/material';
+import { useEffect, useState } from 'react';
+
+import { Document, fetchDocuments } from '../../state/document/documentSlice';
+import { AppDispatch, RootState } from '../../state/store';
 import DocumentsTable from './listTable/DocumentsTable';
+import { useDispatch, useSelector } from 'react-redux';
 
 const columns = (
   <TableHead>
@@ -22,7 +27,36 @@ const columns = (
 );
 
 const CoverLettersList = () => {
-  return <DocumentsTable data={[]} columns={columns} />;
+    const dispatch: AppDispatch = useDispatch();
+    const applications = useSelector(
+      (state: RootState) => state.applications.applications
+    );
+    const documents = useSelector(
+      (state: RootState) => state.documents.documents
+    );
+    const [coverLetters, setCoverLetters] = useState<Document[]>([]);
+  
+    useEffect(() => {
+      dispatch(fetchDocuments());
+    }, [dispatch]);
+  
+    useEffect(() => {
+      const filteredCoverLetters = documents.filter(
+        (doc: Document) => doc.fileType === 'cover letter'
+      );
+      const lettersWithApplicationDetails = filteredCoverLetters.map((letter) => {
+        const updatedApplications = letter.applications.map((appId) => {
+          const application = applications.find((app) => app._id === appId);
+          return application
+            ? `${application.employerName} - ${application.positionName}`
+            : 'All Applications';
+        });
+        return { ...letter, applications: updatedApplications };
+      });
+      setCoverLetters(lettersWithApplicationDetails);
+    }, [documents, applications]);
+  
+    return <DocumentsTable data={coverLetters} columns={columns} />;
 };
 
 export default CoverLettersList;
