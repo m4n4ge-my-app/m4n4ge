@@ -1,11 +1,13 @@
 //external imports
 import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
 import { TableCell, TableHead, TableRow } from '@mui/material';
+import { useEffect, useState } from 'react';
+
+//internal imports
+import { Document, fetchDocuments, setFocusedDocument } from '../../state/document/documentSlice';
+import { AppDispatch, RootState } from '../../state/store';
 import DocumentsTable from './listTable/DocumentsTable';
-import { useEffect } from 'react';
-import { setFocusedDocument } from '../../state/document/documentSlice';
-import { AppDispatch } from '../../state/store';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const columns = (
   <TableHead>
@@ -27,13 +29,40 @@ const columns = (
 
 const JobDescriptionsList = () => {
   const dispatch: AppDispatch = useDispatch();
+  const applications = useSelector(
+    (state: RootState) => state.applications.applications
+  );
+  const documents = useSelector(
+    (state: RootState) => state.documents.documents
+  );
+  const [jobDescriptions, setJobDescriptions] = useState<Document[]>([]);
+
+  useEffect(() => {
+    dispatch(fetchDocuments());
+  }, [dispatch]);
 
   //this will ensure when going from different document types to resumes, the focused document is cleared which prevents rendering of wrong type of document
   useEffect(() => {
-    dispatch(setFocusedDocument(null))
+    dispatch(setFocusedDocument(null));
   }, []);
 
-  return <DocumentsTable data={[]} columns={columns} />;
+  useEffect(() => {
+    const filteredJobDescriptions = documents.filter(
+      (doc: Document) => doc.fileType === 'description'
+    );
+    const descriptionsWithApplicationDetails = filteredJobDescriptions.map((description) => {
+      const updatedApplications = description.applications.map((appId) => {
+        const application = applications.find((app) => app._id === appId);
+        return application
+          ? `${application.employerName} - ${application.positionName}`
+          : 'All Applications';
+      });
+      return { ...description, applications: updatedApplications };
+    });
+    setJobDescriptions(descriptionsWithApplicationDetails);
+  }, [documents, applications]);
+
+  return <DocumentsTable data={jobDescriptions} columns={columns} />;
 };
 
 export default JobDescriptionsList;
