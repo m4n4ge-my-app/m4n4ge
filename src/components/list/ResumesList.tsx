@@ -45,6 +45,7 @@ const columns = (
 
 const ResumesList = () => {
   const dispatch: AppDispatch = useDispatch();
+  const applications = useSelector((state: RootState) => state.applications.applications);
   const documents = useSelector((state: RootState) => state.documents.documents);
   const [resumes, setResumes] = useState<Document[]>([]);
 
@@ -54,8 +55,15 @@ const ResumesList = () => {
 
   useEffect(() => {
     const filteredResumes = documents.filter((doc: Document) => doc.fileType === 'resume');
-    setResumes(filteredResumes);
-  }, [documents]);
+    const resumesWithApplicationDetails = filteredResumes.map((resume) => {
+      const updatedApplications = resume.applications.map((appId) => {
+        const application = applications.find((app) => app._id === appId);
+        return application ? `${application.employerName} - ${application.positionName}` : 'All Applications';
+      });
+      return { ...resume, applications: updatedApplications };
+    });
+    setResumes(resumesWithApplicationDetails);
+  }, [documents, applications]);
 
   return <DocumentsTable data={resumes} columns={columns} />;
 };
