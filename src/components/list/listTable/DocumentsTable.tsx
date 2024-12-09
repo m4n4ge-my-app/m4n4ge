@@ -18,7 +18,7 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { Box } from '@mui/system';
-import React from 'react';
+import React, { useRef } from 'react';
 
 import {
   Document,
@@ -27,6 +27,9 @@ import {
 } from '../../../state/document/documentSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../state/store';
+import ConfirmationModal, {
+  ConfirmationModalRef,
+} from '../../modals/confirmationModal/ConfirmationModal';
 
 interface DocumentsTableProps {
   data: Document[];
@@ -36,6 +39,7 @@ interface DocumentsTableProps {
 function DocumentsTable({ data, columns }: DocumentsTableProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [openRowIndex, setOpenRowIndex] = React.useState<number | null>(null);
+  const modalRef = useRef<ConfirmationModalRef>(null);
   const dispatch: AppDispatch = useDispatch();
 
   const handleClick = (
@@ -53,9 +57,11 @@ function DocumentsTable({ data, columns }: DocumentsTableProps) {
     //note: setFocusedDocument(responsible for rendering the DocumentPreview component) is now abstracted into the function below
     dispatch(updateDocumentWithPresignedUrl(document));
   };
-  const handleDocumentDelete = (document: Document) => {
-    dispatch(removeDocument(document._id));
-  }
+  const openModal = () => {
+    if (modalRef.current) {
+      modalRef.current.setOpen(true);
+    }
+  };
 
   return (
     <TableContainer component={Paper} style={{ marginTop: '20px' }}>
@@ -147,10 +153,16 @@ function DocumentsTable({ data, columns }: DocumentsTableProps) {
                       size="small"
                       color="secondary"
                       startIcon={<DeleteOutlineOutlinedIcon />}
-                      onClick={() => handleDocumentDelete(row)}
+                      onClick={openModal}
                     ></Button>
                   </Box>
                 </TableCell>
+                <ConfirmationModal
+                  ref={modalRef}
+                  title="Delete Document"
+                  message={`Are you sure you want to delete the document: ${row.name}?`}
+                  confirmAction={async () => dispatch(removeDocument(row._id))}
+                />
               </TableRow>
             ))
           )}

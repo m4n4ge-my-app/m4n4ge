@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { deleteDocument, getAllDocuments, getPresignedUrl } from '../../services/documents';
 import { AppThunk } from '../store';
+import { show } from '../feedback/feedbackSlice';
+import { AxiosError } from 'axios';
 
 export interface Document {
   _id: string;
@@ -96,6 +98,23 @@ export const removeDocument = (documentId: string): AppThunk => async (dispatch,
   if (response) {
     dispatch(fetchDocuments());
     dispatch(setFocusedDocument(null));
+
+    if (response.status === 204) {
+      dispatch(
+        show({
+          message: 'Document deleted successfully',
+          severity: 'success',
+        })
+      );
+    }
+    if (response instanceof AxiosError) {
+      dispatch(
+        show({
+          message: response?.response?.data.error,
+          severity: 'error',
+        })
+      );
+    }
   }
 }
 
