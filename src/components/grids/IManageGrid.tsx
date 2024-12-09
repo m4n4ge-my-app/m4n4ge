@@ -2,6 +2,7 @@ import { Grid, Typography } from '@mui/material';
 import UploadForm from '../form/forms/UploadForm';
 import ResumesList from '../list/ResumesList';
 import { Item } from './utils/MuiItem';
+import DocumentPreview from '../preview/DocumentPreview';
 
 interface Props {
   formLabel: string;
@@ -37,6 +38,17 @@ const IManageGrid = ({ formLabel, listLabel }: Props) => {
         <Grid item xs={12} sm={12} md={12}>
           <Item className="listBox" sx={{ border: 'none' }}>
             {formLabel === 'Resume' && <ResumesList />}
+          </Item>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={12}>
+          <Typography variant="h6" className="label" gutterBottom>
+            {formLabel} Preview
+          </Typography>
+        </Grid>
+        <Grid item xs={12} sm={12} md={12}>
+          <Item className="listBox" sx={{ border: 'none' }}>
+            {formLabel === 'Resume' && <DocumentPreview presignedUrl="" />}
           </Item>
         </Grid>
       </Grid>
