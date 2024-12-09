@@ -1,8 +1,11 @@
+//external imports
 import { Grid, Typography } from '@mui/material';
+
+//internal imports
+import DocumentPreview from '../preview/DocumentPreview';
 import UploadForm from '../form/forms/UploadForm';
 import ResumesList from '../list/ResumesList';
 import { Item } from './utils/MuiItem';
-import DocumentPreview from '../preview/DocumentPreview';
 
 interface Props {
   formLabel: string;

@@ -1,3 +1,5 @@
+//external imports
+import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 import { useState } from 'react';
 import {
   Button,
@@ -10,8 +12,9 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+
+//internal imports
 import { fetchDocuments } from '../../state/document/documentSlice';
-import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 import { Application } from '../../utils/applications.util';
 import { show } from '../../state/feedback/feedbackSlice';
 import { useUpload } from '../../hooks/useUpload';

@@ -1,3 +1,4 @@
+//external imports
 import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
 import { TableCell, TableHead, TableRow } from '@mui/material';
 import { useEffect, useState } from 'react';
@@ -7,7 +8,7 @@ import { AppDispatch, RootState } from '../../state/store';
 import DocumentsTable from './listTable/DocumentsTable';
 import { useDispatch, useSelector } from 'react-redux';
 
-
+//internal imports
 const columns = (
   <TableHead>
     <TableRow sx={{ backgroundColor: '#fbfcff' }} id="applications-table-head">
