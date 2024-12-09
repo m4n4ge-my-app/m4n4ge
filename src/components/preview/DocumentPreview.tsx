@@ -1,11 +1,25 @@
+import CloseIcon from '@mui/icons-material/Close';
+import { Button, Typography, Box } from '@mui/material';
+
 interface DocumentPreviewProps {
   presignedUrl: string;
+  title: string;
 }
 
-const DocumentPreview = ({ presignedUrl }: DocumentPreviewProps) => {
+const DocumentPreview = ({ presignedUrl, title }: DocumentPreviewProps) => {
   return (
     <div>
-      <h3>Document Preview</h3>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
+        <Typography variant="body1">{title}</Typography>
+        <Button
+          variant="text"
+          size="small"
+          endIcon={<CloseIcon />}
+          onClick={() => {}}
+        >
+          Close
+        </Button>
+      </Box>
       <iframe
         src={presignedUrl}
         style={{
