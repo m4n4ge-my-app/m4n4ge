@@ -1,5 +1,5 @@
 //external imports
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
 
 //internal imports
 import JobDescriptionsList from '../list/JobDescriptionsList';
@@ -22,6 +22,9 @@ const IManageGrid = ({ formLabel, listLabel }: Props) => {
     (state: RootState) => state.documents.focusedDocument
   );
   const sectionRef = useRef<HTMLDivElement>(null);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
 
   useEffect(() => {
     if (focusedDocument) {
@@ -30,7 +33,7 @@ const IManageGrid = ({ formLabel, listLabel }: Props) => {
   }, [focusedDocument]);
 
   return (
-    <Grid container spacing={0} sx={{ padding: '25px', marginTop: '100px' }}>
+    <Grid container spacing={0} sx={{ padding: '25px', marginTop: '100px', width: isMobile ? '85vw' : '100%', }}>
       <Grid container item spacing={2.5} className="">
         <Grid item xs={12} sm={12} md={12}>
           <Typography variant="h6" className="label" gutterBottom>
