@@ -8,7 +8,7 @@ interface NotFoundProps {
 
 const NotFound = ({ isPrivateRoute }: NotFoundProps) => {
   return isPrivateRoute ? (
-    // TODO: temporarly using resume background image for now, will replace it with appropriate image
+    // TODO: temporarily using resume background image for now, will replace it with appropriate image
     <BaseLayer type="resume">
       <NotFoundGrid />
     </BaseLayer>
@@ -23,7 +23,7 @@ const NotFound = ({ isPrivateRoute }: NotFoundProps) => {
         height: '100vh',
       }}
     >
-      {/* TODO: further refind this page */}
+      {/* TODO: further refine this page */}
       Not Found page: under development
       <img
         src={notFoundImage}

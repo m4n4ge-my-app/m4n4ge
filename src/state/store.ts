@@ -15,7 +15,7 @@ export const store = configureStore({
   },
 });
 
-// this will help us see the shape of the store and also type the state retuturned by useselctor hook.
+// this will help us see the shape of the store and also type the state returned by useSelector hook.
 export type RootState = ReturnType<typeof store.getState>;
 // similarly, this will help us type the dispatch function returned by useDispatch hook.
 export type AppDispatch = typeof store.dispatch;

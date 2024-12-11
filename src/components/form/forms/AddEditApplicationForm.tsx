@@ -55,7 +55,7 @@ const AddEditApplicationForm = () => {
     (state: RootState) => state.applications.focusedApplication
   );
   const { handleSubmit, reset } = useFormContext<AddAppSchema>();
-  const [isUserPrevillaged, setIsUserPrevillaged] = useState(true);
+  const [isUserPrivileged, setIsUserPrivileged] = useState(true);
   const { id } = useParams<{ id: string }>();
   const token = useAuthToken();
   const navigate = useNavigate();
@@ -201,12 +201,12 @@ const AddEditApplicationForm = () => {
                 { id: '3', label: 'Direct Email' },
                 { id: '4', label: 'Dice' },
                 { id: '5', label: 'FlexJobs' },
-                { id: '6', label: 'Glassdoor' },
+                { id: '6', label: 'GlassDoor' },
                 { id: '7', label: 'Indeed' },
                 { id: '8', label: 'LinkedIn' },
                 { id: '9', label: 'Monster' },
                 { id: '10', label: 'SimplyHired' },
-                { id: '11', label: 'Wellfound' },
+                { id: '11', label: 'WellFound' },
                 { id: '12', label: 'Workopolis' },
                 { id: '13', label: 'ZipRecruiter' },
                 { id: '14', label: 'Other' },
@@ -239,7 +239,7 @@ const AddEditApplicationForm = () => {
                 component="label"
                 sx={{ margin: '20px' }}
               >
-                Upload Job Decription
+                Upload Job Description
                 <FilterDramaOutlinedIcon sx={{ marginLeft: '10px' }} />
                 <input type="file" hidden />
               </Button>
@@ -350,7 +350,7 @@ const AddEditApplicationForm = () => {
                   );
                 }
                 if (response instanceof AxiosError) {
-                  setIsUserPrevillaged(false);
+                  setIsUserPrivileged(false);
                   dispatch(
                     show({
                       message: response?.response?.data.error,
@@ -361,8 +361,8 @@ const AddEditApplicationForm = () => {
               }
             )
           }
-          //TODO: theres a race condition here, isUserPrevillaged is not getting the latest value when user is a demo account.
-          subsquentPath={isUserPrevillaged ? '/dashboard' : null}
+          //TODO: theres a race condition here, isUserPrivileged is not getting the latest value when user is a demo account.
+          subsquentPath={isUserPrivileged ? '/dashboard' : null}
         />
       </Grid>
     </form>
@@ -383,7 +383,7 @@ interface ItemProps {
 
 const Row: React.FC<RowProps> = (props) => {
   return (
-    <Grid container item xs={12} spacing={3} sx={{ alignItems: 'stratch' }}>
+    <Grid container item xs={12} spacing={3} sx={{ alignItems: 'stretch' }}>
       <RowItem>{props.itemOne}</RowItem>
       <RowItem>{props.itemTwo}</RowItem>
       <RowItem>{props.itemThree}</RowItem>

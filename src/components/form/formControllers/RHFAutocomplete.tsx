@@ -8,7 +8,7 @@ import { Autocomplete, Box, Checkbox, TextField } from '@mui/material';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { Options } from '../types/Options';
 
-//Ive been using interfaces for props in other places and typecript is telling me to stay consistent and use type instead, however this lesson uses types I will use them and ignore the error for now
+//Ive been using interfaces for props in other places and typescript is telling me to stay consistent and use type instead, however this lesson uses types I will use them and ignore the error for now
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type Props<T extends FieldValues> = {
   name: Path<T>;

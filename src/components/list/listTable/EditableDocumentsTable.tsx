@@ -29,7 +29,7 @@ const initialRows: GridRowsProp = [
     size: 80464,
     fileType: 'resume',
     applications: ['all'],
-    tags: ['parimary'],
+    tags: ['primary'],
     uploadedAt: '2024-11-25T14:39:51.025Z',
   },
   {
@@ -128,7 +128,7 @@ export default function EditableDocumentsTable() {
       editable: true,
     },
     {
-      field: 'applcations',
+      field: 'applications',
       headerName: 'Applications',
       type: 'string',
       width: 180,
@@ -136,7 +136,7 @@ export default function EditableDocumentsTable() {
     },
     {
       field: 'tags',
-      headerName: 'Tages',
+      headerName: 'Tags',
       width: 220,
       editable: true,
       type: 'singleSelect',

@@ -21,7 +21,7 @@ import interview from './baseLayerImages/interview.png';
 import settings from './baseLayerImages/settings.png';
 import calendar from './baseLayerImages/calendar.png';
 import archive from './baseLayerImages/archive.png';
-import prfile from './baseLayerImages/profile.png';
+import profile from './baseLayerImages/profile.png';
 import todos from './baseLayerImages/todolist.png';
 import resume from './baseLayerImages/resume.png';
 import assist from './baseLayerImages/assist.png';
@@ -117,7 +117,7 @@ const BaseLayer = ({ type, children }: Props) => {
       case 'profile':
         document.documentElement.style.setProperty(
           '--background-image-url',
-          `url(${prfile})`
+          `url(${profile})`
         );
         break;
       case 'settings':

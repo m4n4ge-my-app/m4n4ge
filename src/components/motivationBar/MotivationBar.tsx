@@ -2,7 +2,7 @@
 import { Divider, Grid, Typography } from '@mui/material';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
-import AnalogClock from 'analog-clock-react'; //there is tpescript types for this package from the package maintainer, so this error cant be fixed
+import AnalogClock from 'analog-clock-react'; //there is typescript types for this package from the package maintainer, so this error cant be fixed
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -13,7 +13,7 @@ import moment from 'moment';
 import { getEarliestApplicationDate } from '../../utils/applications.util';
 import { quotes } from './quotes/sampleQuotes';
 import { RootState } from '../../state/store';
-import './mativationbar.scss';
+import './motivationbar.scss';
 
 const MotivationBar = () => {
   const today = moment().format('ddd, MMM D, YY');
