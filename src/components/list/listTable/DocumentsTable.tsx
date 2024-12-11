@@ -63,17 +63,30 @@ function DocumentsTable({ data, columns }: DocumentsTableProps) {
     }
   };
 
+  // Create a mapping of document names to their occurrences
+  const nameOccurrences: { [key: string]: number } = {};
+  const updatedData = data.map((doc) => {
+    const name = doc.name;
+    if (nameOccurrences[name]) {
+      nameOccurrences[name] += 1;
+      return { ...doc, displayName: `${name} (${nameOccurrences[name]})` };
+    } else {
+      nameOccurrences[name] = 1;
+      return { ...doc, displayName: name };
+    }
+  });
+
   return (
     <TableContainer component={Paper} style={{ marginTop: '20px' }}>
       <Table>
         {columns}
         <TableBody>
-          {data.length === 0 ? (
+          {updatedData.length === 0 ? (
             <TableRow>
               <TableCell align="center">No documents to display</TableCell>
             </TableRow>
           ) : (
-            data.map((row, rowIndex) => (
+            updatedData.map((row, rowIndex) => (
               <TableRow
                 key={rowIndex}
                 sx={{
@@ -84,44 +97,44 @@ function DocumentsTable({ data, columns }: DocumentsTableProps) {
               >
                 <TableCell>{rowIndex + 1}</TableCell>
 
-                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.displayName}</TableCell>
                 <TableCell>
                   {
-                    <>
-                      <ListItemButton
-                        onClick={(event) => handleClick(event, rowIndex)}
-                      >
-                        <ListItemText primary={row.applications?.[0]} />
-                        {row.applications.length > 1 &&
-                        openRowIndex === rowIndex ? (
-                          <ExpandLess />
-                        ) : row.applications.length > 1 ? (
-                          <ExpandMore />
-                        ) : null}
-                      </ListItemButton>
+                  <>
+                    <ListItemButton
+                      onClick={(event) => handleClick(event, rowIndex)}
+                    >
+                      <ListItemText primary={row.applications?.[0]} />
+                      {row.applications.length > 1 &&
+                      openRowIndex === rowIndex ? (
+                        <ExpandLess />
+                      ) : row.applications.length > 1 ? (
+                        <ExpandMore />
+                      ) : null}
+                    </ListItemButton>
 
-                      <Menu
-                        id="basic-menu"
-                        anchorEl={anchorEl}
-                        open={
-                          openRowIndex === rowIndex &&
-                          row.applications.length > 1
-                        }
-                        onClose={handleClose}
-                        MenuListProps={{
-                          'aria-labelledby': 'basic-button',
-                        }}
-                      >
-                        {row.applications.map((application, index) => {
+                    <Menu
+                      id="basic-menu"
+                      anchorEl={anchorEl}
+                      open={
+                        openRowIndex === rowIndex &&
+                        row.applications.length > 1
+                      }
+                      onClose={handleClose}
+                      MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                      }}
+                    >
+                      {row.applications.map((application, index) => {
                           return (
                             <MenuItem key={index} onClick={handleClose}>
                               {application}
                             </MenuItem>
                           );
                         })}
-                      </Menu>
-                    </>
-                  }
+                    </Menu>
+                  </>
+                }
                 </TableCell>
                 <TableCell>
                   {row.tags.length > 0 &&
@@ -147,20 +160,20 @@ function DocumentsTable({ data, columns }: DocumentsTableProps) {
                       size="small"
                       startIcon={<LaunchIcon />}
                       onClick={() => handleDocumentLaunch(row)}
-                    ></Button>
+                      ></Button>
                     <Button
                       variant="text"
                       size="small"
                       color="secondary"
                       startIcon={<DeleteOutlineOutlinedIcon />}
                       onClick={openModal}
-                    ></Button>
+                      ></Button>
                   </Box>
                 </TableCell>
                 <ConfirmationModal
                   ref={modalRef}
                   title="Delete Document"
-                  message={`Are you sure you want to delete the document: ${row.name}?`}
+                  message={`Are you sure you want to delete the document: ${row.displayName}?`}
                   confirmAction={async () => dispatch(removeDocument(row._id))}
                 />
               </TableRow>
