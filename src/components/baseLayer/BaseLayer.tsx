@@ -179,7 +179,7 @@ const BaseLayer = ({ type, children }: Props) => {
             open={open}
             handleClose={handleNotificationClose}
             anchorEl={anchorEl}
-            notfications={notifications}
+            notifications={notifications}
             user={user}
           />
           <Link to="/automated">

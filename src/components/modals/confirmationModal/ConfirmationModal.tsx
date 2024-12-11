@@ -25,12 +25,12 @@ interface ConfirmationModalProps {
   title: string;
   message: string;
   confirmAction: () => Promise<unknown>;
-  subsquentPath?: string | null;
+  subsequentPath?: string | null;
 }
 
 const ConfirmationModal = forwardRef(
   (
-    { title, message, confirmAction, subsquentPath }: ConfirmationModalProps,
+    { title, message, confirmAction, subsequentPath }: ConfirmationModalProps,
     ref
   ) => {
     const [open, setOpen] = React.useState(false);
@@ -61,8 +61,8 @@ const ConfirmationModal = forwardRef(
             size="small"
             onClick={() => {
               confirmAction().then(() => {
-                if (subsquentPath) {
-                  navigate(subsquentPath);
+                if (subsequentPath) {
+                  navigate(subsequentPath);
                 } else {
                   handleClose();
                 }

@@ -8,7 +8,7 @@ interface Prop {
   open: boolean;
   handleClose: () => void;
   anchorEl: null | HTMLElement;
-  notfications: any;
+  notifications: any;
   user: any;
 }
 
@@ -65,8 +65,8 @@ const NotificationMenu = (props: Prop) => {
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
     >
-      {props.notfications &&
-        props.notfications.map((notification: any, index: number) => (
+      {props.notifications &&
+        props.notifications.map((notification: any, index: number) => (
           <MenuItem key={index}>
             <Box sx={{ maxWidth: '200px', position: 'relative' }}>
               <Typography
@@ -94,7 +94,7 @@ const NotificationMenu = (props: Prop) => {
             </Box>
           </MenuItem>
         ))}
-      {!props.notfications && (
+      {!props.notifications && (
         <MenuItem>
           <Box sx={{ maxWidth: '200px', position: 'relative' }}>
             <Typography

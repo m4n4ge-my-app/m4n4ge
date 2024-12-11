@@ -362,7 +362,7 @@ const AddEditApplicationForm = () => {
             )
           }
           //TODO: theres a race condition here, isUserPrivileged is not getting the latest value when user is a demo account.
-          subsquentPath={isUserPrivileged ? '/dashboard' : null}
+          subsequentPath={isUserPrivileged ? '/dashboard' : null}
         />
       </Grid>
     </form>

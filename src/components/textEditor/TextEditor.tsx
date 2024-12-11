@@ -18,7 +18,7 @@ import { blankResumeTemplate } from './templates/resume/blankResumeTemplate.js';
 import { resumeTemplateA } from './templates/resume/resumeTemplateA.js';
 import { resumeTemplateB } from './templates/resume/resumeTemplateB.js';
 import { resumeTemplateC } from './templates/resume/resumeTemplateC.js';
-import { blanckCoverLetterTemplate } from './templates/coverLetter/blankCoverLetterTemplate.js';
+import { blankCoverLetterTemplate } from './templates/coverLetter/blankCoverLetterTemplate.js';
 import { coverLetterTemplateA } from './templates/coverLetter/coverLetterTemplateA.js';
 import { coverLetterTemplateB } from './templates/coverLetter/coverLetterTemplateB.js';
 import { coverLetterTemplateC } from './templates/coverLetter/coverLetterTemplateC.js';
@@ -39,7 +39,7 @@ const resumeTemplateMapping: { [key: string]: string } = {
 };
 
 const coverLetterTemplateMapping: { [key: string]: string } = {
-  'Blank Page': blanckCoverLetterTemplate,
+  'Blank Page': blankCoverLetterTemplate,
   'Template 1': coverLetterTemplateA,
   'Template 2': coverLetterTemplateB,
   'Template 3': coverLetterTemplateC,
