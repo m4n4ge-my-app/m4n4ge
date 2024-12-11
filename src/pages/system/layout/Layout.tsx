@@ -154,14 +154,14 @@ const Layout = () => {
                           sx={{ marginBottom: isMobile ? '10px' : '0px' }}
                         >
                           <FormControlLabel
-                            value="new"
-                            control={<Radio />}
-                            label="Adam Smith (New User)"
-                          />
-                          <FormControlLabel
                             value="expert"
                             control={<Radio />}
                             label="John Doe (Expert User)"
+                          />
+                          <FormControlLabel
+                            value="new"
+                            control={<Radio />}
+                            label="Adam Smith (New User)"
                           />
                         </RadioGroup>
                       </Box>

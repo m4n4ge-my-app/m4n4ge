@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
-import greetingTime from 'greeting-time'; //there is tpescript types for this package from the package maintainer, so this error cant be fixed
+import greetingTime from 'greeting-time'; //there is typescript types for this package from the package maintainer, so this error cant be fixed
 import { Item } from './utils/MuiItem';
 import Grid from '@mui/material/Grid';
 import List from '../list/List';

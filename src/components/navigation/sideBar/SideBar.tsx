@@ -42,7 +42,7 @@ const SideBar = () => {
   };
 
   useEffect(() => {
-    //below is random calandar and todo badge numbers showing for expert user. TODO: replace these with actual parameters when these features are developed
+    //below is random calendar and todo badge numbers showing for expert user. TODO: replace these with actual parameters when these features are developed
     if (user.user?.email === 'expert_user@m4n4gemy.app') {
       setCalendarItems(5);
       setTodoItems(3);

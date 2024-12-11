@@ -41,7 +41,7 @@ const GenericGrid = ({ type, formLabel }: Props) => {
               {type === 'add' ? (
                 <AddEditApplicationForm />
               ) : (
-                'This container is temporary, implmentation is out of scope for now'
+                'This container is temporary, implementation is out of scope for now'
               )}
             </Item>
           </Grid>

@@ -1,3 +1,5 @@
+//external imports
+import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 import { useState } from 'react';
 import {
   Button,
@@ -10,11 +12,14 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import FilterDramaIcon from '@mui/icons-material/FilterDrama';
+
+//internal imports
+import { fetchDocuments } from '../../state/document/documentSlice';
 import { Application } from '../../utils/applications.util';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../state/store';
-import { show } from '../../state/feeback/feedbackSlice';
+import { show } from '../../state/feedback/feedbackSlice';
+import { useUpload } from '../../hooks/useUpload';
+import { AppDispatch } from '../../state/store';
+import { useDispatch } from 'react-redux';
 
 interface FileUploadProps {
   uploadType: string;
@@ -24,14 +29,15 @@ interface FileUploadProps {
 const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [selectedApplication, setSelectedApplication] = useState<
+  const [selectedApplications, setSelectedApplications] = useState<
     (Application | string)[]
   >([]);
+  const [selectedSingleApplication, setSelectedSingleApplication] = useState<string | Application | null>(null);
   const [tags, setTags] = useState<string[]>([]);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const signedInUser = useSelector((state: RootState) => state.user.user);
-  const dispatch = useDispatch();
+  const { upload } = useUpload();
+  const dispatch: AppDispatch = useDispatch();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -41,25 +47,62 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
     }
   };
 
-  const handleUploadClick = () => {
-    // Temporary access control for demonstration accounts
-    if (
-      signedInUser?.email === 'new_user@m4n4gemy.app' ||
-      signedInUser?.email === 'expert_user@m4n4gemy.app'
-    ) {
-      dispatch(
-        show({
-          message:
-            'Access Denied: Demonstration accounts do not have the privileges to add file. Please create a personal account for full access.',
-          severity: 'error',
-        })
-      );
+  const handleUploadClick = async () => {
+    const formData = new FormData();
+    if (selectedFile) {
+      formData.append('file', selectedFile);
+      formData.append('fileType', uploadType.toLowerCase());
+      //add optional metadata
+      if (uploadType.toLowerCase() === 'resume') {
+        if (selectedApplications.length > 0) {
+          if (selectedApplications.includes('All Applications')) {
+            formData.append('applications', 'all');
+          } else {
+            selectedApplications.forEach((application) => {
+              if (typeof application !== 'string') {
+                formData.append('applications', application._id);
+              }
+            });
+          }
+        }
+      } else {
+        if (selectedSingleApplication) {
+          if (typeof selectedSingleApplication === 'string') {
+            formData.append('applications', selectedSingleApplication);
+          } else {
+            formData.append('applications', selectedSingleApplication._id);
+          }
+        }
+      }
+      //here we could add them as separate items in the array but simplicity we will just add them as a single string with comma separated tags.
+      formData.append('tags', tags.join(','));
+
+      const response = await upload(formData);
+
+      if (response && response.status !== 201) {
+        throw new Error('Failed to upload file');
+      }
+
+      if (response && response.status === 201) {
+        setSelectedFile(null);
+        setSelectedApplications([]);
+        setSelectedSingleApplication(null);
+        setTags([]);
+        dispatch(
+          show({
+            message: 'File uploaded successfully!',
+            severity: 'success',
+          })
+        );
+        dispatch(fetchDocuments());
+      }
     }
   };
 
   const handleCancelClick = () => {
     setSelectedFile(null);
-    setSelectedApplication([]);
+    setSelectedApplications([]);
+    setSelectedSingleApplication(null);
     setTags([]);
   };
 
@@ -67,15 +110,22 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
     setTags(newValue);
   };
 
-  const handleApplicationChange = (
+  const handleApplicationChangeForMultipleSelection = (
     _event: any,
     newValue: (Application | string)[]
   ) => {
     if (newValue.includes('All Applications')) {
-      setSelectedApplication(['All Applications']);
+      setSelectedApplications(['All Applications']);
     } else {
-      setSelectedApplication(newValue);
+      setSelectedApplications(newValue);
     }
+  };
+
+  const handleSingleApplicationChange = (
+    _event: React.SyntheticEvent<Element, Event>,
+    newValue: string | Application | null
+  ) => {
+    setSelectedSingleApplication(newValue);
   };
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
@@ -161,42 +211,71 @@ const FileUpload = ({ uploadType, applications }: FileUploadProps) => {
             width="100%"
             height="250px"
           >
-            <Autocomplete
-              multiple
-              fullWidth
-              options={
-                applications.length > 0
-                  ? ['All Applications', ...applications]
-                  : applications
-              }
-              getOptionLabel={(option) =>
-                typeof option === 'string'
-                  ? option
-                  : `${option.employerName} - ${option.positionName}`
-              }
-              value={selectedApplication}
-              onChange={handleApplicationChange}
-              renderOption={(props, option) => (
-                <li
-                  {...props}
-                  key={typeof option === 'string' ? option : option._id}
-                >
-                  {typeof option === 'string'
+            {uploadType.toLowerCase() === 'resume' ? (
+              <Autocomplete
+                multiple
+                fullWidth
+                options={
+                  applications.length > 0
+                    ? ['All Applications', ...applications]
+                    : applications
+                }
+                getOptionLabel={(option) =>
+                  typeof option === 'string'
                     ? option
-                    : `${option.employerName} - ${option.positionName}`}
-                </li>
-              )}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  fullWidth
-                  label="Applications"
-                  placeholder="Optional: select applications"
-                  variant="standard"
-                  style={{ width: '90%' }}
-                />
-              )}
-            />
+                    : `${option.employerName} - ${option.positionName}`
+                }
+                value={selectedApplications}
+                onChange={handleApplicationChangeForMultipleSelection}
+                renderOption={(props, option) => (
+                  <li
+                    {...props}
+                    key={typeof option === 'string' ? option : option._id}
+                  >
+                    {typeof option === 'string'
+                      ? option
+                      : `${option.employerName} - ${option.positionName}`}
+                  </li>
+                )}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    fullWidth
+                    label="Applications"
+                    placeholder="Optional: select applications"
+                    variant="standard"
+                    style={{ width: '90%' }}
+                  />
+                )}
+              />
+            ) : (
+              <Autocomplete
+                fullWidth
+                options={
+                  applications.length > 0
+                    ? ['All Applications', ...applications]
+                    : applications
+                }
+                getOptionLabel={(option) =>
+                  typeof option === 'string'
+                    ? option
+                    : `${option.employerName} - ${option.positionName}`
+                }
+                value={selectedSingleApplication}
+                onChange={handleSingleApplicationChange}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    fullWidth
+                    label="Applications"
+                    placeholder="Optional: select applications"
+                    variant="standard"
+                    style={{ width: '90%' }}
+                  />
+                )}
+              />
+            )}
+
             <Autocomplete
               fullWidth
               multiple

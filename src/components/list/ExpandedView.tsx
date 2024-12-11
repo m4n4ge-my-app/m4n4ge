@@ -28,7 +28,7 @@ import Box from '@mui/material/Box';
 //local imports
 import { setFocusedApplication } from '../../state/application/applicationSlice';
 import { deleteApplication } from '../../services/applications';
-import { show } from '../../state/feeback/feedbackSlice';
+import { show } from '../../state/feedback/feedbackSlice';
 import { useAuthToken } from '../../hooks/useAuthToken';
 import { useDispatch, useSelector } from 'react-redux';
 import { AxiosError, AxiosResponse } from 'axios';

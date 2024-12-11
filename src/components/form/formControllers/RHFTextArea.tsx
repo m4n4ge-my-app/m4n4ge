@@ -28,7 +28,7 @@ export function RHFTextArea<T extends FieldValues>({
             padding: '10px',
             borderRadius: '5px',
             marginBottom: '20px',
-            borderColor: 'divider', //TODO: Setting the border color to match the file uoload border below, but its not working, fix it
+            borderColor: 'divider', //TODO: Setting the border color to match the file upload border below, but its not working, fix it
             borderWidth: 1,
             borderStyle: 'solid',
             outline: 'none',

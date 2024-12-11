@@ -23,7 +23,7 @@ const NotFoundGrid = () => {
               gap: 10,
             }}
           >
-            {/* TODO: further refind this page */}
+            {/* TODO: further refine this page */}
             Not Found page: under development
             <img
               src={notFoundImage}

@@ -3,7 +3,7 @@ import { SignupSchema } from '../components/form/schemas/signupSchema';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { show } from '../state/feeback/feedbackSlice';
+import { show } from '../state/feedback/feedbackSlice';
 import { setUser } from '../state/user/userSlice';
 
 const baseUrl = import.meta.env.VITE_BASE_URL as string;

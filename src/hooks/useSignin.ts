@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { setUser } from '../state/user/userSlice';
-import { show } from '../state/feeback/feedbackSlice';
+import { show } from '../state/feedback/feedbackSlice';
 
 const baseUrl = import.meta.env.VITE_BASE_URL as string;
 

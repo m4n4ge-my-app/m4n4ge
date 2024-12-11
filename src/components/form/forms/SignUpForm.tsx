@@ -18,7 +18,7 @@ const SignUpForm = () => {
       <Card>
         {/* Box container is to give responsive padding for various sizes */}
         <Box sx={{ p: { xs: 3, sm: 3, md: 4, xl: 5 } }}>
-          {/* Grid is for giving spaces between rows and full widths witin the grid container */}
+          {/* Grid is for giving spaces between rows and full widths within the grid container */}
           <Grid container spacing={3}>
             {/* Top area */}
             <Grid item xs={12}>
@@ -49,7 +49,7 @@ const SignUpForm = () => {
             <Grid item xs={12}>
               {/* Stack group for email/password login option */}
               <Stack spacing={2}>
-                <Box display="flex" justifyContent="spece-between" gap={3}>
+                <Box display="flex" justifyContent="space-between" gap={3}>
                   {/* First Name Input */}
                   <RHFTextField<SignupSchema>
                     name="firstName"

@@ -17,7 +17,7 @@ const GetAssistGrid = ({ formLabel }: Props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={12}>
           <Item className="temporary" sx={{ border: 'none' }}>
-            This container is temporary, implmentation is out of scope for now
+            This container is temporary, implementation is out of scope for now
           </Item>
         </Grid>
       </Grid>

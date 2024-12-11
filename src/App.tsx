@@ -18,7 +18,7 @@ import Settings from './pages/system/settings/Settings';
 import Resumes from './pages/iManage/resumes/Resumes';
 import ProtectedRoute from './routes/ProtectedRoute';
 import Landing from './pages/system/landing/Landing';
-import { hide } from './state/feeback/feedbackSlice';
+import { hide } from './state/feedback/feedbackSlice';
 import Dashboard from './pages/dashboard/Dashboard';
 import Layout from './pages/system/layout/Layout';
 import Archives from './pages/archives/Archives';

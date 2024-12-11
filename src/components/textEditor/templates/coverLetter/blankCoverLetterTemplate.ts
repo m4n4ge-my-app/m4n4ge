@@ -1,1 +1,1 @@
-export const blanckCoverLetterTemplate = ``;
+export const blankCoverLetterTemplate = ``;
