@@ -244,9 +244,7 @@ const AddEditApplicationForm = () => {
                 <input type="file" hidden />
               </Button>
               <Typography variant="body2" padding={3}>
-                Although you can add it later, we strongly recommend promptly
-                uploading the job description to ensure its preservation before
-                the online post is potentially removed.
+                Upload the job description promptly to ensure it's saved before the post is removed.
               </Typography>
             </Box>
           }

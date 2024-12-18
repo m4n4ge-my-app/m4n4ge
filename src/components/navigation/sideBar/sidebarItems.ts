@@ -52,7 +52,7 @@ const sidebarItems = [
     ],
   },
   {
-    name: 'Get Assist',
+    name: 'Assist Me',
     path: '',
     icon: null,
     children: [

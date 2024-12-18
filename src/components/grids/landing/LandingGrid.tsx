@@ -112,7 +112,7 @@ const LandingGrid = () => {
                 margin: '0% 15% 5% 15%',
               }}
             >
-              Simplify your job application process with us.{' '}
+              Simplify your job application process.{' '}
               <span className="keyword1">Manage</span>,{' '}
               <span className="keyword2">track</span>, and{' '}
               <span className="keyword3">automate </span>
