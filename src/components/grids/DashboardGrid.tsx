@@ -47,7 +47,7 @@ const DashboardGrid = ({ username }: Props) => {
       sx={{
         padding: '25px',
         marginTop: '100px',
-        width: isMobile ? '85vw' : '100%',
+        width: isMobile ? '85vw' : '100%',        
       }}
       className="row1"
     >
@@ -77,7 +77,7 @@ const DashboardGrid = ({ username }: Props) => {
       <Grid item xs={12} sm={12} md={12} className="row3">
         {/* Label */}
         <Typography variant="h6" className="label" gutterBottom>
-          Stats
+          Current Pulse
         </Typography>
       </Grid>
 
