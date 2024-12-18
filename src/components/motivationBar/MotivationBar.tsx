@@ -7,6 +7,8 @@ import moment from 'moment';
 
 //local imports
 import { getEarliestApplicationDate } from '../../utils/applications.util';
+import jd from './userProfileImages/Adam-Smith-Photoroom.jpg';
+import ms from './userProfileImages/Mary-Smith-Photoroom.jpg'
 import { quotes } from './quotes/sampleQuotes';
 import { RootState } from '../../state/store';
 import './motivationbar.scss';
@@ -23,6 +25,7 @@ const MotivationBar = () => {
     ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
   );
   const user = useSelector((state: RootState) => state.user);
+  const [profileImage, setProfileImage] = useState('');
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -56,6 +59,13 @@ const MotivationBar = () => {
 
     const intervalId = setInterval(updateDisplayString, 5000);
 
+    //TODO: update this to use the user's profile image from db when user model has been updated with profile image
+    if(user.user?.email === 'expert_user@m4n4gemy.app') {
+      setProfileImage(jd);
+    } else if (user.user?.email === 'new_user@m4n4gemy.app') {
+      setProfileImage(ms);
+    }
+
     return () => clearInterval(intervalId);
   }, [applications, user]);
 
@@ -73,17 +83,37 @@ const MotivationBar = () => {
       }}
     >
       <Grid item md={12} lg={4} container>
-  
         <Grid
           item
-          xs={10}
+          xs={12}
           container
           direction="column"
           justifyContent="center"
           alignItems="center"
-          sx={{ width: '100%' }}
+          sx={{ width: '100%', height: '100%' }}
         >
-          placeholder
+          <div
+            style={{
+              width: '170px',
+              height: '170px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              overflow: 'hidden',
+              borderRadius: '50%',
+            }}
+          >
+            <img
+              src={profileImage}
+              alt="Motivational Image"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                borderRadius: '50%',
+              }}
+            />
+          </div>
         </Grid>
       </Grid>
       <Grid
