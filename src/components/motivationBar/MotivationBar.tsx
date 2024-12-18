@@ -54,7 +54,7 @@ const MotivationBar = () => {
       });
     };
 
-    // Call the function once immediately because there is discrepency between how long the animation is taking to complete and the interval time
+    // Call the function once immediately because there is discrepancy between how long the animation is taking to complete and the interval time
     updateDisplayString();
 
     const intervalId = setInterval(updateDisplayString, 5000);
