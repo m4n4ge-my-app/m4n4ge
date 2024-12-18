@@ -128,14 +128,14 @@ const MotivationBar = () => {
       >
         <Grid item sx={{ width: '100%' }} zIndex={1000}>
           <Typography
-            variant="h6"
+            variant="subtitle1"
             align="left"
             mb={2}
             sx={{ fontStyle: 'italic', color: 'GrayText', marginTop: '10px' }}
           >
             {quote.quote}
           </Typography>
-          <Typography variant="body1" align="right" mr={1}>
+          <Typography variant="subtitle1" align="right" mr={1}>
             {quote.author}
           </Typography>
         </Grid>
