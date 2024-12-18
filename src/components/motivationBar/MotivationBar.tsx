@@ -2,7 +2,6 @@
 import { Divider, Grid, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Box } from '@mui/system';
 import moment from 'moment';
 
@@ -14,7 +13,6 @@ import './motivationbar.scss';
 
 const MotivationBar = () => {
   const today = moment().format('ddd, MMM D, YY');
-  const [day, ...rest] = today.split(' ');
   const [quoteIndex, setQuoteIndex] = useState(0);
   const applications = useSelector(
     (state: RootState) => state.applications.applications
@@ -75,34 +73,7 @@ const MotivationBar = () => {
       }}
     >
       <Grid item md={12} lg={4} container>
-        <Grid
-          item
-          xs={1}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          zIndex={1000}
-        >
-          <Typography
-            variant="h5"
-            sx={{
-              transform: 'rotate(-90deg)',
-              transformOrigin: 'center',
-              whiteSpace: 'nowrap',
-              fontWeight: 'bold',
-              color: 'lightgray',
-            }}
-          >
-            <Link to="/calendar">
-              <span style={{ color: '#ffc440', textDecoration: 'underline' }}>
-                {day}
-              </span>
-            </Link>{' '}
-            {rest.join(' ')}
-          </Typography>
-        </Grid>
+  
         <Grid
           item
           xs={10}
