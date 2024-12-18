@@ -161,7 +161,7 @@ const Layout = () => {
                           <FormControlLabel
                             value="new"
                             control={<Radio />}
-                            label="Adam Smith (New User)"
+                            label="Mary Smith (New User)"
                           />
                         </RadioGroup>
                       </Box>
