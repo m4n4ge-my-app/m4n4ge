@@ -1,8 +1,5 @@
 //external imports
 import { Divider, Grid, Typography } from '@mui/material';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import AnalogClock from 'analog-clock-react'; //there is typescript types for this package from the package maintainer, so this error cant be fixed
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -28,21 +25,6 @@ const MotivationBar = () => {
     ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
   );
   const user = useSelector((state: RootState) => state.user);
-
-  const options = {
-    useCustomTime: false,
-    width: '175px',
-    border: false,
-    borderColor: '#ffffff',
-    baseColor: '#ffffff',
-    centerColor: '#ffffff',
-    centerBorderColor: '#40ff64',
-    handColors: {
-      second: '#407bff',
-      minute: '#ff40da',
-      hour: '#ffc440',
-    },
-  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -130,7 +112,7 @@ const MotivationBar = () => {
           alignItems="center"
           sx={{ width: '100%' }}
         >
-          <AnalogClock {...options} />
+          placeholder
         </Grid>
       </Grid>
       <Grid
