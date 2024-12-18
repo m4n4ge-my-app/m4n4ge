@@ -64,7 +64,7 @@ const IManageGrid = ({ formLabel, listLabel }: Props) => {
             {formLabel === 'Description' && <JobDescriptionsList />}
           </Item>
         </Grid>
-        {focusedDocument && (
+        {(focusedDocument && (formLabel === 'Resume' || formLabel === 'Cover Letter' || formLabel === 'Description' ))  && (
           <>
             <Grid item xs={12} sm={12} md={12} ref={sectionRef}>
               <Typography variant="h6" className="label" gutterBottom>
