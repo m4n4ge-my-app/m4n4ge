@@ -14,7 +14,6 @@ import { RootState } from '../../state/store';
 import './motivationbar.scss';
 
 const MotivationBar = () => {
-  const today = moment().format('ddd, MMM D, YY');
   const [quoteIndex, setQuoteIndex] = useState(0);
   const applications = useSelector(
     (state: RootState) => state.applications.applications
