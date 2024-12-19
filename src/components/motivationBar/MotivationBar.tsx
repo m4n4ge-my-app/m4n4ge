@@ -93,8 +93,8 @@ const MotivationBar = () => {
         >
           <div
             style={{
-              width: '170px',
-              height: '170px',
+              width: '140px',
+              height: '140px',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
