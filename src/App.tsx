@@ -5,6 +5,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 
 //local imports
+import MarketOutLookExpanded from './pages/iManage/marketOutlook/MarketOutLookExpanded';
 import JobDescriptions from './pages/iManage/jobDescriptions/JobDescriptions';
 import ForgotPassword from './pages/auth/forgotPassword/ForgotPassword';
 import CoverLetters from './pages/iManage/coverletters/CoverLetter';
@@ -73,6 +74,7 @@ function App() {
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/descriptions" element={<JobDescriptions />} />
           <Route path="/todos" element={<Todos />} />
+          <Route path="/outlook" element={<MarketOutLookExpanded />} />
           <Route path="/interview" element={<Interview />} />
           <Route path="/automated" element={<Automated />} />
           <Route path="/archives" element={<Archives />} />

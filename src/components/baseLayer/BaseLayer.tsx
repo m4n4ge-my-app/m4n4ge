@@ -24,6 +24,7 @@ import archive from './baseLayerImages/archive.png';
 import profile from './baseLayerImages/profile.png';
 import todos from './baseLayerImages/todolist.png';
 import resume from './baseLayerImages/resume.png';
+import search from './baseLayerImages/search.png';
 import assist from './baseLayerImages/assist.png';
 import { RootState } from '../../state/store';
 import add from './baseLayerImages/add.png';
@@ -94,6 +95,12 @@ const BaseLayer = ({ type, children }: Props) => {
         document.documentElement.style.setProperty(
           '--background-image-url',
           `url(${todos})`
+        );
+        break;
+      case 'search':
+        document.documentElement.style.setProperty(
+          '--background-image-url',
+          `url(${search})`
         );
         break;
       case 'assist':
