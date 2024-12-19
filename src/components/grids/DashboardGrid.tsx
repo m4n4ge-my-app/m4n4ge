@@ -21,6 +21,7 @@ import EventsOverview from '../widgets/eventsOverview/EventsOverview';
 import TodosOverview from '../widgets/todosOverview/TodosOverview';
 import PersonalTrend from '../widgets/personalTrend/PersonalTrend';
 import MotivationBar from '../motivationBar/MotivationBar';
+import MarketOutlook from '../marketOutlook/MarketOutlook';
 import ExpandedView from '../list/ExpandedView';
 import { Item } from './utils/MuiItem';
 import List from '../list/List';
@@ -74,7 +75,9 @@ const DashboardGrid = ({ username }: Props) => {
         </Grid>
         {/* Job Outlook Box  */}
         <Grid item xs={12} sm={12} md={4}>
-          <Item className="jobOutlookBox">Job Market Outlook</Item>
+          <Item className="jobOutlookBox">
+            <MarketOutlook />
+          </Item>
         </Grid>
       </Grid>
 
