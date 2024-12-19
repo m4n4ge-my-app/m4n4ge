@@ -14,7 +14,7 @@ const MarketOutlook = () => {
           >
             Market Outlook
           </Typography>
-          <OpenInFullIcon color="primary" sx={{ fontSize: '20px' }} />
+          <OpenInFullIcon color="primary" sx={{ fontSize: '20px', marginRight: '5px' }} />
         </Box>
       </Grid>
     </Grid>
