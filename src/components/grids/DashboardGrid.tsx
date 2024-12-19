@@ -19,6 +19,8 @@ import greetingTime from 'greeting-time'; //there is typescript types for this p
 import { Item } from './utils/MuiItem';
 import Grid from '@mui/material/Grid';
 import List from '../list/List';
+import EventsOverview from '../widgets/eventsOverview/EventsOverview';
+import TodosOverview from '../widgets/todosOverview/TodosOverview';
 
 interface Props {
   username: string;
@@ -89,10 +91,14 @@ const DashboardGrid = ({ username }: Props) => {
           </Item>
         </Grid>
         <Grid item xs={12} sm={6} md={6} lg={3}>
-          <Item className="stats">Stats 2</Item>
+          <Item className="stats">
+            <EventsOverview />
+          </Item>
         </Grid>
         <Grid item xs={12} sm={6} md={6} lg={3}>
-          <Item className="stats">Stats 3</Item>
+          <Item className="stats">
+            <TodosOverview />
+          </Item>
         </Grid>
         <Grid item xs={12} sm={6} md={6} lg={3}>
           <Item className="stats">
