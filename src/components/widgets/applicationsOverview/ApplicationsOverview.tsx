@@ -41,14 +41,14 @@ const ApplicationsOverview = () => {
         </Typography>
       </Grid>
       <Grid item xs={6} style={{ height: '150px' }}>
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer width="100%" height="100%" style={{ marginTop: '10px' }}>
           <PieChart>
             <Pie
               data={data}
               cx="50%"
               cy="45%"
-              innerRadius={25}
-              outerRadius={50}
+              innerRadius={20}
+              outerRadius={48}
               fill="#8884d8"
               paddingAngle={5}
               dataKey="value"
@@ -63,7 +63,7 @@ const ApplicationsOverview = () => {
             <Tooltip />
           </PieChart>
         </ResponsiveContainer>
-      </Grid> 
+      </Grid>
     </Grid>
   );
 };
