@@ -70,7 +70,7 @@ const PersonalTrend = () => {
             style={{ fontWeight: 'bold', marginLeft: '10px' }}
             align="left"
           >
-          Activity Trend:
+          Trendline:
         </Typography>
       </Grid>
       <Grid item sx={{ height: '115px', marginLeft: '10px'}}>
