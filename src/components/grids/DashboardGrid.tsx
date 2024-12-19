@@ -52,7 +52,7 @@ const DashboardGrid = ({ username }: Props) => {
       sx={{
         padding: '25px',
         marginTop: '100px',
-        width: isMobile ? '85vw' : '100%',
+        width: isMobile ? '80vw' : '100%',
       }}
       className="row1"
     >
