@@ -1,10 +1,7 @@
-import ApplicationsOverview from '../widgets/applicationsOverview/ApplicationsOverview';
+//external imports
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
-import PersonalTrend from '../widgets/personalTrend/PersonalTrend';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
-import MotivationBar from '../motivationBar/MotivationBar';
 import { useEffect, useRef, useState } from 'react';
-import ExpandedView from '../list/ExpandedView';
 import {
   Button,
   ButtonGroup,
@@ -16,11 +13,17 @@ import {
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import greetingTime from 'greeting-time'; //there is typescript types for this package from the package maintainer, so this error cant be fixed
-import { Item } from './utils/MuiItem';
 import Grid from '@mui/material/Grid';
-import List from '../list/List';
+
+//internal imports
+import ApplicationsOverview from '../widgets/applicationsOverview/ApplicationsOverview';
 import EventsOverview from '../widgets/eventsOverview/EventsOverview';
 import TodosOverview from '../widgets/todosOverview/TodosOverview';
+import PersonalTrend from '../widgets/personalTrend/PersonalTrend';
+import MotivationBar from '../motivationBar/MotivationBar';
+import ExpandedView from '../list/ExpandedView';
+import { Item } from './utils/MuiItem';
+import List from '../list/List';
 
 interface Props {
   username: string;
@@ -49,7 +52,7 @@ const DashboardGrid = ({ username }: Props) => {
       sx={{
         padding: '25px',
         marginTop: '100px',
-        width: isMobile ? '85vw' : '100%',        
+        width: isMobile ? '85vw' : '100%',
       }}
       className="row1"
     >
