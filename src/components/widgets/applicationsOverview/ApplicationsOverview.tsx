@@ -22,14 +22,32 @@ const ApplicationsOverview = () => {
 
   return (
     <Grid container direction="row">
-      <Grid item xs={8} style={{ height: '150px' }}>
+      <Grid item xs={6} sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Typography
+          variant="h6"
+          color="lightgray"
+          style={{ fontWeight: 'bold', marginLeft: '10px' }}
+          align="left"
+        >
+          Applications:
+        </Typography>
+        <Typography
+          variant="h6"
+          color="lightgray"
+          style={{ fontWeight: 'bold', marginLeft: '10px' }}
+          align="left"
+        >
+        {applicationSummary.total}
+        </Typography>
+      </Grid>
+      <Grid item xs={6} style={{ height: '150px' }}>
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
               data={data}
-              cx="35%"
+              cx="50%"
               cy="45%"
-              innerRadius={35}
+              innerRadius={25}
               outerRadius={50}
               fill="#8884d8"
               paddingAngle={5}
@@ -45,16 +63,7 @@ const ApplicationsOverview = () => {
             <Tooltip />
           </PieChart>
         </ResponsiveContainer>
-      </Grid>
-      <Grid item xs={4}>
-        <Typography
-          variant="h6"
-          color="lightgray"
-          style={{ fontWeight: 'bold' }}
-        >
-          Total: {applicationSummary.total}
-        </Typography>
-      </Grid>
+      </Grid> 
     </Grid>
   );
 };
