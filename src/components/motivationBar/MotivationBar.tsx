@@ -1,23 +1,19 @@
 //external imports
 import { Divider, Grid, Typography } from '@mui/material';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import AnalogClock from 'analog-clock-react'; //there is typescript types for this package from the package maintainer, so this error cant be fixed
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Box } from '@mui/system';
 import moment from 'moment';
 
 //local imports
 import { getEarliestApplicationDate } from '../../utils/applications.util';
+import jd from './userProfileImages/Adam-Smith-Photoroom.jpg';
+import ms from './userProfileImages/Mary-Smith-Photoroom.jpg'
 import { quotes } from './quotes/sampleQuotes';
 import { RootState } from '../../state/store';
 import './motivationbar.scss';
 
 const MotivationBar = () => {
-  const today = moment().format('ddd, MMM D, YY');
-  const [day, ...rest] = today.split(' ');
   const [quoteIndex, setQuoteIndex] = useState(0);
   const applications = useSelector(
     (state: RootState) => state.applications.applications
@@ -28,21 +24,7 @@ const MotivationBar = () => {
     ` on ${moment(earliestDate.earliestDate).format('ddd, MMM D, YY')}`
   );
   const user = useSelector((state: RootState) => state.user);
-
-  const options = {
-    useCustomTime: false,
-    width: '175px',
-    border: false,
-    borderColor: '#ffffff',
-    baseColor: '#ffffff',
-    centerColor: '#ffffff',
-    centerBorderColor: '#40ff64',
-    handColors: {
-      second: '#407bff',
-      minute: '#ff40da',
-      hour: '#ffc440',
-    },
-  };
+  const [profileImage, setProfileImage] = useState('');
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -71,10 +53,17 @@ const MotivationBar = () => {
       });
     };
 
-    // Call the function once immediately because there is discrepency between how long the animation is taking to complete and the interval time
+    // Call the function once immediately because there is discrepancy between how long the animation is taking to complete and the interval time
     updateDisplayString();
 
     const intervalId = setInterval(updateDisplayString, 5000);
+
+    //TODO: update this to use the user's profile image from db when user model has been updated with profile image
+    if(user.user?.email === 'expert_user@m4n4gemy.app') {
+      setProfileImage(jd);
+    } else if (user.user?.email === 'new_user@m4n4gemy.app') {
+      setProfileImage(ms);
+    }
 
     return () => clearInterval(intervalId);
   }, [applications, user]);
@@ -95,42 +84,35 @@ const MotivationBar = () => {
       <Grid item md={12} lg={4} container>
         <Grid
           item
-          xs={1}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          zIndex={1000}
-        >
-          <Typography
-            variant="h5"
-            sx={{
-              transform: 'rotate(-90deg)',
-              transformOrigin: 'center',
-              whiteSpace: 'nowrap',
-              fontWeight: 'bold',
-              color: 'lightgray',
-            }}
-          >
-            <Link to="/calendar">
-              <span style={{ color: '#ffc440', textDecoration: 'underline' }}>
-                {day}
-              </span>
-            </Link>{' '}
-            {rest.join(' ')}
-          </Typography>
-        </Grid>
-        <Grid
-          item
-          xs={10}
+          xs={12}
           container
           direction="column"
           justifyContent="center"
           alignItems="center"
-          sx={{ width: '100%' }}
+          sx={{ width: '100%', height: '100%' }}
         >
-          <AnalogClock {...options} />
+          <div
+            style={{
+              width: '140px',
+              height: '140px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              overflow: 'hidden',
+              borderRadius: '50%',
+            }}
+          >
+            <img
+              src={profileImage}
+              alt="Motivational Image"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                borderRadius: '50%',
+              }}
+            />
+          </div>
         </Grid>
       </Grid>
       <Grid
@@ -145,14 +127,14 @@ const MotivationBar = () => {
       >
         <Grid item sx={{ width: '100%' }} zIndex={1000}>
           <Typography
-            variant="h6"
+            variant="subtitle1"
             align="left"
             mb={2}
             sx={{ fontStyle: 'italic', color: 'GrayText', marginTop: '10px' }}
           >
             {quote.quote}
           </Typography>
-          <Typography variant="body1" align="right" mr={1}>
+          <Typography variant="subtitle1" align="right" mr={1}>
             {quote.author}
           </Typography>
         </Grid>

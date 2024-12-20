@@ -33,7 +33,7 @@ const IManageGrid = ({ formLabel, listLabel }: Props) => {
   }, [focusedDocument]);
 
   return (
-    <Grid container spacing={0} sx={{ padding: '25px', marginTop: '100px', width: isMobile ? '85vw' : '100%', }}>
+    <Grid container spacing={0} sx={{ padding: '25px', marginTop: '100px', width: isMobile ? '80vw' : '100%', }}>
       <Grid container item spacing={2.5} className="">
         <Grid item xs={12} sm={12} md={12}>
           <Typography variant="h6" className="label" gutterBottom>
@@ -64,7 +64,7 @@ const IManageGrid = ({ formLabel, listLabel }: Props) => {
             {formLabel === 'Description' && <JobDescriptionsList />}
           </Item>
         </Grid>
-        {focusedDocument && (
+        {(focusedDocument && (formLabel === 'Resume' || formLabel === 'Cover Letter' || formLabel === 'Description' ))  && (
           <>
             <Grid item xs={12} sm={12} md={12} ref={sectionRef}>
               <Typography variant="h6" className="label" gutterBottom>

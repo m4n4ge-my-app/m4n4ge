@@ -1,0 +1,36 @@
+.market-outlook {
+  overflow: hidden;
+  height: 220px;
+  position: relative;
+  padding: 10px;
+}
+
+.job-cards-wrapper {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.job-cards-container {
+  display: flex;
+  flex-direction: column;
+  padding-right: 5px;
+  animation: slide-up 60s linear infinite;
+  animation-play-state: running;
+}
+
+.job-cards-container:hover {
+  animation-play-state: paused;
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(0); /* Start at the top */
+  }
+  100% {
+    transform: translateY(
+      -50%
+    ); /* Move upward by half the height (one set of cards) */
+  }
+}

@@ -1,6 +1,6 @@
+//external imports
+import { Grid, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { getApplicationTrend } from '../../../utils/applications.util';
-import { RootState } from '../../../state/store';
 import {
   LineChart,
   Line,
@@ -10,6 +10,10 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
+
+//internal imports
+import { getApplicationTrend } from '../../../utils/applications.util';
+import { RootState } from '../../../state/store';
 
 interface StatusCounts {
   Applied: number;
@@ -58,37 +62,50 @@ const PersonalTrend = () => {
       : [];
 
   return (
-    // Use the keys to generate the lines in the LineChart
-    <ResponsiveContainer width="100%" height="100%">
-      <LineChart
-        width={500}
-        height={300}
-        data={transformedData}
-        margin={{
-          top: 5,
-          right: 10,
-          left: 0,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" padding={{ left: 0 }} />
-        <YAxis width={20} />
-        <Tooltip />
-        {lineKeys.map((key) => (
-          <Line
-            key={key}
-            type="monotone"
-            dataKey={key}
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            stroke={statusColorMapping[key]}
-            activeDot={{ r: 8 }}
-          />
-        ))}
-      </LineChart>
-    </ResponsiveContainer>
+    <Grid container direction="column">
+      <Grid item>
+        <Typography
+            variant="h6"
+            color="lightgray"
+            style={{ fontWeight: 'bold', marginLeft: '10px' }}
+            align="left"
+          >
+          Trendline:
+        </Typography>
+      </Grid>
+      <Grid item sx={{ height: '115px', marginLeft: '10px'}}>
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart
+            width={500}
+            height={300}
+            data={transformedData}
+            margin={{
+              top: 5,
+              right: 10,
+              left: 0,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" padding={{ left: 0 }} />
+            <YAxis width={20} />
+            <Tooltip />
+            {lineKeys.map((key) => (
+              <Line
+                key={key}
+                type="monotone"
+                dataKey={key}
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                //@ts-ignore
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                stroke={statusColorMapping[key]}
+                activeDot={{ r: 8 }}
+              />
+            ))}
+          </LineChart>
+        </ResponsiveContainer>
+      </Grid>
+    </Grid>
   );
 };
 

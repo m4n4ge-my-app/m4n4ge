@@ -1,6 +1,7 @@
 $border-radius: 10px;
 $webkit-box-shadow: 5px 4px 10px 1px rgba(0, 0, 0, 0.47);
 $box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+$main-background-color: #ebf1ff;
 
 // there is default padding in MuiBox-root, so we need to remove it
 .MuiBox-root.css-1qryw0r {
@@ -12,7 +13,7 @@ $box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
   position: relative;
   display: flex;
   z-index: 1;
-  background-color: #ebf1ff;
+  background-color: $main-background-color;
 
   &::before {
     content: '';
@@ -73,6 +74,7 @@ $box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
 
       &:hover {
         transform: translateY(5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       }
     }
 
@@ -85,6 +87,7 @@ $box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
 
       &:hover {
         transform: translateY(5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       }
     }
 
@@ -97,6 +100,7 @@ $box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
 
       &:hover {
         transform: translateY(5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       }
     }
 
@@ -109,6 +113,7 @@ $box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
 
       &:hover {
         transform: translateY(5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       }
     }
 
@@ -117,6 +122,11 @@ $box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
       -webkit-box-shadow: $webkit-box-shadow;
       box-shadow: $box-shadow;
       border-radius: $border-radius;
+
+      &:hover {
+        transform: translateY(5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
     }
 
     .listBox {
@@ -125,6 +135,11 @@ $box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
       -webkit-box-shadow: $webkit-box-shadow;
       box-shadow: $box-shadow;
       border-radius: $border-radius;
+
+      &:hover {
+        transform: translateY(5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
     }
 
     .temporary {
@@ -133,6 +148,11 @@ $box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
       -webkit-box-shadow: $webkit-box-shadow;
       box-shadow: $box-shadow;
       border-radius: $border-radius;
+
+      &:hover {
+        transform: translateY(5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
     }
   }
 

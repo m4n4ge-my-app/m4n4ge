@@ -1,10 +1,7 @@
-import ApplicationsOverview from '../widgets/applicationsOverview/ApplicationsOverview';
+//external imports
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
-import PersonalTrend from '../widgets/personalTrend/PersonalTrend';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
-import MotivationBar from '../motivationBar/MotivationBar';
 import { useEffect, useRef, useState } from 'react';
-import ExpandedView from '../list/ExpandedView';
 import {
   Button,
   ButtonGroup,
@@ -16,8 +13,17 @@ import {
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import greetingTime from 'greeting-time'; //there is typescript types for this package from the package maintainer, so this error cant be fixed
-import { Item } from './utils/MuiItem';
 import Grid from '@mui/material/Grid';
+
+//internal imports
+import ApplicationsOverview from '../widgets/applicationsOverview/ApplicationsOverview';
+import EventsOverview from '../widgets/eventsOverview/EventsOverview';
+import TodosOverview from '../widgets/todosOverview/TodosOverview';
+import PersonalTrend from '../widgets/personalTrend/PersonalTrend';
+import MotivationBar from '../motivationBar/MotivationBar';
+import MarketOutlook from '../marketOutlook/MarketOutlook';
+import ExpandedView from '../list/ExpandedView';
+import { Item } from './utils/MuiItem';
 import List from '../list/List';
 
 interface Props {
@@ -47,14 +53,23 @@ const DashboardGrid = ({ username }: Props) => {
       sx={{
         padding: '25px',
         marginTop: '100px',
-        width: isMobile ? '85vw' : '100%',
+        width: isMobile ? '80vw' : '100%',
       }}
       className="row1"
     >
       {/* Sub Grid Container/Row #1 - Label */}
-      <Grid item xs={12} sm={12} md={12} className="row1">
+           <Grid item xs={12} sm={12} md={12} className="row1">
         {/* Label */}
-        <Typography variant="h6" className="label" gutterBottom>
+        <Typography
+          variant="h4"
+          className="label"
+          gutterBottom
+          sx={{
+            fontWeight: "bold",
+            color: "GrayText",
+            textAlign: "right",
+          }}
+        >
           {greetingTime(new Date())} {username}
         </Typography>
       </Grid>
@@ -69,7 +84,9 @@ const DashboardGrid = ({ username }: Props) => {
         </Grid>
         {/* Job Outlook Box  */}
         <Grid item xs={12} sm={12} md={4}>
-          <Item className="jobOutlookBox">Job Market Outlook</Item>
+          <Item className="jobOutlookBox">
+            <MarketOutlook />
+          </Item>
         </Grid>
       </Grid>
 
@@ -77,7 +94,7 @@ const DashboardGrid = ({ username }: Props) => {
       <Grid item xs={12} sm={12} md={12} className="row3">
         {/* Label */}
         <Typography variant="h6" className="label" gutterBottom>
-          Stats
+          Current Pulse
         </Typography>
       </Grid>
 
@@ -89,10 +106,14 @@ const DashboardGrid = ({ username }: Props) => {
           </Item>
         </Grid>
         <Grid item xs={12} sm={6} md={6} lg={3}>
-          <Item className="stats">Stats 2</Item>
+          <Item className="stats">
+            <EventsOverview />
+          </Item>
         </Grid>
         <Grid item xs={12} sm={6} md={6} lg={3}>
-          <Item className="stats">Stats 3</Item>
+          <Item className="stats">
+            <TodosOverview />
+          </Item>
         </Grid>
         <Grid item xs={12} sm={6} md={6} lg={3}>
           <Item className="stats">
