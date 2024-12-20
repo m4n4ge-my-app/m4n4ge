@@ -58,9 +58,18 @@ const DashboardGrid = ({ username }: Props) => {
       className="row1"
     >
       {/* Sub Grid Container/Row #1 - Label */}
-      <Grid item xs={12} sm={12} md={12} className="row1">
+           <Grid item xs={12} sm={12} md={12} className="row1">
         {/* Label */}
-        <Typography variant="h6" className="label" gutterBottom>
+        <Typography
+          variant="h4"
+          className="label"
+          gutterBottom
+          sx={{
+            fontWeight: "bold",
+            color: "GrayText",
+            textAlign: "right",
+          }}
+        >
           {greetingTime(new Date())} {username}
         </Typography>
       </Grid>
