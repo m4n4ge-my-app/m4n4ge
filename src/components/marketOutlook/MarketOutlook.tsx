@@ -1,13 +1,16 @@
+//external imports
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
-import EastIcon from '@mui/icons-material/East';
 import { Grid, Typography, useTheme } from '@mui/material';
-import { Link } from 'react-router-dom';
 import { Box, useMediaQuery } from '@mui/system';
-import JobCard from './JobCard';
-import './marketoutlook.scss';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../state/store';
+import EastIcon from '@mui/icons-material/East';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import './marketoutlook.scss';
+
+//local imports
+import { RootState } from '../../state/store';
+import JobCard from './JobCard';
 
 const initialJobData = [
   {
@@ -50,7 +53,12 @@ const MarketOutlook = () => {
 
   useEffect(() => {
     if (user.user?.email === 'expert_user@m4n4gemy.app') {
-      setJobData([...initialJobData, ...initialJobData, ...initialJobData, ...initialJobData]);
+      setJobData([
+        ...initialJobData,
+        ...initialJobData,
+        ...initialJobData,
+        ...initialJobData,
+      ]);
     } else if (user.user?.email === 'new_user@m4n4gemy.app') {
       setJobData([]);
     } else {
