@@ -1,11 +1,15 @@
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
-import { Grid, Typography } from '@mui/material';
+import EastIcon from '@mui/icons-material/East';
+import { Grid, Typography, useTheme } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { Box } from '@mui/system';
+import { Box, useMediaQuery } from '@mui/system';
 import JobCard from './JobCard';
 import './marketoutlook.scss';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../state/store';
+import { useEffect, useState } from 'react';
 
-let jobData = [
+const initialJobData = [
   {
     jobTitle: 'Frontend Developer',
     companyName: 'Google',
@@ -38,10 +42,22 @@ let jobData = [
   },
 ];
 
-//this is to ensure theres enough data to fill the screen; will be removed when API is integrated
-jobData = [...jobData, ...jobData, ...jobData, ...jobData];
-
 const MarketOutlook = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const user = useSelector((state: RootState) => state.user);
+  const [jobData, setJobData] = useState(initialJobData);
+
+  useEffect(() => {
+    if (user.user?.email === 'expert_user@m4n4gemy.app') {
+      setJobData([...initialJobData, ...initialJobData, ...initialJobData, ...initialJobData]);
+    } else if (user.user?.email === 'new_user@m4n4gemy.app') {
+      setJobData([]);
+    } else {
+      setJobData(initialJobData);
+    }
+  }, [user]);
+
   return (
     <Grid container direction="row" className="market-outlook">
       <Grid item xs={12}>
@@ -62,19 +78,42 @@ const MarketOutlook = () => {
         </Box>
       </Grid>
       <Grid item xs={12}>
-        <Box className="job-cards-wrapper">
-          <Box className="job-cards-container">
-            {jobData.map((job, index) => (
-              <JobCard
-                key={index}
-                jobTitle={job.jobTitle}
-                companyName={job.companyName}
-                location={job.location}
-                postingDate={job.postingDate}
-              />
-            ))}
+        {jobData.length > 0 ? (
+          <Box className="job-cards-wrapper">
+            <Box className="job-cards-container">
+              {jobData.map((job, index) => (
+                <JobCard
+                  key={index}
+                  jobTitle={job.jobTitle}
+                  companyName={job.companyName}
+                  location={job.location}
+                  postingDate={job.postingDate}
+                />
+              ))}
+            </Box>
           </Box>
-        </Box>
+        ) : (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            sx={{ padding: '20px', flexDirection: 'column' }}
+          >
+            <Typography
+              variant="body2"
+              align="center"
+              sx={{ marginBottom: '10px' }}
+            >
+              Complete your profile to see job matches
+            </Typography>
+            <Link to="/profile">
+              <EastIcon
+                fontSize={isMobile ? 'small' : 'medium'}
+                color="primary"
+              />
+            </Link>
+          </Box>
+        )}
       </Grid>
     </Grid>
   );
