@@ -1,16 +1,18 @@
+//external imports
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { getApplicationSummary } from '../../../utils/applications.util';
 import { Grid, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../state/store';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
+//local imports
+import { getApplicationSummary } from '../../../utils/applications.util';
+import { RootState } from '../../../state/store';
 
 const ApplicationsOverview = () => {
   const applications = useSelector(
     (state: RootState) => state.applications.applications
   );
   const applicationSummary = getApplicationSummary(applications);
-
   const data = [
     { name: 'Applied', value: applicationSummary.Applied },
     { name: 'Engaged', value: applicationSummary.Engaged },
@@ -18,7 +20,6 @@ const ApplicationsOverview = () => {
     { name: 'Rejections', value: applicationSummary.Rejected },
     { name: 'Offers', value: applicationSummary.Offer },
   ];
-
   const COLORS = ['lightgray', '#407bff', '#ffc440', '#ff40da', '#40ff64'];
   const [count, setCount] = useState(0);
 
@@ -44,7 +45,7 @@ const ApplicationsOverview = () => {
 
   return (
     <Grid container direction="row">
-       <Grid item xs={6} sx={{ display: 'flex', flexDirection: 'column' }}>
+      <Grid item xs={6} sx={{ display: 'flex', flexDirection: 'column' }}>
         <Typography
           variant="h6"
           color="lightgray"
@@ -56,14 +57,23 @@ const ApplicationsOverview = () => {
         <Typography
           variant="h3"
           color="lightgray"
-          style={{ fontWeight: 'bold', marginLeft: '30px', marginTop: 'auto', marginBottom: '30px' }} // Place at the bottom
+          style={{
+            fontWeight: 'bold',
+            marginLeft: '30px',
+            marginTop: 'auto',
+            marginBottom: '30px',
+          }}
           align="left"
         >
           {count}
         </Typography>
       </Grid>
       <Grid item xs={6} style={{ height: '150px' }}>
-        <ResponsiveContainer width="100%" height="100%" style={{ marginTop: '10px' }}>
+        <ResponsiveContainer
+          width="100%"
+          height="100%"
+          style={{ marginTop: '10px' }}
+        >
           <PieChart>
             <Pie
               data={data}
