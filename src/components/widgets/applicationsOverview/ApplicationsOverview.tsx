@@ -3,6 +3,7 @@ import { getApplicationSummary } from '../../../utils/applications.util';
 import { Grid, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
+import { useEffect, useState } from 'react';
 
 const ApplicationsOverview = () => {
   const applications = useSelector(
@@ -19,10 +20,31 @@ const ApplicationsOverview = () => {
   ];
 
   const COLORS = ['lightgray', '#407bff', '#ffc440', '#ff40da', '#40ff64'];
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const end = applicationSummary.total;
+    if (end === 0) {
+      setCount(0);
+      return;
+    }
+
+    let totalDuration = 2000;
+    let incrementTime = Math.abs(Math.floor(totalDuration / end));
+
+    const timer = setInterval(() => {
+      start += 1;
+      setCount(start);
+      if (start === end) clearInterval(timer);
+    }, incrementTime);
+
+    return () => clearInterval(timer);
+  }, [applicationSummary.total]);
 
   return (
     <Grid container direction="row">
-      <Grid item xs={6} sx={{ display: 'flex', flexDirection: 'column' }}>
+       <Grid item xs={6} sx={{ display: 'flex', flexDirection: 'column' }}>
         <Typography
           variant="h6"
           color="lightgray"
@@ -32,12 +54,12 @@ const ApplicationsOverview = () => {
           Applications:
         </Typography>
         <Typography
-          variant="h6"
+          variant="h3"
           color="lightgray"
-          style={{ fontWeight: 'bold', marginLeft: '10px' }}
+          style={{ fontWeight: 'bold', marginLeft: '30px', marginTop: 'auto', marginBottom: '30px' }} // Place at the bottom
           align="left"
         >
-        {applicationSummary.total}
+          {count}
         </Typography>
       </Grid>
       <Grid item xs={6} style={{ height: '150px' }}>
