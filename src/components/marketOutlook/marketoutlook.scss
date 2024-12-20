@@ -16,6 +16,11 @@
   flex-direction: column;
   padding-right: 5px;
   animation: slide-up 60s linear infinite;
+  animation-play-state: running;
+}
+
+.job-cards-container:hover {
+  animation-play-state: paused;
 }
 
 @keyframes slide-up {
